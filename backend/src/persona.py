@@ -15,7 +15,7 @@ class Persona:
         return []
     
     def create_social_media_post(self) -> Optional[Dict[str, Any]]:
-        return None
+        return "Random Post"
     
     def react_to_post(self, post: Dict[str, Any]) -> Optional[str]:
         return None
