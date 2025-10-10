@@ -1,12 +1,16 @@
 import os
+import logging
 from typing import Dict, List, Any
 from dotenv import load_dotenv
 from .config import Config
 from .population import Population
 from .candidate import Candidate
-from .mediator import Mediator, DebateTranscript, DebateTurn
+from .mediator import Mediator
+from .models import DebateTranscript, MediatorStatement
 from .social_media import SocialMedia
 from . import llm_client
+
+logger = logging.getLogger(__name__)
 
 
 class GameEngine:
@@ -54,9 +58,9 @@ class GameEngine:
         Conduct a full debate on a single topic with multiple turns.
 
         This implements the core debate loop:
-        1. Mediator proposes a topic
+        1. Mediator proposes a topic and introduces it
         2. For each turn (k times):
-           - Candidates craft statements
+           - Candidates craft statements with full debate history as context
            - Mediator orchestrates turn
         3. Publish and store transcript (to be used by population in _population_consume_debate)
 
@@ -67,30 +71,40 @@ class GameEngine:
             raise ValueError("No mediator or candidates configured")
 
         topic = self.mediator.propose_topic(topic_index)
+        logger.info(f"Starting debate on topic: '{topic.title}'")
+        
+        # Create mediator introduction statement
         introduction = self.mediator.introduce_topic(topic)
-        print(f"  Topic: '{topic.title}'")
-        print(f"  {introduction}")
+        mediator_intro = MediatorStatement(
+            mediator_id=self.mediator.id,
+            statement=introduction,
+            topic=topic
+        )
+
+        # Track all statements (mediator intro + all candidate statements)
+        all_statements = [mediator_intro]
 
         # Step 2: Conduct k turns of debate
-        debate_session: List[DebateTurn] = []
         for turn in range(self.config.turns_per_topic):
-            turn_result = self.mediator.orchestrate_debate_turn(
+            turn_statements = self.mediator.orchestrate_debate_turn(
                 topic=topic,
                 candidates=self.candidates,
-                turn_number=turn
+                turn_number=turn,
+                previous_statements=all_statements
             )
-            debate_session.append(turn_result)
-            print(f"    Turn {turn + 1}/{self.config.turns_per_topic} completed with {len(turn_result.statements)} statements")
+            all_statements.extend(turn_statements)  # Accumulate all statements
+            logger.info(f"Turn {turn + 1}/{self.config.turns_per_topic} completed with {len(turn_statements)} statements")
 
         # Step 3: Publish transcript and store it
         transcript = self.mediator.publish_debate_transcript(
-            debate_session=debate_session,
+            all_statements=all_statements,
+            topic=topic,
             epoch=self.current_epoch,
             topic_index=topic_index
         )
         self.debate_transcripts.append(transcript)
 
-        print(f"  Debate transcript published (total turns: {transcript.num_turns})")
+        logger.info(f"Debate transcript published (total statements: {len(all_statements)})")
     
     def _population_consume_debate(self) -> None:
         pass

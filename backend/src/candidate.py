@@ -1,6 +1,9 @@
+import logging
 from typing import Dict, List, Any
-from .mediator import Topic, CandidateStatement
+from .models import Topic, CandidateStatement, MediatorStatement
 from . import llm_client
+
+logger = logging.getLogger(__name__)
 
 
 class Candidate:
@@ -16,16 +19,19 @@ class Candidate:
         self,
         topic: Topic,
         turn_number: int,
-        previous_statements: List[CandidateStatement]
+        previous_statements: List
     ) -> CandidateStatement:
         """Craft LLM-generated debate statement."""
         # Build prompt
         prompt = f"DEBATE TOPIC: {topic.title}\n{topic.description}\n\nTurn {turn_number + 1}\n\n"
 
         if previous_statements:
-            prompt += "Previous statements this turn:\n"
+            prompt += "Debate history:\n"
             for stmt in previous_statements:
-                prompt += f"- {stmt.candidate_id}: {stmt.statement}\n"
+                if isinstance(stmt, MediatorStatement):
+                    prompt += f"MODERATOR: {stmt.statement}\n"
+                else:  # CandidateStatement
+                    prompt += f"- {stmt.candidate_name}: {stmt.statement}\n"
             prompt += "\n"
 
         prompt += "Your statement (2-3 sentences):"
@@ -41,27 +47,7 @@ class Candidate:
 
         return CandidateStatement(
             candidate_id=self.id,
+            candidate_name=self.name,
             statement=response.strip(),
-            topic=topic
-        )
-
-    def respond_to_opponent(
-        self,
-        opponent_statement: CandidateStatement,
-        topic: Topic
-    ) -> CandidateStatement:
-        """
-        Respond to an opponent's statement.
-
-        Args:
-            opponent_statement: The opponent's CandidateStatement
-            topic: The Topic being debated
-
-        Returns:
-            CandidateStatement with the response
-        """
-        return CandidateStatement(
-            candidate_id=self.id,
-            statement="Default response",
             topic=topic
         )
