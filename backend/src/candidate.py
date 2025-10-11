@@ -63,7 +63,6 @@ class Candidate:
         if not social_media_feed:
             return
 
-        logger.info(f"{self.name} reviewing social media and updating positions...")
         logger.debug(f"{self.name}: Social media feed content:\n{social_media_feed[:200]}...")  # Log first 200 chars
 
         # Update positions for each topic based on public sentiment
