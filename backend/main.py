@@ -15,7 +15,7 @@ logging.basicConfig(
 
 def main():
     config = Config(
-        population_size=100,
+        population_size=3,
         questions_per_topic=1,
         turns_per_question=1,
         num_epochs=1,
@@ -25,9 +25,9 @@ def main():
     engine = GameEngine(config)
     
     # Load population from JSONL file
-    population_file = "data/personas.jsonl"
+    population_file = "data/personas/swiss_population.jsonl"
     if os.path.exists(population_file):
-        engine.population.load_from_jsonl(population_file)
+        engine.population.load_from_jsonl(population_file, limit=config.population_size)
         print(f"Loaded {engine.population.size()} personas from {population_file}")
     else:
         print(f"Warning: {population_file} not found, running with empty population")

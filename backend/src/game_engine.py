@@ -78,7 +78,7 @@ class GameEngine:
     def _run_epoch(self) -> None:
         self._candidates_read_social_media()
 
-        for topic_index in range(self.config.topics_per_epoch):
+        for topic_index in range(len(self.mediator.topics)):
             self._conduct_debate_on_topic(topic_index)
 
         self._population_consume_debate()

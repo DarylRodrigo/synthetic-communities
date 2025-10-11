@@ -10,16 +10,30 @@ class Population:
     def __init__(self):
         self.personas: List[Persona] = []
     
-    def load_from_jsonl(self, file_path: str) -> None:
-        logger.debug(f"Loading personas from {file_path}")
-        personas_loaded = 0
+    def load_from_jsonl(self, file_path: str, limit: Optional[int] = None) -> None:
+        import random
+        
+        logger.debug(f"Loading personas from {file_path}" + (f" (limit: {limit})" if limit else ""))
+        
+        # First, read all lines from the file
         with open(file_path, 'r') as f:
-            for line in f:
-                persona_data = json.loads(line.strip())
-                persona = Persona(persona_data['id'])
-                self.personas.append(persona)
-                personas_loaded += 1
-        logger.info(f"Loaded {personas_loaded} personas from {file_path}")
+            all_lines = [line.strip() for line in f if line.strip()]
+        
+        # If limit is specified and less than total lines, randomly sample
+        if limit is not None and limit < len(all_lines):
+            selected_lines = random.sample(all_lines, limit)
+        else:
+            selected_lines = all_lines
+        
+        # Load personas from selected lines
+        personas_loaded = 0
+        for line in selected_lines:
+            persona_data = json.loads(line)
+            persona = Persona(persona_data['id'], persona_data)  # Pass full data
+            self.personas.append(persona)
+            personas_loaded += 1
+            
+        logger.info(f"Loaded {personas_loaded} personas from {file_path} (randomly sampled from {len(all_lines)} total)")
     
     def add_persona(self, persona: Persona) -> None:
         self.personas.append(persona)
@@ -85,14 +99,22 @@ class Population:
             # Back and forth conversation
             for round_num in range(num_rounds):
                 # Persona A's turn
-                message_a = persona_a.chat_with_peers(conversation_history, persona_b.id)
+                message_a = persona_a.chat_with_peers(
+                    conversation_history,
+                    persona_b.id,
+                    persona_b.features.get('name', persona_b.id)
+                )
                 conversation_history.append({
                     "speaker_id": persona_a.id,
                     "message": message_a
                 })
 
                 # Persona B's turn
-                message_b = persona_b.chat_with_peers(conversation_history, persona_a.id)
+                message_b = persona_b.chat_with_peers(
+                    conversation_history,
+                    persona_a.id,
+                    persona_a.features.get('name', persona_a.id)
+                )
                 conversation_history.append({
                     "speaker_id": persona_b.id,
                     "message": message_b

@@ -15,11 +15,6 @@ from src.persona import Persona
 
 def test_consume_debate(persona):
     """Test the consume_debate_content method."""
-    print("\n" + "-" * 60)
-    print("TEST: consume_debate_content")
-    print("-" * 60)
-    print()
-
     debate_count = 0
 
     while True:
@@ -85,10 +80,6 @@ def test_consume_debate(persona):
 
 def test_load_persona_features():
     """Test loading and displaying persona features from personas.jsonl."""
-    print("\n" + "-" * 60)
-    print("TEST: Load Persona Features")
-    print("-" * 60)
-    print()
 
     # Ask for persona ID
     persona_id = input("Enter persona ID (or press Enter for default): ").strip()
@@ -99,7 +90,7 @@ def test_load_persona_features():
 
     # Load from personas.jsonl
     import json
-    personas_file = os.path.join(os.path.dirname(__file__), '..', '..', 'personas.jsonl')
+    personas_file = os.path.join(os.path.dirname(__file__), '..', 'data', 'personas', 'swiss_population.jsonl')
 
     try:
         with open(personas_file, 'r') as f:
@@ -126,16 +117,6 @@ def test_load_persona_features():
 
 def test_display_persona_state(persona):
     """Display all internal state of a persona instance."""
-    print("\n" + "-" * 60)
-    print("TEST: Display Persona State")
-    print("-" * 60)
-    print()
-
-    print("=" * 60)
-    print("PERSONA INTERNAL STATE")
-    print("=" * 60)
-    print()
-
     # Display ID
     print("ID:")
     print(f"  {persona.id}")
@@ -163,7 +144,9 @@ def test_display_persona_state(persona):
     print("chats:")
     if persona.chats:
         import json
-        print(json.dumps(persona.chats, indent=2))
+        from dataclasses import asdict
+        chats_as_dicts = [asdict(chat) for chat in persona.chats]
+        print(json.dumps(chats_as_dicts, indent=2))
     else:
         print("  []")
     print()
@@ -198,11 +181,6 @@ def test_display_persona_state(persona):
 
 def test_update_beliefs(persona):
     """Test the update_beliefs method."""
-    print("\n" + "-" * 60)
-    print("TEST: update_beliefs")
-    print("-" * 60)
-    print()
-
     # First, let's set up some persona features and knowledge
     print("Setting up test data...")
 
@@ -321,10 +299,6 @@ Moderator: Both systems have merits and drawbacks"""
 
 def test_chat_with_peers():
     """Test the chat_with_peers functionality with two personas."""
-    print("\n" + "-" * 60)
-    print("TEST: chat_with_peers")
-    print("-" * 60)
-    print()
 
     # Ask for two persona IDs
     print("Enter two persona IDs to chat with each other")
@@ -340,7 +314,7 @@ def test_chat_with_peers():
 
     # Load personas from file
     import json
-    personas_file = os.path.join(os.path.dirname(__file__), '..', '..', 'personas.jsonl')
+    personas_file = os.path.join(os.path.dirname(__file__), '..', 'data', 'personas', 'swiss_population.jsonl')
 
     persona_a_data = None
     persona_b_data = None
@@ -377,29 +351,10 @@ def test_chat_with_peers():
 
     # Create Persona instances
     try:
-        persona_a = Persona(persona_a_data['id'])
-        # Load features from personas.jsonl
-        persona_a.features = {
-            "name": persona_a_data.get('name'),
-            "age": persona_a_data.get('age'),
-            "job": persona_a_data.get('job'),
-            "education_level": persona_a_data.get('education_level'),
-            "city": persona_a_data.get('city')
-        }
-        # Load prior beliefs
-        persona_a.beliefs = persona_a_data.get('prior_beliefs', {})
+        persona_a = Persona(persona_a_data['id'], persona_a_data)
+        persona_b = Persona(persona_b_data['id'], persona_b_data)
 
-        persona_b = Persona(persona_b_data['id'])
-        persona_b.features = {
-            "name": persona_b_data.get('name'),
-            "age": persona_b_data.get('age'),
-            "job": persona_b_data.get('job'),
-            "education_level": persona_b_data.get('education_level'),
-            "city": persona_b_data.get('city')
-        }
-        persona_b.beliefs = persona_b_data.get('prior_beliefs', {})
-
-        print("✓ Personas initialized with features and beliefs")
+        print("✓ Personas initialized with full data")
         print()
 
         # Optionally add debate knowledge
@@ -451,7 +406,11 @@ def test_chat_with_peers():
 
         # Persona A's turn
         try:
-            message_a = persona_a.chat_with_peers(conversation_history, persona_b.id)
+            message_a = persona_a.chat_with_peers(
+                conversation_history,
+                persona_b.id,
+                persona_b_data.get('name', 'Unknown')
+            )
             conversation_history.append({
                 "speaker_id": persona_a.id,
                 "message": message_a
@@ -465,7 +424,11 @@ def test_chat_with_peers():
 
         # Persona B's turn
         try:
-            message_b = persona_b.chat_with_peers(conversation_history, persona_a.id)
+            message_b = persona_b.chat_with_peers(
+                conversation_history,
+                persona_a.id,
+                persona_a_data.get('name', 'Unknown')
+            )
             conversation_history.append({
                 "speaker_id": persona_b.id,
                 "message": message_b
@@ -486,21 +449,14 @@ def test_chat_with_peers():
 
 def main():
     """Interactive CLI for testing Persona methods."""
-    print("=" * 60)
-    print("PERSONA TESTING TOOL")
-    print("=" * 60)
-    print()
 
     # Test selection menu
-    print("=" * 60)
-    print("SELECT TEST TO RUN")
-    print("=" * 60)
+
     print("1. Test consume_debate_content")
     print("2. Test update_beliefs")
     print("3. Load and display persona features by ID")
     print("4. Display all persona state (features, debate_knowledge, beliefs, etc)")
     print("5. Test chat_with_peers (two personas chatting)")
-    print("=" * 60)
 
     choice = input("\nEnter test number: ").strip()
 
