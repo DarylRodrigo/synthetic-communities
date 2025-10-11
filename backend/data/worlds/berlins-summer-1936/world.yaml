@@ -1,0 +1,130 @@
+```yaml
+world:
+  id: berlin-1936
+  description: The city of Berlin, a nexus of art, industry, and political tension, prepares to host the Olympic Games. Amidst a landscape of architectural ambition and pervasive surveillance, the social fabric of diverse communities is strained by increasingly authoritarian policies.
+  time:
+    year: 1936
+    season: summer
+  place:
+    settlement: city
+    density_per_km2: 4000.0
+  regime:
+    type: authoritarian
+    media_freedom: 0.1
+    protest_tolerance: 0.05
+  demography:
+    population: 4200000
+    age:
+      median: 32.5
+      p65_plus: 0.08
+    education:
+      tertiary: 0.15
+    groups:
+      - name: "Germans"
+        share: 0.95
+      - name: "Jews"
+        share: 0.02
+      - name: "Roma"
+        share: 0.01
+      - name: "Immigrants"
+        share: 0.02
+  economy:
+    unemployment_rate: 0.15
+    industry_mix:
+      manufacturing: 0.4
+      services: 0.45
+      agriculture: 0.05
+      construction: 0.1
+    gini: 0.5
+    cost_of_living_index: 55.0
+    shock_sensitivity:
+      commodity_price: 0.2
+  history:
+    narratives:
+      - "The rise of National Socialism"
+      - "The lead-up to the Olympic Games"
+      - "The persecution of minorities"
+    recent_events:
+      - date: "1933-01-30"
+        name: "Hitler appointed Chancellor"
+        valence: -1.0
+        cohorts:
+          - "All"
+      - date: "1935-09-15"
+        name: "Nuremberg Laws enacted"
+        valence: -1.0
+        cohorts:
+          - "Jews"
+      - date: "1936-03-07"
+        name: "Remilitarization of the Rhineland"
+        valence: -0.5
+        cohorts:
+          - "All"
+  culture:
+    tight_loose: 0.3
+    religiosity: 0.4
+    moral_foundations:
+      care: 0.3
+      fairness: 0.2
+      loyalty: 0.8
+      authority: 0.9
+      sanctity: 0.7
+      liberty: 0.1
+  social_capital:
+    interpersonal_trust: 0.3
+    institutional_trust:
+      local_gov: 0.2
+      national_gov: 0.1
+      media: 0.15
+    associations_density: 0.2
+    polarization: 0.7
+  information_ecosystem:
+    outlets:
+      - "Newspapers"
+      - "Radio"
+      - "Propaganda Films"
+    platform_mix:
+      radio: 0.6
+      tv: 0.05
+      newspaper: 0.25
+      social_app: 0.0
+    echo_chamber_strength: 0.8
+    bot_rate: 0.05
+  networks:
+    topology:
+      type: SBM
+      communities: 5
+      intra_p: 0.6
+      inter_p: 0.1
+    assortativity:
+      by_class: 0.8
+      by_partisanship: 0.8
+  security:
+    surveillance: 0.85
+    intimidation_risk: 0.7
+  policy_env:
+    union_rights: 0.0
+    welfare_generosity: 0.2
+    speech_regulation: 0.9
+  mood:
+    baseline_affect:
+      anxiety: 0.7
+      anger: 0.5
+      hope: 0.2
+  exogenous_timeline:
+    - date: "1936-08-01"
+      name: "Olympic Games Open"
+      intensity: 1.0
+      valence: 0.2
+      target: "International Community"
+    - date: "1936-08-16"
+      name: "Olympic Games Close"
+      intensity: 0.8
+      valence: -0.1
+      target: "All"
+    - date: "1936-10-01"
+      name: "Four Year Plan Announced"
+      intensity: 0.9
+      valence: -0.6
+      target: "All"
+```
