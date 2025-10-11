@@ -38,10 +38,16 @@ class SocialMedia:
         # Handle dict format from population
         if isinstance(post, dict):
             post_id = str(uuid.uuid4())
+            content = post.get("content")
+
+            # Safety check: if content is a Post object, extract the string
+            if isinstance(content, Post):
+                content = content.content
+
             post_obj = Post(
                 id=post_id,
                 persona_id=post.get("persona_id"),
-                content=post.get("content"),
+                content=content,
                 likes=0,
                 dislikes=0
             )
@@ -51,6 +57,11 @@ class SocialMedia:
             # Handle Post object
             if not post.id:
                 post.id = str(uuid.uuid4())
+
+            # Safety check: ensure content is a string
+            if isinstance(post.content, Post):
+                post.content = post.content.content
+
             self.posts.append(post)
             return post.id
 
