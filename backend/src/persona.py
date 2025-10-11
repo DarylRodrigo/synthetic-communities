@@ -724,7 +724,7 @@ Respond with ONLY the candidate ID, nothing else."""
         except Exception as e:
             logger.error(f"Error updating beliefs for {self.id}: {e}")
 
-    async def chat_with_peers_async(self, conversation_history: List[Dict[str, Any]], peer_id: str) -> str:
+    async def chat_with_peers_async(self, conversation_history: List[Dict[str, Any]], peer_id: str, peer_name: str = None) -> str:
         """Async version of chat_with_peers for parallel execution."""
         context = self._build_chat_context(conversation_history, peer_id)
 
@@ -748,10 +748,11 @@ Respond with ONLY the candidate ID, nothing else."""
 
             message = response.strip()
 
-            chat_entry = {
-                "peer_id": peer_id,
-                "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
-            }
+            chat_entry = ChatEntry(
+                peer_id=peer_id,
+                peer_name=peer_name if peer_name else peer_id,
+                conversation=conversation_history + [{"speaker_id": self.id, "message": message}]
+            )
             self.chats.append(chat_entry)
 
             return message
