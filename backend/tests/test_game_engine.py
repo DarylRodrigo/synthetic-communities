@@ -18,8 +18,6 @@ class TestGameEngine:
         """Fixture for a sample configuration"""
         return Config(
             population_size=10,
-            num_candidates=2,
-            topics_per_epoch=1,
             turns_per_topic=2,
             num_epochs=1,
             random_seed=42

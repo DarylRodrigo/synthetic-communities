@@ -323,8 +323,7 @@ class GameEngine:
                 "id": candidate.id,
                 "name": candidate.name,
                 "policy_positions": candidate.state.policy_positions,
-                "social_media_reflection": candidate.state.memory,
-                "debate_reflection": candidate.state.memory
+                "state_memory": candidate.state.memory
             }
             candidates.append(candidate_data)
 
