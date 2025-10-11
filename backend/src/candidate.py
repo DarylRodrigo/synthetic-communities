@@ -12,14 +12,16 @@ class CandidateState:
     """State of a candidate."""
     id: str
     name: str
+    character: str  # brief description of political character/leaning
     policy_positions: Dict[str, str]  # topic_id -> position string
     memory: str
 
 
 class Candidate:
-    def __init__(self, candidate_id: str, name: str, topics: List[Topic], llm_client_instance):
+    def __init__(self, candidate_id: str, name: str, character: str, topics: List[Topic], llm_client_instance):
         self.id = candidate_id
         self.name = name
+        self.character = character
         self.topics = topics
         self.llm_client = llm_client_instance
 
@@ -33,8 +35,8 @@ class Candidate:
 
         for topic in self.topics:
             logger.debug(f"{self.name}: Generating initial position for topic '{topic.title}' (ID: {topic.id})")
-            prompt = f"You are {self.name}, a political candidate. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences."
-            system_instruction = f"You are {self.name}, a political candidate. Provide clear, concise policy positions."
+            prompt = f"You are {self.name}, a political candidate with the following character: {self.character}. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences, reflecting your political character."
+            system_instruction = f"You are {self.name}, a political candidate. Character: {self.character}. Provide clear, concise policy positions consistent with your character."
 
             position = llm_client.generate_response(
                 self.llm_client,
@@ -49,6 +51,7 @@ class Candidate:
         return CandidateState(
             id=self.id,
             name=self.name,
+            character=self.character,
             policy_positions=policy_positions,
             memory=""
         )
