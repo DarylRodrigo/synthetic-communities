@@ -20,8 +20,10 @@ from src.mediator import Topic
 from src import llm_client
 
 # Configure logging
+# Set DEBUG=1 environment variable for detailed logs
+log_level = logging.DEBUG if os.getenv('DEBUG') else logging.INFO
 logging.basicConfig(
-    level=logging.INFO,
+    level=log_level,
     format='%(levelname)s - %(name)s - %(message)s'
 )
 
@@ -32,11 +34,14 @@ DEFAULT_TOPICS = [
         title="Climate Policy",
         description="Should governments implement carbon taxes to combat climate change?"
     ),
+<<<<<<< HEAD
     Topic(
         id="healthcare",
         title="Healthcare Reform",
         description="Should the government provide universal healthcare coverage?"
     )
+=======
+>>>>>>> main
 ]
 
 
