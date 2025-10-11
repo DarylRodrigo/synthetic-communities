@@ -23,7 +23,7 @@ function initializeAI() {
 export async function interpretFiltersWithAI(query, availableOptions) {
   const ai = initializeAI();
   const model = ai.getGenerativeModel({ 
-    model: 'gemini-2.0-flash-exp'
+    model: 'gemini-2.5-flash'
   });
 
   const filterSchema = {

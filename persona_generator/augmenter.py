@@ -76,22 +76,55 @@ class QualityMetrics:
     cache_hits: int = 0
 
 class PersonaAugmenter:
-    def __init__(self, api_key: str, batch_size: int = 15, delay_seconds: float = 1.0):
+    def __init__(self, api_key: str, environment_path: Optional[str] = None, batch_size: int = 15, delay_seconds: float = 1.0):
         if GENAI_AVAILABLE:
             self.client = genai.Client(api_key=api_key)
         else:
             self.client = None
         self.batch_size = batch_size
         self.delay_seconds = delay_seconds
-        # Per project spec: use Gemini 2.5 Pro
-        self.model = "gemini-2.5-pro"
-        self.cache_dir = Path(".cache")
+        # Per project spec: use Gemini 2.5
+        self.model = 'gemini-2.5-flash'
+        self.cache_dir = Path('.cache')
         self.cache_dir.mkdir(exist_ok=True)
         self.metrics = QualityMetrics()
+        
+        # Environment context
+        self.environment_path = environment_path
+        self.environment_context = self._parse_environment(environment_path) if environment_path else None
 
+    def _parse_environment(self, environment_path: str) -> Dict[str, Any]:
+        """Parse environment story file and extract contextual metadata.
+        
+        This method reads the environment markdown file and extracts key information
+        that will be used to contextualize personas. The LLM will handle the actual
+        adaptation, but we provide the raw environment text.
+        """
+        try:
+            env_file = Path(environment_path)
+            if not env_file.exists():
+                logging.warning(f'Environment file not found: {environment_path}')
+                return {'raw_content': None, 'available': False}
+            
+            with open(env_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            logging.info(f'Loaded environment from: {environment_path}')
+            return {
+                'raw_content': content,
+                'available': True,
+                'file_path': str(env_file)
+            }
+        except Exception as e:
+            logging.error(f'Failed to parse environment file: {e}')
+            return {'raw_content': None, 'available': False}
+    
     def _get_cache_key(self, personas: List[Dict]) -> str:
         """Generate cache key for a batch of personas"""
+        # Include environment in cache key to avoid cross-contamination
         content = json.dumps(personas, sort_keys=True)
+        if self.environment_context and self.environment_context.get('available'):
+            content += self.environment_context.get('file_path', '')
         return hashlib.md5(content.encode()).hexdigest()
 
     def _load_from_cache(self, cache_key: str) -> Optional[List[AugmentationResult]]:
@@ -121,13 +154,43 @@ class PersonaAugmenter:
         """Create the LLM prompt for a batch of personas"""
 
         personas_json = json.dumps(personas, indent=2)
+        
+        # Build environment section if available
+        environment_section = ''
+        if self.environment_context and self.environment_context.get('available'):
+            environment_content = self.environment_context.get('raw_content', '')
+            environment_section = f"""
+ENVIRONMENT CONTEXT:
+You are adapting personas to fit within a specific world setting. Read the environment description below and extract:
+- TIME PERIOD (year/era)
+- LOCATION (city, country, region)
+- CULTURAL/HISTORICAL CONTEXT (political climate, major events, social norms)
+
+Use this context to adapt persona fields to be historically and culturally appropriate for that setting.
+
+ENVIRONMENT STORY:
+{environment_content}
+
+ADAPTATION RULES:
+- Names: Adjust to fit the location/era (e.g., German names for 1930s Berlin)
+- Jobs: Translate modern jobs to era-appropriate equivalents (e.g., 'Data Scientist' → 'Statistical Clerk', 'AI Engineer' → 'Electrical Engineer')
+- City: Use location-appropriate neighborhoods/districts from the environment
+- Interests: Replace anachronistic activities with era-appropriate ones (e.g., no 'streaming' in 1936 → 'radio programs')
+- Backstory: Ground in the specific time/place with ordinary life events (NOT story plot participation)
+- Sector: Map to industries that existed in that era
+
+IMPORTANT: Personas are BACKGROUND POPULATION, not story characters. They live ordinary lives in this world. Do NOT make them participants in the main story events. Be subtle - mention the era/location casually, not obsessively.
+"""
 
         prompt = f"""
 You are a synthetic human persona creator. I will provide you with {len(personas)} raw personas in JSON format.
 
+{environment_section}
+
 Your single-stage task (for each persona):
 1) CORRECT obvious inconsistencies (education-job mismatches, age-seniority mismatches, name-ethnicity mismatches, etc.).
-2) ADD the following fields: religion, demeanour, interests, sector, backstory.
+2) {'ADAPT to the environment context provided above.' if environment_section else ''}
+3) ADD the following fields: religion, demeanour, interests, sector, backstory.
 
 STRICT OUTPUT CONTRACT:
 - Output MUST be a JSON array of objects.
@@ -138,18 +201,18 @@ STRICT OUTPUT CONTRACT:
 - Do NOT repeat unchanged input fields.
 
 FIELD RULES:
-- religion: choose from ['Catholic','Protestant','Muslim','Hindu','Buddhist','Orthodox','Jewish','Christian','None','Other'] and keep plausible for ethnicity/country and age (younger skew slightly to 'None').
+- religion: choose from ['Catholic','Protestant','Muslim','Hindu','Buddhist','Orthodox','Jewish','Christian','None','Other'] and keep plausible for ethnicity/country/era and age (younger skew slightly to 'None').
 - demeanour: one compact clause (<=12 words), professional tone, aligned with education, job, and age (e.g., 'calm and analytical under pressure').
-- interests: 3-4 items; nouns/noun-phrases; reflect age, job, and culture (e.g., 'alpine traditions', 'patient safety').
-- sector: choose one from this controlled list: ['Healthcare','Education','Technology','Finance','Manufacturing','Services','Creative','Government','Environmental Services','Legal Services','Insurance','Tourism & Hospitality','Agriculture','Construction/Skilled Trades','Operations & Logistics','Pharmaceuticals/Biotech','Arts & Culture','Fishing & Aquaculture','IT Sales','Business/Management'].
-- backstory: DOCUMENTARY STYLE. Third-person, compact, factual, and dense. No melodrama. No humor. No name-origin inventions. Anchor to the persona's numeric data (age, education, tenure). Prefer dates/years and concrete contributions/metrics when plausible. Keep it 2 sentences max.
+- interests: 3-4 items; nouns/noun-phrases; reflect age, job, culture, and ERA (e.g., 'alpine traditions', 'patient safety').
+- sector: choose one from this controlled list appropriate to the era: ['Healthcare','Education','Technology','Finance','Manufacturing','Services','Creative','Government','Environmental Services','Legal Services','Insurance','Tourism & Hospitality','Agriculture','Construction/Skilled Trades','Operations & Logistics','Pharmaceuticals/Biotech','Arts & Culture','Fishing & Aquaculture','IT Sales','Business/Management'].
+- backstory: DOCUMENTARY STYLE. Third-person, compact, factual, and dense. No melodrama. No humor. No name-origin inventions. Anchor to the persona's numeric data (age, education, tenure) AND the environment's time/place. Prefer dates/years and concrete contributions/metrics when plausible. Keep it 2 sentences max.
 
 DOCUMENTARY BACKSTORY EXAMPLES (FORMAT ONLY, NOT CONTENT TO COPY):
 - "Born 1983 in Flawil; BPharm 2005. Hospital pharmacist since 2007; led 2023 medication-safety rollout cutting administration errors 18%."
 - "BA Economics 2014; risk surveyor since 2016, Zurich. Audited 220+ policies in 2024; authored internal checklist adopted firm-wide."
 
 GENERAL PRINCIPLES:
-- Keep everything realistic; harmonize with country/locale, ethnicity, and job market norms.
+- Keep everything realistic; harmonize with country/locale, ethnicity, era, and job market norms.
 - Consider all numerical fields from input when deciding seniority and impact.
 - Transliterate all names to Latin script; ensure every field value is in English.
 - Keep output strictly to the contract (index, name, corrections, augmentations) with valid JSON only.
@@ -408,31 +471,46 @@ Return ONLY the JSON array described above.
         city = persona.get('city', 'their hometown')
         education = persona.get('education_level', 'unknown')
         ethnicity = persona.get('ethnicity', 'unknown')
+        
+        # Extract environment context for era-appropriate backstories
+        current_year = 2025  # Default to current year
+        if self.environment_context and self.environment_context.get('available'):
+            # Simple extraction: look for 4-digit years in the environment content
+            import re
+            content = self.environment_context.get('raw_content', '')
+            years = re.findall(r'\b(19\d{2}|20\d{2})\b', content)
+            if years:
+                current_year = int(years[0])  # Use first year found
+        
+        birth_year = current_year - age
 
         # Create more specific, dense backstories based on profile
         if age < 25:
             # Young professionals - focus on ambition and recent achievements
-            education_detail = "fresh out of university" if education in ['bachelor_degree', 'master_degree'] else "recently completed vocational training"
-            return f"{name}, {age}, {education_detail}, landed their first role as {job} in {city}. Their {ethnicity} heritage influences their innovative approach to problem-solving, recently earning them recognition for developing a cost-saving inventory system that reduced waste by 23% in their department."
+            education_detail = 'fresh out of university' if education in ['bachelor_degree', 'master_degree'] else 'recently completed vocational training'
+            return f'Born {birth_year}. {education_detail.capitalize()}, landed their first role as {job} in {city}. Recently earning recognition for developing improvements that reduced waste by 23% in their department.'
 
         elif age < 35:
             # Mid-career - focus on career progression and family
-            family_status = "married with two young children" if random.random() > 0.6 else "in a long-term partnership"
-            return f"At {age}, {name} has rapidly advanced from junior analyst to {job} at their {city}-based firm, implementing data-driven strategies that increased team productivity by 31%. {family_status}, they volunteer as a youth mentor, drawing from their own journey overcoming early career challenges despite their {ethnicity} background in a competitive industry."
+            start_year = current_year - random.randint(7, 12)
+            return f'Born {birth_year}. Has rapidly advanced to {job} at their {city}-based firm since {start_year}, implementing strategies that increased team productivity by 31%. Volunteers as a youth mentor in the community.'
 
         elif age < 50:
             # Established career - focus on leadership and expertise
-            leadership_role = "leading a team of 12 specialists" if random.random() > 0.5 else "managing cross-functional projects"
-            return f"{name}, {age}, has become a recognized expert in their field, {leadership_role} while maintaining work-life balance in {city}. Their {education} background and {ethnicity} cultural perspective have shaped their inclusive management style, recently publishing research on sustainable practices that influenced industry standards across three European countries."
+            start_year = current_year - random.randint(15, 25)
+            leadership_role = 'leading a team of specialists' if random.random() > 0.5 else 'managing cross-functional projects'
+            return f'Born {birth_year}. Has worked as {job} in {city} since {start_year}, {leadership_role}. Their {education} background has shaped their inclusive management style, recently publishing research that influenced industry standards.'
 
         elif age < 65:
             # Senior career - focus on legacy and mentorship
-            return f"With {age} years of experience, {name} serves as a senior consultant in {city}, mentoring the next generation while advising on complex {job} challenges. Their extensive network spans four countries, and they've been instrumental in developing training programs that have benefited over 200 professionals, reflecting their deep {ethnicity} cultural values of knowledge sharing and community building."
+            start_year = current_year - random.randint(30, 40)
+            return f'Born {birth_year}. Serves as senior {job} in {city} since {start_year}, mentoring the next generation. Their extensive network and instrumental role in developing training programs have benefited over 200 professionals.'
 
         else:
             # Retirement/senior - focus on life achievements and wisdom
-            retirement_status = "enjoying well-earned retirement" if age > 70 else "transitioning toward retirement"
-            return f"{name}, aged {age}, {retirement_status} in {city} after a distinguished career marked by innovation in {job}. Their pioneering work in the 1990s established industry benchmarks still used today, and they remain active in professional associations, sharing decades of wisdom gained from their {ethnicity} heritage and extensive European experience."
+            start_year = current_year - random.randint(40, 50)
+            retirement_status = 'enjoying well-earned retirement' if age > 70 else 'transitioning toward retirement'
+            return f'Born {birth_year}. Now {retirement_status} in {city} after a distinguished career as {job} since {start_year}. Their pioneering work established benchmarks still used today, remaining active in professional associations.'
 
     def augment_batch(self, personas: List[Dict]) -> List[AugmentationResult]:
         """Augment a batch of personas"""
@@ -609,21 +687,46 @@ Return ONLY the JSON array described above.
 
 def main():
     """Main function for command line usage"""
-    api_key = os.environ.get("GEMINI_API_KEY")
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Augment raw personas with LLM enhancements')
+    parser.add_argument('--input', type=str, default='../backend/data/raw_personas.jsonl',
+                        help='Input file path for raw personas (default: ../backend/data/raw_personas.jsonl)')
+    parser.add_argument('--output', type=str, default='../backend/data/personas.jsonl',
+                        help='Output file path for augmented personas (default: ../backend/data/personas.jsonl)')
+    parser.add_argument('--environment', type=str, default=None,
+                        help='Path to environment story file (e.g., ../backend/data/worlds/berlin-shadows-1936/story.md)')
+    parser.add_argument('--batch-size', type=int, default=15,
+                        help='Number of personas per batch (default: 15)')
+    
+    args = parser.parse_args()
+    
+    api_key = os.environ.get('GEMINI_API_KEY')
     if not api_key:
-        logging.error("GEMINI_API_KEY environment variable not set")
+        logging.error('GEMINI_API_KEY environment variable not set')
         exit(1)
 
-    augmenter = PersonaAugmenter(api_key=api_key)
+    # Log configuration
+    logging.info('=== Persona Augmentation Configuration ===')
+    logging.info(f'Input file: {args.input}')
+    logging.info(f'Output file: {args.output}')
+    logging.info(f'Environment: {args.environment if args.environment else "None (generic augmentation)"}')
+    logging.info(f'Batch size: {args.batch_size}')
+
+    augmenter = PersonaAugmenter(
+        api_key=api_key,
+        environment_path=args.environment,
+        batch_size=args.batch_size
+    )
 
     try:
         augmenter.augment_personas(
-            input_file="../backend/data/raw_personas.jsonl",
-            output_file="../backend/data/personas.jsonl"
+            input_file=args.input,
+            output_file=args.output
         )
     except Exception as e:
-        logging.error(f"Augmentation failed: {e}")
+        logging.error(f'Augmentation failed: {e}')
         exit(1)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

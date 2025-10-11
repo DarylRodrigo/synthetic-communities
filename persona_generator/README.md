@@ -1,0 +1,245 @@
+# Persona Generator & Augmenter
+
+A two-stage system for generating synthetic personas with demographic, psychological, and behavioral traits, then augmenting them with rich contextual details using LLM enhancement.
+
+## 🚀 **Quick Start**
+
+### **1. Generate Raw Personas**
+```bash
+cd persona_generator
+python persona_generator.py
+```
+This creates 1000 raw personas in `backend/data/raw_personas.jsonl`
+
+### **2. Augment Personas (Generic)**
+```bash
+python augmenter.py
+```
+This augments personas with religion, demeanour, interests, sector, and backstory.
+
+### **3. Augment Personas (Environment-Aware)**
+```bash
+python augmenter.py --environment ../backend/data/worlds/berlin-shadows-1936/story.md
+```
+This adapts personas to fit within the Berlin 1936 setting, adjusting names, jobs, and backstories to be era-appropriate.
+
+## 🌍 **Environment-Aware Augmentation**
+
+### **What is Environment-Aware Augmentation?**
+
+Environment-aware augmentation grounds synthetic personas in specific historical, cultural, and geographic contexts by reading a world-building story file. The system automatically adapts persona attributes to fit the setting while keeping them as **background population** (not story characters).
+
+### **How It Works**
+
+1. **Input**: Environment story file (Markdown format) describing the setting
+2. **LLM Extraction**: Gemini 2.5 Pro reads the story and extracts:
+   - Time period (year/era)
+   - Location (city, country, region)
+   - Cultural/historical context (political climate, social norms)
+3. **Adaptation**: Personas are adapted to fit the environment:
+   - Names adjusted to match location/culture
+   - Jobs translated to era-appropriate equivalents
+   - Cities mapped to location-specific neighborhoods
+   - Interests updated to remove anachronisms
+   - Backstories grounded in the time/place
+
+### **Example: Berlin 1936**
+
+**Generic Persona**:
+```json
+{
+  "name": "Lisa Bonvin",
+  "age": 41,
+  "job": "Data Scientist",
+  "city": "Zurich",
+  "interests": ["machine learning", "streaming shows"]
+}
+```
+
+**Environment-Adapted (Berlin 1936)**:
+```json
+{
+  "name": "Lisa Becker",
+  "age": 41,
+  "job": "Statistical Clerk",
+  "city": "Berlin-Kreuzberg",
+  "interests": ["mathematical calculations", "radio programs"],
+  "backstory": "Born 1895. Has worked as Statistical Clerk at Siemens since 1916, maintaining production records during the industrial expansion of the 1920s."
+}
+```
+
+### **Key Principles**
+
+✅ **Background Population**: Personas are ordinary citizens, NOT story characters
+✅ **Subtle Integration**: Era/location mentioned casually, not obsessively
+✅ **Historical Accuracy**: Jobs, interests, and social norms fit the period
+✅ **Modular Design**: Works with ANY environment file (Berlin 1936, Tokyo 1890, Paris 2045, etc.)
+✅ **No Overfitting**: Not everyone is connected to the main story plot
+
+## 📁 **Environment File Format**
+
+Environment files are Markdown documents that describe the world setting. The LLM extracts context automatically, so the format is flexible.
+
+**Example Structure**:
+```markdown
+# Berlin Shadows, 1936
+
+*Logline:* In the heart of the 1936 Berlin Olympics...
+
+## Opening Scene
+The air hangs heavy with the scent of sausages and simmering fear...
+
+## Key Figures
+- **Candidate A**: Elias Becker, a painter...
+- **Candidate B**: Greta Müller, a sculptor...
+
+## Motifs & Taboos
+- Motifs: Olympic Rings, Swastika, The Dove...
+- Taboos: Open criticism of the regime...
+```
+
+**Required Elements** (extracted by LLM):
+- Time period (year/era) - e.g., '1936'
+- Location (city/region) - e.g., 'Berlin'
+- Cultural context (atmosphere, norms) - e.g., 'authoritarian regime'
+
+## 🔧 **Command Line Options**
+
+### **augmenter.py**
+
+```bash
+python augmenter.py [OPTIONS]
+```
+
+**Options**:
+- `--input PATH` - Input raw personas file (default: `../backend/data/raw_personas.jsonl`)
+- `--output PATH` - Output augmented personas file (default: `../backend/data/personas.jsonl`)
+- `--environment PATH` - Environment story file for context-aware augmentation (optional)
+- `--batch-size N` - Number of personas per LLM batch (default: 15)
+
+**Examples**:
+```bash
+# Generic augmentation
+python augmenter.py
+
+# Berlin 1936 environment
+python augmenter.py --environment ../backend/data/worlds/berlin-shadows-1936/story.md
+
+# Custom paths
+python augmenter.py --input my_personas.jsonl --output output.jsonl
+
+# Smaller batches for rate limiting
+python augmenter.py --batch-size 10
+```
+
+## 🧪 **Testing**
+
+### **Run Tests Without API Key**
+```bash
+python test_augmenter.py
+```
+
+This uses mock augmentation logic to test the system without requiring a Gemini API key. The test:
+- Loads the Berlin 1936 environment
+- Processes 4 sample personas
+- Shows before/after comparisons
+- Validates environment parsing
+
+## 📊 **Data Structure**
+
+### **Raw Persona (25 fields)**
+Generated by `persona_generator.py`:
+- **Demographics**: id, name, age, gender, city, job, company
+- **Socioeconomic**: education_level, income_bracket, ethnicity, cultural_background, country
+- **Psychological**: susceptibility, trust_institution, turnout_propensity
+- **Behavioral**: media_diet, personality_traits, confirmation_bias, social_network_influence
+- **Cognitive**: risk_aversion, fairness_value, prior_beliefs
+- **Metadata**: timestamp
+
+### **Augmented Persona (30 fields)**
+Enhanced by `augmenter.py`:
+- All 25 raw fields (some may be corrected)
+- **religion**: Religious affiliation (Catholic, Protestant, Muslim, etc.)
+- **demeanour**: Professional demeanor (≤12 words)
+- **interests**: 3-4 hobby/activity items
+- **sector**: Industry sector (20 controlled categories)
+- **backstory**: Documentary-style life story (2 sentences max)
+
+## 🎯 **Use Cases**
+
+### **Historical Simulations**
+Create populations for specific time periods (1936 Berlin, 1890s London, etc.)
+
+### **Fictional Worlds**
+Populate fantasy or sci-fi settings with culturally appropriate personas
+
+### **Social Experiments**
+Study how populations behave under different historical/cultural conditions
+
+### **Game Development**
+Generate NPCs with rich backstories grounded in game world lore
+
+### **Research**
+Model demographic diversity in specific contexts for social science research
+
+## ⚙️ **Configuration**
+
+### **Environment Variables**
+- `GEMINI_API_KEY` - Required for LLM augmentation (Gemini 2.5 Pro)
+
+### **Dependencies**
+```txt
+faker          # Persona generation
+google-genai   # LLM augmentation
+python-dotenv  # Environment variable management
+numpy          # Numerical operations
+```
+
+Install: `pip install -r requirements.txt`
+
+## 🔄 **Workflow**
+
+```
+1. Define Environment (optional)
+   └── Create story.md file describing world setting
+
+2. Generate Raw Personas
+   └── python persona_generator.py
+   └── Output: backend/data/raw_personas.jsonl
+
+3. Augment Personas
+   └── python augmenter.py --environment path/to/story.md
+   └── LLM adapts personas to environment
+   └── Output: backend/data/personas.jsonl
+
+4. Visualize (optional)
+   └── Copy personas.jsonl to dashboard/public/
+   └── View in interactive dashboard
+```
+
+## 📈 **Performance**
+
+- **Generation Speed**: ~1000 personas in ~2 seconds
+- **Augmentation Speed**: ~15 personas per LLM call (~2-5 seconds)
+- **Total Time**: ~1000 personas augmented in ~5-10 minutes
+- **Caching**: MD5-based result caching reduces redundant API calls
+- **Error Handling**: 3-retry exponential backoff for API failures
+
+## 🚧 **Limitations**
+
+- **LLM Accuracy**: Environment adaptation quality depends on LLM understanding
+- **Historical Gaps**: May not perfectly capture all historical nuances
+- **Language**: All output is in English (even for non-English settings)
+- **API Costs**: Large batches require significant API usage
+
+## 🔮 **Future Enhancements**
+
+- **Multi-language Support**: Localized augmentation prompts
+- **Validation Pipeline**: Automated quality checks for era accuracy
+- **Character Networks**: Generate relationships between personas
+- **Dynamic Updates**: Re-augment personas as story evolves
+- **Parallel Processing**: Speed up large batch processing
+
+## 📝 **License**
+
+See LICENSE file in project root.
