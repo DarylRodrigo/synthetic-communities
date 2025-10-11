@@ -218,7 +218,6 @@ Write an authentic, first-person reflection as if writing in a private journal. 
             candidate_id=self.id,
             candidate_name=self.name,
             statement=generated_statement,
-            topic=question.topic,
             question=question
         )
 

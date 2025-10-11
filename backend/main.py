@@ -18,7 +18,8 @@ def main():
         population_size=100,
         num_candidates=3,
         topics_per_epoch=1,
-        turns_per_topic=3,
+        questions_per_topic=2,
+        turns_per_question=2,
         num_epochs=1,
         random_seed=42
     )
