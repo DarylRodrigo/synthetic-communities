@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, List, Any
 from dataclasses import dataclass
-from .mediator import Topic, Question, CandidateStatement, MediatorStatement
+from .mediator import Topic, Question, CandidateStatement, MediatorStatement, DebateTranscript
 from . import llm_client
 
 logger = logging.getLogger(__name__)
@@ -61,7 +61,6 @@ class Candidate:
         logger.debug(f"{self.name}: read_social_media_signals called with feed length: {len(social_media_feed) if social_media_feed else 0}")
 
         if not social_media_feed:
-            logger.debug(f"{self.name}: No social media posts to review")
             return
 
         logger.info(f"{self.name} reviewing social media and updating positions...")
@@ -129,7 +128,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         self,
         question: Question,
         turn_number: int,
-        previous_statements: List
+        previous_statements: List[CandidateStatement]
     ) -> CandidateStatement:
         """
         Craft LLM-generated debate statement using current policy position, memory, and debate context.
@@ -204,8 +203,6 @@ Write an authentic, first-person reflection as if writing in a private journal. 
             - Be concise but impactful (2-3 sentences)
             - Sound authentic and conversational, not robotic"""
 
-        logger.debug(f"{self.name}: Calling LLM to generate strategic debate statement")
-        
         response = llm_client.generate_response(
             self.llm_client,
             prompt,
@@ -216,7 +213,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         logger.info(f"{self.name}: Generated debate statement: {generated_statement[:100]}...")
 
         # Update memory with debate participation
-        self.state.memory += f"Participated in debate on {question.topic.title}. Made statement: {generated_statement}...\n"
+        # self.state.memory += f"Participated in debate on {question.topic.title}. Made statement: {generated_statement}...\n"
 
         return CandidateStatement(
             candidate_id=self.id,
@@ -225,7 +222,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
             question=question
         )
 
-    def reflect_on_debate(self, question: Question, debate_transcript: str) -> None:
+    def reflect_on_debate(self, question: Question, debate_transcript: DebateTranscript) -> None:
         """
         Reflect on the completed debate and update memory with insights and belief changes.
 
@@ -233,7 +230,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         evaluate their own performance, and potentially update their beliefs and understanding.
         """
         logger.debug(f"{self.name}: reflect_on_debate called for question '{question.text}' on topic '{question.topic.title}'")
-        logger.debug(f"{self.name}: Debate transcript length: {len(debate_transcript)}")
+        logger.debug(f"{self.name}: Debate transcript length: {len(debate_transcript.statements)}")
 
         # Get current position for the parent topic
         current_position = self.state.policy_positions.get(question.topic.id, "No position established yet")
