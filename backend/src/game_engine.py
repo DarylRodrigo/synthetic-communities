@@ -50,7 +50,13 @@ class GameEngine:
         self._population_react_to_posts()
     
     def _candidates_read_social_media(self) -> None:
-        pass
+        logger.info(f"Candidates read latest posts")
+        
+        latest_feed = self.social_media.get_feed()
+        logger.debug(f"Social Media Feed:\n{latest_feed}")
+
+        for candidate in self.candidates:
+            candidate.read_social_media_signals(latest_feed)
     
     def _conduct_debate_on_topic(self, topic_index: int) -> None:
         """
