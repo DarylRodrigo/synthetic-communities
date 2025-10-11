@@ -2,8 +2,8 @@ from typing import Dict, List, Any, Optional
 from dotenv import load_dotenv
 import os
 import sys
-import uuid
 from . import llm_client
+import uuid
 from .social_media import Post
 
 class Persona:
@@ -312,28 +312,367 @@ Return ONLY the message text, no additional formatting or labels."""
 
         return "\n".join(lines)
     
-    def create_social_media_post(self) -> Optional[Post]:
+    def create_social_media_post(self, existing_posts: List[Dict[str, Any]]) -> Optional[str]:
         """
-        Create a social media post based on the persona's beliefs and recent knowledge.
+        Generate a social media post based on persona's context and existing posts.
+
+        Args:
+            existing_posts: List of existing posts in the social media feed
+                           Each post: {"persona_id": str, "content": str}
 
         Returns:
-            A Post object, or None if the persona chooses not to post
+            The post content as a string, or None if generation fails
         """
-        # For now, return a simple post with random content
-        # TODO: Implement LLM-based post generation based on beliefs and knowledge
-        post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
-        content = "Random Post"  # Placeholder content
+        # Build context for LLM
+        context = self._build_post_context(existing_posts)
 
-        return Post(
-            id=post_id,
-            persona_id=self.id,
-            content=content,
-            likes=0,
-            dislikes=0
-        )
+        # Create prompt for LLM
+        prompt = f"""You are creating a social media post as this person.
+
+{context}
+
+Based on your personality, beliefs, recent experiences (debates, conversations), and the social media feed, create a brief social media post (1-2 sentences, max 280 characters).
+
+The post should:
+- Reflect your beliefs and personality
+- Be authentic to your character
+- Optionally respond to or reference recent posts in the feed
+- Be conversational and natural
+
+Return ONLY the post text, no hashtags, no additional formatting."""
+
+        system_instruction = "You are generating authentic social media posts for a person based on their personality, beliefs, and context."
+
+        try:
+            response = llm_client.generate_response(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            post_content = response.strip()
+
+            # Limit to 280 characters
+            if len(post_content) > 280:
+                post_content = post_content[:277] + "..."
+
+            # Store the post
+            post = {
+                "persona_id": self.id,
+                "content": post_content
+            }
+            self.posts.append(post)
+
+            post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
+            content = "Random Post"  # Placeholder content
+
+            return Post(
+                id=post_id,
+                persona_id=self.id,
+                content=post_content,
+                likes=0,
+                dislikes=0
+            )
+
+        except Exception as e:
+            print(f"Error generating social media post: {e}")
+            return None
+
+    def _build_post_context(self, existing_posts: List[Dict[str, Any]]) -> str:
+        """
+        Build a formatted context string for post generation.
+
+        Args:
+            existing_posts: List of existing posts in the social media feed
+
+        Returns:
+            Formatted context string for LLM
+        """
+        lines = []
+
+        # Add persona info
+        lines.append("=== YOUR IDENTITY ===")
+        lines.append(f"ID: {self.id}")
+        if self.features:
+            for key, value in list(self.features.items())[:5]:  # Show first 5 features
+                lines.append(f"{key}: {value}")
+        lines.append("")
+
+        # Add current beliefs
+        lines.append("=== YOUR BELIEFS ===")
+        if self.beliefs:
+            for key, value in self.beliefs.items():
+                lines.append(f"{key}: {value}")
+        else:
+            lines.append("(You haven't formed strong beliefs yet)")
+        lines.append("")
+
+        # Add recent debate knowledge
+        if self.debate_knowledge:
+            lines.append("=== RECENT DEBATE YOU WATCHED ===")
+            lines.append(self.debate_knowledge[-1])
+            lines.append("")
+
+        # Add recent chats
+        if self.chats:
+            lines.append("=== RECENT CONVERSATION ===")
+            last_chat = self.chats[-1]
+            lines.append(f"With peer: {last_chat.get('peer_id', 'Unknown')}")
+            conversation = last_chat.get('conversation', [])
+            for msg in conversation[-3:]:  # Show last 3 messages
+                speaker = "You" if msg["speaker_id"] == self.id else "Peer"
+                lines.append(f"{speaker}: {msg['message']}")
+            lines.append("")
+
+        # Add social media feed
+        lines.append("=== SOCIAL MEDIA FEED ===")
+        if existing_posts:
+            # Show last 5 posts
+            for post in existing_posts[-5:]:
+                lines.append(f"@{post.get('persona_id', 'Unknown')}: {post.get('content', '')}")
+        else:
+            lines.append("(No posts yet)")
+        lines.append("")
+
+        lines.append("=== YOUR TURN ===")
+        lines.append("Create a post that reflects your personality and beliefs.")
+
+        return "\n".join(lines)
+
     
     def react_to_post(self, post: Dict[str, Any]) -> Optional[str]:
-        return None
+        """
+        Generate a reaction (thumbs_up or thumbs_down) to a social media post using LLM.
+
+        Args:
+            post: The post to react to
+                  {"persona_id": str, "content": str, "likes": int, "dislikes": int}
+
+        Returns:
+            Reaction string: "thumbs_up" or "thumbs_down", or None if error
+        """
+        # Don't react to your own posts
+        if post.get("persona_id") == self.id:
+            return None
+
+        # Build context for LLM
+        context = self._build_reaction_context(post)
+
+        # Create prompt for LLM
+        prompt = f"""You are deciding how to react to a social media post.
+
+{context}
+
+Based on your beliefs, personality, and the post content, decide whether to give a thumbs up 👍 or thumbs down 👎.
+
+Consider:
+- Does this align with your beliefs?
+- Does this resonate with your values?
+- Current reactions: {post.get('likes', 0)} likes, {post.get('dislikes', 0)} dislikes
+
+Respond with ONLY one of these exact words:
+- thumbs_up
+- thumbs_down"""
+
+        system_instruction = "You are making authentic social media reactions based on a person's beliefs and personality."
+
+        try:
+            response = llm_client.generate_response(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            reaction = response.strip().lower()
+
+            # Validate reaction
+            if reaction not in ["thumbs_up", "thumbs_down"]:
+                # Try to extract valid reaction
+                if "up" in reaction:
+                    reaction = "thumbs_up"
+                elif "down" in reaction:
+                    reaction = "thumbs_down"
+                else:
+                    return None
+
+            return reaction
+
+        except Exception as e:
+            print(f"Error generating reaction: {e}")
+            return None
+
+    def _build_reaction_context(self, post: Dict[str, Any]) -> str:
+        """
+        Build a formatted context string for reaction generation.
+
+        Args:
+            post: The post to react to
+
+        Returns:
+            Formatted context string for LLM
+        """
+        lines = []
+
+        # Add persona info
+        lines.append("=== YOUR IDENTITY ===")
+        lines.append(f"ID: {self.id}")
+        if self.features:
+            for key, value in list(self.features.items())[:5]:
+                lines.append(f"{key}: {value}")
+        lines.append("")
+
+        # Add current beliefs
+        lines.append("=== YOUR BELIEFS ===")
+        if self.beliefs:
+            for key, value in self.beliefs.items():
+                lines.append(f"{key}: {value}")
+        else:
+            lines.append("(You haven't formed strong beliefs yet)")
+        lines.append("")
+
+        # Add the post
+        lines.append("=== POST TO REACT TO ===")
+        lines.append(f"Author: @{post.get('persona_id', 'Unknown')}")
+        lines.append(f"Content: {post.get('content', '')}")
+        lines.append(f"Current reactions: {post.get('likes', 0)} 👍 / {post.get('dislikes', 0)} 👎")
+
+        return "\n".join(lines)
     
     def vote(self, candidates: List[str]) -> str:
-        return candidates[0] if candidates else ""
+        """
+        Vote for a candidate based on all accumulated knowledge and beliefs.
+
+        Args:
+            candidates: List of candidate IDs to choose from
+
+        Returns:
+            The chosen candidate ID
+        """
+        if not candidates:
+            return ""
+
+        if len(candidates) == 1:
+            return candidates[0]
+
+        # Build context for LLM
+        context = self._build_voting_context(candidates)
+
+        # Create prompt for LLM
+        prompt = f"""You are voting for a candidate in an election based on everything you've experienced.
+
+{context}
+
+Based on your beliefs, the debates you watched, conversations you had, and social media posts you've seen, choose which candidate to vote for.
+
+You must vote for ONE of these candidates:
+{', '.join(candidates)}
+
+Consider:
+- Which candidate aligns best with your beliefs?
+- What did they say in the debates?
+- How do their positions match your values?
+
+Respond with ONLY the candidate ID, nothing else."""
+
+        system_instruction = "You are making an authentic voting decision based on a person's complete experience and beliefs."
+
+        try:
+            response = llm_client.generate_response(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            chosen_candidate = response.strip()
+
+            # Validate the choice
+            if chosen_candidate in candidates:
+                return chosen_candidate
+            else:
+                # Try to find a match
+                for candidate in candidates:
+                    if candidate.lower() in chosen_candidate.lower():
+                        return candidate
+
+                # Default to first candidate if no valid match
+                return candidates[0]
+
+        except Exception as e:
+            print(f"Error generating vote: {e}")
+            return candidates[0]
+
+    def _build_voting_context(self, candidates: List[str]) -> str:
+        """
+        Build a comprehensive context string for voting decision.
+
+        Args:
+            candidates: List of candidate IDs
+
+        Returns:
+            Formatted context string for LLM
+        """
+        lines = []
+
+        # Add persona info
+        lines.append("=== YOUR IDENTITY ===")
+        lines.append(f"ID: {self.id}")
+        if self.features:
+            for key, value in self.features.items():
+                lines.append(f"{key}: {value}")
+        lines.append("")
+
+        # Add current beliefs - MOST IMPORTANT
+        lines.append("=== YOUR BELIEFS ===")
+        if self.beliefs:
+            for key, value in self.beliefs.items():
+                lines.append(f"{key}: {value}")
+        else:
+            lines.append("(No strong beliefs formed yet)")
+        lines.append("")
+
+        # Add all debate knowledge
+        lines.append("=== DEBATES YOU WATCHED ===")
+        if self.debate_knowledge:
+            for debate in self.debate_knowledge:
+                lines.append(debate)
+                lines.append("")
+        else:
+            lines.append("(No debates watched)")
+            lines.append("")
+
+        # Add chat conversations
+        lines.append("=== YOUR CONVERSATIONS ===")
+        if self.chats:
+            for idx, chat in enumerate(self.chats[-5:], 1):  # Last 5 chats
+                lines.append(f"Conversation {idx} with {chat.get('peer_id', 'Unknown')}:")
+                conversation = chat.get('conversation', [])
+                for msg in conversation[-3:]:  # Last 3 messages of each
+                    speaker = "You" if msg["speaker_id"] == self.id else "Peer"
+                    lines.append(f"  {speaker}: {msg['message']}")
+                lines.append("")
+        else:
+            lines.append("(No conversations)")
+            lines.append("")
+
+        # Add social media knowledge
+        lines.append("=== SOCIAL MEDIA YOU'VE SEEN ===")
+        if self.social_media_knowledge:
+            for post in self.social_media_knowledge[-10:]:  # Last 10 posts
+                lines.append(f"@{post.get('persona_id', 'Unknown')}: {post.get('content', '')}")
+                lines.append(f"  [{post.get('likes', 0)} 👍 / {post.get('dislikes', 0)} 👎]")
+        else:
+            lines.append("(No social media seen)")
+        lines.append("")
+
+        # Add knowledge summary
+        lines.append("=== YOUR EXPERIENCE SUMMARY ===")
+        lines.append(f"Debates watched: {len(self.debate_knowledge)}")
+        lines.append(f"Conversations: {len(self.chats)}")
+        lines.append(f"Social media posts seen: {len(self.social_media_knowledge)}")
+        lines.append(f"Posts you made: {len(self.posts)}")
+        lines.append("")
+
+        lines.append("=== CANDIDATES ===")
+        lines.append(f"You must choose from: {', '.join(candidates)}")
+
+        return "\n".join(lines)

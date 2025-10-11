@@ -5,6 +5,7 @@ from typing import Dict, List, Any
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
+from dataclasses import asdict, is_dataclass
 from .config import Config
 from .population import Population
 from .candidate import Candidate
@@ -13,6 +14,14 @@ from .social_media import SocialMedia, Post
 from . import llm_client
 
 logger = logging.getLogger(__name__)
+
+
+class DataclassJSONEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles dataclass instances."""
+    def default(self, obj):
+        if is_dataclass(obj):
+            return asdict(obj)
+        return super().default(obj)
 
 
 class GameEngine:
@@ -69,16 +78,16 @@ class GameEngine:
     def _run_epoch(self) -> None:
         self._candidates_read_social_media()
 
-        
         for topic_index in range(self.config.topics_per_epoch):
             self._conduct_debate_on_topic(topic_index)
-        
+
         self._population_consume_debate()
         self._personas_update_beliefs_from_debate()
         self._personas_chat_with_peers()
+        self._personas_update_beliefs_from_chat()
         self._personas_post_to_social_media()
-        self._personas_update_beliefs_from_social()
         self._population_react_to_posts()
+        self._personas_update_beliefs_from_social()
     
     def _candidates_read_social_media(self) -> None:
         logger.info(f"Candidates read latest posts")
@@ -160,27 +169,69 @@ class GameEngine:
             logger.info(f"Question debate complete. Transcript published (total statements: {len(all_statements)})")
     
     def _population_consume_debate(self) -> None:
-        pass
-    
+        """Have all personas consume the latest debate transcript."""
+        if self.debate_transcripts:
+            latest_transcript = self.debate_transcripts[-1]
+            self.population.consume_debate_content(latest_transcript)
+            logger.info(f"Population consumed debate on topic: {latest_transcript.topic.title}")
+
     def _personas_update_beliefs_from_debate(self) -> None:
-        self.population.update_beliefs("debate_knowledge")
-    
+        """Update all personas' beliefs based on debate knowledge."""
+        for persona in self.population.get_all_personas():
+            persona.update_beliefs(knowledge_category="debate_knowledge")
+        logger.info("All personas updated beliefs from debate")
+
     def _personas_chat_with_peers(self) -> None:
-        self.population.chat_with_peers()
-    
-    def _personas_update_beliefs_from_social(self) -> None:
-        self.population.update_beliefs("social_media_knowledge")
+        """Orchestrate paired conversations between personas."""
+        conversations = self.population.chat_with_peers()
+        logger.info(f"Completed {len(conversations)} paired conversations")
+
+    def _personas_update_beliefs_from_chat(self) -> None:
+        """Update all personas' beliefs based on chat conversations."""
+        for persona in self.population.get_all_personas():
+            if persona.chats:  # Only update if they chatted
+                persona.update_beliefs(knowledge_category="chats")
+        logger.info("All personas updated beliefs from chats")
+
     
     def _personas_post_to_social_media(self) -> None:
+        """Have personas create and publish social media posts."""
         posts = self.population.create_social_media_posts()
         if self.social_media:
+            # Add posts to social media platform and get their IDs
+            post_ids = []
             for post in posts:
-                self.social_media.add_post(post)
-    
+                post_id = self.social_media.add_post(post)
+                post_ids.append(post_id)
+            logger.info(f"Published {len(post_ids)} posts to social media")
+
     def _population_react_to_posts(self) -> None:
+        """Have personas react to social media posts."""
         if self.social_media:
-            posts = self.social_media.posts
-            self.population.react_to_posts(posts)
+            # Convert Post objects to dicts with updated like/dislike counts
+            posts_as_dicts = []
+            for post in self.social_media.posts:
+                posts_as_dicts.append({
+                    "id": post.id,
+                    "persona_id": post.persona_id,
+                    "content": post.content,
+                    "likes": post.likes,
+                    "dislikes": post.dislikes
+                })
+
+            reaction_stats = self.population.react_to_posts(
+                posts_as_dicts,
+                self.social_media
+            )
+            logger.info(f"Reactions: {reaction_stats['total_reactions']} total "
+                       f"({reaction_stats['thumbs_up']} 👍, {reaction_stats['thumbs_down']} 👎)")
+
+    def _personas_update_beliefs_from_social(self) -> None:
+        """Update all personas' beliefs based on social media knowledge."""
+        for persona in self.population.get_all_personas():
+            if persona.social_media_knowledge:  # Only update if they've seen posts
+                persona.update_beliefs(knowledge_category="social_media_knowledge")
+        logger.info("All personas updated beliefs from social media")
     
     def _serialize_epoch_state(self) -> None:
         """
@@ -207,7 +258,7 @@ class GameEngine:
 
         # Append to JSONL file (one JSON object per line)
         with open(self.simulation_file, 'a') as f:
-            json.dump(epoch_data, f)
+            json.dump(epoch_data, f, cls=DataclassJSONEncoder)
             f.write('\n')
 
         logger.info(f"Serialized epoch {self.current_epoch} to {self.simulation_file}")
