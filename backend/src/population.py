@@ -33,9 +33,9 @@ class Population:
         for persona in self.personas:
             persona.consume_debate_content(debate_transcript)
     
-    def update_beliefs(self, messages: List[Dict[str, Any]]) -> None:
+    def update_beliefs(self, knowledge_category: str = "debate_knowledge") -> None:
         for persona in self.personas:
-            persona.update_beliefs(messages)
+            persona.update_beliefs(knowledge_category)
     
     def chat_with_peers(
         self,
