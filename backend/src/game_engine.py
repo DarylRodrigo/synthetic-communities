@@ -5,6 +5,7 @@ from typing import Dict, List, Any
 from datetime import datetime
 from pathlib import Path
 from dotenv import load_dotenv
+from dataclasses import asdict, is_dataclass
 from .config import Config
 from .population import Population
 from .candidate import Candidate
@@ -13,6 +14,14 @@ from .social_media import SocialMedia, Post
 from . import llm_client
 
 logger = logging.getLogger(__name__)
+
+
+class DataclassJSONEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles dataclass instances."""
+    def default(self, obj):
+        if is_dataclass(obj):
+            return asdict(obj)
+        return super().default(obj)
 
 
 class GameEngine:
@@ -249,7 +258,7 @@ class GameEngine:
 
         # Append to JSONL file (one JSON object per line)
         with open(self.simulation_file, 'a') as f:
-            json.dump(epoch_data, f)
+            json.dump(epoch_data, f, cls=DataclassJSONEncoder)
             f.write('\n')
 
         logger.info(f"Serialized epoch {self.current_epoch} to {self.simulation_file}")
