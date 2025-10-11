@@ -45,9 +45,8 @@ def main():
 
     # Initialize candidates with topics so they can form policy positions
     engine.candidates = [
-        Candidate("candidate_1", "Alice Johnson", topics, engine.llm_client),
-        Candidate("candidate_2", "Bob Smith", topics, engine.llm_client),
-        Candidate("candidate_3", "Carol Davis", topics, engine.llm_client)
+        Candidate("candidate_1", "Alice Johnson", "Progressive left-leaning, prioritizes social programs and government intervention", topics, engine.llm_client),
+        Candidate("candidate_2", "Bob Smith", "Conservative right-leaning, values free market and limited government", topics, engine.llm_client)
     ]
 
     engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)
