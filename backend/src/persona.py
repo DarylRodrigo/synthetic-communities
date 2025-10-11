@@ -8,6 +8,7 @@ from . import llm_client
 import uuid
 from .social_media import Post
 import json
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -744,3 +745,240 @@ Respond with ONLY the candidate ID, nothing else."""
         lines.append(f"You must choose from: {', '.join(candidates)}")
 
         return "\n".join(lines)
+
+    # ========== ASYNC VERSIONS FOR PARALLELIZATION ==========
+
+    async def update_beliefs_async(
+        self,
+        knowledge_category: str = "debate_knowledge",
+        max_change_percentage: float = 0.5
+    ) -> None:
+        """Async version of update_beliefs for parallel execution."""
+        context = self._build_belief_update_context(knowledge_category)
+
+        prompt = f"""You are updating the beliefs of a person based on new information they have received.
+
+{context}
+
+Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
+
+Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
+
+Example format:
+{{
+    "healthcare": "I believe in universal healthcare coverage",
+    "economy": "I support progressive taxation",
+    "climate": "Climate change requires immediate action"
+}}
+
+If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
+
+Return ONLY the JSON object, no additional text."""
+
+        system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change."
+
+        try:
+            response = await llm_client.generate_response_async(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            response_clean = response.strip()
+            if response_clean.startswith("```json"):
+                response_clean = response_clean[7:]
+            if response_clean.startswith("```"):
+                response_clean = response_clean[3:]
+            if response_clean.endswith("```"):
+                response_clean = response_clean[:-3]
+
+            updated_beliefs = json.loads(response_clean.strip())
+            self.beliefs = updated_beliefs
+
+        except Exception as e:
+            logger.error(f"Error updating beliefs for {self.id}: {e}")
+
+    async def chat_with_peers_async(self, conversation_history: List[Dict[str, Any]], peer_id: str) -> str:
+        """Async version of chat_with_peers for parallel execution."""
+        context = self._build_chat_context(conversation_history, peer_id)
+
+        prompt = f"""You are role-playing as a person in a conversation about recent debates and topics.
+
+{context}
+
+Based on your personality, beliefs, and the conversation so far, generate a natural, conversational response.
+Keep it brief (1-3 sentences). Be authentic to your character.
+
+Return ONLY the message text, no additional formatting or labels."""
+
+        system_instruction = "You are generating authentic conversation responses for a person based on their personality and beliefs."
+
+        try:
+            response = await llm_client.generate_response_async(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            message = response.strip()
+
+            chat_entry = {
+                "peer_id": peer_id,
+                "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
+            }
+            self.chats.append(chat_entry)
+
+            return message
+
+        except Exception as e:
+            logger.error(f"Error generating chat message for {self.id}: {e}")
+            return "I see what you mean."
+
+    async def create_social_media_post_async(self, existing_posts: List[Dict[str, Any]]) -> Optional['Post']:
+        """Async version of create_social_media_post for parallel execution."""
+        context = self._build_post_context(existing_posts)
+
+        prompt = f"""You are creating a social media post as this person.
+
+{context}
+
+Based on your personality, beliefs, recent experiences (debates, conversations), and the social media feed, create a brief social media post (1-2 sentences, max 280 characters).
+
+The post should:
+- Reflect your beliefs and personality
+- Be authentic to your character
+- Optionally respond to or reference recent posts in the feed
+- Be conversational and natural
+
+Return ONLY the post text, no hashtags, no additional formatting."""
+
+        system_instruction = "You are generating authentic social media posts for a person based on their personality, beliefs, and context."
+
+        try:
+            response = await llm_client.generate_response_async(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            post_content = response.strip()
+
+            if len(post_content) > 280:
+                post_content = post_content[:277] + "..."
+
+            post = {
+                "persona_id": self.id,
+                "content": post_content
+            }
+            self.posts.append(post)
+
+            post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
+
+            return Post(
+                id=post_id,
+                persona_id=self.id,
+                content=post_content,
+                likes=0,
+                dislikes=0
+            )
+
+        except Exception as e:
+            logger.error(f"Error generating social media post for {self.id}: {e}")
+            return None
+
+    async def react_to_post_async(self, post: Dict[str, Any]) -> Optional[str]:
+        """Async version of react_to_post for parallel execution."""
+        if post.get("persona_id") == self.id:
+            return None
+
+        context = self._build_reaction_context(post)
+
+        prompt = f"""You are deciding how to react to a social media post.
+
+{context}
+
+Based on your beliefs, personality, and the post content, decide whether to give a thumbs up 👍 or thumbs down 👎.
+
+Consider:
+- Does this align with your beliefs?
+- Does this resonate with your values?
+- Current reactions: {post.get('likes', 0)} likes, {post.get('dislikes', 0)} dislikes
+
+Respond with ONLY one of these exact words:
+- thumbs_up
+- thumbs_down"""
+
+        system_instruction = "You are making authentic social media reactions based on a person's beliefs and personality."
+
+        try:
+            response = await llm_client.generate_response_async(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            reaction = response.strip().lower()
+
+            if reaction not in ["thumbs_up", "thumbs_down"]:
+                if "up" in reaction:
+                    reaction = "thumbs_up"
+                elif "down" in reaction:
+                    reaction = "thumbs_down"
+                else:
+                    return None
+
+            return reaction
+
+        except Exception as e:
+            logger.error(f"Error generating reaction for {self.id}: {e}")
+            return None
+
+    async def vote_async(self, candidates: List[str]) -> str:
+        """Async version of vote for parallel execution."""
+        if not candidates:
+            return ""
+
+        if len(candidates) == 1:
+            return candidates[0]
+
+        context = self._build_voting_context(candidates)
+
+        prompt = f"""You are voting for a candidate in an election based on everything you've experienced.
+
+{context}
+
+Based on your beliefs, the debates you watched, conversations you had, and social media posts you've seen, choose which candidate to vote for.
+
+You must vote for ONE of these candidates:
+{', '.join(candidates)}
+
+Consider:
+- Which candidate aligns best with your beliefs?
+- What did they say in the debates?
+- How do their positions match your values?
+
+Respond with ONLY the candidate ID, nothing else."""
+
+        system_instruction = "You are making an authentic voting decision based on a person's complete experience and beliefs."
+
+        try:
+            response = await llm_client.generate_response_async(
+                self.llm_client,
+                prompt,
+                system_instruction
+            )
+
+            chosen_candidate = response.strip()
+
+            if chosen_candidate in candidates:
+                return chosen_candidate
+            else:
+                for candidate in candidates:
+                    if candidate.lower() in chosen_candidate.lower():
+                        return candidate
+
+                return candidates[0]
+
+        except Exception as e:
+            logger.error(f"Error generating vote for {self.id}: {e}")
+            return candidates[0]
