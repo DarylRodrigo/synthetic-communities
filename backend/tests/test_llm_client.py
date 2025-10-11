@@ -3,6 +3,7 @@ import sys
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import asyncio
 
 # Load .env file from project root (one level up from backend)
 env_path = Path(__file__).parent.parent.parent / '.env'
@@ -39,7 +40,7 @@ class TestLLMClient:
 
         prompt = "Say 'Hello, world!' and nothing else."
         system_instruction = "You are a helpful assistant."
-        
+
         if temperature is not None:
             response = llm_client.generate_response(client, prompt, system_instruction, temperature=temperature)
         else:
@@ -48,3 +49,40 @@ class TestLLMClient:
 
         assert isinstance(response, str)
         assert len(response) > 0
+
+    @pytest.mark.llm
+    @pytest.mark.asyncio
+    async def test_generate_response_async_basic(self, api_key):
+        """Test generating a basic async response from LLM"""
+        client = llm_client.create_client(api_key)
+
+        prompt = "Say 'Hello, async world!' and nothing else."
+        system_instruction = "You are a helpful assistant."
+
+        response = await llm_client.generate_response_async(client, prompt, system_instruction)
+
+        assert isinstance(response, str)
+        assert len(response) > 0
+
+    @pytest.mark.llm
+    @pytest.mark.asyncio
+    async def test_generate_response_async_parallel(self, api_key):
+        """Test generating multiple async responses in parallel"""
+        client = llm_client.create_client(api_key)
+
+        system_instruction = "You are a helpful assistant."
+
+        # Create multiple async tasks
+        tasks = [
+            llm_client.generate_response_async(client, f"Say 'Response {i}' and nothing else.", system_instruction)
+            for i in range(3)
+        ]
+
+        # Execute in parallel
+        responses = await asyncio.gather(*tasks)
+
+        # Verify all responses
+        assert len(responses) == 3
+        for response in responses:
+            assert isinstance(response, str)
+            assert len(response) > 0
