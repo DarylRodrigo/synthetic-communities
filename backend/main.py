@@ -16,8 +16,6 @@ logging.basicConfig(
 def main():
     config = Config(
         population_size=100,
-        num_candidates=2,
-        topics_per_epoch=1,
         questions_per_topic=1,
         turns_per_question=1,
         num_epochs=1,
