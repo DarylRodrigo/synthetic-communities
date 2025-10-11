@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from .config import Config
 from .population import Population
 from .candidate import Candidate
-from .mediator import Mediator
-from .models import DebateTranscript, MediatorStatement
+from .mediator import Mediator, DebateTranscript, MediatorStatement
 from .social_media import SocialMedia
 from . import llm_client
 

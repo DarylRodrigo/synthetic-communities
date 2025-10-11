@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 # Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.candidate import Candidate
-from src.models import Topic, CandidateStatement
+from src.mediator import Topic, CandidateStatement
 
 
 class TestCandidate:

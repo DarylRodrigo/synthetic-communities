@@ -1,6 +1,6 @@
 import logging
 from typing import Dict, List, Any
-from .models import Topic, CandidateStatement, MediatorStatement
+from .mediator import Topic, CandidateStatement, MediatorStatement
 from . import llm_client
 
 logger = logging.getLogger(__name__)

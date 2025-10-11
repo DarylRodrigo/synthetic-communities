@@ -7,7 +7,7 @@ from unittest.mock import Mock, patch, MagicMock
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.game_engine import GameEngine
 from src.config import Config
-from src.models import Topic, DebateTranscript, CandidateStatement, MediatorStatement
+from src.mediator import Topic, DebateTranscript, CandidateStatement, MediatorStatement
 from src.candidate import Candidate
 from src.social_media import SocialMedia
 
