@@ -16,10 +16,10 @@ logging.basicConfig(
 def main():
     config = Config(
         # Core simulation parameters
-        population_size=10,
-        questions_per_topic=1,
-        turns_per_question=1,
-        num_epochs=1,
+        population_size=50,
+        questions_per_topic=2,
+        turns_per_question=2,
+        num_epochs=3,
         random_seed=42,
         # Social media parameters
         post_probability=0.07,
@@ -29,7 +29,7 @@ def main():
         num_rounds_variance=1,
         # Belief update parameters
         max_change_percentage=0.5,
-        max_concurrent=20
+        max_concurrent=40
     )
     
     engine = GameEngine(config)
