@@ -195,6 +195,7 @@ Generate ONE specific, debatable question about this topic that:
 - Has NOT been asked before
 - Is relevant and builds on the discussion
 - Is specific enough for focused debate
+- Is probing and thought-provoking
 - Reflects public interest or candidate disagreement
 - Is CONCISE (one clear sentence, maximum 20 words)
 - Is NEUTRAL and OBJECTIVE (do not address specific candidates by name)

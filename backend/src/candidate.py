@@ -212,7 +212,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         logger.info(f"{self.name}: Generated debate statement: {generated_statement[:100]}...")
 
         # Update memory with debate participation
-        self.state.memory += f"Participated in debate on {question.topic.title}. Made statement: {generated_statement[:100]}...\n"
+        self.state.memory += f"Participated in debate on {question.topic.title}. Made statement: {generated_statement}...\n"
 
         return CandidateStatement(
             candidate_id=self.id,
