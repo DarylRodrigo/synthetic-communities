@@ -211,10 +211,15 @@ class GameEngine:
             # Convert Post objects to dicts with updated like/dislike counts
             posts_as_dicts = []
             for post in self.social_media.posts:
+                # Handle case where content might be a Post object instead of string
+                content = post.content
+                if isinstance(content, Post):
+                    content = content.content  # Extract the actual string content
+
                 posts_as_dicts.append({
                     "id": post.id,
                     "persona_id": post.persona_id,
-                    "content": post.content,
+                    "content": content,
                     "likes": post.likes,
                     "dislikes": post.dislikes
                 })
@@ -304,10 +309,15 @@ class GameEngine:
 
         posts = []
         for post in self.social_media.posts:
+            # Handle case where content might be a Post object instead of string
+            content = post.content
+            if isinstance(content, Post):
+                content = content.content  # Extract the actual string content
+
             posts.append({
                 "id": post.id,
                 "persona_id": post.persona_id,
-                "content": post.content,
+                "content": content,
                 "likes": post.likes,
                 "dislikes": post.dislikes
             })
@@ -323,8 +333,7 @@ class GameEngine:
                 "id": candidate.id,
                 "name": candidate.name,
                 "policy_positions": candidate.state.policy_positions,
-                "social_media_reflection": candidate.state.memory,
-                "debate_reflection": candidate.state.memory
+                "state_memory": candidate.state.memory
             }
             candidates.append(candidate_data)
 
