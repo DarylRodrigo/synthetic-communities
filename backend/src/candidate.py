@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, List, Any
 from dataclasses import dataclass
-from .mediator import Topic, CandidateStatement, MediatorStatement
+from .mediator import Topic, Question, CandidateStatement, MediatorStatement
 from . import llm_client
 
 logger = logging.getLogger(__name__)
@@ -102,21 +102,29 @@ Based on public sentiment, should you adjust your stance? Reply with your update
 
     def craft_debate_statement(
         self,
-        topic: Topic,
+        question: Question,
         turn_number: int,
         previous_statements: List
     ) -> CandidateStatement:
         """Craft LLM-generated debate statement using current policy position."""
-        logger.debug(f"{self.name}: craft_debate_statement called for topic '{topic.title}', turn {turn_number}")
+        logger.debug(f"{self.name}: craft_debate_statement called for question '{question.text[:50]}...', turn {turn_number}")
 
-        # Get current policy position for this topic
-        current_position = self.state.policy_positions.get(topic.id, "No position established yet")
+        # Get current policy position for parent topic
+        current_position = self.state.policy_positions.get(
+            question.topic.id,
+            "No position established yet"
+        )
         logger.debug(f"{self.name}: Using position: {current_position}")
 
         # Build prompt including policy position
-        prompt = f"DEBATE TOPIC: {topic.title}\n{topic.description}\n\n"
-        prompt += f"Your current position: {current_position}\n\n"
-        prompt += f"Turn {turn_number + 1}\n\n"
+        prompt = f"""DEBATE QUESTION: {question.text}
+(Part of broader topic: {question.topic.title})
+
+Your current position on {question.topic.title}: {current_position}
+
+Turn {turn_number + 1}
+
+"""
 
         if previous_statements:
             logger.debug(f"{self.name}: Including {len(previous_statements)} previous statements in context")
@@ -148,5 +156,5 @@ Based on public sentiment, should you adjust your stance? Reply with your update
             candidate_id=self.id,
             candidate_name=self.name,
             statement=response.strip(),
-            topic=topic
+            question=question
         )

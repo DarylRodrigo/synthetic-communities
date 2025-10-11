@@ -60,56 +60,69 @@ class GameEngine:
     
     def _conduct_debate_on_topic(self, topic_index: int) -> None:
         """
-        Conduct a full debate on a single topic with multiple turns.
+        Conduct a full debate on a topic with multiple questions.
 
-        This implements the core debate loop:
-        1. Mediator proposes a topic and introduces it
-        2. For each turn (k times):
-           - Candidates craft statements with full debate history as context
-           - Mediator orchestrates turn
-        3. Publish and store transcript (to be used by population in _population_consume_debate)
+        New flow:
+        1. For each question:
+           - Mediator proposes question (context-aware)
+           - Mediator introduces question
+           - Conduct turns on that question
+           - Publish transcript
 
         Args:
-            topic_index: Index of the topic to debate (used to select from mediator's topic pool)
+            topic_index: Index of the topic to debate
         """
         if not self.mediator or not self.candidates:
             raise ValueError("No mediator or candidates configured")
 
-        topic = self.mediator.propose_topic(topic_index)
+        topic = self.mediator.topics[topic_index]
         logger.info(f"Starting debate on topic: '{topic.title}'")
-        
-        # Create mediator introduction statement
-        introduction = self.mediator.introduce_topic(topic)
-        mediator_intro = MediatorStatement(
-            mediator_id=self.mediator.id,
-            statement=introduction,
-            topic=topic
-        )
 
-        # Track all statements (mediator intro + all candidate statements)
-        all_statements = [mediator_intro]
+        # Loop through questions for this topic
+        for question_index in range(self.config.questions_per_topic):
+            logger.info(f"Question {question_index + 1}/{self.config.questions_per_topic} for topic '{topic.title}'")
 
-        # Step 2: Conduct k turns of debate
-        for turn in range(self.config.turns_per_topic):
-            turn_statements = self.mediator.orchestrate_debate_turn(
+            # Step 1: Mediator proposes a question (context-aware)
+            question = self.mediator.propose_question(
                 topic=topic,
-                candidates=self.candidates,
-                turn_number=turn,
-                previous_statements=all_statements
+                previous_transcripts=self.debate_transcripts
             )
-            all_statements.extend(turn_statements)  # Accumulate all statements
-            logger.info(f"Turn {turn + 1}/{self.config.turns_per_topic} completed with {len(turn_statements)} statements")
+            logger.info(f"Proposed question: {question.text}")
 
-        # Step 3: Publish transcript and store it
-        transcript = self.mediator.publish_debate_transcript(
-            all_statements=all_statements,
-            topic=topic,
-            epoch=self.current_epoch,
-            topic_index=topic_index
-        )
-        self.debate_transcripts.append(transcript)
+            # Step 2: Mediator introduces the question
+            introduction = self.mediator.introduce_question(question)
+            mediator_intro = MediatorStatement(
+                mediator_id=self.mediator.id,
+                statement=introduction,
+                question=question
+            )
 
-        logger.info(f"Debate transcript published (total statements: {len(all_statements)})")
+            # Track all statements for this question
+            all_statements = [mediator_intro]
+
+            # Step 3: Conduct turns on this specific question
+            for turn in range(self.config.turns_per_question):
+                turn_statements = self.mediator.orchestrate_debate_turn(
+                    question=question,
+                    candidates=self.candidates,
+                    turn_number=turn,
+                    previous_statements=all_statements
+                )
+                all_statements.extend(turn_statements)
+                logger.info(f"Turn {turn + 1}/{self.config.turns_per_question} completed with {len(turn_statements)} statements")
+
+            # Step 4: Publish transcript for this question
+            transcript = self.mediator.publish_debate_transcript(
+                all_statements=all_statements,
+                topic=topic,
+                question=question,
+                epoch=self.current_epoch,
+                topic_index=topic_index,
+                question_index=question_index
+            )
+            self.debate_transcripts.append(transcript)
+
+            logger.info(f"Question debate complete. Transcript published (total statements: {len(all_statements)})")
     
     def _population_consume_debate(self) -> None:
         pass
