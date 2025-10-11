@@ -368,7 +368,7 @@ class Population:
         logger.info(f"Parallel vote completed: {sum(vote_counts.values())} votes cast across {len(candidates)} candidates")
         return vote_counts
 
-    def _run_parallel_belief_updates(self, personas: List[Persona], knowledge_category: str, max_concurrent: int = 20) -> None:
+    def _run_parallel_belief_updates(self, personas: List[Persona], knowledge_category: str, max_concurrent: int = 20, max_change_percentage: float = 0.5) -> None:
         """Common async orchestration logic for parallel belief updates."""
         logger.debug(f"Starting parallel belief updates for {knowledge_category} with {len(personas)} personas (max {max_concurrent} concurrent)")
         
@@ -377,7 +377,7 @@ class Population:
             
             async def limited_update(persona):
                 async with semaphore:
-                    return await persona.update_beliefs_async(knowledge_category)
+                    return await persona.update_beliefs_async(knowledge_category, max_change_percentage)
             
             tasks = [limited_update(persona) for persona in personas]
             await asyncio.gather(*tasks)
@@ -404,21 +404,21 @@ class Population:
         
         logger.info(f"All personas updated beliefs from {knowledge_category} (parallel)")
 
-    def update_beliefs_from_debate(self, max_concurrent: int = 20) -> None:
+    def update_beliefs_from_debate(self, max_concurrent: int = 20, max_change_percentage: float = 0.5) -> None:
         """Update all personas' beliefs based on debate knowledge in parallel."""
-        self._run_parallel_belief_updates(self.personas, "debate_knowledge", max_concurrent)
+        self._run_parallel_belief_updates(self.personas, "debate_knowledge", max_concurrent, max_change_percentage)
 
-    def update_beliefs_from_chat(self, max_concurrent: int = 20) -> None:
+    def update_beliefs_from_chat(self, max_concurrent: int = 20, max_change_percentage: float = 0.5) -> None:
         """Update all personas' beliefs based on chat conversations in parallel."""
         # Filter personas who have chats
         personas_with_chats = [persona for persona in self.personas if persona.chats]
-        self._run_parallel_belief_updates(personas_with_chats, "chats", max_concurrent)
+        self._run_parallel_belief_updates(personas_with_chats, "chats", max_concurrent, max_change_percentage)
 
-    def update_beliefs_from_social_media(self, max_concurrent: int = 20) -> None:
+    def update_beliefs_from_social_media(self, max_concurrent: int = 20, max_change_percentage: float = 0.5) -> None:
         """Update all personas' beliefs based on social media knowledge in parallel."""
         # Filter personas who have social media knowledge
         personas_with_social = [persona for persona in self.personas if persona.social_media_knowledge]
-        self._run_parallel_belief_updates(personas_with_social, "social_media_knowledge", max_concurrent)
+        self._run_parallel_belief_updates(personas_with_social, "social_media_knowledge", max_concurrent, max_change_percentage)
 
     def get_voting_data(self) -> List[Dict[str, Any]]:
         """Serialize population dynamic state (beliefs and policy positions only)."""
