@@ -2,7 +2,9 @@ from typing import Dict, List, Any, Optional
 from dotenv import load_dotenv
 import os
 import sys
+import uuid
 from . import llm_client
+from .social_media import Post
 
 class Persona:
     def __init__(self, persona_id: str):
@@ -310,8 +312,25 @@ Return ONLY the message text, no additional formatting or labels."""
 
         return "\n".join(lines)
     
-    def create_social_media_post(self) -> Optional[Dict[str, Any]]:
-        return "Random Post"
+    def create_social_media_post(self) -> Optional[Post]:
+        """
+        Create a social media post based on the persona's beliefs and recent knowledge.
+
+        Returns:
+            A Post object, or None if the persona chooses not to post
+        """
+        # For now, return a simple post with random content
+        # TODO: Implement LLM-based post generation based on beliefs and knowledge
+        post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
+        content = "Random Post"  # Placeholder content
+
+        return Post(
+            id=post_id,
+            persona_id=self.id,
+            content=content,
+            likes=0,
+            dislikes=0
+        )
     
     def react_to_post(self, post: Dict[str, Any]) -> Optional[str]:
         return None
