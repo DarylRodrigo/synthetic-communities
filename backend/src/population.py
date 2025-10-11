@@ -10,13 +10,15 @@ class Population:
     def __init__(self):
         self.personas: List[Persona] = []
     
-    def load_from_jsonl(self, file_path: str) -> None:
-        logger.debug(f"Loading personas from {file_path}")
+    def load_from_jsonl(self, file_path: str, limit: Optional[int] = None) -> None:
+        logger.debug(f"Loading personas from {file_path}" + (f" (limit: {limit})" if limit else ""))
         personas_loaded = 0
         with open(file_path, 'r') as f:
             for line in f:
+                if limit is not None and personas_loaded >= limit:
+                    break  # Stop after loading 'limit' personas
                 persona_data = json.loads(line.strip())
-                persona = Persona(persona_data['id'])
+                persona = Persona(persona_data['id'], persona_data)  # Pass full data
                 self.personas.append(persona)
                 personas_loaded += 1
         logger.info(f"Loaded {personas_loaded} personas from {file_path}")

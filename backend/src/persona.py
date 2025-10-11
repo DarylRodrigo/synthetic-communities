@@ -12,14 +12,14 @@ logger = logging.getLogger(__name__)
 
 
 class Persona:
-    def __init__(self, persona_id: str):
+    def __init__(self, persona_id: str, persona_data: Dict[str, Any] = None):
         self.id = persona_id
-        self.features = {}  # Dict of persona features/characteristics
+        self.features = persona_data if persona_data else {}  # Store ALL persona data
         self.debate_knowledge = []  # List of debate transcript strings
         self.chats = []  # List of chat conversations
         self.social_media_knowledge = []  # List of social media posts seen
         self.posts = []  # List of posts made by this persona
-        self.beliefs = {}  # Dict of current beliefs
+        self.beliefs = {}  # Dict of current beliefs (evolve via LLM, don't use prior_beliefs)
 
         # Initialize LLM client for persona
         load_dotenv()
@@ -27,7 +27,41 @@ class Persona:
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
         self.llm_client = llm_client.create_client(api_key)
-    
+
+    def _format_full_identity(self) -> str:
+        """Format complete persona identity for use in prompts."""
+        if not self.features:
+            return f"ID: {self.id}\n(No persona data available)"
+
+        lines = []
+        lines.append(f"Name: {self.features.get('name', 'Unknown')}")
+        lines.append(f"Age: {self.features.get('age')}, {self.features.get('gender')}")
+        lines.append(f"Profession: {self.features.get('job')} at {self.features.get('company')}")
+        lines.append(f"Location: {self.features.get('city')}, {self.features.get('country')}")
+        lines.append(f"Education: {self.features.get('education_level')}")
+        lines.append(f"Background: {self.features.get('ethnicity')}, {self.features.get('cultural_background')}")
+        if self.features.get('religion'):
+            lines.append(f"Religion: {self.features.get('religion')}")
+
+        # Biography and personality
+        lines.append(f"\nBiography: {self.features.get('backstory', 'No backstory available')}")
+        lines.append(f"\nDemeanour: {self.features.get('demeanour', 'No description')}")
+
+        if self.features.get('interests'):
+            lines.append(f"Interests: {', '.join(self.features.get('interests', []))}")
+
+        # Personality traits (Big Five)
+        traits = self.features.get('personality_traits', {})
+        if traits:
+            lines.append(f"\nPersonality Traits:")
+            lines.append(f"  Openness: {traits.get('openness', 0):.2f}")
+            lines.append(f"  Conscientiousness: {traits.get('conscientiousness', 0):.2f}")
+            lines.append(f"  Extraversion: {traits.get('extraversion', 0):.2f}")
+            lines.append(f"  Agreeableness: {traits.get('agreeableness', 0):.2f}")
+            lines.append(f"  Neuroticism: {traits.get('neuroticism', 0):.2f}")
+
+        return "\n".join(lines)
+
     def consume_debate_content(self, debate_transcript: Dict[str, Any]) -> None:
         """
         Process and store new debate content, comparing against previous knowledge.
@@ -175,13 +209,9 @@ Return ONLY the JSON object, no additional text."""
         """
         lines = []
 
-        # Add persona features
-        lines.append("=== PERSONA FEATURES ===")
-        if self.features:
-            for key, value in self.features.items():
-                lines.append(f"{key}: {value}")
-        else:
-            lines.append("(No features defined)")
+        # Add full persona identity
+        lines.append("=== YOUR IDENTITY ===")
+        lines.append(self._format_full_identity())
         lines.append("")
 
         # Add current beliefs
@@ -254,28 +284,23 @@ Return ONLY the message text, no additional formatting or labels."""
 
         system_instruction = "You are generating authentic conversation responses for a person based on their personality and beliefs."
 
-        try:
-            response = llm_client.generate_response(
-                self.llm_client,
-                prompt,
-                system_instruction
-            )
+        response = llm_client.generate_response(
+            self.llm_client,
+            prompt,
+            system_instruction
+        )
 
-            message = response.strip()
+        message = response.strip()
 
-            # Store the conversation in chats
-            chat_entry = {
-                "peer_id": peer_id,
-                "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
-            }
-            self.chats.append(chat_entry)
-            logger.debug(f"Persona {self.id} chat message: {message}")
+        # Store the conversation in chats
+        chat_entry = {
+            "peer_id": peer_id,
+            "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
+        }
+        self.chats.append(chat_entry)
+        logger.debug(f"Persona {self.id} chat message: {message}")
 
-            return message
-
-        except Exception as e:
-            logger.debug(f"Persona {self.id}: Error generating chat message - {e}")
-            return "I see what you mean."
+        return message
 
     def _build_chat_context(self, conversation_history: List[Dict[str, Any]], peer_id: str) -> str:
         """
@@ -290,12 +315,9 @@ Return ONLY the message text, no additional formatting or labels."""
         """
         lines = []
 
-        # Add persona info
+        # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
-        lines.append(f"ID: {self.id}")
-        if self.features:
-            for key, value in list(self.features.items())[:5]:  # Show first 5 features
-                lines.append(f"{key}: {value}")
+        lines.append(self._format_full_identity())
         lines.append("")
 
         # Add current beliefs
@@ -409,12 +431,9 @@ Return ONLY the post text, no hashtags, no additional formatting."""
         """
         lines = []
 
-        # Add persona info
+        # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
-        lines.append(f"ID: {self.id}")
-        if self.features:
-            for key, value in list(self.features.items())[:5]:  # Show first 5 features
-                lines.append(f"{key}: {value}")
+        lines.append(self._format_full_identity())
         lines.append("")
 
         # Add current beliefs
@@ -537,12 +556,9 @@ Respond with ONLY one of these exact words:
         """
         lines = []
 
-        # Add persona info
+        # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
-        lines.append(f"ID: {self.id}")
-        if self.features:
-            for key, value in list(self.features.items())[:5]:
-                lines.append(f"{key}: {value}")
+        lines.append(self._format_full_identity())
         lines.append("")
 
         # Add current beliefs
@@ -643,12 +659,9 @@ Respond with ONLY the candidate ID, nothing else."""
         """
         lines = []
 
-        # Add persona info
+        # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
-        lines.append(f"ID: {self.id}")
-        if self.features:
-            for key, value in self.features.items():
-                lines.append(f"{key}: {value}")
+        lines.append(self._format_full_identity())
         lines.append("")
 
         # Add current beliefs - MOST IMPORTANT
