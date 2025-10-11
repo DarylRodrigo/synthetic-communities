@@ -38,16 +38,7 @@ class Population:
     
     def add_persona(self, persona: Persona) -> None:
         self.personas.append(persona)
-    
-    def get_persona(self, persona_id: str) -> Optional[Persona]:
-        for persona in self.personas:
-            if persona.id == persona_id:
-                return persona
-        return None
-    
-    def get_all_personas(self) -> List[Persona]:
-        return self.personas
-    
+
     def size(self) -> int:
         return len(self.personas)
     
@@ -55,114 +46,61 @@ class Population:
         for persona in self.personas:
             persona.consume_debate_content(debate_transcript)
     
-    def update_beliefs(self, knowledge_category: str = "debate_knowledge") -> None:
-        for persona in self.personas:
-            persona.update_beliefs(knowledge_category)
-    
     def chat_with_peers(
         self,
         num_rounds_mean: int = 3,
         num_rounds_variance: int = 1
     ) -> List[Dict[str, Any]]:
         """
-        Orchestrate paired conversations between personas.
-
+        Synchronous wrapper for parallel chat orchestration.
+        
         Args:
             num_rounds_mean: Average number of message exchanges per pair
             num_rounds_variance: Variance in number of rounds (rounds will be mean ± variance)
-
+        
         Returns:
             List of conversation records
         """
-        import random
-
         logger.debug(f"Orchestrating peer chats: {len(self.personas)} personas, target {num_rounds_mean}±{num_rounds_variance} rounds")
-
-        # Create pairs
-        available_personas = self.personas.copy()
-        random.shuffle(available_personas)
-
-        pairs = []
-        for i in range(0, len(available_personas) - 1, 2):
-            pairs.append((available_personas[i], available_personas[i + 1]))
-
-        # If odd number, last persona doesn't chat this round
-        logger.info(f"Created {len(pairs)} conversation pairs from {len(available_personas)} personas")
-        all_conversations = []
-
-        # For each pair, orchestrate a conversation
-        for persona_a, persona_b in pairs:
-            # Determine number of rounds for this conversation
-            num_rounds = max(1, num_rounds_mean + random.randint(-num_rounds_variance, num_rounds_variance))
-
-            conversation_history = []
-
-            # Back and forth conversation
-            for round_num in range(num_rounds):
-                # Persona A's turn
-                message_a = persona_a.chat_with_peers(
-                    conversation_history,
-                    persona_b.id,
-                    persona_b.features.get('name', persona_b.id)
-                )
-                conversation_history.append({
-                    "speaker_id": persona_a.id,
-                    "message": message_a
-                })
-
-                # Persona B's turn
-                message_b = persona_b.chat_with_peers(
-                    conversation_history,
-                    persona_a.id,
-                    persona_a.features.get('name', persona_a.id)
-                )
-                conversation_history.append({
-                    "speaker_id": persona_b.id,
-                    "message": message_b
-                })
-
-            # Record the full conversation
-            conversation_record = {
-                "participants": [persona_a.id, persona_b.id],
-                "num_rounds": num_rounds,
-                "conversation": conversation_history
-            }
-            all_conversations.append(conversation_record)
-
-        return all_conversations
+        
+        # Get or create persistent event loop (same pattern as belief updates)
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run async version on persistent loop
+        conversations = loop.run_until_complete(
+            self.chat_with_peers_async(num_rounds_mean, num_rounds_variance)
+        )
+        
+        logger.info(f"Completed {len(conversations)} paired conversations")
+        return conversations
     
     def create_social_media_posts(self, post_probability: float = 0.07) -> List[Dict[str, Any]]:
-        """
-        Have personas create social media posts with a given probability.
-
-        Args:
-            post_probability: Probability (0.0-1.0) that each persona will post (default 7%)
-
-        Returns:
-            List of posts created (each post: {"persona_id": str, "content": str})
-        """
-        import random
-
+        """Synchronous wrapper for parallel social media post creation."""
         logger.debug(f"Creating social media posts: {len(self.personas)} personas, {int(post_probability*100)}% probability")
-
-        posts = []
-        existing_posts = []  # Accumulate posts as they're created
-        eligible_count = 0
-
-        for persona in self.personas:
-            # Random chance to post
-            if random.random() < post_probability:
-                eligible_count += 1
-                post_content = persona.create_social_media_post(existing_posts)
-                if post_content:
-                    post = {
-                        "persona_id": persona.id,
-                        "content": post_content
-                    }
-                    posts.append(post)
-                    existing_posts.append(post)  # Add to feed for next personas
-
-        logger.debug(f"Posts created: {len(posts)} from {eligible_count} eligible personas")
+        
+        # Get or create persistent event loop
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run async version on persistent loop
+        posts = loop.run_until_complete(
+            self.create_social_media_posts_async(post_probability)
+        )
+        
+        logger.info(f"Published {len(posts)} posts to social media")
         return posts
     
     def react_to_posts(
@@ -171,61 +109,47 @@ class Population:
         social_media_platform=None,
         reaction_probability: float = 0.4
     ) -> Dict[str, Any]:
-        """
-        Have personas react to social media posts with a given probability.
-
-        Args:
-            posts: List of posts to react to
-            social_media_platform: SocialMedia instance to record reactions
-            reaction_probability: Probability (0.0-1.0) that each persona will react to each post (default 40%)
-
-        Returns:
-            Dict with reaction statistics
-        """
-        import random
-
+        """Synchronous wrapper for parallel reactions to posts."""
         logger.debug(f"Processing reactions: {len(self.personas)} personas, {len(posts)} posts, {int(reaction_probability*100)}% probability")
-
-        total_reactions = 0
-        reactions_by_type = {"thumbs_up": 0, "thumbs_down": 0}
-
-        for persona in self.personas:
-            # Store all posts in social_media_knowledge
-            for post in posts:
-                # Don't store your own posts in knowledge
-                if post.get("persona_id") != persona.id:
-                    persona.social_media_knowledge.append(post)
-
-            # React to posts with probability
-            for post in posts:
-                # Random chance to react
-                if random.random() < reaction_probability:
-                    reaction = persona.react_to_post(post)
-                    if reaction and social_media_platform:
-                        # Record reaction in social media platform
-                        post_id = post.get("id")
-                        if post_id:
-                            social_media_platform.add_reaction(post_id, persona.id, reaction)
-                            total_reactions += 1
-                            reactions_by_type[reaction] = reactions_by_type.get(reaction, 0) + 1
-
-        return {
-            "total_reactions": total_reactions,
-            "thumbs_up": reactions_by_type["thumbs_up"],
-            "thumbs_down": reactions_by_type["thumbs_down"]
-        }
+        
+        # Get or create persistent event loop
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run async version on persistent loop
+        reaction_stats = loop.run_until_complete(
+            self.react_to_posts_async(posts, social_media_platform, reaction_probability)
+        )
+        
+        logger.info(f"Reactions: {reaction_stats['total_reactions']} total "
+                   f"({reaction_stats['thumbs_up']} 👍, {reaction_stats['thumbs_down']} 👎)")
+        return reaction_stats
     
     def conduct_vote(self, candidates: List[str]) -> Dict[str, int]:
+        """Synchronous wrapper for parallel voting."""
         logger.debug(f"Conducting vote: {len(self.personas)} personas, {len(candidates)} candidates")
-        votes = {}
-        for candidate in candidates:
-            votes[candidate] = 0
-
-        for persona in self.personas:
-            vote = persona.vote(candidates)
-            if vote in votes:
-                votes[vote] += 1
-
+        
+        # Get or create persistent event loop
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run async version on persistent loop
+        votes = loop.run_until_complete(
+            self.conduct_vote_async(candidates)
+        )
+        
         logger.info(f"Vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
         return votes
 
@@ -281,16 +205,24 @@ class Population:
             num_rounds = max(1, num_rounds_mean + random.randint(-num_rounds_variance, num_rounds_variance))
             conversation_history = []
 
-            for round_num in range(num_rounds):
+            for _ in range(num_rounds):
                 # Persona A's turn
-                message_a = await persona_a.chat_with_peers_async(conversation_history, persona_b.id)
+                message_a = await persona_a.chat_with_peers_async(
+                    conversation_history, 
+                    persona_b.id,
+                    persona_b.features.get('name', persona_b.id)
+                )
                 conversation_history.append({
                     "speaker_id": persona_a.id,
                     "message": message_a
                 })
 
                 # Persona B's turn
-                message_b = await persona_b.chat_with_peers_async(conversation_history, persona_a.id)
+                message_b = await persona_b.chat_with_peers_async(
+                    conversation_history, 
+                    persona_a.id,
+                    persona_a.features.get('name', persona_a.id)
+                )
                 conversation_history.append({
                     "speaker_id": persona_b.id,
                     "message": message_b
@@ -420,18 +352,91 @@ class Population:
         """
         logger.debug(f"Conducting parallel vote: {len(self.personas)} personas, {len(candidates)} candidates")
 
-        votes = {candidate: 0 for candidate in candidates}
+        vote_counts = {candidate: 0 for candidate in candidates}
 
         # Collect all votes in parallel
-        vote_results = await asyncio.gather(*[
+        individual_votes = await asyncio.gather(*[
             persona.vote_async(candidates)
             for persona in self.personas
         ])
 
         # Tally votes
-        for vote in vote_results:
-            if vote in votes:
-                votes[vote] += 1
+        for candidate_name in individual_votes:
+            if candidate_name in vote_counts:
+                vote_counts[candidate_name] += 1
 
-        logger.info(f"Parallel vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
+        logger.info(f"Parallel vote completed: {sum(vote_counts.values())} votes cast across {len(candidates)} candidates")
+        return vote_counts
+
+    def _run_parallel_belief_updates(self, personas: List[Persona], knowledge_category: str, max_concurrent: int = 20) -> None:
+        """Common async orchestration logic for parallel belief updates."""
+        logger.debug(f"Starting parallel belief updates for {knowledge_category} with {len(personas)} personas (max {max_concurrent} concurrent)")
+        
+        async def run_parallel():
+            semaphore = asyncio.Semaphore(max_concurrent)
+            
+            async def limited_update(persona):
+                async with semaphore:
+                    return await persona.update_beliefs_async(knowledge_category)
+            
+            tasks = [limited_update(persona) for persona in personas]
+            await asyncio.gather(*tasks)
+
+        # Get or create event loop and run async function
+        # This avoids creating/destroying event loops which breaks gRPC client
+        try:
+            loop = asyncio.get_running_loop()
+            # If we're already in an async context, create a task
+            raise RuntimeError("Already in async context - this shouldn't happen")
+        except RuntimeError:
+            # No running loop, so we need to get or create one
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_closed():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            # Run the async function on the persistent loop
+            loop.run_until_complete(run_parallel())
+        
+        logger.info(f"All personas updated beliefs from {knowledge_category} (parallel)")
+
+    def update_beliefs_from_debate(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on debate knowledge in parallel."""
+        self._run_parallel_belief_updates(self.personas, "debate_knowledge", max_concurrent)
+
+    def update_beliefs_from_chat(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on chat conversations in parallel."""
+        # Filter personas who have chats
+        personas_with_chats = [persona for persona in self.personas if persona.chats]
+        self._run_parallel_belief_updates(personas_with_chats, "chats", max_concurrent)
+
+    def update_beliefs_from_social_media(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on social media knowledge in parallel."""
+        # Filter personas who have social media knowledge
+        personas_with_social = [persona for persona in self.personas if persona.social_media_knowledge]
+        self._run_parallel_belief_updates(personas_with_social, "social_media_knowledge", max_concurrent)
+
+    def get_voting_data(self) -> List[Dict[str, Any]]:
+        """Get voting data for all personas for serialization."""
+        votes = []
+        for persona in self.personas:
+            persona_data = {
+                "id": persona.id,
+                "name": getattr(persona, 'name', persona.id),
+                "demographics": getattr(persona, 'features', {}),
+                "policy_positions": {},
+                "overall_vote": ""
+            }
+            # Add beliefs as policy positions with reasoning
+            if hasattr(persona, 'beliefs') and persona.beliefs:
+                for topic_id, belief in persona.beliefs.items():
+                    persona_data["policy_positions"][topic_id] = {
+                        "reasoning": belief,
+                        "vote": ""
+                    }
+            votes.append(persona_data)
         return votes
