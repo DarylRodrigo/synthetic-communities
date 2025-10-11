@@ -1,0 +1,120 @@
+```yaml
+world:
+  id: berlins-shadowed-canvas
+  description: In the heart of a rapidly transforming Berlin, the community navigates an atmosphere of oppressive conformity under the shadow of authoritarian rule. Underground, a hidden artistic community struggles to preserve freedom of expression amidst the fear and spectacle of the Third Reich.
+  time:
+    year: 1936
+    season: summer
+  place:
+    settlement: city
+    density_per_km2: 4000.0
+  regime:
+    type: authoritarian
+    media_freedom: 0.05
+    protest_tolerance: 0.01
+  demography:
+    population: 4300000
+    age:
+      median: 30.5
+      p65_plus: 0.08
+    education:
+      tertiary: 0.15
+    groups:
+      - name: "Germans"
+        share: 0.95
+      - name: "Jews"
+        share: 0.03
+      - name: "Roma"
+        share: 0.02
+  economy:
+    unemployment_rate: 0.05
+    industry_mix:
+      manufacturing: 0.35
+      services: 0.50
+      agriculture: 0.05
+      other: 0.10
+    gini: 0.48
+    cost_of_living_index: 120.0
+    shock_sensitivity:
+      commodity_price: 0.2
+  history:
+    narratives:
+      - "The rise of National Socialism and its impact on German society."
+      - "The suppression of political opposition and artistic expression."
+      - "The persecution of minority groups."
+    recent_events:
+      - date: "1933-01-30"
+        name: "Hitler appointed Chancellor"
+        valence: -1.0
+        cohorts: ["Germans"]
+      - date: "1935-09-15"
+        name: "Nuremberg Laws enacted"
+        valence: -1.0
+        cohorts: ["Jews", "Roma"]
+      - date: "1936-08-01"
+        name: "Berlin Olympics"
+        valence: 0.1
+        cohorts: ["Germans"]
+  culture:
+    tight_loose: 0.9
+    religiosity: 0.55
+    moral_foundations:
+      care: 0.6
+      fairness: 0.4
+      loyalty: 0.8
+      authority: 0.9
+      sanctity: 0.7
+      liberty: 0.2
+  social_capital:
+    interpersonal_trust: 0.3
+    institutional_trust:
+      local_gov: 0.2
+      national_gov: 0.1
+      media: 0.15
+    associations_density: 0.1
+    polarization: 0.8
+  information_ecosystem:
+    outlets:
+      - "Völkischer Beobachter"
+      - "Der Stürmer"
+      - "Ufa-Film"
+    platform_mix:
+      radio: 0.8
+      tv: 0.1
+      newspaper: 0.7
+      social_app: 0.0
+    echo_chamber_strength: 0.9
+    bot_rate: 0.01
+  networks:
+    topology:
+      type: SBM
+      communities: 4
+      intra_p: 0.8
+      inter_p: 0.2
+    assortativity:
+      by_class: 0.8
+      by_partisanship: 0.9
+  security:
+    surveillance: 0.9
+    intimidation_risk: 0.8
+  policy_env:
+    union_rights: 0.0
+    welfare_generosity: 0.1
+    speech_regulation: 0.05
+  mood:
+    baseline_affect:
+      anxiety: 0.7
+      anger: 0.5
+      hope: 0.1
+  exogenous_timeline:
+    - date: "1936-08-01"
+      name: "Berlin Olympics"
+      intensity: 0.8
+      valence: 0.2
+      target: "Germans"
+    - date: "1936-11-01"
+      name: "Propaganda Campaign Intensifies"
+      intensity: 0.9
+      valence: -0.7
+      target: "All"
+```
