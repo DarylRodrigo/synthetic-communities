@@ -181,22 +181,22 @@ class Persona:
         # Create prompt for LLM
         prompt = f"""You are updating the beliefs of a person based on new information they have received.
 
-{context}
+        {context}
 
-Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
+        Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
 
-Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
+        Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
 
-Example format:
-{{
-    "healthcare": "I believe in universal healthcare coverage",
-    "economy": "I support progressive taxation",
-    "climate": "Climate change requires immediate action"
-}}
+        Example format:
+        {{
+            "healthcare": "I believe in universal healthcare coverage",
+            "economy": "I support progressive taxation",
+            "climate": "Climate change requires immediate action"
+        }}
 
-If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
+        If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
 
-Return ONLY the JSON object, no additional text."""
+        Return ONLY the JSON object, no additional text."""
 
         system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change."
 
@@ -731,14 +731,6 @@ Respond with ONLY the candidate ID, nothing else."""
                 lines.append(f"  [{post.get('likes', 0)} 👍 / {post.get('dislikes', 0)} 👎]")
         else:
             lines.append("(No social media seen)")
-        lines.append("")
-
-        # Add knowledge summary
-        lines.append("=== YOUR EXPERIENCE SUMMARY ===")
-        lines.append(f"Debates watched: {len(self.debate_knowledge)}")
-        lines.append(f"Conversations: {len(self.chats)}")
-        lines.append(f"Social media posts seen: {len(self.social_media_knowledge)}")
-        lines.append(f"Posts you made: {len(self.posts)}")
         lines.append("")
 
         lines.append("=== CANDIDATES ===")

@@ -38,16 +38,7 @@ class Population:
     
     def add_persona(self, persona: Persona) -> None:
         self.personas.append(persona)
-    
-    def get_persona(self, persona_id: str) -> Optional[Persona]:
-        for persona in self.personas:
-            if persona.id == persona_id:
-                return persona
-        return None
-    
-    def get_all_personas(self) -> List[Persona]:
-        return self.personas
-    
+
     def size(self) -> int:
         return len(self.personas)
     
@@ -434,4 +425,45 @@ class Population:
                 votes[vote] += 1
 
         logger.info(f"Parallel vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
+        return votes
+
+    def update_beliefs_from_debate(self) -> None:
+        """Update all personas' beliefs based on debate knowledge."""
+        for persona in self.personas:
+            persona.update_beliefs(knowledge_category="debate_knowledge")
+        logger.info("All personas updated beliefs from debate")
+
+    def update_beliefs_from_chat(self) -> None:
+        """Update all personas' beliefs based on chat conversations."""
+        for persona in self.personas:
+            if persona.chats:  # Only update if they chatted
+                persona.update_beliefs(knowledge_category="chats")
+        logger.info("All personas updated beliefs from chats")
+
+    def update_beliefs_from_social_media(self) -> None:
+        """Update all personas' beliefs based on social media knowledge."""
+        for persona in self.personas:
+            if persona.social_media_knowledge:  # Only update if they've seen posts
+                persona.update_beliefs(knowledge_category="social_media_knowledge")
+        logger.info("All personas updated beliefs from social media")
+
+    def get_voting_data(self) -> List[Dict[str, Any]]:
+        """Get voting data for all personas for serialization."""
+        votes = []
+        for persona in self.personas:
+            persona_data = {
+                "id": persona.id,
+                "name": getattr(persona, 'name', persona.id),
+                "demographics": getattr(persona, 'features', {}),
+                "policy_positions": {},
+                "overall_vote": ""
+            }
+            # Add beliefs as policy positions with reasoning
+            if hasattr(persona, 'beliefs') and persona.beliefs:
+                for topic_id, belief in persona.beliefs.items():
+                    persona_data["policy_positions"][topic_id] = {
+                        "reasoning": belief,
+                        "vote": ""
+                    }
+            votes.append(persona_data)
         return votes
