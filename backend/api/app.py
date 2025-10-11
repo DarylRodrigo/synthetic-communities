@@ -18,6 +18,14 @@ def get_epochs_file_path(simulation_id):
     return file_path
 
 
+def get_metadata_file_path(simulation_id):
+    """Get the path to the metadata.json file for a given simulation ID."""
+    file_path = os.path.join(SIMULATION_DATA_PATH, simulation_id, 'metadata.json')
+    if not os.path.exists(file_path):
+        abort(404, description=f"Metadata for simulation {simulation_id} not found")
+    return file_path
+
+
 def count_epochs(file_path):
     """Count the total number of lines in the JSONL file."""
     with open(file_path, 'r') as f:
@@ -33,7 +41,23 @@ def get_epoch_by_number(file_path, epoch_number):
     return None
 
 
-@app.route('/api/simulation/<simulation_id>/epoch', methods=['GET'])
+@app.route('/api/simulation/<simulation_id>/metadata', methods=['GET'])
+def get_metadata(simulation_id):
+    """
+    Get the metadata for a simulation.
+
+    Returns:
+        JSON object containing simulation metadata (config, topics, candidates, population)
+    """
+    file_path = get_metadata_file_path(simulation_id)
+
+    with open(file_path, 'r') as f:
+        metadata = json.load(f)
+
+    return jsonify(metadata)
+
+
+@app.route('/api/simulation/<simulation_id>/epoch_count', methods=['GET'])
 def get_epoch_count(simulation_id):
     """
     Get the total number of epochs for a simulation.
