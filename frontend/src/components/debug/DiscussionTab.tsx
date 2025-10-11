@@ -1,88 +1,31 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { fetchDiscussionData, DiscussionMessage } from '@/lib/data';
+import { useState } from 'react';
+import { useRawData } from '@/lib/DataStore';
 
 export default function DiscussionTab() {
-    const [messages, setMessages] = useState<DiscussionMessage[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [newMessage, setNewMessage] = useState('');
-    const [currentPage, setCurrentPage] = useState(1);
-    const messagesPerPage = 10;
+    const epochData = useRawData();
+    const [expandedDebates, setExpandedDebates] = useState<Set<number>>(new Set([0])); // First debate expanded by default
 
-    useEffect(() => {
-        loadMessages();
-    }, []);
-
-    const loadMessages = async () => {
-        setLoading(true);
-        try {
-            const data = await fetchDiscussionData();
-            setMessages(data);
-        } catch (error) {
-            console.error('Failed to load discussion messages:', error);
-        } finally {
-            setLoading(false);
+    const toggleDebate = (debateIndex: number) => {
+        const newExpanded = new Set(expandedDebates);
+        if (newExpanded.has(debateIndex)) {
+            newExpanded.delete(debateIndex);
+        } else {
+            newExpanded.add(debateIndex);
         }
+        setExpandedDebates(newExpanded);
     };
 
-    const handleSendMessage = () => {
-        if (newMessage.trim()) {
-            const message: DiscussionMessage = {
-                id: Date.now().toString(),
-                author: 'You',
-                content: newMessage,
-                timestamp: new Date().toISOString(),
-                reactions: []
-            };
-            setMessages(prev => [message, ...prev]);
-            setNewMessage('');
-        }
-    };
-
-    const handleReaction = (messageId: string, emoji: string) => {
-        setMessages(prev => prev.map(msg => {
-            if (msg.id === messageId) {
-                const existingReaction = msg.reactions.find(r => r.emoji === emoji);
-                if (existingReaction) {
-                    return {
-                        ...msg,
-                        reactions: msg.reactions.map(r => 
-                            r.emoji === emoji 
-                                ? { ...r, count: r.count + 1 }
-                                : r
-                        )
-                    };
-                } else {
-                    return {
-                        ...msg,
-                        reactions: [...msg.reactions, { emoji, count: 1 }]
-                    };
-                }
-            }
-            return msg;
-        }));
-    };
-
-    const formatTimestamp = (timestamp: string) => {
-        return new Date(timestamp).toLocaleString();
-    };
-
-    const totalPages = Math.ceil(messages.length / messagesPerPage);
-    const startIndex = (currentPage - 1) * messagesPerPage;
-    const endIndex = startIndex + messagesPerPage;
-    const currentMessages = messages.slice(startIndex, endIndex);
-
-    if (loading) {
+    if (!epochData || !epochData.debates) {
         return (
-            <div className="bg-white rounded-lg shadow p-6">
-                <div className="animate-pulse">
-                    <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
-                    <div className="space-y-3">
-                        {[...Array(5)].map((_, i) => (
-                            <div key={i} className="h-16 bg-gray-200 rounded"></div>
-                        ))}
-                    </div>
+            <div className="bg-white rounded-lg shadow">
+                <div className="p-6 border-b border-gray-200">
+                    <h2 className="text-xl font-semibold text-gray-900">Community Discussion</h2>
+                    <p className="text-sm text-gray-600 mt-1">Loading debate data...</p>
+                </div>
+                <div className="p-6">
+                    <p className="text-gray-500">No debate data available</p>
                 </div>
             </div>
         );
@@ -92,93 +35,102 @@ export default function DiscussionTab() {
         <div className="bg-white rounded-lg shadow">
             <div className="p-6 border-b border-gray-200">
                 <h2 className="text-xl font-semibold text-gray-900">Community Discussion</h2>
-                <p className="text-sm text-gray-600 mt-1">Real-time community conversations and interactions</p>
+                <p className="text-sm text-gray-600 mt-1">Debate topics and candidate statements</p>
             </div>
 
-            {/* Messages */}
-            <div className="h-96 overflow-y-auto p-6 space-y-4">
-                {currentMessages.map((message) => (
-                    <div key={message.id} className="border-b border-gray-100 pb-4 last:border-b-0">
-                        <div className="flex justify-between items-start mb-2">
-                            <div className="flex items-center space-x-2">
-                                <span className="font-medium text-gray-900">{message.author}</span>
-                                <span className="text-xs text-gray-500">{formatTimestamp(message.timestamp)}</span>
+            <div className="h-[70vh] overflow-y-auto p-6 space-y-4">
+                {epochData.debates.map((debate, debateIndex) => {
+                    const isExpanded = expandedDebates.has(debateIndex);
+                    const candidateNames = [...new Set(debate.statements
+                        .filter(s => s.type === 'candidate')
+                        .map(s => s.candidate_name)
+                        .filter(Boolean))];
+
+                    return (
+                        <div key={debateIndex} className="border border-gray-200 rounded-lg">
+                            {/* Topic Header - Always Visible */}
+                            <div
+                                className="p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors"
+                                onClick={() => toggleDebate(debateIndex)}
+                            >
+                                <div className="flex items-center justify-between">
+                                    <div className="flex-1">
+                                        <h3 className="text-lg font-semibold text-gray-900">
+                                            {debate.topic.title}
+                                        </h3>
+                                        <p className="text-sm text-gray-600 mt-1">
+                                            {debate.topic.description}
+                                        </p>
+                                    </div>
+                                    <div className="ml-4">
+                                        <svg
+                                            className={`w-5 h-5 text-gray-500 transform transition-transform ${isExpanded ? 'rotate-180' : ''
+                                                }`}
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <p className="text-gray-700 mb-3">{message.content}</p>
-                        
-                        {/* Reactions */}
-                        <div className="flex items-center space-x-2">
-                            {message.reactions.map((reaction, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleReaction(message.id, reaction.emoji)}
-                                    className="flex items-center space-x-1 px-2 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                                >
-                                    <span>{reaction.emoji}</span>
-                                    <span className="text-xs text-gray-600">{reaction.count}</span>
-                                </button>
-                            ))}
-                            <button
-                                onClick={() => handleReaction(message.id, '👍')}
-                                className="px-2 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors text-sm"
-                            >
-                                + Add Reaction
-                            </button>
-                        </div>
-                    </div>
-                ))}
-            </div>
 
-            {/* Message Input */}
-            <div className="p-6 border-t border-gray-200">
-                <div className="flex space-x-3">
-                    <input
-                        type="text"
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                        placeholder="Type your message..."
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
-                    <button
-                        onClick={handleSendMessage}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                        Send
-                    </button>
-                </div>
-            </div>
+                            {/* Debate Statements - Collapsible */}
+                            {isExpanded && (
+                                <div className="p-4 space-y-3">
+                                    {debate.statements.map((statement, statementIndex) => {
+                                        const isModerator = statement.type === 'mediator';
+                                        const isCandidate1 = statement.candidate_name === candidateNames[0];
+                                        const isCandidate2 = statement.candidate_name === candidateNames[1];
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-                <div className="px-6 py-4 border-t border-gray-200">
-                    <div className="flex items-center justify-between">
-                        <div className="text-sm text-gray-700">
-                            Showing {startIndex + 1} to {Math.min(endIndex, messages.length)} of {messages.length} messages
+                                        // Determine styling based on speaker
+                                        let alignmentClass = 'justify-start';
+                                        let bubbleClass = 'bg-gray-100 text-gray-900 rounded-bl-md';
+                                        let textColor = 'text-gray-800';
+                                        let authorColor = 'text-gray-600';
+
+                                        if (isModerator) {
+                                            alignmentClass = 'justify-center';
+                                            bubbleClass = 'bg-green-50 text-gray-900 rounded-md border border-green-200';
+                                            textColor = 'text-gray-800';
+                                            authorColor = 'text-green-700';
+                                        } else if (isCandidate1) {
+                                            alignmentClass = 'justify-start';
+                                            bubbleClass = 'bg-blue-50 text-gray-900 rounded-bl-md border border-blue-200';
+                                            textColor = 'text-gray-800';
+                                            authorColor = 'text-blue-700';
+                                        } else if (isCandidate2) {
+                                            alignmentClass = 'justify-end';
+                                            bubbleClass = 'bg-red-50 text-gray-900 rounded-br-md border border-red-200';
+                                            textColor = 'text-gray-800';
+                                            authorColor = 'text-red-700';
+                                        }
+
+                                        return (
+                                            <div key={statementIndex} className={`flex ${alignmentClass}`}>
+                                                <div className={`max-w-2xl px-4 py-3 rounded-2xl ${bubbleClass}`}>
+                                                    <div className="flex items-center space-x-2 mb-2">
+                                                        <span className={`text-sm font-medium ${authorColor}`}>
+                                                            {statement.candidate_name || 'Moderator'}
+                                                        </span>
+                                                        <span className="text-xs text-gray-500">
+                                                            {statement.type === 'mediator' ? 'Moderator' : 'Candidate'}
+                                                        </span>
+                                                    </div>
+                                                    <p className={`text-sm ${textColor} leading-relaxed`}>
+                                                        {statement.statement}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
                         </div>
-                        <div className="flex space-x-2">
-                            <button
-                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                                disabled={currentPage === 1}
-                                className="px-3 py-1 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                            >
-                                Previous
-                            </button>
-                            <span className="px-3 py-1 text-sm text-gray-700">
-                                Page {currentPage} of {totalPages}
-                            </span>
-                            <button
-                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                                disabled={currentPage === totalPages}
-                                className="px-3 py-1 text-sm border border-gray-300 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
-                            >
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+                    );
+                })}
+            </div>
         </div>
     );
 }

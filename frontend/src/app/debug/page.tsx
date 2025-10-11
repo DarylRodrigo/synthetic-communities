@@ -1,22 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import { DataStoreProvider, useDataStore, useDataLoading } from '@/lib/DataStore';
 import DiscussionTab from '@/components/debug/DiscussionTab';
 import NewsFeedTab from '@/components/debug/NewsFeedTab';
 import CandidatePersonasTab from '@/components/debug/CandidatePersonasTab';
 import AudiencePersonasTab from '@/components/debug/AudiencePersonasTab';
-import ConnectionsTab from '@/components/debug/ConnectionsTab';
+import VotesTab from '@/components/debug/VotesTab';
 
 const tabs = [
     { id: 'discussion', name: 'Discussion', component: DiscussionTab },
     { id: 'news', name: 'News Feed', component: NewsFeedTab },
     { id: 'candidates', name: 'Candidate Personas', component: CandidatePersonasTab },
     { id: 'audience', name: 'Audience Personas', component: AudiencePersonasTab },
-    { id: 'connections', name: 'Connections', component: ConnectionsTab },
+    { id: 'votes', name: 'Votes', component: VotesTab },
 ];
 
-export default function DebugPage() {
+function DebugPageContent() {
     const [activeTab, setActiveTab] = useState('discussion');
+    const { refreshData } = useDataStore();
+    const { loading, error } = useDataLoading();
 
     const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || DiscussionTab;
 
@@ -25,12 +28,28 @@ export default function DebugPage() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="py-8">
                     <div className="text-center">
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                            Debug Dashboard
-                        </h1>
-                        <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Monitor and analyze synthetic community data, interactions, and performance.
-                        </p>
+
+                        {/* Data Status and Refresh */}
+                        <div className="mt-6 flex flex-col items-center space-y-4">
+                            <button
+                                onClick={refreshData}
+                                disabled={loading}
+                                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            >
+                                {loading ? 'Loading...' : 'Refresh Data'}
+                            </button>
+                            {error && (
+                                <div className="bg-red-50 border border-red-200 rounded-md p-4 max-w-md">
+                                    <div className="flex items-center">
+                                        <div className="text-red-400 mr-2">❌</div>
+                                        <div className="text-red-800">
+                                            <div className="font-semibold">Data Loading Error</div>
+                                            <div className="text-sm mt-1">{error}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* Tab Navigation */}
@@ -55,10 +74,28 @@ export default function DebugPage() {
 
                     {/* Tab Content */}
                     <div className="mt-8">
-                        <ActiveComponent />
+                        {loading ? (
+                            <div className="bg-white rounded-lg shadow p-8">
+                                <div className="text-center">
+                                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                                    <div className="text-lg font-medium text-gray-900">Loading data...</div>
+                                    <div className="text-sm text-gray-600 mt-2">Please wait while we fetch the latest data</div>
+                                </div>
+                            </div>
+                        ) : (
+                            <ActiveComponent />
+                        )}
                     </div>
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function DebugPage() {
+    return (
+        <DataStoreProvider>
+            <DebugPageContent />
+        </DataStoreProvider>
     );
 }
