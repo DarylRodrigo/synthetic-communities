@@ -14,7 +14,7 @@ def generate_response(
     prompt: str,
     system_instruction: str,
     temperature: float = 1.0,
-    max_output_tokens: int = 500
+    max_output_tokens: int = 8000
 ) -> str:
     """Generate LLM response with system instruction."""
     model = client.GenerativeModel(

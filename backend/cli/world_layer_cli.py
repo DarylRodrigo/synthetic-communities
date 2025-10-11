@@ -61,14 +61,16 @@ class WorldBuilderCLI:
 
     @staticmethod
     def prompt_world_suggestion(seed: str) -> str:
-        return f"""You are a scenario designer. Propose a short, evocative scenario name and 1–2 sentence synopsis from this seed:
+        return f"""You are a scenario designer. Propose a short, evocative scenario name and 1–2 sentence synopsis from this seed.
+Focus on the PLACE, COMMUNITY, and CONTEXT that will ground this world - not on specific individuals or candidates.
+Keep the description NEUTRAL and OBSERVATIONAL - describe what exists, not what should be.
 
 Seed:
 \"\"\"{seed}\"\"\"
 
 Respond as strict JSON with keys:
-- name: short scenario name (e.g., "Rustbelt Autumn, 2009")
-- synopsis: one or two sentences.
+- name: short scenario name focusing on place/time/context (e.g., "Rustbelt Autumn, 2009", "Jakarta's Northern Coast, 2018")
+- synopsis: one or two sentences describing the community, place, and civic atmosphere in neutral, factual terms.
 """
 
     @staticmethod
@@ -147,29 +149,35 @@ Guidance:
 
     @staticmethod
     def prompt_story_md(seed: str, scenario_name: str, synopsis: str, world_yaml_excerpt: str) -> str:
-        return f"""Write a concise `story.md` that sets tone, POV, key NPCs, and first-week event beats
-for the simulation world below. Keep it 300–600 words. Use sections:
+        return f"""Write a concise `story.md` that establishes the PLACE, COMMUNITY, and ATMOSPHERE of this simulation world.
+This will serve as the foundation for generating diverse community members with varied perspectives later.
+
+CRITICAL: Keep the narrative NEUTRAL and OBSERVATIONAL. Describe the setting, structures, and conditions WITHOUT:
+- Taking moral or political positions
+- Favoring any particular group, ideology, or viewpoint
+- Implying what is "good" or "bad", "right" or "wrong"
+- Prescribing solutions or expressing judgment
+Instead, describe what EXISTS - the landscape, institutions, groups, tensions - like a neutral ethnographer.
+
+Keep it 300–600 words. Use sections:
 
 # {scenario_name}
 *Logline:* {synopsis}
 
-## Opening Scene
-[1–2 paragraphs, mood + sensory detail.]
+## The Place
+[1–2 paragraphs describing the physical setting, sensory details, landmarks, and atmosphere. What does this place feel like? Be descriptive but neutral.]
 
-## Key Figures
-- **Mediator’s voice**: [tone cues]
-- **Candidate A**: [goals, flaws, style]
-- **Candidate B**: [goals, flaws, style]
-- **Civic Anchors**: [local paper, union leader, pastor, influencer]
+## The Community
+[Describe the social fabric: key demographic groups (mention diverse perspectives), social divisions, shared spaces (markets, squares, cafes, churches, community centers), and how people interact. What are the networks and gathering places? Present all groups neutrally.]
 
-## Motifs & Taboos
-[Symbols, phrases, red lines shaped by the regime/culture.]
+## Civic Infrastructure
+[Key institutions and their reputations across different community segments: local media outlets, civic organizations, religious institutions, unions, businesses, government offices. Note that different groups may view these differently. These will shape how information flows and community members connect.]
 
-## Week One Beats
-- Day 1: ...
-- Day 3: ...
-- Day 5: ...
-- Day 7: ...
+## Cultural Touchstones
+[Symbols, shared memories, local phrases, holidays, taboos, and values shaped by the regime/culture. What matters to people here? Present multiple value systems if they exist in the community.]
+
+## Current Tensions
+[What pressures or questions are simmering in this community right now? What recent events or changes have people talking? Present tensions from multiple angles without favoring any position. Keep this open-ended - not about specific candidates.]
 
 Ground the narrative in this world config (excerpt):
 
@@ -182,11 +190,20 @@ Only return the markdown content (no backticks outside the excerpt, no extra com
     def ask_json(self, user_prompt: str) -> dict:
         sys_inst = "You are a careful tool. Only return strict JSON. No prose."
         raw = llm_client.generate_response(self.client, user_prompt, sys_inst).strip()
+
+        # Strip markdown code fences if present
+        if raw.startswith("```"):
+            # Remove opening fence (```json or just ```)
+            raw = re.sub(r"^```(?:json)?\s*\n", "", raw)
+            # Remove closing fence
+            raw = re.sub(r"\n```\s*$", "", raw)
+            raw = raw.strip()
+
         try:
             return json.loads(raw)
         except json.JSONDecodeError:
             # Try to extract JSON blob if model added extra text
-            m = re.search(r"\{.*\}\s*$", raw, re.DOTALL)
+            m = re.search(r"\{.*\}", raw, re.DOTALL)
             if m:
                 return json.loads(m.group(0))
             raise
