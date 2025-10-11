@@ -141,6 +141,7 @@ class GameEngine:
                 all_statements.extend(turn_statements)
                 logger.info(f"Turn {turn + 1}/{self.config.turns_per_question} completed with {len(turn_statements)} statements")
 
+
             # Step 4: Publish transcript for this question
             transcript = self.mediator.publish_debate_transcript(
                 all_statements=all_statements,
@@ -151,6 +152,10 @@ class GameEngine:
                 question_index=question_index
             )
             self.debate_transcripts.append(transcript)
+
+
+            for candidate in self.candidates:
+                candidate.reflect_on_debate(question, transcript)
 
             logger.info(f"Question debate complete. Transcript published (total statements: {len(all_statements)})")
     
