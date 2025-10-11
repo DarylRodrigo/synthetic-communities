@@ -1,10 +1,11 @@
 // @ts-nocheck
 'use client';
 
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { OrbitControls, Box, Sphere, Torus, Environment, Html, Billboard } from '@react-three/drei';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 interface ThreeSceneProps {
     className?: string;
@@ -140,10 +141,187 @@ function SpeechBubble({ position, children, visible }: { position: [number, numb
     );
 }
 
+// AnimatedCharacter component to load and display FBX models with separate animation files
+function AnimatedCharacter({
+    characterFile,
+    animationFile,
+    position = [0, 0, 0],
+    scale = [1, 1, 1],
+    isHovered = false,
+    onPointerOver,
+    onPointerOut
+}: {
+    characterFile: string,
+    animationFile: string,
+    position?: [number, number, number],
+    scale?: [number, number, number],
+    isHovered?: boolean,
+    onPointerOver?: () => void,
+    onPointerOut?: () => void
+}) {
+    const groupRef = useRef<THREE.Group>(null);
+    const mixerRef = useRef<THREE.AnimationMixer | null>(null);
+    const actionRef = useRef<THREE.AnimationAction | null>(null);
+    const [model, setModel] = useState<THREE.Group | null>(null);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const [adjustedPosition, setAdjustedPosition] = useState<[number, number, number]>(position);
+    const [adjustedScale, setAdjustedScale] = useState<[number, number, number]>(scale);
+
+    // Function to calculate bounding box and adjust position/scale
+    const adjustCharacterPosition = (loadedModel: THREE.Group) => {
+        const box = new THREE.Box3().setFromObject(loadedModel);
+        const size = box.getSize(new THREE.Vector3());
+        const center = box.getCenter(new THREE.Vector3());
+        const min = box.min;
+        const max = box.max;
+
+        // Calculate scale to make character approximately 2 units tall
+        const targetHeight = 2;
+        const currentHeight = size.y;
+        const scaleFactor = targetHeight / currentHeight;
+        const newScale: [number, number, number] = [scaleFactor, scaleFactor, scaleFactor];
+
+        // Calculate position to place feet on ground (y = 0)
+        // The bottom of the bounding box should be at y = 0
+        const bottomY = min.y * scaleFactor;
+        const newY = position[1] - bottomY; // Move up by the distance from origin to bottom
+
+        const newPosition: [number, number, number] = [position[0], newY, position[2]];
+
+        console.log(`${characterFile} - Original size:`, size);
+        console.log(`${characterFile} - Min Y:`, min.y, 'Max Y:', max.y);
+        console.log(`${characterFile} - Scale factor:`, scaleFactor);
+        console.log(`${characterFile} - Bottom Y after scale:`, bottomY);
+        console.log(`${characterFile} - New position:`, newPosition);
+
+        setAdjustedScale(newScale);
+        setAdjustedPosition(newPosition);
+    };
+
+    // Animation loop
+    useFrame((state, delta) => {
+        if (mixerRef.current) {
+            mixerRef.current.update(delta);
+        }
+    });
+
+    useEffect(() => {
+        // Load character and animation files
+        const loadModel = async () => {
+            try {
+                const loader = new FBXLoader();
+
+                // Load character model
+                const loadedModel = await new Promise<THREE.Group>((resolve, reject) => {
+                    loader.load(
+                        `/characters/${characterFile}`,
+                        resolve,
+                        undefined,
+                        reject
+                    );
+                });
+
+                // Load animation file
+                const animationModel = await new Promise<THREE.Group>((resolve, reject) => {
+                    loader.load(
+                        `/characters/${animationFile}`,
+                        resolve,
+                        undefined,
+                        reject
+                    );
+                });
+
+                // Set up animations from the animation file
+                if (animationModel.animations && animationModel.animations.length > 0) {
+                    mixerRef.current = new THREE.AnimationMixer(loadedModel);
+                    actionRef.current = mixerRef.current.clipAction(animationModel.animations[0]);
+                    actionRef.current.setLoop(THREE.LoopOnce, 1); // Play once
+                    actionRef.current.clampWhenFinished = true; // Stay in final pose
+
+                    // Try to exclude root bone translation to prevent going underground
+                    const clip = animationModel.animations[0];
+                    if (clip.tracks) {
+                        // Filter out position tracks for root bone to prevent vertical movement
+                        clip.tracks = clip.tracks.filter(track => {
+                            // Keep rotation and scale tracks, but exclude position tracks for root
+                            return !(track.name.includes('.position') &&
+                                (track.name.includes('mixamorigHips') ||
+                                    track.name.includes('Hips') ||
+                                    track.name.includes('root')));
+                        });
+                    }
+                }
+
+                // Apply shadow properties to character
+                loadedModel.traverse((child) => {
+                    if (child instanceof THREE.Mesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                    }
+                });
+
+                // Adjust position and scale to ensure feet touch ground
+                adjustCharacterPosition(loadedModel);
+
+                setModel(loadedModel);
+            } catch (error) {
+                console.error(`Failed to load character ${characterFile}:`, error);
+                // Create a fallback geometry
+                const fallbackGroup = new THREE.Group();
+                const geometry = new THREE.ConeGeometry(0.5, 2, 8);
+                const material = new THREE.MeshStandardMaterial({ color: '#ff6b6b' });
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                fallbackGroup.add(mesh);
+                setModel(fallbackGroup);
+            }
+        };
+
+        loadModel();
+    }, [characterFile, animationFile]);
+
+    // Handle hover animation
+    useEffect(() => {
+        if (isHovered && actionRef.current && !isAnimating) {
+            setIsAnimating(true);
+            actionRef.current.reset();
+            actionRef.current.play();
+
+            // Reset animation state when finished
+            const duration = actionRef.current.getClip().duration * 1000; // Convert to ms
+            setTimeout(() => {
+                setIsAnimating(false);
+            }, duration);
+        }
+    }, [isHovered, isAnimating]);
+
+    if (!model) {
+        return null; // Don't render anything while loading
+    }
+
+    return (
+        <group
+            ref={groupRef}
+            position={adjustedPosition}
+            scale={adjustedScale}
+            onPointerOver={onPointerOver}
+            onPointerOut={onPointerOut}
+        >
+            {/* Wrapper group to maintain ground position during animation */}
+            <group position={[0, 0, 0]}>
+                <primitive object={model} />
+            </group>
+        </group>
+    );
+}
+
 export default function ThreeScene({ className = '' }: ThreeSceneProps) {
     const [hovered, setHovered] = useState<string | null>(null);
     const [clicked, setClicked] = useState<string | null>(null);
     const [hoveredPosition, setHoveredPosition] = useState<[number, number, number] | null>(null);
+    const [remyHovered, setRemyHovered] = useState(false);
+    const [claireHovered, setClaireHovered] = useState(false);
 
     const handleClick = (name: string) => {
         setClicked(clicked === name ? null : name);
@@ -157,6 +335,22 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
     const handlePointerOut = () => {
         setHovered(null);
         setHoveredPosition(null);
+    };
+
+    const handleRemyPointerOver = () => {
+        setRemyHovered(true);
+    };
+
+    const handleRemyPointerOut = () => {
+        setRemyHovered(false);
+    };
+
+    const handleClairePointerOver = () => {
+        setClaireHovered(true);
+    };
+
+    const handleClairePointerOut = () => {
+        setClaireHovered(false);
     };
 
     return (
@@ -215,6 +409,28 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                         />
                     </Sphere>
                 ))}
+
+                {/* Remy Character Model */}
+                <AnimatedCharacter
+                    characterFile="Remy.fbx"
+                    animationFile="Angry.fbx"
+                    position={[12, 0, 0]}
+                    scale={[1, 1, 1]} // Will be automatically adjusted
+                    isHovered={remyHovered}
+                    onPointerOver={handleRemyPointerOver}
+                    onPointerOut={handleRemyPointerOut}
+                />
+
+                {/* Claire Character Model */}
+                <AnimatedCharacter
+                    characterFile="claire.fbx"
+                    animationFile="Standing Greeting.fbx"
+                    position={[12, 0, 3]}
+                    scale={[1, 1, 1]} // Will be automatically adjusted
+                    isHovered={claireHovered}
+                    onPointerOver={handleClairePointerOver}
+                    onPointerOut={handleClairePointerOut}
+                />
 
                 {/* Ground plane */}
                 <Box
