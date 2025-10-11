@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { getCityCounts } from '../utils/dataLoader';
+import { getCityCounts, getDatasetLocation } from '../utils/dataLoader';
 import { geocodeCities } from '../utils/geocoding';
 
 export default function GeographicTab({ personas }) {
@@ -10,45 +10,87 @@ export default function GeographicTab({ personas }) {
   const [topN, setTopN] = useState(20);
   const [progress, setProgress] = useState({ current: 0, total: 0 });
 
-  useEffect(() => {
-    async function loadGeoData() {
-      setLoading(true);
-      setProgress({ current: 0, total: 0 });
-      
-      const cityCounts = getCityCounts(personas);
-      
-      // Sort by count and take top N cities
-      const sortedCities = Object.entries(cityCounts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, topN);
-      
-      const topCitiesObj = Object.fromEntries(sortedCities);
-      
-      setProgress({ current: 0, total: sortedCities.length });
-      
-      const geocoded = await geocodeCities(topCitiesObj, (current, total) => {
+  // Memoize city counts to avoid recalculating on every render
+  const cityCounts = useMemo(() => {
+    return getCityCounts(personas);
+  }, [personas]);
+
+  // Memoize top cities to avoid recalculating on every render
+  const topCities = useMemo(() => {
+    const sortedCities = Object.entries(cityCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, topN);
+
+    return Object.fromEntries(sortedCities);
+  }, [cityCounts, topN]);
+
+  // Detect the primary location/country from the dataset
+  const datasetLocation = useMemo(() => {
+    return getDatasetLocation(personas);
+  }, [personas]);
+
+  // Map center coordinates based on detected location
+  const mapCenter = useMemo(() => {
+    const centers = {
+      'CH': [46.8182, 8.2275], // Switzerland
+      'DE': [51.1657, 10.4515], // Germany
+      'FR': [46.2276, 2.2137],  // France
+      'IT': [41.8719, 12.5674], // Italy
+      'AT': [47.5162, 14.5501]  // Austria
+    };
+    return centers[datasetLocation] || [46.8182, 8.2275]; // Default to Switzerland
+  }, [datasetLocation]);
+
+  const loadGeoData = useCallback(async () => {
+    setLoading(true);
+    setProgress({ current: 0, total: Object.keys(topCities).length });
+
+    try {
+      const geocoded = await geocodeCities(topCities, (current, total) => {
         setProgress({ current, total });
-      });
-      
+      }, datasetLocation);
+
       setGeocodedData(geocoded);
+    } catch (error) {
+      console.error('Error loading geographic data:', error);
+    } finally {
       setLoading(false);
     }
-    
-    if (topN > 0) {
+  }, [topCities, datasetLocation]);
+
+  useEffect(() => {
+    // Only load geo data if we have cities to geocode
+    if (Object.keys(topCities).length > 0) {
       loadGeoData();
     }
-  }, [personas, topN]);
+  }, [loadGeoData]);
 
   const handleSampleChange = (e) => {
     setTopN(parseInt(e.target.value));
   };
 
+  // Memoize max count for normalization to avoid recalculation
+  const maxCount = useMemo(() => {
+    return geocodedData.length > 0 ? Math.max(...geocodedData.map(d => d.count)) : 1;
+  }, [geocodedData]);
+
+  // Memoize radius calculation
+  const getRadius = useCallback((count) => {
+    return Math.sqrt(count / maxCount) * 30 + 5;
+  }, [maxCount]);
+
+  // Memoize color calculation
+  const getColor = useCallback((count) => {
+    const intensity = count / maxCount;
+    return `rgba(255, 0, 0, ${0.3 + intensity * 0.7})`;
+  }, [maxCount]);
+
   if (loading) {
     return (
       <div style={{ padding: '20px' }}>
         <h2>Geographic Distribution</h2>
-        <div style={{ 
-          padding: '40px', 
+        <div style={{
+          padding: '40px',
           textAlign: 'center',
           backgroundColor: '#f0f0f0',
           borderRadius: '8px',
@@ -60,10 +102,10 @@ export default function GeographicTab({ personas }) {
           <div style={{ fontSize: '1.2rem', color: '#555' }}>
             Geocoding cities: {progress.current} / {progress.total}
           </div>
-          <div style={{ 
-            width: '100%', 
-            maxWidth: '400px', 
-            height: '20px', 
+          <div style={{
+            width: '100%',
+            maxWidth: '400px',
+            height: '20px',
             backgroundColor: '#ddd',
             borderRadius: '10px',
             margin: '20px auto',
@@ -84,26 +126,15 @@ export default function GeographicTab({ personas }) {
     );
   }
 
-  // Calculate max count for normalization
-  const maxCount = Math.max(...geocodedData.map(d => d.count));
-
-  // Calculate radius based on count
-  const getRadius = (count) => {
-    return Math.sqrt(count / maxCount) * 30 + 5;
-  };
-
-  // Calculate color intensity
-  const getColor = (count) => {
-    const intensity = count / maxCount;
-    return `rgba(255, 0, 0, ${0.3 + intensity * 0.7})`;
-  };
-
   return (
     <div className='tab-content'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <div>
           <h2>Geographic Distribution</h2>
-          <p>Population heatmap across Swiss cities</p>
+          <p>
+            Population heatmap across {datasetLocation === 'DE' ? 'German' : datasetLocation === 'CH' ? 'Swiss' : 'regional'} cities
+            {datasetLocation !== 'CH' && ` • Detected location: ${datasetLocation}`}
+          </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <label htmlFor='topN' style={{ fontWeight: 'bold' }}>Show top:</label>
@@ -132,8 +163,8 @@ export default function GeographicTab({ personas }) {
       <div className='chart-card' style={{ padding: '0', overflow: 'hidden' }}>
         <div style={{ height: '600px', width: '100%' }}>
         <MapContainer
-          center={[46.8182, 8.2275]}
-          zoom={8}
+          center={mapCenter}
+          zoom={datasetLocation === 'CH' ? 8 : 6}
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer

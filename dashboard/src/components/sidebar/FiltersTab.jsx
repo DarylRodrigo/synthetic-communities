@@ -50,14 +50,36 @@ export default function FiltersTab() {
       
       // Show preview
       const preview = `Interpreted filters:\n\nAge: ${interpretedFilters.demographics.ageRange[0]}-${interpretedFilters.demographics.ageRange[1]}\n` +
-        `Genders: ${interpretedFilters.demographics.genders.join(', ') || 'All'}\n` +
-        `Ethnicities: ${interpretedFilters.demographics.ethnicities.slice(0, 3).join(', ')}${interpretedFilters.demographics.ethnicities.length > 3 ? '...' : '' || 'All'}\n` +
-        `Education: ${interpretedFilters.demographics.educationLevels.join(', ') || 'All'}\n` +
-        `Cities: ${interpretedFilters.geographic.cities.join(', ') || 'All'}\n\n` +
+        `Genders: ${(interpretedFilters.demographics.genders || []).join(', ') || 'All'}\n` +
+        `Ethnicities: ${(interpretedFilters.demographics.ethnicities || []).slice(0, 3).join(', ')}${((interpretedFilters.demographics.ethnicities || []).length > 3 ? '...' : '' || 'All')}\n` +
+        `Education: ${(interpretedFilters.demographics.educationLevels || []).join(', ') || 'All'}\n` +
+        `Cities: ${(interpretedFilters.geographic.cities || []).join(', ') || 'All'}\n\n` +
         `Apply these filters?`;
       
       if (confirm(preview)) {
-        setFilters(interpretedFilters);
+        // Extract only the filter structure from the AI response and merge with defaults
+        const filterData = {
+          demographics: {
+            ageRange: [18, 90], // Default age range
+            genders: [],
+            ethnicities: [],
+            educationLevels: [],
+            incomeBrackets: [],
+            sectors: [],
+            ...interpretedFilters.demographics // Override with AI response
+          },
+          geographic: {
+            cities: [],
+            ...interpretedFilters.geographic // Override with AI response
+          },
+          cultural: {
+            religions: [],
+            interests: [],
+            culturalBackgrounds: [],
+            ...interpretedFilters.cultural // Override with AI response
+          }
+        };
+        setFilters(filterData);
         setMode('filter');
         setAiQuery(''); // Clear input after success
       }

@@ -28,17 +28,17 @@ PARENT 2: ${parent2.name} (${parent2.age}, ${parent2.ethnicity}, ${parent2.secto
 
 Create realistic child (age 18-35) inheriting balanced traits from both parents.
 
-Return JSON array with one object:
+IMPORTANT: Return ONLY a JSON array with exactly one object, no additional text or explanation:
 [
   {
     "name": "Full name",
     "age": number,
-    "gender": "M" or "F",
+    "gender": "Male" or "Female",
     "city": "Swiss city",
     "sector": "work sector",
-    "education_level": "education",
-    "ethnicity": "background",
-    "religion": "religion",
+    "education_level": "education level",
+    "ethnicity": "ethnic background",
+    "religion": "religious background",
     "backstory": "200-400 word life story",
     "personality_traits": {
       "openness": number (0-1),
@@ -87,32 +87,51 @@ Return JSON array with one object:
         throw new Error('No JSON object found in response');
       }
 
-      // Parse the JSON response (it's an array with one object)
-      const responseArray = JSON.parse(cleanResponse);
+      // Parse the JSON response (could be array or single object)
+      const parsedResponse = JSON.parse(cleanResponse);
 
-      if (!Array.isArray(responseArray) || responseArray.length === 0) {
-        throw new Error('AI response is not a valid array');
+      let childData;
+      if (Array.isArray(parsedResponse)) {
+        if (parsedResponse.length === 0) {
+          throw new Error('AI response array is empty');
+        }
+        childData = parsedResponse[0];
+      } else if (typeof parsedResponse === 'object' && parsedResponse !== null) {
+        // AI returned a single object instead of array
+        childData = parsedResponse;
+      } else {
+        throw new Error('AI response is not a valid object or array');
       }
-
-      const childData = responseArray[0];
 
       // Add missing fields that weren't in the simplified prompt
       const child = {
         id: `child_${Date.now()}`,
         name: childData.name,
         age: childData.age,
-        gender: childData.gender === 'Male' ? 'M' : 'F', // Normalize to M/F format
+        gender: childData.gender === 'Male' ? 'Male' : 'Female', // Keep as Male/Female format
         city: childData.city,
         sector: childData.sector,
-        education_level: childData.education_level || 'Bachelor',
+        education_level: childData.education_level || 'bachelor_degree',
         income_bracket: childData.income_bracket || 'middle',
         ethnicity: childData.ethnicity,
         cultural_background: childData.cultural_background || 'European',
+        country: childData.country || 'CH_de',
+        susceptibility: childData.susceptibility || 0.3,
+        trust_institution: childData.trust_institution || 0.7,
+        turnout_propensity: childData.turnout_propensity || 0.7,
+        media_diet: childData.media_diet || {"social_media": 0.25, "tv": 0.1, "newspaper": 0.35, "blogs": 0.3},
+        confirmation_bias: childData.confirmation_bias || 0.25,
+        social_network_influence: childData.social_network_influence || 0.15,
+        risk_aversion: childData.risk_aversion || 0.35,
+        fairness_value: childData.fairness_value || 0.6,
+        prior_beliefs: childData.prior_beliefs || {"foreign_policy": 0.15, "technology": 0.8, "education": 0.75},
+        timestamp: new Date().toISOString(),
         religion: childData.religion || 'None',
+        demeanour: childData.demeanour || 'Balanced and thoughtful',
         backstory: childData.backstory,
         personality_traits: childData.personality_traits,
         interests: childData.interests,
-        company: childData.company || 'Company',
+        company: childData.company || 'Independent',
       };
 
       setChildPreview(child);

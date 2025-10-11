@@ -56,6 +56,37 @@ body {
   margin: 0;
 }
 
+.data-source-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.data-source-dropdown {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 2px 4px;
+}
+
+.data-source-dropdown:focus {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.data-source-dropdown option {
+  background: #ffffff;
+  color: #475569;
+}
+
 .persona-count {
   display: flex;
   align-items: center;
@@ -251,6 +282,10 @@ body {
     font-size: 16px;
   }
   
+  .data-source-selector {
+    display: none;
+  }
+
   .persona-count {
     display: none;
   }

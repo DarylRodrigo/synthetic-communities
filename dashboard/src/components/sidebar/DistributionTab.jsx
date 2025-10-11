@@ -73,8 +73,8 @@ export default function DistributionTab() {
       // Show preview
       const preview = `Interpreted distribution:\n\n` +
         `Sample Size: ${interpretedDist.sampleSize}\n` +
-        `Gender: ${Object.entries(interpretedDist.gender).map(([k, v]) => `${k} ${v.toFixed(0)}%`).join(', ')}\n` +
-        `Age Groups: ${Object.entries(interpretedDist.ageGroups).slice(0, 3).map(([k, v]) => `${k} ${v.toFixed(0)}%`).join(', ')}...\n\n` +
+        `Gender: ${Object.entries(interpretedDist.gender || {}).map(([k, v]) => `${k} ${v.toFixed(0)}%`).join(', ')}\n` +
+        `Age Groups: ${Object.entries(interpretedDist.ageGroups || {}).slice(0, 3).map(([k, v]) => `${k} ${v.toFixed(0)}%`).join(', ')}...\n\n` +
         `Apply this distribution?`;
       
       if (confirm(preview)) {

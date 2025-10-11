@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Plot from 'react-plotly.js';
 import { Edit, MapPin, Building, GraduationCap, Globe2, Sparkles, Wallet } from 'lucide-react';
 import './PersonaCard.css';
 
@@ -113,23 +114,50 @@ export default function PersonaCard({ persona, isSelected, onSelect, onEdit, pro
         {/* Expanded Content */}
         {isExpanded && (
           <div className='expanded-content'>
-            {/* Personality Traits */}
+            {/* Personality Traits - Radar Chart */}
             {persona.personality_traits && (
               <div className='traits-section'>
-                <h4>Personality Traits</h4>
-                <div className='personality-grid'>
-                  {Object.entries(persona.personality_traits).map(([trait, value]) => (
-                    <div key={trait} className='personality-item'>
-                      <span className='trait-name'>{trait}:</span>
-                      <div className='trait-bar'>
-                        <div
-                          className='trait-fill'
-                          style={{ width: `${(value || 0) * 100}%` }}
-                        ></div>
-                      </div>
-                      <span className='trait-value'>{value?.toFixed(2) || '0.00'}</span>
-                    </div>
-                  ))}
+                <h4>Personality Profile</h4>
+                <div style={{ width: '100%', height: '280px', margin: '16px 0', padding: '0 10px' }}>
+                  <Plot
+                    data={[{
+                      type: 'scatterpolar',
+                      r: [
+                        persona.personality_traits.openness || 0,
+                        persona.personality_traits.conscientiousness || 0,
+                        persona.personality_traits.extraversion || 0,
+                        persona.personality_traits.agreeableness || 0,
+                        persona.personality_traits.neuroticism || 0,
+                        persona.personality_traits.openness || 0 // Close the polygon by repeating first point
+                      ],
+                      theta: ['Openness', 'Conscientiousness', 'Extraversion', 'Agreeableness', 'Neuroticism', 'Openness'],
+                      fill: 'toself',
+                      name: 'Personality',
+                      line: { color: '#e74c3c', width: 3 },
+                      fillcolor: 'rgba(231, 76, 60, 0.2)',
+                      marker: { size: 6, color: '#e74c3c', symbol: 'circle' },
+                      mode: 'lines+markers'
+                    }]}
+                    layout={{
+                      polar: {
+                        radialaxis: {
+                          visible: false,
+                          range: [0, 1]
+                        },
+                        angularaxis: {
+                          tickfont: { size: 8, color: '#2c3e50' }
+                        }
+                      },
+                      showlegend: false,
+                      margin: { t: 30, b: 30, l: 40, r: 40 },
+                      width: 300,
+                      height: 260,
+                      font: { size: 8, color: '#2c3e50' },
+                      paper_bgcolor: 'rgba(0,0,0,0)',
+                      plot_bgcolor: 'rgba(0,0,0,0)'
+                    }}
+                    config={{ displayModeBar: false, responsive: true }}
+                  />
                 </div>
               </div>
             )}

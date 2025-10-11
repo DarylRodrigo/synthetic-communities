@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Users, Map, Brain, Globe, Users as People, RefreshCw } from 'lucide-react';
+import { Users, Map, Brain, Globe, Users as People, RefreshCw, Database } from 'lucide-react';
 import './App.css';
-import { loadPersonas } from './utils/dataLoader';
+import { loadPersonas, DATA_SOURCES } from './utils/dataLoader';
 import { FilterProvider, useFilters } from './context/FilterContext';
 import FilterSidebar from './components/FilterSidebar';
 import DemographicsTab from './components/DemographicsTab';
@@ -10,7 +10,7 @@ import PsychologicalTab from './components/PsychologicalTab';
 import CulturalTab from './components/CulturalTab';
 import PeopleTab from './components/PeopleTab';
 
-function AppContent() {
+function AppContent({ personas, dataSource, setDataSource }) {
   const { resultPersonas, allPersonas, sidebarOpen } = useFilters();
   const [activeTab, setActiveTab] = useState('demographics');
 
@@ -25,12 +25,26 @@ function AppContent() {
   return (
     <>
       <FilterSidebar />
-      
+
       <div className={`app-main ${sidebarOpen ? 'sidebar-open' : ''}`}>
         {/* Top Navigation */}
         <header className='top-nav'>
           <div className='nav-left'>
             <h1 className='app-title'>Persona Analytics</h1>
+            <div className='data-source-selector'>
+              <Database size={16} />
+              <select
+                value={dataSource}
+                onChange={(e) => setDataSource(e.target.value)}
+                className='data-source-dropdown'
+              >
+                {Object.entries(DATA_SOURCES).map(([key, source]) => (
+                  <option key={key} value={key}>
+                    {source.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className='persona-count'>
               <span className='count-label'>Showing:</span>
               <span className='count-value'>{resultPersonas.length.toLocaleString()} of {allPersonas.length.toLocaleString()}</span>
@@ -71,14 +85,15 @@ function AppContent() {
 function App() {
   const [personas, setPersonas] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState('swiss_population');
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [dataSource]);
 
   async function loadData() {
     setLoading(true);
-    const data = await loadPersonas();
+    const data = await loadPersonas(dataSource);
     setPersonas(data);
     setLoading(false);
   }
@@ -101,7 +116,11 @@ function App() {
   return (
     <FilterProvider allPersonas={personas}>
       <div className='app-container'>
-        <AppContent />
+        <AppContent
+          personas={personas}
+          dataSource={dataSource}
+          setDataSource={setDataSource}
+        />
       </div>
     </FilterProvider>
   );
