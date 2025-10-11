@@ -1,0 +1,529 @@
+{
+  "simulation_id": "20251012_012038",
+  "config": {
+    "population_size": 10,
+    "questions_per_topic": 1,
+    "turns_per_question": 1,
+    "num_epochs": 1,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Healthcare Reform",
+      "description": "Should the government implement universal healthcare?"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Alice Johnson",
+      "character": "Progressive left-leaning, prioritizes social programs and government intervention",
+      "initial_policy_positions": {
+        "topic_1": "Yes, absolutely! I am a staunch supporter of universal healthcare. Everyone deserves access to quality medical care, and that's why I believe we must implement a Medicare for All system. This will ensure that all Americans can receive the care they need, regardless of their income or pre-existing conditions."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Bob Smith",
+      "character": "Conservative right-leaning, values free market and limited government",
+      "initial_policy_positions": {
+        "topic_1": "As Bob Smith, I believe the government's role in healthcare should be limited. Universal healthcare is not the answer. Instead, we should promote free-market principles by allowing competition among insurance providers, empowering individuals to make their own healthcare choices, and removing excessive regulations that drive up costs."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "949de791-154e-4a73-824e-ce30588667e6",
+      "name": "949de791-154e-4a73-824e-ce30588667e6",
+      "demographics": {
+        "id": "949de791-154e-4a73-824e-ce30588667e6",
+        "name": "Marta Barros",
+        "age": 22,
+        "gender": "F",
+        "city": "Lyss",
+        "job": "Sports coach",
+        "company": "Schlatter & Cie.",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.591,
+        "trust_institution": 0.097,
+        "turnout_propensity": 0.117,
+        "media_diet": {
+          "social_media": 0.38,
+          "tv": 0.031,
+          "newspaper": 0.385,
+          "blogs": 0.204
+        },
+        "personality_traits": {
+          "openness": 0.693,
+          "conscientiousness": 0.071,
+          "extraversion": 0.534,
+          "agreeableness": 0.41,
+          "neuroticism": 0.424
+        },
+        "confirmation_bias": 0.5116785959131126,
+        "social_network_influence": 0.5539030109965207,
+        "risk_aversion": 0.9954656491197346,
+        "fairness_value": 0.3215070336792938,
+        "prior_beliefs": {
+          "economy": 0.654,
+          "climate_change": -0.176,
+          "immigration": 0.0,
+          "social_justice": -0.581
+        },
+        "timestamp": "2025-10-11T01:21:11.776804"
+      }
+    },
+    {
+      "id": "063f8c70-405c-48db-95d6-97b3d33e796e",
+      "name": "063f8c70-405c-48db-95d6-97b3d33e796e",
+      "demographics": {
+        "id": "063f8c70-405c-48db-95d6-97b3d33e796e",
+        "name": "Dr. Sherry Humphrey",
+        "age": 22,
+        "gender": "F",
+        "city": "Richterswil",
+        "job": "Administrator, education",
+        "company": "Marti Fuchs AG",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-French",
+        "country": "CH_de",
+        "susceptibility": 0.327,
+        "trust_institution": 0.068,
+        "turnout_propensity": 0.466,
+        "media_diet": {
+          "social_media": 0.406,
+          "tv": 0.43,
+          "newspaper": 0.144,
+          "blogs": 0.019
+        },
+        "personality_traits": {
+          "openness": 0.046,
+          "conscientiousness": 0.25,
+          "extraversion": 0.336,
+          "agreeableness": 0.23,
+          "neuroticism": 0.736
+        },
+        "confirmation_bias": 0.18668790542173685,
+        "social_network_influence": 0.9621833523491552,
+        "risk_aversion": 0.15883783256348472,
+        "fairness_value": 0.9870114047974033,
+        "prior_beliefs": {
+          "technology": -0.911,
+          "healthcare": -0.743,
+          "social_justice": 0.092,
+          "foreign_policy": -0.01,
+          "education": -0.358,
+          "economy": 0.393
+        },
+        "timestamp": "2025-10-11T01:21:12.072955"
+      }
+    },
+    {
+      "id": "9913ca7a-50d6-4451-bdb1-252aff152f15",
+      "name": "9913ca7a-50d6-4451-bdb1-252aff152f15",
+      "demographics": {
+        "id": "9913ca7a-50d6-4451-bdb1-252aff152f15",
+        "name": "Jean Rey-Corpataux",
+        "age": 56,
+        "gender": "M",
+        "city": "K\u00f6niz",
+        "job": "Horticultural therapist",
+        "company": "Keller GmbH",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-German",
+        "country": "CH_de",
+        "susceptibility": 0.219,
+        "trust_institution": 0.963,
+        "turnout_propensity": 0.897,
+        "media_diet": {
+          "social_media": 0.407,
+          "tv": 0.223,
+          "newspaper": 0.238,
+          "blogs": 0.132
+        },
+        "personality_traits": {
+          "openness": 0.425,
+          "conscientiousness": 0.176,
+          "extraversion": 0.956,
+          "agreeableness": 0.661,
+          "neuroticism": 0.348
+        },
+        "confirmation_bias": 0.39808930981769264,
+        "social_network_influence": 0.1280578656023873,
+        "risk_aversion": 0.8821714481989944,
+        "fairness_value": 0.8401208281868793,
+        "prior_beliefs": {
+          "technology": 0.015,
+          "foreign_policy": 0.78,
+          "immigration": 0.566,
+          "climate_change": -0.878,
+          "economy": 0.544,
+          "social_justice": -0.477
+        },
+        "timestamp": "2025-10-11T01:21:10.127594",
+        "religion": "Catholic",
+        "demeanour": "Calm and empathetic, with a deep connection to nature.",
+        "interests": [
+          "Botany",
+          "Patient rehabilitation",
+          "Landscape design",
+          "Classical music"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1969; earned an MSc in Psychology before specializing in horticultural therapy in the late 1990s. He has spent over 20 years developing therapy programs in rehabilitation centers that have measurably improved patient outcomes."
+      }
+    },
+    {
+      "id": "fbc13543-f31c-4ac5-8eb7-abebae67bac4",
+      "name": "fbc13543-f31c-4ac5-8eb7-abebae67bac4",
+      "demographics": {
+        "id": "fbc13543-f31c-4ac5-8eb7-abebae67bac4",
+        "name": "Katherine Wegmann Zehnder",
+        "age": 23,
+        "gender": "M",
+        "city": "M\u00fcnsingen",
+        "job": "Homeopath",
+        "company": "J\u00e4ggi & Cie.",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_de",
+        "susceptibility": 0.837,
+        "trust_institution": 0.642,
+        "turnout_propensity": 0.901,
+        "media_diet": {
+          "social_media": 0.169,
+          "tv": 0.667,
+          "newspaper": 0.117,
+          "blogs": 0.047
+        },
+        "personality_traits": {
+          "openness": 0.706,
+          "conscientiousness": 0.178,
+          "extraversion": 0.14,
+          "agreeableness": 0.316,
+          "neuroticism": 0.226
+        },
+        "confirmation_bias": 0.18824529106020493,
+        "social_network_influence": 0.8835685789527344,
+        "risk_aversion": 0.17711208745299434,
+        "fairness_value": 0.2949323449980772,
+        "prior_beliefs": {
+          "education": 0.545,
+          "climate_change": 0.046,
+          "healthcare": 0.659,
+          "economy": 0.374,
+          "social_justice": -0.659,
+          "immigration": 0.899
+        },
+        "timestamp": "2025-10-11T01:21:10.175641"
+      }
+    },
+    {
+      "id": "ddb36755-dbee-413c-8d39-9a7d60b34b2b",
+      "name": "ddb36755-dbee-413c-8d39-9a7d60b34b2b",
+      "demographics": {
+        "id": "ddb36755-dbee-413c-8d39-9a7d60b34b2b",
+        "name": "Chris Foley",
+        "age": 42,
+        "gender": "F",
+        "city": "Adliswil",
+        "job": "Youth worker",
+        "company": "Amrein Albrecht GmbH",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.996,
+        "trust_institution": 0.96,
+        "turnout_propensity": 0.873,
+        "media_diet": {
+          "social_media": 0.221,
+          "tv": 0.364,
+          "newspaper": 0.191,
+          "blogs": 0.225
+        },
+        "personality_traits": {
+          "openness": 0.067,
+          "conscientiousness": 0.076,
+          "extraversion": 0.092,
+          "agreeableness": 0.558,
+          "neuroticism": 0.112
+        },
+        "confirmation_bias": 0.15822391806983183,
+        "social_network_influence": 0.5135003614894996,
+        "risk_aversion": 0.8514859459380079,
+        "fairness_value": 0.5739252412505215,
+        "prior_beliefs": {
+          "healthcare": -0.097,
+          "technology": 0.761,
+          "climate_change": 0.478,
+          "social_justice": 0.301,
+          "economy": -0.854,
+          "immigration": 0.296
+        },
+        "timestamp": "2025-10-11T01:21:10.231467"
+      }
+    },
+    {
+      "id": "1bb7ab08-7432-41b3-aa64-6452765a0c53",
+      "name": "1bb7ab08-7432-41b3-aa64-6452765a0c53",
+      "demographics": {
+        "id": "1bb7ab08-7432-41b3-aa64-6452765a0c53",
+        "name": "\u00c9ric Pottier",
+        "age": 29,
+        "gender": "M",
+        "city": "Bujard",
+        "job": "Medical Laboratory Technician",
+        "company": "Corbat SA",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "French",
+        "cultural_background": "Western European",
+        "country": "CH_fr",
+        "susceptibility": 0.66,
+        "trust_institution": 0.031,
+        "turnout_propensity": 0.763,
+        "media_diet": {
+          "social_media": 0.319,
+          "tv": 0.31,
+          "newspaper": 0.257,
+          "blogs": 0.114
+        },
+        "personality_traits": {
+          "openness": 0.828,
+          "conscientiousness": 0.263,
+          "extraversion": 0.753,
+          "agreeableness": 0.217,
+          "neuroticism": 0.027
+        },
+        "confirmation_bias": 0.725786282339986,
+        "social_network_influence": 0.6215305211698711,
+        "risk_aversion": 0.8657422917153625,
+        "fairness_value": 0.7826126793714324,
+        "prior_beliefs": {
+          "immigration": 0.905,
+          "education": 0.865,
+          "healthcare": -0.425
+        },
+        "timestamp": "2025-10-11T01:21:10.103104",
+        "religion": "None",
+        "demeanour": "Precise and focused, comfortable working independently in a technical setting.",
+        "interests": [
+          "Microbiology",
+          "Graphic novels",
+          "Bouldering",
+          "Electronic music"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1995 in Yverdon-les-Bains. Completed his federal diploma as a lab technician in 2018; has worked at a private diagnostic lab since, processing over 10,000 samples annually."
+      }
+    },
+    {
+      "id": "173cb646-bd78-42d9-9e6b-6488bf77f287",
+      "name": "173cb646-bd78-42d9-9e6b-6488bf77f287",
+      "demographics": {
+        "id": "173cb646-bd78-42d9-9e6b-6488bf77f287",
+        "name": "Madalena Loureiro",
+        "age": 65,
+        "gender": "F",
+        "city": "Wiseport",
+        "job": "Physicist, medical",
+        "company": "Harmon-Wilson",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Southern European",
+        "country": "CH_it",
+        "susceptibility": 0.611,
+        "trust_institution": 0.752,
+        "turnout_propensity": 0.915,
+        "media_diet": {
+          "social_media": 0.546,
+          "tv": 0.117,
+          "newspaper": 0.159,
+          "blogs": 0.179
+        },
+        "personality_traits": {
+          "openness": 0.435,
+          "conscientiousness": 0.34,
+          "extraversion": 0.654,
+          "agreeableness": 0.426,
+          "neuroticism": 0.285
+        },
+        "confirmation_bias": 0.3868155157213876,
+        "social_network_influence": 0.821275014286131,
+        "risk_aversion": 0.03482666061088058,
+        "fairness_value": 0.9585127454624851,
+        "prior_beliefs": {
+          "economy": 0.612,
+          "immigration": -0.307,
+          "healthcare": 0.465,
+          "education": 0.312,
+          "climate_change": -0.191,
+          "technology": 0.614
+        },
+        "timestamp": "2025-10-11T01:21:10.187034"
+      }
+    },
+    {
+      "id": "9cfb168d-f2d1-4031-b9b1-7cb9576d6b04",
+      "name": "9cfb168d-f2d1-4031-b9b1-7cb9576d6b04",
+      "demographics": {
+        "id": "9cfb168d-f2d1-4031-b9b1-7cb9576d6b04",
+        "name": "Christophe N\u00fcsslin",
+        "age": 18,
+        "gender": "M",
+        "city": "North Richardfurt",
+        "job": "Retail Assistant (part-time)",
+        "company": "Brown-Smith",
+        "education_level": "high_school",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_it",
+        "susceptibility": 0.009,
+        "trust_institution": 0.506,
+        "turnout_propensity": 0.373,
+        "media_diet": {
+          "social_media": 0.259,
+          "tv": 0.28,
+          "newspaper": 0.259,
+          "blogs": 0.203
+        },
+        "personality_traits": {
+          "openness": 0.488,
+          "conscientiousness": 0.007,
+          "extraversion": 0.552,
+          "agreeableness": 0.012,
+          "neuroticism": 0.529
+        },
+        "confirmation_bias": 0.274740737197832,
+        "social_network_influence": 0.9774793482325117,
+        "risk_aversion": 0.0171425976024272,
+        "fairness_value": 0.8131572209139099,
+        "prior_beliefs": {
+          "economy": -0.616,
+          "climate_change": 0.053,
+          "technology": 0.63,
+          "education": -0.465,
+          "immigration": -0.206,
+          "foreign_policy": -0.254
+        },
+        "timestamp": "2025-10-11T01:21:09.288740",
+        "religion": "None",
+        "demeanour": "Inquisitive, tech-savvy, and still exploring future career and education paths.",
+        "interests": [
+          "esports",
+          "streaming culture",
+          "graphic novels",
+          "skateboarding"
+        ],
+        "sector": "Services",
+        "backstory": "Born 2007; recently graduated from high school in 2025. He is currently working part-time while considering options for higher education or a federal apprenticeship."
+      }
+    },
+    {
+      "id": "93f4621b-6ef2-4c0d-8cee-7e2254edc57c",
+      "name": "93f4621b-6ef2-4c0d-8cee-7e2254edc57c",
+      "demographics": {
+        "id": "93f4621b-6ef2-4c0d-8cee-7e2254edc57c",
+        "name": "William Mullins",
+        "age": 55,
+        "gender": "M",
+        "city": "New Blake",
+        "job": "Press photographer",
+        "company": "Mercer Group",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_it",
+        "susceptibility": 0.973,
+        "trust_institution": 0.374,
+        "turnout_propensity": 0.933,
+        "media_diet": {
+          "social_media": 0.462,
+          "tv": 0.053,
+          "newspaper": 0.022,
+          "blogs": 0.463
+        },
+        "personality_traits": {
+          "openness": 0.419,
+          "conscientiousness": 0.32,
+          "extraversion": 0.667,
+          "agreeableness": 0.829,
+          "neuroticism": 0.18
+        },
+        "confirmation_bias": 0.188914339097216,
+        "social_network_influence": 0.5634290954852702,
+        "risk_aversion": 0.29955567118287374,
+        "fairness_value": 0.40322950550544034,
+        "prior_beliefs": {
+          "economy": 0.349,
+          "education": 0.181,
+          "healthcare": 0.583
+        },
+        "timestamp": "2025-10-11T01:21:10.800215"
+      }
+    },
+    {
+      "id": "cc35448a-82fc-4802-9c74-ba2f9404ca33",
+      "name": "cc35448a-82fc-4802-9c74-ba2f9404ca33",
+      "demographics": {
+        "id": "cc35448a-82fc-4802-9c74-ba2f9404ca33",
+        "name": "Gil Brunner",
+        "age": 24,
+        "gender": "M",
+        "city": "Port Veronica",
+        "job": "Animator",
+        "company": "Rose-Rodriguez",
+        "education_level": "high_school",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_it",
+        "susceptibility": 0.226,
+        "trust_institution": 0.037,
+        "turnout_propensity": 0.931,
+        "media_diet": {
+          "social_media": 0.019,
+          "tv": 0.252,
+          "newspaper": 0.261,
+          "blogs": 0.468
+        },
+        "personality_traits": {
+          "openness": 0.464,
+          "conscientiousness": 0.3,
+          "extraversion": 0.561,
+          "agreeableness": 0.775,
+          "neuroticism": 0.636
+        },
+        "confirmation_bias": 0.8163085767539245,
+        "social_network_influence": 0.5909420197578062,
+        "risk_aversion": 0.5087655801499309,
+        "fairness_value": 0.5167644923130897,
+        "prior_beliefs": {
+          "climate_change": 0.976,
+          "foreign_policy": 0.843,
+          "immigration": -0.088,
+          "healthcare": -0.063,
+          "social_justice": 0.507,
+          "education": -0.111
+        },
+        "timestamp": "2025-10-11T01:21:11.662922"
+      }
+    }
+  ]
+}

@@ -85,12 +85,21 @@ class GameEngine:
             self._conduct_debate_on_topic(topic_index)
 
         self._population_consume_debate()
-        self.population.update_beliefs_from_debate()
+        self.population.update_beliefs_from_debate(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
         self._personas_chat_with_peers()
-        self.population.update_beliefs_from_chat()
+        self.population.update_beliefs_from_chat(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
         self._personas_post_to_social_media()
         self._population_react_to_posts()
-        self.population.update_beliefs_from_social_media()
+        self.population.update_beliefs_from_social_media(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
     
     def _candidates_read_social_media(self) -> None:
         logger.info(f"Candidates read latest posts")
@@ -180,12 +189,15 @@ class GameEngine:
 
     def _personas_chat_with_peers(self) -> None:
         """Orchestrate paired conversations between personas."""
-        conversations = self.population.chat_with_peers()
+        conversations = self.population.chat_with_peers(
+            num_rounds_mean=self.config.num_rounds_mean,
+            num_rounds_variance=self.config.num_rounds_variance
+        )
         logger.info(f"Completed {len(conversations)} paired conversations")
 
     def _personas_post_to_social_media(self) -> None:
         """Have personas create and publish social media posts."""
-        posts = self.population.create_social_media_posts(post_probability=0.4)
+        posts = self.population.create_social_media_posts(post_probability=self.config.post_probability)
         if self.social_media:
             # Add posts to social media platform and get their IDs
             post_ids = []
@@ -215,7 +227,8 @@ class GameEngine:
 
             reaction_stats = self.population.react_to_posts(
                 posts_as_dicts,
-                self.social_media
+                self.social_media,
+                reaction_probability=self.config.reaction_probability
             )
             logger.info(f"Reactions: {reaction_stats['total_reactions']} total "
                        f"({reaction_stats['thumbs_up']} 👍, {reaction_stats['thumbs_down']} 👎)")
