@@ -1,0 +1,246 @@
+[
+    {
+        "epoch": 0,
+        "debates": [
+            {
+                "topic": {
+                    "id": "climate_policy",
+                    "title": "Climate Change and Energy Policy",
+                    "description": "What should our nation's approach be to addressing climate change while maintaining economic growth?"
+                },
+                "statements": [
+                    {
+                        "type": "mediator",
+                        "mediator_id": "moderator_1",
+                        "statement": "Good evening. Tonight we'll discuss one of the most pressing issues of our time: climate change and energy policy. How should we balance environmental protection with economic prosperity? Candidates, please share your perspectives."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_1",
+                        "candidate_name": "Sarah Martinez",
+                        "statement": "We need bold action now. I propose a comprehensive Green New Deal that invests $2 trillion in renewable energy infrastructure over the next decade. This isn't just about the environment—it's about creating millions of high-paying jobs and ensuring our children have a livable planet."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_2",
+                        "candidate_name": "David Chen",
+                        "statement": "While I agree climate change is real and concerning, we must be pragmatic. A sudden shift away from fossil fuels would devastate communities dependent on these industries. I support gradual transition with targeted tax incentives for clean energy innovation and retraining programs for workers."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_1",
+                        "candidate_name": "Sarah Martinez",
+                        "statement": "David's 'gradual approach' is exactly what got us into this crisis. We've been gradual for 30 years while emissions kept rising. Those workers you mention? My plan includes a Just Transition program guaranteeing jobs in renewable sectors with better wages than they're earning now."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_2",
+                        "candidate_name": "David Chen",
+                        "statement": "I appreciate the passion, but throwing money at the problem isn't a strategy. My plan leverages market forces—carbon pricing lets businesses innovate efficiently rather than government mandates that historically overshoot costs and timelines. We need smart policy, not expensive promises."
+                    }
+                ]
+            },
+            {
+                "topic": {
+                    "id": "healthcare_reform",
+                    "title": "Healthcare Access and Affordability",
+                    "description": "How can we ensure all citizens have access to quality, affordable healthcare?"
+                },
+                "statements": [
+                    {
+                        "type": "mediator",
+                        "mediator_id": "moderator_1",
+                        "statement": "Let's turn to healthcare. With costs rising and millions still uninsured, what's your solution for ensuring quality healthcare for all citizens?"
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_2",
+                        "candidate_name": "David Chen",
+                        "statement": "Healthcare is personal and choice matters. I support expanding subsidies and creating competition across state lines to drive costs down. We don't need to eliminate private insurance—we need to make it work better through smart regulation and transparency requirements."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_1",
+                        "candidate_name": "Sarah Martinez",
+                        "statement": "Every other developed nation has figured this out—single-payer healthcare. We're the richest country in the world, yet people go bankrupt from medical bills. Medicare for All would save families an average of $4,500 per year while guaranteeing coverage for everyone, no exceptions."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_2",
+                        "candidate_name": "David Chen",
+                        "statement": "Sarah's plan would cost over $30 trillion and eliminate private insurance for 180 million Americans who like their current plans. That's not progress—that's government overreach. My approach preserves choice while expanding access through a robust public option."
+                    },
+                    {
+                        "type": "candidate",
+                        "candidate_id": "candidate_1",
+                        "candidate_name": "Sarah Martinez",
+                        "statement": "Those who 'like their plans' are often locked into employer-based coverage with high deductibles they can't afford to use. True freedom is not worrying whether seeking medical care will bankrupt your family. Every credible study shows Medicare for All would actually save money overall while covering everyone."
+                    }
+                ]
+            }
+        ],
+        "newsfeed": {
+            "posts": [
+                {
+                    "id": "post_001",
+                    "persona_id": "persona_3",
+                    "content": "Just watched the debate. Sarah Martinez really spoke to me about climate change. My hometown has been hit by three 'once in a century' floods in the past five years. We can't wait any longer.",
+                    "likes": 47,
+                    "dislikes": 12
+                },
+                {
+                    "id": "post_002",
+                    "persona_id": "persona_7",
+                    "content": "David Chen's pragmatic approach makes sense. We can't just tear down systems overnight. I work in energy and we need transition time to retrain workers and build new infrastructure properly.",
+                    "likes": 33,
+                    "dislikes": 28
+                },
+                {
+                    "id": "post_003",
+                    "persona_id": "persona_12",
+                    "content": "Medicare for All sounds great until you realize how much it'll cost in taxes. I'm all for helping people but not if it means I can't afford my mortgage. Chen's public option seems like a better compromise.",
+                    "likes": 21,
+                    "dislikes": 19
+                },
+                {
+                    "id": "post_004",
+                    "persona_id": "persona_5",
+                    "content": "My daughter has diabetes and our insurance keeps denying her medication. Sarah's right—the current system is broken. We need Medicare for All NOW. Healthcare is a human right, not a privilege!",
+                    "likes": 89,
+                    "dislikes": 15
+                },
+                {
+                    "id": "post_005",
+                    "persona_id": "persona_18",
+                    "content": "Both candidates made good points but I'm still undecided. Climate change is urgent but I worry about job losses in my community. Healthcare costs are crazy but I don't trust the government to run it efficiently. Need to think more about this...",
+                    "likes": 56,
+                    "dislikes": 8
+                }
+            ]
+        },
+        "candidates": [
+            {
+                "id": "candidate_1",
+                "name": "Sarah Martinez",
+                "policy_positions": {
+                    "climate_policy": "Strong advocate for immediate climate action through a comprehensive Green New Deal. Proposes $2 trillion investment in renewable energy infrastructure, with Just Transition programs for fossil fuel workers. Believes incremental approaches have failed and bold systemic change is necessary.",
+                    "healthcare_reform": "Supports Medicare for All single-payer system. Argues that universal healthcare is both morally right and economically sound, projecting savings of $4,500 per family annually. Willing to eliminate private insurance to ensure comprehensive coverage for all citizens."
+                },
+                "social_media_reflection": "After reviewing social media posts, I'm struck by the personal stories—the family struggling with diabetes medication denials, the community hit by repeated floods. These aren't abstract policy debates; they're people's lives. It reinforces my conviction that incrementalism isn't enough. The post from the energy worker gives me pause though—I need to emphasize our Just Transition programs more clearly to address legitimate economic anxieties.\n\nDuring the climate debate, I felt the energy and urgency in my messaging resonated, especially when I challenged David's gradualism. But his point about cost overruns made me realize I need stronger specifics on implementation. The healthcare exchange was tougher—his $30 trillion figure is misleading but it clearly landed with some voters. I stayed true to my principles but need better soundbites to counter the cost narrative. Overall, I believe our exchange elevated both topics and gave voters real contrasts to consider.",
+                "debate_reflection": "After reviewing social media posts, I'm struck by the personal stories—the family struggling with diabetes medication denials, the community hit by repeated floods. These aren't abstract policy debates; they're people's lives. It reinforces my conviction that incrementalism isn't enough. The post from the energy worker gives me pause though—I need to emphasize our Just Transition programs more clearly to address legitimate economic anxieties.\n\nDuring the climate debate, I felt the energy and urgency in my messaging resonated, especially when I challenged David's gradualism. But his point about cost overruns made me realize I need stronger specifics on implementation. The healthcare exchange was tougher—his $30 trillion figure is misleading but it clearly landed with some voters. I stayed true to my principles but need better soundbites to counter the cost narrative. Overall, I believe our exchange elevated both topics and gave voters real contrasts to consider."
+            },
+            {
+                "id": "candidate_2",
+                "name": "David Chen",
+                "policy_positions": {
+                    "climate_policy": "Advocates for pragmatic, market-based climate solutions. Supports carbon pricing mechanisms and tax incentives for clean energy innovation rather than massive government spending. Emphasizes protecting workers in fossil fuel industries through retraining programs during gradual transition.",
+                    "healthcare_reform": "Proposes expanding the current system with a robust public option while preserving private insurance. Supports subsidies for low-income families, interstate competition, and price transparency requirements. Argues for choice and incremental improvement over systemic disruption."
+                },
+                "social_media_reflection": "After reviewing social media posts, I'm struck by the personal stories—the family struggling with diabetes medication denials, the community hit by repeated floods. These aren't abstract policy debates; they're people's lives. It reinforces my conviction that incrementalism isn't enough. The post from the energy worker gives me pause though—I need to emphasize our Just Transition programs more clearly to address legitimate economic anxieties.\n\nDuring the climate debate, I felt the energy and urgency in my messaging resonated, especially when I challenged David's gradualism. But his point about cost overruns made me realize I need stronger specifics on implementation. The healthcare exchange was tougher—his $30 trillion figure is misleading but it clearly landed with some voters. I stayed true to my principles but need better soundbites to counter the cost narrative. Overall, I believe our exchange elevated both topics and gave voters real contrasts to consider.",
+                "debate_reflection": "After reviewing social media posts, I'm struck by the personal stories—the family struggling with diabetes medication denials, the community hit by repeated floods. These aren't abstract policy debates; they're people's lives. It reinforces my conviction that incrementalism isn't enough. The post from the energy worker gives me pause though—I need to emphasize our Just Transition programs more clearly to address legitimate economic anxieties.\n\nDuring the climate debate, I felt the energy and urgency in my messaging resonated, especially when I challenged David's gradualism. But his point about cost overruns made me realize I need stronger specifics on implementation. The healthcare exchange was tougher—his $30 trillion figure is misleading but it clearly landed with some voters. I stayed true to my principles but need better soundbites to counter the cost narrative. Overall, I believe our exchange elevated both topics and gave voters real contrasts to consider."
+            }
+        ],
+        "population_votes": [
+            {
+                "id": "persona_3",
+                "name": "Emily Rodriguez",
+                "demographics": {
+                    "age": 34,
+                    "location": "Coastal town affected by flooding",
+                    "occupation": "Elementary school teacher"
+                },
+                "policy_positions": {
+                    "climate_policy": {
+                        "reasoning": "Sarah's urgency on climate matches what I'm seeing in my community. We can't afford to wait. The Green New Deal sounds ambitious but so is the crisis we're facing. David's approach feels too slow given what we're already experiencing.",
+                        "vote": "candidate_1"
+                    },
+                    "healthcare_reform": {
+                        "reasoning": "Medicare for All makes sense to me. I have decent teacher's insurance but I see families in my school struggling with medical costs. Healthcare shouldn't depend on your job or income level.",
+                        "vote": "candidate_1"
+                    }
+                },
+                "overall_vote": "candidate_1"
+            },
+            {
+                "id": "persona_7",
+                "name": "Marcus Thompson",
+                "demographics": {
+                    "age": 47,
+                    "location": "Industrial midwest town",
+                    "occupation": "Power plant technician"
+                },
+                "policy_positions": {
+                    "climate_policy": {
+                        "reasoning": "I care about the environment but I also have a mortgage and two kids in college. David's transition plan acknowledges workers like me exist and need support. Sarah's plan sounds like it could leave us behind despite her promises.",
+                        "vote": "candidate_2"
+                    },
+                    "healthcare_reform": {
+                        "reasoning": "I don't love my insurance but I have coverage through my union. The public option David proposes would give others access without forcing me to change. Medicare for All feels risky—what if implementation goes wrong?",
+                        "vote": "candidate_2"
+                    }
+                },
+                "overall_vote": "candidate_2"
+            },
+            {
+                "id": "persona_12",
+                "name": "Jennifer Park",
+                "demographics": {
+                    "age": 41,
+                    "location": "Suburban area",
+                    "occupation": "Small business owner"
+                },
+                "policy_positions": {
+                    "climate_policy": {
+                        "reasoning": "Climate change is real and we need action, but $2 trillion in spending worries me as a business owner who'll likely see tax increases. Carbon pricing seems smarter—let the market innovate rather than government picking winners.",
+                        "vote": "candidate_2"
+                    },
+                    "healthcare_reform": {
+                        "reasoning": "Healthcare costs are killing small businesses like mine. I'm torn—Medicare for All might reduce my employee coverage costs, but the unknown implementation risks and tax implications scare me. Public option feels safer.",
+                        "vote": "candidate_2"
+                    }
+                },
+                "overall_vote": "candidate_2"
+            },
+            {
+                "id": "persona_5",
+                "name": "Robert Williams",
+                "demographics": {
+                    "age": 52,
+                    "location": "Mid-sized city",
+                    "occupation": "Warehouse supervisor"
+                },
+                "policy_positions": {
+                    "climate_policy": {
+                        "reasoning": "Honestly, climate isn't my top issue but I trust Sarah's passion and the science backs her up. If we're going to do something, might as well do it right. Half-measures haven't worked.",
+                        "vote": "candidate_1"
+                    },
+                    "healthcare_reform": {
+                        "reasoning": "My daughter's diabetes medication costs are insane even with insurance. The system is completely broken. Sarah's Medicare for All would guarantee her coverage no matter what happens with my job. That peace of mind is priceless.",
+                        "vote": "candidate_1"
+                    }
+                },
+                "overall_vote": "candidate_1"
+            },
+            {
+                "id": "persona_18",
+                "name": "Aisha Patel",
+                "demographics": {
+                    "age": 29,
+                    "location": "Urban area",
+                    "occupation": "Software engineer"
+                },
+                "policy_positions": {
+                    "climate_policy": {
+                        "reasoning": "This is the defining issue of our generation. Sarah's aggressive timeline aligns with what climate scientists say we need. David's market-based approach sounds nice but feels inadequate given the urgency. Going with Sarah despite economic concerns.",
+                        "vote": "candidate_1"
+                    },
+                    "healthcare_reform": {
+                        "reasoning": "I have great insurance through my tech job, but I know that's not the norm. Medicare for All would help millions of people. The cost arguments seem overblown when compared to what we already spend. Supporting Sarah's plan.",
+                        "vote": "candidate_1"
+                    }
+                },
+                "overall_vote": "candidate_1"
+            }
+        ]
+    }
+]
