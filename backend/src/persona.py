@@ -160,75 +160,6 @@ class Persona:
 
         return "\n".join(lines)
     
-    def update_beliefs(
-        self,
-        knowledge_category: str = "debate_knowledge",
-        max_change_percentage: float = 0.5
-    ) -> None:
-        """
-        Update beliefs based on accumulated knowledge using LLM.
-
-        Args:
-            knowledge_category: Which knowledge was just updated
-                               ("debate_knowledge", "chats", "social_media_knowledge")
-            max_change_percentage: Maximum percentage of beliefs that can change (0.0 to 1.0)
-        """
-    
-        # Build context for LLM
-        context = self._build_belief_update_context(knowledge_category)
-        logger.debug(f"Persona {self.id}: Updating beliefs from {knowledge_category} with context: {context}")
-
-        # Create prompt for LLM
-        prompt = f"""You are updating the beliefs of a person based on new information they have received.
-
-        {context}
-
-        Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
-
-        Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
-
-        Example format:
-        {{
-            "healthcare": "I believe in universal healthcare coverage",
-            "economy": "I support progressive taxation",
-            "climate": "Climate change requires immediate action"
-        }}
-
-        If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
-
-        Return ONLY the JSON object, no additional text."""
-
-        system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change."
-
-        # Get updated beliefs from LLM
-        try:
-            logger.debug(f"Persona {self.id}: Calling LLM to update beliefs")
-            response = llm_client.generate_response(
-                self.llm_client,
-                prompt,
-                system_instruction
-            )
-            
-            # Remove markdown code blocks if present
-            response_clean = response.strip()
-            if response_clean.startswith("```json"):
-                response_clean = response_clean[7:]
-            if response_clean.startswith("```"):
-                response_clean = response_clean[3:]
-            if response_clean.endswith("```"):
-                response_clean = response_clean[:-3]
-
-            updated_beliefs = json.loads(response_clean.strip())
-
-            # Update the persona's beliefs
-            old_belief_count = len(self.beliefs)
-            self.beliefs = updated_beliefs
-            logger.info(f"Persona {self.id}: Beliefs updated ({old_belief_count} → {len(self.beliefs)} beliefs)")
-
-        except Exception as e:
-            logger.debug(f"Persona {self.id}: Error updating beliefs - {e}")
-            # Keep existing beliefs if update fails
-
     def _build_belief_update_context(self, knowledge_category: str) -> str:
         """
         Build a formatted context string for belief updates.
@@ -750,26 +681,27 @@ Respond with ONLY the candidate ID, nothing else."""
 
         prompt = f"""You are updating the beliefs of a person based on new information they have received.
 
-{context}
+        {context}
 
-Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
+        Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
 
-Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
+        Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
 
-Example format:
-{{
-    "healthcare": "I believe in universal healthcare coverage",
-    "economy": "I support progressive taxation",
-    "climate": "Climate change requires immediate action"
-}}
+        Example format:
+        {{
+            "healthcare": "I believe in universal healthcare coverage",
+            "economy": "I support progressive taxation",
+            "climate": "Climate change requires immediate action"
+        }}
 
-If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
+        If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
 
-Return ONLY the JSON object, no additional text."""
+        Return ONLY the JSON object, no additional text."""
 
         system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change."
 
         try:
+            logger.debug(f"Persona {self.id}: Calling LLM to update beliefs (async)")
             response = await llm_client.generate_response_async(
                 self.llm_client,
                 prompt,
@@ -785,7 +717,9 @@ Return ONLY the JSON object, no additional text."""
                 response_clean = response_clean[:-3]
 
             updated_beliefs = json.loads(response_clean.strip())
+            
             self.beliefs = updated_beliefs
+            logger.info(f"Persona {self.id}: Beliefs updated (async) - {len(updated_beliefs)} beliefs")
 
         except Exception as e:
             logger.error(f"Error updating beliefs for {self.id}: {e}")
@@ -796,12 +730,12 @@ Return ONLY the JSON object, no additional text."""
 
         prompt = f"""You are role-playing as a person in a conversation about recent debates and topics.
 
-{context}
+        {context}
 
-Based on your personality, beliefs, and the conversation so far, generate a natural, conversational response.
-Keep it brief (1-3 sentences). Be authentic to your character.
+        Based on your personality, beliefs, and the conversation so far, generate a natural, conversational response.
+        Keep it brief (1-3 sentences). Be authentic to your character.
 
-Return ONLY the message text, no additional formatting or labels."""
+        Return ONLY the message text, no additional formatting or labels."""
 
         system_instruction = "You are generating authentic conversation responses for a person based on their personality and beliefs."
 

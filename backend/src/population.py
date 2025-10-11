@@ -427,25 +427,57 @@ class Population:
         logger.info(f"Parallel vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
         return votes
 
-    def update_beliefs_from_debate(self) -> None:
-        """Update all personas' beliefs based on debate knowledge."""
-        for persona in self.personas:
-            persona.update_beliefs(knowledge_category="debate_knowledge")
-        logger.info("All personas updated beliefs from debate")
+    def _run_parallel_belief_updates(self, personas: List[Persona], knowledge_category: str, max_concurrent: int = 20) -> None:
+        """Common async orchestration logic for parallel belief updates."""
+        logger.debug(f"Starting parallel belief updates for {knowledge_category} with {len(personas)} personas (max {max_concurrent} concurrent)")
+        
+        async def run_parallel():
+            semaphore = asyncio.Semaphore(max_concurrent)
+            
+            async def limited_update(persona):
+                async with semaphore:
+                    return await persona.update_beliefs_async(knowledge_category)
+            
+            tasks = [limited_update(persona) for persona in personas]
+            await asyncio.gather(*tasks)
 
-    def update_beliefs_from_chat(self) -> None:
-        """Update all personas' beliefs based on chat conversations."""
-        for persona in self.personas:
-            if persona.chats:  # Only update if they chatted
-                persona.update_beliefs(knowledge_category="chats")
-        logger.info("All personas updated beliefs from chats")
+        # Get or create event loop and run async function
+        # This avoids creating/destroying event loops which breaks gRPC client
+        try:
+            loop = asyncio.get_running_loop()
+            # If we're already in an async context, create a task
+            raise RuntimeError("Already in async context - this shouldn't happen")
+        except RuntimeError:
+            # No running loop, so we need to get or create one
+            try:
+                loop = asyncio.get_event_loop()
+                if loop.is_closed():
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            # Run the async function on the persistent loop
+            loop.run_until_complete(run_parallel())
+        
+        logger.info(f"All personas updated beliefs from {knowledge_category} (parallel)")
 
-    def update_beliefs_from_social_media(self) -> None:
-        """Update all personas' beliefs based on social media knowledge."""
-        for persona in self.personas:
-            if persona.social_media_knowledge:  # Only update if they've seen posts
-                persona.update_beliefs(knowledge_category="social_media_knowledge")
-        logger.info("All personas updated beliefs from social media")
+    def update_beliefs_from_debate(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on debate knowledge in parallel."""
+        self._run_parallel_belief_updates(self.personas, "debate_knowledge", max_concurrent)
+
+    def update_beliefs_from_chat(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on chat conversations in parallel."""
+        # Filter personas who have chats
+        personas_with_chats = [persona for persona in self.personas if persona.chats]
+        self._run_parallel_belief_updates(personas_with_chats, "chats", max_concurrent)
+
+    def update_beliefs_from_social_media(self, max_concurrent: int = 20) -> None:
+        """Update all personas' beliefs based on social media knowledge in parallel."""
+        # Filter personas who have social media knowledge
+        personas_with_social = [persona for persona in self.personas if persona.social_media_knowledge]
+        self._run_parallel_belief_updates(personas_with_social, "social_media_knowledge", max_concurrent)
 
     def get_voting_data(self) -> List[Dict[str, Any]]:
         """Get voting data for all personas for serialization."""
