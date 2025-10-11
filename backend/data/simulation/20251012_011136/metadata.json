@@ -1,0 +1,557 @@
+{
+  "simulation_id": "20251012_011136",
+  "config": {
+    "population_size": 10,
+    "questions_per_topic": 1,
+    "turns_per_question": 1,
+    "num_epochs": 1,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Healthcare Reform",
+      "description": "Should the government implement universal healthcare?"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Alice Johnson",
+      "character": "Progressive left-leaning, prioritizes social programs and government intervention",
+      "initial_policy_positions": {
+        "topic_1": "Absolutely, healthcare is a fundamental right, not a privilege. I strongly support a universal healthcare system, like Medicare for All, where everyone has access to quality care regardless of their income or employment status. The government must play a central role in ensuring healthcare is accessible, affordable, and equitable for all citizens."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Bob Smith",
+      "character": "Conservative right-leaning, values free market and limited government",
+      "initial_policy_positions": {
+        "topic_1": "As Bob Smith, I believe the best healthcare solutions come from a free market approach, not government mandates. Universal healthcare, as proposed, often leads to higher costs and reduced quality due to increased bureaucracy and decreased competition. I advocate for policies that promote market-based healthcare, empowering individuals with choices and control over their own healthcare decisions."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "33e78587-1e89-40fd-b67d-04830e6ca21f",
+      "name": "33e78587-1e89-40fd-b67d-04830e6ca21f",
+      "demographics": {
+        "id": "33e78587-1e89-40fd-b67d-04830e6ca21f",
+        "name": "Gianna Amato",
+        "age": 20,
+        "gender": "F",
+        "city": "Birsfelden",
+        "job": "Banking Apprentice",
+        "company": "Jost L\u00fcthi & Co.",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "Italian",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.443,
+        "trust_institution": 0.352,
+        "turnout_propensity": 0.315,
+        "media_diet": {
+          "social_media": 0.404,
+          "tv": 0.132,
+          "newspaper": 0.152,
+          "blogs": 0.312
+        },
+        "personality_traits": {
+          "openness": 0.431,
+          "conscientiousness": 0.726,
+          "extraversion": 0.608,
+          "agreeableness": 0.563,
+          "neuroticism": 0.214
+        },
+        "confirmation_bias": 0.7657082196342848,
+        "social_network_influence": 0.9261469225926574,
+        "risk_aversion": 0.2540891271830241,
+        "fairness_value": 0.9616517756313344,
+        "prior_beliefs": {
+          "technology": -0.967,
+          "climate_change": -0.73,
+          "foreign_policy": 0.781,
+          "social_justice": -0.987,
+          "economy": 0.969,
+          "healthcare": -0.57
+        },
+        "timestamp": "2025-10-11T01:21:09.668722",
+        "religion": "Catholic",
+        "demeanour": "Eager to learn and customer-focused, quickly adapting to the professional environment.",
+        "interests": [
+          "Financial markets",
+          "digital banking",
+          "volleyball",
+          "social media trends"
+        ],
+        "sector": "Finance",
+        "backstory": "Born 2005; graduated high school in 2024 and began a commercial apprenticeship in banking. She is in her first year at Jost L\u00fcthi & Co., rotating through different departments."
+      }
+    },
+    {
+      "id": "15e61082-57dd-47a3-917e-9d80951f7ecf",
+      "name": "15e61082-57dd-47a3-917e-9d80951f7ecf",
+      "demographics": {
+        "id": "15e61082-57dd-47a3-917e-9d80951f7ecf",
+        "name": "Nicholas Snyder",
+        "age": 37,
+        "gender": "F",
+        "city": "Bernasconi",
+        "job": "Orf\u00e8vre en argenterie, ma\u00eetre",
+        "company": "Comment",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.647,
+        "trust_institution": 0.885,
+        "turnout_propensity": 0.138,
+        "media_diet": {
+          "social_media": 0.181,
+          "tv": 0.271,
+          "newspaper": 0.304,
+          "blogs": 0.245
+        },
+        "personality_traits": {
+          "openness": 0.868,
+          "conscientiousness": 0.556,
+          "extraversion": 0.009,
+          "agreeableness": 0.279,
+          "neuroticism": 0.831
+        },
+        "confirmation_bias": 0.277094205211171,
+        "social_network_influence": 0.7532362449706831,
+        "risk_aversion": 0.9025507933065823,
+        "fairness_value": 0.07964149678994215,
+        "prior_beliefs": {
+          "healthcare": -0.585,
+          "education": -0.757,
+          "climate_change": 0.442
+        },
+        "timestamp": "2025-10-11T01:21:11.518713"
+      }
+    },
+    {
+      "id": "61595623-6cd4-40ed-8c35-df28ae095858",
+      "name": "61595623-6cd4-40ed-8c35-df28ae095858",
+      "demographics": {
+        "id": "61595623-6cd4-40ed-8c35-df28ae095858",
+        "name": "Marisela Zabaleta Farr\u00e9",
+        "age": 18,
+        "gender": "M",
+        "city": "Maur",
+        "job": "Public house manager",
+        "company": "Siegrist Berger AG",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "Spanish",
+        "cultural_background": "Southern European",
+        "country": "CH_de",
+        "susceptibility": 0.994,
+        "trust_institution": 0.086,
+        "turnout_propensity": 0.905,
+        "media_diet": {
+          "social_media": 0.231,
+          "tv": 0.272,
+          "newspaper": 0.428,
+          "blogs": 0.069
+        },
+        "personality_traits": {
+          "openness": 0.306,
+          "conscientiousness": 0.399,
+          "extraversion": 0.061,
+          "agreeableness": 0.599,
+          "neuroticism": 0.513
+        },
+        "confirmation_bias": 0.9889038812117846,
+        "social_network_influence": 0.8935808494765587,
+        "risk_aversion": 0.6870174089040836,
+        "fairness_value": 0.07120081564369618,
+        "prior_beliefs": {
+          "education": -0.608,
+          "climate_change": -0.015,
+          "healthcare": 0.291,
+          "technology": 0.883,
+          "social_justice": -0.933,
+          "immigration": -0.226
+        },
+        "timestamp": "2025-10-11T01:21:11.744231"
+      }
+    },
+    {
+      "id": "63d09846-9170-4ea3-8f7b-006fb8c44c2f",
+      "name": "63d09846-9170-4ea3-8f7b-006fb8c44c2f",
+      "demographics": {
+        "id": "63d09846-9170-4ea3-8f7b-006fb8c44c2f",
+        "name": "Han Guiying",
+        "age": 63,
+        "gender": "F",
+        "city": "Frauenfeld",
+        "job": "Newspaper journalist",
+        "company": "Gerber Hartmann AG",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Chinese",
+        "cultural_background": "East Asian",
+        "country": "CH_de",
+        "susceptibility": 0.781,
+        "trust_institution": 0.939,
+        "turnout_propensity": 0.748,
+        "media_diet": {
+          "social_media": 0.261,
+          "tv": 0.226,
+          "newspaper": 0.084,
+          "blogs": 0.429
+        },
+        "personality_traits": {
+          "openness": 0.125,
+          "conscientiousness": 0.235,
+          "extraversion": 0.252,
+          "agreeableness": 0.744,
+          "neuroticism": 0.75
+        },
+        "confirmation_bias": 0.2105714914717559,
+        "social_network_influence": 0.3970455833003619,
+        "risk_aversion": 0.09555371898258025,
+        "fairness_value": 0.9367936617038471,
+        "prior_beliefs": {
+          "climate_change": -0.475,
+          "social_justice": -0.689,
+          "healthcare": 0.31,
+          "education": 0.771,
+          "technology": -0.381,
+          "foreign_policy": -0.505
+        },
+        "timestamp": "2025-10-11T01:21:09.647868",
+        "religion": "None",
+        "demeanour": "Inquisitive and tenacious with a deep commitment to journalistic ethics.",
+        "interests": [
+          "investigative reporting",
+          "Swiss politics",
+          "calligraphy",
+          "Cantonese opera"
+        ],
+        "sector": "Creative",
+        "backstory": "Immigrated to Switzerland in the late 1980s after completing her Master's in Journalism. Has been a staff journalist for over 30 years, covering local government in Canton Thurgau."
+      }
+    },
+    {
+      "id": "e22d443c-aefb-408c-a25f-87fc87bb16e1",
+      "name": "e22d443c-aefb-408c-a25f-87fc87bb16e1",
+      "demographics": {
+        "id": "e22d443c-aefb-408c-a25f-87fc87bb16e1",
+        "name": "Mergim Harizi",
+        "age": 22,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Politician's assistant",
+        "company": "Stokes, Lee and Perkins",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Kosovan",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.043,
+        "trust_institution": 0.907,
+        "turnout_propensity": 0.963,
+        "media_diet": {
+          "social_media": 0.191,
+          "tv": 0.295,
+          "newspaper": 0.113,
+          "blogs": 0.401
+        },
+        "personality_traits": {
+          "openness": 0.358,
+          "conscientiousness": 0.856,
+          "extraversion": 0.503,
+          "agreeableness": 0.349,
+          "neuroticism": 0.706
+        },
+        "confirmation_bias": 0.3906243258196499,
+        "social_network_influence": 0.0627657709605759,
+        "risk_aversion": 0.6559192475035989,
+        "fairness_value": 0.3518670026655002,
+        "prior_beliefs": {
+          "social_justice": 0.847,
+          "foreign_policy": -0.864,
+          "immigration": 0.679,
+          "economy": -0.033,
+          "education": 0.925
+        },
+        "timestamp": "2025-10-11T01:21:10.084482",
+        "religion": "Muslim",
+        "demeanour": "Eager and diligent, focused on policy detail and political process.",
+        "interests": [
+          "Political history",
+          "Community organizing",
+          "Balkan music",
+          "Football"
+        ],
+        "sector": "Government",
+        "backstory": "Born 2002 in Kosovo, moved to Ticino as a child. Currently studying political science while working part-time; managed social media for a successful 2024 cantonal campaign."
+      }
+    },
+    {
+      "id": "8fc8685b-1748-4b62-8ef7-d81383c76844",
+      "name": "8fc8685b-1748-4b62-8ef7-d81383c76844",
+      "demographics": {
+        "id": "8fc8685b-1748-4b62-8ef7-d81383c76844",
+        "name": "Daniela Barros",
+        "age": 22,
+        "gender": "F",
+        "city": "Juliehaven",
+        "job": "Water quality scientist",
+        "company": "Greene-Johns",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Southern European",
+        "country": "CH_it",
+        "susceptibility": 0.253,
+        "trust_institution": 0.747,
+        "turnout_propensity": 0.807,
+        "media_diet": {
+          "social_media": 0.27,
+          "tv": 0.282,
+          "newspaper": 0.226,
+          "blogs": 0.222
+        },
+        "personality_traits": {
+          "openness": 0.5,
+          "conscientiousness": 0.102,
+          "extraversion": 0.038,
+          "agreeableness": 0.774,
+          "neuroticism": 0.841
+        },
+        "confirmation_bias": 0.27317513842025465,
+        "social_network_influence": 0.563922988814736,
+        "risk_aversion": 0.2636120861805189,
+        "fairness_value": 0.5660391217118618,
+        "prior_beliefs": {
+          "climate_change": 0.657,
+          "technology": 0.823,
+          "healthcare": -0.931,
+          "social_justice": 0.655,
+          "economy": 0.385
+        },
+        "timestamp": "2025-10-11T01:21:12.053346"
+      }
+    },
+    {
+      "id": "059c44c5-043b-440e-962b-d67691e8a734",
+      "name": "059c44c5-043b-440e-962b-d67691e8a734",
+      "demographics": {
+        "id": "059c44c5-043b-440e-962b-d67691e8a734",
+        "name": "Gennaro Eugster",
+        "age": 51,
+        "gender": "M",
+        "city": "K\u00fcssnacht",
+        "job": "Copywriter, advertising",
+        "company": "Gerber Steinmann GmbH",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_de",
+        "susceptibility": 0.487,
+        "trust_institution": 0.224,
+        "turnout_propensity": 0.169,
+        "media_diet": {
+          "social_media": 0.491,
+          "tv": 0.136,
+          "newspaper": 0.317,
+          "blogs": 0.056
+        },
+        "personality_traits": {
+          "openness": 0.232,
+          "conscientiousness": 0.279,
+          "extraversion": 0.096,
+          "agreeableness": 0.552,
+          "neuroticism": 0.509
+        },
+        "confirmation_bias": 0.16885241886489177,
+        "social_network_influence": 0.5983915396224059,
+        "risk_aversion": 0.03974503993881262,
+        "fairness_value": 0.8906444351362418,
+        "prior_beliefs": {
+          "climate_change": -0.594,
+          "healthcare": 0.884,
+          "social_justice": 0.142,
+          "economy": 0.464
+        },
+        "timestamp": "2025-10-11T01:21:10.120990",
+        "religion": "None",
+        "demeanour": "Witty and observant, with a cynical view of consumer trends.",
+        "interests": [
+          "Contemporary literature",
+          "Graphic design",
+          "Sailing on Lake Zurich",
+          "Satirical comedy"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1974; graduated with a BA in Communications around 1996. He has worked in advertising for over two decades, contributing to several award-winning campaigns for national brands in the early 2010s."
+      }
+    },
+    {
+      "id": "3a1aadfe-99de-4778-ae7c-e3ffbfef1b00",
+      "name": "3a1aadfe-99de-4778-ae7c-e3ffbfef1b00",
+      "demographics": {
+        "id": "3a1aadfe-99de-4778-ae7c-e3ffbfef1b00",
+        "name": "Celilay Man\u00e7o",
+        "age": 25,
+        "gender": "F",
+        "city": "Emmen",
+        "job": "Psychotherapist, child",
+        "company": "Iten & Cie.",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Turkish",
+        "cultural_background": "European",
+        "country": "CH_de",
+        "susceptibility": 0.396,
+        "trust_institution": 0.822,
+        "turnout_propensity": 0.831,
+        "media_diet": {
+          "social_media": 0.013,
+          "tv": 0.321,
+          "newspaper": 0.401,
+          "blogs": 0.264
+        },
+        "personality_traits": {
+          "openness": 0.711,
+          "conscientiousness": 0.897,
+          "extraversion": 0.569,
+          "agreeableness": 0.281,
+          "neuroticism": 0.753
+        },
+        "confirmation_bias": 0.9592632953086722,
+        "social_network_influence": 0.15299063836128235,
+        "risk_aversion": 0.8047176722721651,
+        "fairness_value": 0.08967058097297809,
+        "prior_beliefs": {
+          "social_justice": 0.987,
+          "economy": -0.396,
+          "climate_change": 0.683,
+          "healthcare": -0.883,
+          "technology": -0.543,
+          "foreign_policy": 0.588
+        },
+        "timestamp": "2025-10-11T01:21:10.953224"
+      }
+    },
+    {
+      "id": "98ddb332-a62f-41cc-b88c-3d5cffbe2fc5",
+      "name": "98ddb332-a62f-41cc-b88c-3d5cffbe2fc5",
+      "demographics": {
+        "id": "98ddb332-a62f-41cc-b88c-3d5cffbe2fc5",
+        "name": "Laura Jomini-Ev\u00e9quoz",
+        "age": 23,
+        "gender": "F",
+        "city": "La Chaux-de-Fonds",
+        "job": "Horloger de production CFC",
+        "company": "Corboz Delado\u00eby S\u00e0rl.",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.179,
+        "trust_institution": 0.804,
+        "turnout_propensity": 0.981,
+        "media_diet": {
+          "social_media": 0.539,
+          "tv": 0.039,
+          "newspaper": 0.263,
+          "blogs": 0.159
+        },
+        "personality_traits": {
+          "openness": 0.845,
+          "conscientiousness": 0.327,
+          "extraversion": 0.553,
+          "agreeableness": 0.008,
+          "neuroticism": 0.201
+        },
+        "confirmation_bias": 0.5638067408241869,
+        "social_network_influence": 0.30390930726808296,
+        "risk_aversion": 0.6227175238921046,
+        "fairness_value": 0.4639266905804993,
+        "prior_beliefs": {
+          "healthcare": 0.865,
+          "foreign_policy": -0.952,
+          "education": 0.083,
+          "immigration": 0.272,
+          "technology": 0.387,
+          "climate_change": -0.981
+        },
+        "timestamp": "2025-10-11T01:21:09.338045",
+        "religion": "None",
+        "demeanour": "Precise and focused, with a natural talent for assembling complex micro-mechanisms.",
+        "interests": [
+          "watchmaking history",
+          "micro-mechanics",
+          "contemporary design",
+          "snowboarding"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Completed a 4-year watchmaking apprenticeship in Le Locle, earning her CFC at age 20. She has since worked as a production watchmaker, specializing in the assembly of high-complication movements for a luxury brand."
+      }
+    },
+    {
+      "id": "171b29af-9a52-4e29-aa15-4dbc344f334e",
+      "name": "171b29af-9a52-4e29-aa15-4dbc344f334e",
+      "demographics": {
+        "id": "171b29af-9a52-4e29-aa15-4dbc344f334e",
+        "name": "Pellegrino Frescobaldi",
+        "age": 24,
+        "gender": "M",
+        "city": "Bellinzona",
+        "job": "Camera operator",
+        "company": "Ticino Media Productions",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Italian",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.212,
+        "trust_institution": 0.906,
+        "turnout_propensity": 0.851,
+        "media_diet": {
+          "social_media": 0.119,
+          "tv": 0.154,
+          "newspaper": 0.516,
+          "blogs": 0.211
+        },
+        "personality_traits": {
+          "openness": 0.115,
+          "conscientiousness": 0.671,
+          "extraversion": 0.567,
+          "agreeableness": 0.054,
+          "neuroticism": 0.751
+        },
+        "confirmation_bias": 0.9900764226489741,
+        "social_network_influence": 0.548851113477835,
+        "risk_aversion": 0.6446745138590381,
+        "fairness_value": 0.07314457215855019,
+        "prior_beliefs": {
+          "education": 0.451,
+          "climate_change": -0.026,
+          "immigration": -0.338
+        },
+        "timestamp": "2025-10-11T01:21:09.607924",
+        "religion": "Catholic",
+        "demeanour": "Creative, adaptable, and possesses a keen eye for visual composition.",
+        "interests": [
+          "independent cinema",
+          "drone photography",
+          "local football club",
+          "bouldering"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 2001 in Lugano; attended film studies at a university of applied sciences for two years. Began working as a freelance camera assistant in 2021 before joining his current production house in 2023."
+      }
+    }
+  ]
+}

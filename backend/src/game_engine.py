@@ -67,6 +67,9 @@ class GameEngine:
         if self.simulation_file is None:
             self.initialize_simulation_output()
 
+        # Serialize constant metadata once at the start
+        self._serialize_simulation_metadata()
+
         for epoch in range(self.config.num_epochs):
             self.current_epoch = epoch
             self._run_epoch()
@@ -217,16 +220,96 @@ class GameEngine:
             logger.info(f"Reactions: {reaction_stats['total_reactions']} total "
                        f"({reaction_stats['thumbs_up']} 👍, {reaction_stats['thumbs_down']} 👎)")
     
+    def _serialize_simulation_metadata(self) -> None:
+        """
+        Serialize constant simulation metadata to metadata.json.
+
+        This includes:
+        - Topics: Full topic definitions (id, title, description)
+        - Candidates: Static profile (id, name, character) + initial policy positions
+        - Population: Full demographics/features for each persona
+        - Config: Simulation configuration parameters
+
+        This file is written once at the start of the simulation.
+        """
+        if self.simulation_dir is None:
+            logger.warning("Simulation directory not initialized. Call initialize_simulation_output() first.")
+            return
+
+        metadata = {
+            "simulation_id": self.simulation_id,
+            "config": {
+                "population_size": self.config.population_size,
+                "questions_per_topic": self.config.questions_per_topic,
+                "turns_per_question": self.config.turns_per_question,
+                "num_epochs": self.config.num_epochs,
+                "random_seed": self.config.random_seed
+            },
+            "topics": self._serialize_topics(),
+            "candidates": self._serialize_candidate_profiles(),
+            "population": self._serialize_population_profiles()
+        }
+
+        metadata_file = self.simulation_dir / "metadata.json"
+        with open(metadata_file, 'w') as f:
+            json.dump(metadata, f, cls=DataclassJSONEncoder, indent=2)
+
+        logger.info(f"Serialized simulation metadata to {metadata_file}")
+
+    def _serialize_topics(self) -> List[Dict[str, Any]]:
+        """Serialize all topic definitions."""
+        if not self.mediator or not self.mediator.topics:
+            return []
+
+        topics = []
+        for topic in self.mediator.topics:
+            topics.append({
+                "id": topic.id,
+                "title": topic.title,
+                "description": topic.description
+            })
+
+        return topics
+
+    def _serialize_candidate_profiles(self) -> List[Dict[str, Any]]:
+        """Serialize candidate static profiles including initial policy positions."""
+        candidates = []
+
+        for candidate in self.candidates:
+            candidate_profile = {
+                "id": candidate.id,
+                "name": candidate.name,
+                "character": candidate.character,
+                "initial_policy_positions": dict(candidate.state.policy_positions)
+            }
+            candidates.append(candidate_profile)
+
+        return candidates
+
+    def _serialize_population_profiles(self) -> List[Dict[str, Any]]:
+        """Serialize population demographics and static features."""
+        profiles = []
+
+        for persona in self.population.personas:
+            profile = {
+                "id": persona.id,
+                "name": getattr(persona, 'name', persona.id),
+                "demographics": getattr(persona, 'features', {})
+            }
+            profiles.append(profile)
+
+        return profiles
+
     def _serialize_epoch_state(self) -> None:
         """
         Serialize the current epoch state and append it to the epochs.jsonl file.
 
-        The format matches the structure in backend/api/epoch.json with the following fields:
+        The format includes only dynamic data that changes each epoch:
         - epoch: Current epoch number
-        - debates: List of debate transcripts for this epoch
+        - debates: List of debate transcripts for this epoch (with topic_id references only)
         - newsfeed: Social media posts from this epoch
-        - candidates: Candidate states including policy positions and reflections
-        - population_votes: Population voting intentions (if available)
+        - candidates: Candidate dynamic state (policy positions and memory)
+        - population_votes: Population dynamic state (beliefs and votes)
         """
         if self.simulation_file is None:
             logger.warning("Simulation file not initialized. Call initialize_simulation_output() first.")
@@ -248,16 +331,16 @@ class GameEngine:
         logger.info(f"Serialized epoch {self.current_epoch} to {self.simulation_file}")
 
     def _serialize_debates(self) -> List[Dict[str, Any]]:
-        """Serialize debate transcripts for the current epoch."""
+        """Serialize debate transcripts for the current epoch (with topic_id references only)."""
         debates = []
 
         for transcript in self.debate_transcripts:
             if transcript.epoch == self.current_epoch:
                 debate_data = {
-                    "topic": {
-                        "id": transcript.topic.id,
-                        "title": transcript.topic.title,
-                        "description": transcript.topic.description
+                    "topic_id": transcript.topic.id,
+                    "question": {
+                        "id": transcript.question.id,
+                        "text": transcript.question.text
                     },
                     "statements": []
                 }
@@ -273,7 +356,6 @@ class GameEngine:
                         debate_data["statements"].append({
                             "type": "candidate",
                             "candidate_id": statement.candidate_id,
-                            "candidate_name": statement.candidate_name,
                             "statement": statement.statement
                         })
 
@@ -304,13 +386,12 @@ class GameEngine:
         return {"posts": posts}
 
     def _serialize_candidates(self) -> List[Dict[str, Any]]:
-        """Serialize candidate states including policy positions and reflections."""
+        """Serialize candidate dynamic state (policy positions and memory only)."""
         candidates = []
 
         for candidate in self.candidates:
             candidate_data = {
                 "id": candidate.id,
-                "name": candidate.name,
                 "policy_positions": candidate.state.policy_positions,
                 "state_memory": candidate.state.memory
             }

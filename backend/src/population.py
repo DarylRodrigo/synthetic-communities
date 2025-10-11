@@ -421,22 +421,24 @@ class Population:
         self._run_parallel_belief_updates(personas_with_social, "social_media_knowledge", max_concurrent)
 
     def get_voting_data(self) -> List[Dict[str, Any]]:
-        """Get voting data for all personas for serialization."""
+        """Serialize population dynamic state (beliefs and policy positions only)."""
         votes = []
+
         for persona in self.personas:
             persona_data = {
                 "id": persona.id,
-                "name": getattr(persona, 'name', persona.id),
-                "demographics": getattr(persona, 'features', {}),
                 "policy_positions": {},
                 "overall_vote": ""
             }
+
             # Add beliefs as policy positions with reasoning
             if hasattr(persona, 'beliefs') and persona.beliefs:
                 for topic_id, belief in persona.beliefs.items():
                     persona_data["policy_positions"][topic_id] = {
                         "reasoning": belief,
-                        "vote": ""
+                        "vote": ""  # Can be populated if vote tracking is implemented
                     }
+
             votes.append(persona_data)
+
         return votes
