@@ -37,10 +37,66 @@ class Population:
         for persona in self.personas:
             persona.update_beliefs(messages)
     
-    def chat_with_peers(self) -> None:
-        for persona in self.personas:
-            peer_messages = []
-            persona.chat_with_peers(peer_messages)
+    def chat_with_peers(
+        self,
+        num_rounds_mean: int = 3,
+        num_rounds_variance: int = 1
+    ) -> List[Dict[str, Any]]:
+        """
+        Orchestrate paired conversations between personas.
+
+        Args:
+            num_rounds_mean: Average number of message exchanges per pair
+            num_rounds_variance: Variance in number of rounds (rounds will be mean ± variance)
+
+        Returns:
+            List of conversation records
+        """
+        import random
+
+        # Create pairs
+        available_personas = self.personas.copy()
+        random.shuffle(available_personas)
+
+        pairs = []
+        for i in range(0, len(available_personas) - 1, 2):
+            pairs.append((available_personas[i], available_personas[i + 1]))
+
+        # If odd number, last persona doesn't chat this round
+        all_conversations = []
+
+        # For each pair, orchestrate a conversation
+        for persona_a, persona_b in pairs:
+            # Determine number of rounds for this conversation
+            num_rounds = max(1, num_rounds_mean + random.randint(-num_rounds_variance, num_rounds_variance))
+
+            conversation_history = []
+
+            # Back and forth conversation
+            for round_num in range(num_rounds):
+                # Persona A's turn
+                message_a = persona_a.chat_with_peers(conversation_history, persona_b.id)
+                conversation_history.append({
+                    "speaker_id": persona_a.id,
+                    "message": message_a
+                })
+
+                # Persona B's turn
+                message_b = persona_b.chat_with_peers(conversation_history, persona_a.id)
+                conversation_history.append({
+                    "speaker_id": persona_b.id,
+                    "message": message_b
+                })
+
+            # Record the full conversation
+            conversation_record = {
+                "participants": [persona_a.id, persona_b.id],
+                "num_rounds": num_rounds,
+                "conversation": conversation_history
+            }
+            all_conversations.append(conversation_record)
+
+        return all_conversations
     
     def create_social_media_posts(self) -> List[Dict[str, Any]]:
         posts = []
