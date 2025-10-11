@@ -1,6 +1,7 @@
 from typing import Dict, List, Any, Optional
 from dotenv import load_dotenv
 import os
+from dataclasses import dataclass
 
 import logging
 from . import llm_client
@@ -9,6 +10,14 @@ from .social_media import Post
 import json
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class ChatEntry:
+    """Represents a chat conversation between two personas."""
+    peer_id: str
+    peer_name: str
+    conversation: List[Dict[str, str]]  # List of {"speaker_id": str, "message": str}
 
 
 class Persona:
@@ -59,6 +68,28 @@ class Persona:
             lines.append(f"  Extraversion: {traits.get('extraversion', 0):.2f}")
             lines.append(f"  Agreeableness: {traits.get('agreeableness', 0):.2f}")
             lines.append(f"  Neuroticism: {traits.get('neuroticism', 0):.2f}")
+
+        return "\n".join(lines)
+
+    def _format_chat(self, chat: ChatEntry, max_messages: int = 5) -> str:
+        """
+        Format a chat conversation nicely with proper names.
+
+        Args:
+            chat: The ChatEntry to format
+            max_messages: Maximum number of recent messages to show (default: 5)
+
+        Returns:
+            Formatted chat string with "You: " for self and peer's name for others
+        """
+        lines = []
+        lines.append(f"Conversation with {chat.peer_name}:")
+
+        for msg in chat.conversation[-max_messages:]:
+            if msg["speaker_id"] == self.id:
+                lines.append(f"  You: {msg['message']}")
+            else:
+                lines.append(f"  {chat.peer_name}: {msg['message']}")
 
         return "\n".join(lines)
 
@@ -235,7 +266,7 @@ Return ONLY the JSON object, no additional text."""
         elif knowledge_category == "chats":
             if self.chats:
                 # Show only the last chat
-                lines.append(str(self.chats[-1]))
+                lines.append(self._format_chat(self.chats[-1], max_messages=5))
             else:
                 lines.append("(No chat history)")
         elif knowledge_category == "social_media_knowledge":
@@ -256,7 +287,7 @@ Return ONLY the JSON object, no additional text."""
 
         return "\n".join(lines)
     
-    def chat_with_peers(self, conversation_history: List[Dict[str, Any]], peer_id: str) -> str:
+    def chat_with_peers(self, conversation_history: List[Dict[str, Any]], peer_id: str, peer_name: str) -> str:
         """
         Generate a chat message based on conversation history with a peer.
 
@@ -264,6 +295,7 @@ Return ONLY the JSON object, no additional text."""
             conversation_history: List of messages in the conversation so far
                                  Each message: {"speaker_id": str, "message": str}
             peer_id: The ID of the peer being chatted with
+            peer_name: The name of the peer being chatted with
 
         Returns:
             The chat message as a string
@@ -275,12 +307,12 @@ Return ONLY the JSON object, no additional text."""
         # Create prompt for LLM
         prompt = f"""You are role-playing as a person in a conversation about recent debates and topics.
 
-{context}
+        {context}
 
-Based on your personality, beliefs, and the conversation so far, generate a natural, conversational response.
-Keep it brief (1-3 sentences). Be authentic to your character.
+        Based on your personality, beliefs, and the conversation so far, generate a natural, conversational response.
+        Keep it brief (1-3 sentences). Be authentic to your character.
 
-Return ONLY the message text, no additional formatting or labels."""
+        Return ONLY the message text, no additional formatting or labels."""
 
         system_instruction = "You are generating authentic conversation responses for a person based on their personality and beliefs."
 
@@ -293,10 +325,11 @@ Return ONLY the message text, no additional formatting or labels."""
         message = response.strip()
 
         # Store the conversation in chats
-        chat_entry = {
-            "peer_id": peer_id,
-            "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
-        }
+        chat_entry = ChatEntry(
+            peer_id=peer_id,
+            peer_name=peer_name,
+            conversation=conversation_history + [{"speaker_id": self.id, "message": message}]
+        )
         self.chats.append(chat_entry)
         logger.debug(f"Persona {self.id} chat message: {message}")
 
@@ -454,12 +487,7 @@ Return ONLY the post text, no hashtags, no additional formatting."""
         # Add recent chats
         if self.chats:
             lines.append("=== RECENT CONVERSATION ===")
-            last_chat = self.chats[-1]
-            lines.append(f"With peer: {last_chat.get('peer_id', 'Unknown')}")
-            conversation = last_chat.get('conversation', [])
-            for msg in conversation[-3:]:  # Show last 3 messages
-                speaker = "You" if msg["speaker_id"] == self.id else "Peer"
-                lines.append(f"{speaker}: {msg['message']}")
+            lines.append(self._format_chat(self.chats[-1], max_messages=3))
             lines.append("")
 
         # Add social media feed
@@ -687,11 +715,8 @@ Respond with ONLY the candidate ID, nothing else."""
         lines.append("=== YOUR CONVERSATIONS ===")
         if self.chats:
             for idx, chat in enumerate(self.chats[-5:], 1):  # Last 5 chats
-                lines.append(f"Conversation {idx} with {chat.get('peer_id', 'Unknown')}:")
-                conversation = chat.get('conversation', [])
-                for msg in conversation[-3:]:  # Last 3 messages of each
-                    speaker = "You" if msg["speaker_id"] == self.id else "Peer"
-                    lines.append(f"  {speaker}: {msg['message']}")
+                lines.append(f"Conversation {idx}:")
+                lines.append(self._format_chat(chat, max_messages=3))
                 lines.append("")
         else:
             lines.append("(No conversations)")

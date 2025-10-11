@@ -144,7 +144,9 @@ def test_display_persona_state(persona):
     print("chats:")
     if persona.chats:
         import json
-        print(json.dumps(persona.chats, indent=2))
+        from dataclasses import asdict
+        chats_as_dicts = [asdict(chat) for chat in persona.chats]
+        print(json.dumps(chats_as_dicts, indent=2))
     else:
         print("  []")
     print()
@@ -404,7 +406,11 @@ def test_chat_with_peers():
 
         # Persona A's turn
         try:
-            message_a = persona_a.chat_with_peers(conversation_history, persona_b.id)
+            message_a = persona_a.chat_with_peers(
+                conversation_history,
+                persona_b.id,
+                persona_b_data.get('name', 'Unknown')
+            )
             conversation_history.append({
                 "speaker_id": persona_a.id,
                 "message": message_a
@@ -418,7 +424,11 @@ def test_chat_with_peers():
 
         # Persona B's turn
         try:
-            message_b = persona_b.chat_with_peers(conversation_history, persona_a.id)
+            message_b = persona_b.chat_with_peers(
+                conversation_history,
+                persona_a.id,
+                persona_a_data.get('name', 'Unknown')
+            )
             conversation_history.append({
                 "speaker_id": persona_b.id,
                 "message": message_b
