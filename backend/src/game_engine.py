@@ -68,6 +68,7 @@ class GameEngine:
     
     def _run_epoch(self) -> None:
         self._candidates_read_social_media()
+
         
         for topic_index in range(self.config.topics_per_epoch):
             self._conduct_debate_on_topic(topic_index)
@@ -158,13 +159,13 @@ class GameEngine:
         pass
     
     def _personas_update_beliefs_from_debate(self) -> None:
-        self.population.update_beliefs([])
+        self.population.update_beliefs("debate_knowledge")
     
     def _personas_chat_with_peers(self) -> None:
         self.population.chat_with_peers()
     
     def _personas_update_beliefs_from_social(self) -> None:
-        self.population.update_beliefs([])
+        self.population.update_beliefs("social_media_knowledge")
     
     def _personas_post_to_social_media(self) -> None:
         posts = self.population.create_social_media_posts()

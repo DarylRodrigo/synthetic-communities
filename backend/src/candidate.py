@@ -205,6 +205,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
             - Sound authentic and conversational, not robotic"""
 
         logger.debug(f"{self.name}: Calling LLM to generate strategic debate statement")
+        
         response = llm_client.generate_response(
             self.llm_client,
             prompt,
