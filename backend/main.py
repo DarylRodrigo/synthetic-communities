@@ -33,13 +33,6 @@ def main():
     else:
         print(f"Warning: {population_file} not found, running with empty population")
     
-    # Initialize candidates
-    engine.candidates = [
-        Candidate("candidate_1", "Alice Johnson", engine.llm_client),
-        Candidate("candidate_2", "Bob Smith", engine.llm_client),
-        Candidate("candidate_3", "Carol Davis", engine.llm_client)
-    ]
-    
     # Initialize mediator with debate topics
     topics = [
         Topic(
@@ -47,26 +40,13 @@ def main():
             title="Healthcare Reform",
             description="Should the government implement universal healthcare?"
         ),
-        # Topic(
-        #     id="topic_2",
-        #     title="Climate Policy",
-        #     description="What measures should be taken to address climate change?"
-        # ),
-        # Topic(
-        #     id="topic_3",
-        #     title="Education Funding",
-        #     description="How should public education be funded and reformed?"
-        # ),
-        # Topic(
-        #     id="topic_4",
-        #     title="Economic Policy",
-        #     description="What economic policies will create jobs and growth?"
-        # ),
-        # Topic(
-        #     id="topic_5",
-        #     title="Immigration Reform",
-        #     description="What should be the approach to immigration policy?"
-        # )
+    ]
+
+    # Initialize candidates with topics so they can form policy positions
+    engine.candidates = [
+        Candidate("candidate_1", "Alice Johnson", topics, engine.llm_client),
+        Candidate("candidate_2", "Bob Smith", topics, engine.llm_client),
+        Candidate("candidate_3", "Carol Davis", topics, engine.llm_client)
     ]
 
     engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)

@@ -27,16 +27,29 @@ class TestCandidate:
         )
 
     @pytest.fixture
-    def candidate(self, mock_llm_client):
-        """Fixture to create a Candidate instance"""
-        return Candidate("candidate_1", "Alice Johnson", mock_llm_client)
+    def sample_topics(self, sample_topic):
+        """Fixture for a list of topics"""
+        return [sample_topic]
 
-    def test_candidate_initialization(self, mock_llm_client):
-        """Test creating a Candidate instance"""
-        candidate = Candidate("cand_123", "Bob Smith", mock_llm_client)
+    @pytest.fixture
+    @patch('src.candidate.llm_client.generate_response')
+    def candidate(self, mock_generate, mock_llm_client, sample_topics):
+        """Fixture to create a Candidate instance"""
+        mock_generate.return_value = "I support strong climate action."
+        return Candidate("candidate_1", "Alice Johnson", sample_topics, mock_llm_client)
+
+    @patch('src.candidate.llm_client.generate_response')
+    def test_candidate_initialization(self, mock_generate, mock_llm_client, sample_topics):
+        """Test creating a Candidate instance with policy initialization"""
+        mock_generate.return_value = "I support moderate policies."
+
+        candidate = Candidate("cand_123", "Bob Smith", sample_topics, mock_llm_client)
         assert candidate.id == "cand_123"
         assert candidate.name == "Bob Smith"
         assert candidate.llm_client == mock_llm_client
+        assert candidate.state is not None
+        assert "topic_1" in candidate.state.policy_positions
+        assert len(candidate.state.policy_positions["topic_1"]) > 0
 
     @patch('src.candidate.llm_client.generate_response')
     def test_craft_debate_statement(self, mock_generate, candidate, sample_topic):
@@ -75,16 +88,17 @@ class TestCandidate:
         assert "Bob Smith" in prompt
 
     @patch('src.candidate.llm_client.generate_response')
-    def test_multiple_candidates_create_statements(self, mock_generate, sample_topic, mock_llm_client):
+    def test_multiple_candidates_create_statements(self, mock_generate, sample_topic, sample_topics, mock_llm_client):
         """Test multiple candidates can create statements"""
         mock_generate.return_value = "Test statement."
 
-        candidate1 = Candidate("c1", "Alice", mock_llm_client)
-        candidate2 = Candidate("c2", "Bob", mock_llm_client)
+        candidate1 = Candidate("c1", "Alice", sample_topics, mock_llm_client)
+        candidate2 = Candidate("c2", "Bob", sample_topics, mock_llm_client)
 
         stmt1 = candidate1.craft_debate_statement(sample_topic, 0, [])
         stmt2 = candidate2.craft_debate_statement(sample_topic, 0, [stmt1])
 
         assert stmt1.candidate_id == "c1"
         assert stmt2.candidate_id == "c2"
-        assert mock_generate.call_count == 2
+        # 2 for initialization + 2 for statements = 4 total
+        assert mock_generate.call_count == 4
