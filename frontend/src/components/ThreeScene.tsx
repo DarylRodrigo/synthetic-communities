@@ -29,7 +29,7 @@ const AUDIENCE_CONFIG = {
 const CANDIDATES_CONFIG = {
     count: 3,
     colors: ['#e74c3c', '#f39c12', '#2ecc71'], // Red, Orange, Green
-    stagePosition: [10, 0, 0], // Stage position
+    stagePosition: [0, 0.5, -10], // Stage position (center of stage)
     spacing: 2.5,
     height: 1.2
 };
@@ -61,17 +61,18 @@ const generateAudience = () => {
 const generateCandidates = () => {
     const candidates = [];
     const stageX = CANDIDATES_CONFIG.stagePosition[0];
+    const stageY = CANDIDATES_CONFIG.stagePosition[1] + 0.5; // On top of stage
     const stageZ = CANDIDATES_CONFIG.stagePosition[2];
-    const startZ = stageZ - (CANDIDATES_CONFIG.count - 1) * CANDIDATES_CONFIG.spacing / 2;
+    const startX = stageX - (CANDIDATES_CONFIG.count - 1) * CANDIDATES_CONFIG.spacing / 2;
 
     for (let i = 0; i < CANDIDATES_CONFIG.count; i++) {
         candidates.push({
             id: `candidate${i + 1}`,
             color: CANDIDATES_CONFIG.colors[i],
             position: [
-                stageX,
-                CANDIDATES_CONFIG.height + 0.5,
-                startZ + i * CANDIDATES_CONFIG.spacing
+                startX + i * CANDIDATES_CONFIG.spacing,
+                stageY + CANDIDATES_CONFIG.height,
+                stageZ
             ]
         });
     }
@@ -322,6 +323,10 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
     const [hoveredPosition, setHoveredPosition] = useState<[number, number, number] | null>(null);
     const [remyHovered, setRemyHovered] = useState(false);
     const [claireHovered, setClaireHovered] = useState(false);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [showFullscreenButton, setShowFullscreenButton] = useState(false);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const canvasRef = useRef<HTMLDivElement>(null);
 
     const handleClick = (name: string) => {
         setClicked(clicked === name ? null : name);
@@ -353,8 +358,56 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
         setClaireHovered(false);
     };
 
+    // Fullscreen functionality
+    const toggleFullscreen = async () => {
+        if (!canvasRef.current) return;
+
+        try {
+            if (!isFullscreen) {
+                if (canvasRef.current.requestFullscreen) {
+                    await canvasRef.current.requestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    await document.exitFullscreen();
+                }
+            }
+        } catch (error) {
+            console.error('Error toggling fullscreen:', error);
+        }
+    };
+
+    // Mouse position tracking
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        setMousePosition({ x, y });
+
+        // Show button when mouse is in top right corner (within 100px of top-right)
+        const threshold = 100;
+        const showButton = x > rect.width - threshold && y < threshold;
+        setShowFullscreenButton(showButton);
+    };
+
+    // Listen for fullscreen changes
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    }, []);
+
     return (
-        <div className={`w-full h-full ${className}`}>
+        <div
+            ref={canvasRef}
+            className={`w-full h-full relative ${className}`}
+            onMouseMove={handleMouseMove}
+        >
             <Canvas
                 camera={{ position: [10, 10, 10], fov: 60 }}
                 className="bg-sky-200"
@@ -414,7 +467,7 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                 <AnimatedCharacter
                     characterFile="Remy.fbx"
                     animationFile="Angry.fbx"
-                    position={[12, 0, 0]}
+                    position={[-2.5, 1.5, -10]}
                     scale={[1, 1, 1]} // Will be automatically adjusted
                     isHovered={remyHovered}
                     onPointerOver={handleRemyPointerOver}
@@ -425,7 +478,7 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                 <AnimatedCharacter
                     characterFile="claire.fbx"
                     animationFile="Standing Greeting.fbx"
-                    position={[12, 0, 3]}
+                    position={[2.5, 1.5, -10]}
                     scale={[1, 1, 1]} // Will be automatically adjusted
                     isHovered={claireHovered}
                     onPointerOver={handleClairePointerOver}
@@ -448,8 +501,8 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
 
                 {/* Stage */}
                 <Box
-                    position={[10, 0.5, 0]}
-                    args={[2, 1, 10]}
+                    position={[0, 0.5, -10]}
+                    args={[10, 1, 2]}
                     rotation={[0, 0, 0]}
                     receiveShadow
                 >
@@ -475,6 +528,49 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                     </SpeechBubble>
                 )}
             </Canvas>
+
+            {/* Fullscreen Toggle Button */}
+            <button
+                onClick={toggleFullscreen}
+                className={`absolute top-4 right-4 z-10 p-3 rounded-full bg-white/90 hover:bg-white shadow-lg transition-all duration-300 ease-in-out ${showFullscreenButton ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'
+                    }`}
+                style={{
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+            >
+                {isFullscreen ? (
+                    // Exit fullscreen icon (compress)
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-gray-700"
+                    >
+                        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
+                    </svg>
+                ) : (
+                    // Enter fullscreen icon (expand)
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-gray-700"
+                    >
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+                    </svg>
+                )}
+            </button>
 
         </div>
     );
