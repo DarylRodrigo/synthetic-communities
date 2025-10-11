@@ -1,7 +1,7 @@
 import logging
 from typing import Dict, List, Any
 from dataclasses import dataclass
-from .mediator import Topic, CandidateStatement, MediatorStatement
+from .mediator import Topic, Question, CandidateStatement, MediatorStatement, DebateTranscript
 from . import llm_client
 
 logger = logging.getLogger(__name__)
@@ -12,14 +12,16 @@ class CandidateState:
     """State of a candidate."""
     id: str
     name: str
+    character: str  # brief description of political character/leaning
     policy_positions: Dict[str, str]  # topic_id -> position string
     memory: str
 
 
 class Candidate:
-    def __init__(self, candidate_id: str, name: str, topics: List[Topic], llm_client_instance):
+    def __init__(self, candidate_id: str, name: str, character: str, topics: List[Topic], llm_client_instance):
         self.id = candidate_id
         self.name = name
+        self.character = character
         self.topics = topics
         self.llm_client = llm_client_instance
 
@@ -33,8 +35,8 @@ class Candidate:
 
         for topic in self.topics:
             logger.debug(f"{self.name}: Generating initial position for topic '{topic.title}' (ID: {topic.id})")
-            prompt = f"You are {self.name}, a political candidate. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences."
-            system_instruction = f"You are {self.name}, a political candidate. Provide clear, concise policy positions."
+            prompt = f"You are {self.name}, a political candidate with the following character: {self.character}. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences, reflecting your political character."
+            system_instruction = f"You are {self.name}, a political candidate. Character: {self.character}. Provide clear, concise policy positions consistent with your character."
 
             position = llm_client.generate_response(
                 self.llm_client,
@@ -49,6 +51,7 @@ class Candidate:
         return CandidateState(
             id=self.id,
             name=self.name,
+            character=self.character,
             policy_positions=policy_positions,
             memory=""
         )
@@ -58,7 +61,6 @@ class Candidate:
         logger.debug(f"{self.name}: read_social_media_signals called with feed length: {len(social_media_feed) if social_media_feed else 0}")
 
         if not social_media_feed:
-            logger.debug(f"{self.name}: No social media posts to review")
             return
 
         logger.info(f"{self.name} reviewing social media and updating positions...")
@@ -124,9 +126,9 @@ Write an authentic, first-person reflection as if writing in a private journal. 
 
     def craft_debate_statement(
         self,
-        topic: Topic,
+        question: Question,
         turn_number: int,
-        previous_statements: List
+        previous_statements: List[CandidateStatement]
     ) -> CandidateStatement:
         """
         Craft LLM-generated debate statement using current policy position, memory, and debate context.
@@ -134,23 +136,26 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         The candidate will consider their policy position, past experiences (memory), and the ongoing
         debate to craft strategic responses that may include rebuttals to opponents.
         """
-        logger.debug(f"{self.name}: craft_debate_statement called for topic '{topic.title}', turn {turn_number}")
+        logger.debug(f"{self.name}: craft_debate_statement called for topic '{question.topic.title}', turn {turn_number}")
 
-        # Get current policy position for this topic
-        current_position = self.state.policy_positions.get(topic.id, "No position established yet")
+        # Get current policy position for parent topic
+        current_position = self.state.policy_positions.get(
+            question.topic.id,
+            "No position established yet"
+        )
         logger.debug(f"{self.name}: Using position: {current_position}")
 
         # Build comprehensive prompt with position, memory, and debate history
-        prompt = f"""DEBATE TOPIC: {topic.title}
-{topic.description}
+        prompt = f"""DEBATE TOPIC: {question.topic.title}
+            {question.topic.description}
 
-YOUR CORE POSITION: {current_position}
+            YOUR CORE POSITION: {current_position}
 
-YOUR MEMORY & EXPERIENCE:
-{self.state.memory if self.state.memory else "No prior experiences recorded."}
+            YOUR MEMORY & EXPERIENCE:
+            {self.state.memory if self.state.memory else "No prior experiences recorded."}
 
-DEBATE TURN: {turn_number + 1}
-"""
+            DEBATE TURN: {turn_number + 1}
+            """
 
         # Add debate history with context
         if previous_statements:
@@ -180,25 +185,24 @@ DEBATE TURN: {turn_number + 1}
 
         # Strategic instructions
         prompt += """INSTRUCTIONS:
-Craft a compelling 2-3 sentence statement that:
-1. Aligns with YOUR CORE POSITION and reflects your experiences
-2. If opponents made weak arguments or contradictions, REBUT them directly
-3. If opponents raised valid concerns, ACKNOWLEDGE but pivot to your strengths
-4. Stay on message while engaging substantively with the debate
+            Craft a compelling 2-3 sentence statement that:
+            1. Aligns with YOUR CORE POSITION and reflects your experiences
+            2. If opponents made weak arguments or contradictions, REBUT them directly
+            3. If opponents raised valid concerns, ACKNOWLEDGE but pivot to your strengths
+            4. Stay on message while engaging substantively with the debate
 
-Your statement:"""
+            Your statement:"""
 
         # Generate response with strategic system instruction
         system_instruction = f"""You are {self.name}, a skilled political debater. You are strategic, persuasive, and principled.
 
-Key traits:
-- Stay true to your core position while being tactically flexible
-- Directly challenge opponents when they make weak or contradictory arguments
-- Use your memory and experiences to add credibility
-- Be concise but impactful (2-3 sentences)
-- Sound authentic and conversational, not robotic"""
+            Key traits:
+            - Stay true to your core position while being tactically flexible
+            - Directly challenge opponents when they make weak or contradictory arguments
+            - Use your memory and experiences to add credibility
+            - Be concise but impactful (2-3 sentences)
+            - Sound authentic and conversational, not robotic"""
 
-        logger.debug(f"{self.name}: Calling LLM to generate strategic debate statement")
         response = llm_client.generate_response(
             self.llm_client,
             prompt,
@@ -209,51 +213,53 @@ Key traits:
         logger.info(f"{self.name}: Generated debate statement: {generated_statement[:100]}...")
 
         # Update memory with debate participation
-        self.state.memory += f"Participated in debate on {topic.title}. Made statement: {generated_statement[:100]}...\n"
+        # self.state.memory += f"Participated in debate on {question.topic.title}. Made statement: {generated_statement}...\n"
 
         return CandidateStatement(
             candidate_id=self.id,
             candidate_name=self.name,
             statement=generated_statement,
-            topic=topic
+            question=question
         )
 
-    def reflect_on_debate(self, topic: Topic, debate_transcript: str) -> None:
+    def reflect_on_debate(self, question: Question, debate_transcript: DebateTranscript) -> None:
         """
         Reflect on the completed debate and update memory with insights and belief changes.
 
         This allows the candidate to process the full debate, consider opponents' arguments,
         evaluate their own performance, and potentially update their beliefs and understanding.
         """
-        logger.debug(f"{self.name}: reflect_on_debate called for topic '{topic.title}'")
-        logger.debug(f"{self.name}: Debate transcript length: {len(debate_transcript)}")
+        logger.debug(f"{self.name}: reflect_on_debate called for question '{question.text}' on topic '{question.topic.title}'")
+        logger.debug(f"{self.name}: Debate transcript length: {len(debate_transcript.statements)}")
 
-        # Get current position
-        current_position = self.state.policy_positions.get(topic.id, "No position established yet")
+        # Get current position for the parent topic
+        current_position = self.state.policy_positions.get(question.topic.id, "No position established yet")
 
         # Generate reflective memory
-        reflection_prompt = f"""You are {self.name}, a political candidate. A debate on {topic.title} just concluded.
+        reflection_prompt = f"""You are {self.name}, a political candidate. A debate just concluded on the question: "{question.text}"
 
-YOUR POSITION GOING IN: {current_position}
+        This question was about the broader topic: {question.topic.title}
 
-FULL DEBATE TRANSCRIPT:
-{debate_transcript}
+        YOUR POSITION ON {question.topic.title.upper()}: {current_position}
 
-YOUR MEMORY & PAST EXPERIENCES:
-{self.state.memory if self.state.memory else "No prior experiences recorded."}
+        FULL DEBATE TRANSCRIPT:
+        {debate_transcript}
 
-Now reflect deeply on this debate in 3-4 sentences. Consider:
-- What did you learn from your opponents' arguments? Did any points resonate or make you reconsider anything?
-- How did you perform? What felt authentic vs. what felt forced?
-- Did the debate strengthen your convictions or expose weaknesses in your reasoning?
-- What will you carry forward from this experience - what changed in how you think about this issue?
+        YOUR MEMORY & PAST EXPERIENCES:
+        {self.state.memory if self.state.memory else "No prior experiences recorded."}
 
-Write an honest, introspective reflection as if writing in a private journal after the cameras are off:"""
+        Now reflect deeply on this debate in 3-4 sentences. Consider:
+        - What did you learn from your opponents' arguments? Did any points resonate or make you reconsider anything?
+        - How did you perform? What felt authentic vs. what felt forced?
+        - Did the debate strengthen your convictions or expose weaknesses in your reasoning?
+        - What will you carry forward from this experience - what changed in how you think about this issue?
+
+        Write an honest, introspective reflection as if writing in a private journal after the cameras are off:"""
 
         system_instruction = f"""You are {self.name}, reflecting privately after a debate.
-Be brutally honest with yourself. Acknowledge when opponents made good points.
-Admit doubts or uncertainties. Show intellectual growth and humility where appropriate.
-Write in first person, be vulnerable and authentic - this is for you alone."""
+        Be brutally honest with yourself. Acknowledge when opponents made good points.
+        Admit doubts or uncertainties. Show intellectual growth and humility where appropriate.
+        Write in first person, be vulnerable and authentic - this is for you alone."""
 
         logger.debug(f"{self.name}: Calling LLM to generate post-debate reflection")
         reflection = llm_client.generate_response(
@@ -263,6 +269,6 @@ Write in first person, be vulnerable and authentic - this is for you alone."""
         )
 
         # Update memory with reflection
-        self.state.memory += f"\n--- After debate on {topic.title} ---\n{reflection.strip()}\n"
-        logger.info(f"{self.name}: Completed reflection on debate about {topic.title}")
+        self.state.memory += f"\n--- After debate on '{question.text}' ({question.topic.title}) ---\n{reflection.strip()}\n"
+        logger.info(f"{self.name}: Completed reflection on debate question: '{question.text}' (topic: {question.topic.title})")
         logger.debug(f"{self.name}: Memory now {len(self.state.memory)} characters")

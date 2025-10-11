@@ -33,9 +33,9 @@ class Population:
         for persona in self.personas:
             persona.consume_debate_content(debate_transcript)
     
-    def update_beliefs(self, messages: List[Dict[str, Any]]) -> None:
+    def update_beliefs(self, knowledge_category: str = "debate_knowledge") -> None:
         for persona in self.personas:
-            persona.update_beliefs(messages)
+            persona.update_beliefs(knowledge_category)
     
     def chat_with_peers(
         self,
@@ -98,18 +98,82 @@ class Population:
 
         return all_conversations
     
-    def create_social_media_posts(self) -> List[Dict[str, Any]]:
+    def create_social_media_posts(self, post_probability: float = 0.07) -> List[Dict[str, Any]]:
+        """
+        Have personas create social media posts with a given probability.
+
+        Args:
+            post_probability: Probability (0.0-1.0) that each persona will post (default 7%)
+
+        Returns:
+            List of posts created (each post: {"persona_id": str, "content": str})
+        """
+        import random
+
         posts = []
+        existing_posts = []  # Accumulate posts as they're created
+
         for persona in self.personas:
-            post = persona.create_social_media_post()
-            if post:
-                posts.append(post)
+            # Random chance to post
+            if random.random() < post_probability:
+                post_content = persona.create_social_media_post(existing_posts)
+                if post_content:
+                    post = {
+                        "persona_id": persona.id,
+                        "content": post_content
+                    }
+                    posts.append(post)
+                    existing_posts.append(post)  # Add to feed for next personas
+
         return posts
     
-    def react_to_posts(self, posts: List[Dict[str, Any]]) -> None:
+    def react_to_posts(
+        self,
+        posts: List[Dict[str, Any]],
+        social_media_platform=None,
+        reaction_probability: float = 0.4
+    ) -> Dict[str, Any]:
+        """
+        Have personas react to social media posts with a given probability.
+
+        Args:
+            posts: List of posts to react to
+            social_media_platform: SocialMedia instance to record reactions
+            reaction_probability: Probability (0.0-1.0) that each persona will react to each post (default 40%)
+
+        Returns:
+            Dict with reaction statistics
+        """
+        import random
+
+        total_reactions = 0
+        reactions_by_type = {"thumbs_up": 0, "thumbs_down": 0}
+
         for persona in self.personas:
+            # Store all posts in social_media_knowledge
             for post in posts:
-                persona.react_to_post(post)
+                # Don't store your own posts in knowledge
+                if post.get("persona_id") != persona.id:
+                    persona.social_media_knowledge.append(post)
+
+            # React to posts with probability
+            for post in posts:
+                # Random chance to react
+                if random.random() < reaction_probability:
+                    reaction = persona.react_to_post(post)
+                    if reaction and social_media_platform:
+                        # Record reaction in social media platform
+                        post_id = post.get("id")
+                        if post_id:
+                            social_media_platform.add_reaction(post_id, persona.id, reaction)
+                            total_reactions += 1
+                            reactions_by_type[reaction] = reactions_by_type.get(reaction, 0) + 1
+
+        return {
+            "total_reactions": total_reactions,
+            "thumbs_up": reactions_by_type["thumbs_up"],
+            "thumbs_down": reactions_by_type["thumbs_down"]
+        }
     
     def conduct_vote(self, candidates: List[str]) -> Dict[str, int]:
         votes = {}

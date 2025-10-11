@@ -23,8 +23,36 @@ class SocialMedia:
         self.posts: List[Post] = []
         self.reactions: Dict[str, List[Dict[str, Any]]] = {}
 
-    def add_post(self, post: Post) -> None:
-        self.posts.append(post)
+    def add_post(self, post) -> str:
+        """
+        Add a post to the social media platform.
+
+        Args:
+            post: Either a Post object or a dict with {"persona_id": str, "content": str}
+
+        Returns:
+            The post ID
+        """
+        import uuid
+
+        # Handle dict format from population
+        if isinstance(post, dict):
+            post_id = str(uuid.uuid4())
+            post_obj = Post(
+                id=post_id,
+                persona_id=post.get("persona_id"),
+                content=post.get("content"),
+                likes=0,
+                dislikes=0
+            )
+            self.posts.append(post_obj)
+            return post_id
+        else:
+            # Handle Post object
+            if not post.id:
+                post.id = str(uuid.uuid4())
+            self.posts.append(post)
+            return post.id
 
     def get_feed(self, limit: int = 100) -> str:
         """Returns the last `limit` posts as a concatenated string"""
