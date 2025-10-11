@@ -46,10 +46,6 @@ class Population:
         for persona in self.personas:
             persona.consume_debate_content(debate_transcript)
     
-    def update_beliefs(self, knowledge_category: str = "debate_knowledge") -> None:
-        for persona in self.personas:
-            persona.update_beliefs(knowledge_category)
-    
     def chat_with_peers(
         self,
         num_rounds_mean: int = 3,
@@ -136,16 +132,24 @@ class Population:
         return reaction_stats
     
     def conduct_vote(self, candidates: List[str]) -> Dict[str, int]:
+        """Synchronous wrapper for parallel voting."""
         logger.debug(f"Conducting vote: {len(self.personas)} personas, {len(candidates)} candidates")
-        votes = {}
-        for candidate in candidates:
-            votes[candidate] = 0
-
-        for persona in self.personas:
-            vote = persona.vote(candidates)
-            if vote in votes:
-                votes[vote] += 1
-
+        
+        # Get or create persistent event loop
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_closed():
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run async version on persistent loop
+        votes = loop.run_until_complete(
+            self.conduct_vote_async(candidates)
+        )
+        
         logger.info(f"Vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
         return votes
 
@@ -348,21 +352,21 @@ class Population:
         """
         logger.debug(f"Conducting parallel vote: {len(self.personas)} personas, {len(candidates)} candidates")
 
-        votes = {candidate: 0 for candidate in candidates}
+        vote_counts = {candidate: 0 for candidate in candidates}
 
         # Collect all votes in parallel
-        vote_results = await asyncio.gather(*[
+        individual_votes = await asyncio.gather(*[
             persona.vote_async(candidates)
             for persona in self.personas
         ])
 
         # Tally votes
-        for vote in vote_results:
-            if vote in votes:
-                votes[vote] += 1
+        for candidate_name in individual_votes:
+            if candidate_name in vote_counts:
+                vote_counts[candidate_name] += 1
 
-        logger.info(f"Parallel vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
-        return votes
+        logger.info(f"Parallel vote completed: {sum(vote_counts.values())} votes cast across {len(candidates)} candidates")
+        return vote_counts
 
     def _run_parallel_belief_updates(self, personas: List[Persona], knowledge_category: str, max_concurrent: int = 20) -> None:
         """Common async orchestration logic for parallel belief updates."""

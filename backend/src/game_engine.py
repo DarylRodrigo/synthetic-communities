@@ -182,7 +182,7 @@ class GameEngine:
 
     def _personas_post_to_social_media(self) -> None:
         """Have personas create and publish social media posts."""
-        posts = self.population.create_social_media_posts()
+        posts = self.population.create_social_media_posts(post_probability=0.4)
         if self.social_media:
             # Add posts to social media platform and get their IDs
             post_ids = []
