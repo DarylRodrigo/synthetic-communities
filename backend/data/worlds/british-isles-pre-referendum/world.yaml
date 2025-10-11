@@ -1,0 +1,120 @@
+```yaml
+world:
+  id: british-isles-pre-referendum
+  description: The United Kingdom, comprised of England, Scotland, Wales, and Northern Ireland, grapples with growing divisions over its place in the European Union. Communities across the islands face economic anxieties and shifting political allegiances as a historic referendum approaches.
+  time:
+    year: 2016
+    season: spring
+  place:
+    settlement: city
+    density_per_km2: 275.0
+  regime:
+    type: electoral_democracy
+    media_freedom: 0.7
+    protest_tolerance: 0.6
+  demography:
+    population: 65100000
+    age:
+      median: 40.0
+      p65_plus: 0.18
+    education:
+      tertiary: 0.45
+    groups:
+      - name: English
+        share: 0.84
+      - name: Scottish
+        share: 0.08
+      - name: Welsh
+        share: 0.05
+      - name: Northern Irish
+        share: 0.03
+  economy:
+    unemployment_rate: 0.05
+    industry_mix:
+      manufacturing: 0.1
+      finance: 0.15
+      services: 0.7
+      agriculture: 0.05
+    gini: 0.35
+    cost_of_living_index: 110.0
+    shock_sensitivity:
+      commodity_price: 0.2
+  history:
+    narratives:
+      - The UK's historical relationship with the EU.
+      - Debates around national sovereignty.
+      - Immigration's impact on society and economy.
+      - The economic impact of EU membership.
+      - The role of identity and culture.
+    recent_events:
+      - date: "2015-05-07"
+        name: UK General Election
+        valence: 0.0
+        cohorts:
+          - all
+      - date: "2016-02-20"
+        name: EU Referendum Campaign Begins
+        valence: -0.2
+        cohorts:
+          - all
+  culture:
+    tight_loose: 0.4
+    religiosity: 0.3
+    moral_foundations:
+      care: 0.6
+      fairness: 0.5
+      loyalty: 0.4
+      authority: 0.3
+      sanctity: 0.2
+      liberty: 0.7
+  social_capital:
+    interpersonal_trust: 0.4
+    institutional_trust:
+      local_gov: 0.5
+      national_gov: 0.4
+      media: 0.3
+    associations_density: 0.15
+    polarization: 0.6
+  information_ecosystem:
+    outlets:
+      - BBC
+      - The Guardian
+      - The Daily Mail
+      - The Times
+      - ITV
+      - Sky News
+    platform_mix:
+      radio: 0.3
+      tv: 0.5
+      newspaper: 0.2
+      social_app: 0.6
+    echo_chamber_strength: 0.4
+    bot_rate: 0.02
+  networks:
+    topology:
+      type: SBM
+      communities: 3
+      intra_p: 0.7
+      inter_p: 0.2
+    assortativity:
+      by_class: 0.5
+      by_partisanship: 0.6
+  security:
+    surveillance: 0.4
+    intimidation_risk: 0.1
+  policy_env:
+    union_rights: 0.7
+    welfare_generosity: 0.6
+    speech_regulation: 0.3
+  mood:
+    baseline_affect:
+      anxiety: 0.3
+      anger: 0.2
+      hope: 0.4
+  exogenous_timeline:
+    - date: "2016-06-23"
+      name: Brexit Referendum
+      intensity: 0.9
+      valence: -0.5
+      target: all
+```
