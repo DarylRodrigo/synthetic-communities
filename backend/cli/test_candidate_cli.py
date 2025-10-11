@@ -74,7 +74,7 @@ class CandidateTesterCLI:
         print("1. Use default topics")
         print("2. Create custom topics")
 
-        choice = input("\nYour choice (1 or 2): ").strip()
+        choice = input("\nYour choice (1 or 2): ").strip().rstrip('.')
 
         if choice == "1":
             self.topics = DEFAULT_TOPICS.copy()
