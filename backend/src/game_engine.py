@@ -118,7 +118,6 @@ class GameEngine:
                 topic=topic,
                 previous_transcripts=self.debate_transcripts
             )
-            logger.info(f"Proposed question: {question.text}")
 
             # Step 2: Mediator introduces the question
             introduction = self.mediator.introduce_question(question)

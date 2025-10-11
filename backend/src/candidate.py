@@ -61,7 +61,6 @@ class Candidate:
         logger.debug(f"{self.name}: read_social_media_signals called with feed length: {len(social_media_feed) if social_media_feed else 0}")
 
         if not social_media_feed:
-            logger.debug(f"{self.name}: No social media posts to review")
             return
 
         logger.info(f"{self.name} reviewing social media and updating positions...")
