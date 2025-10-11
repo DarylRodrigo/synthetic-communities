@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { DataStoreProvider, useDataStore, useDataLoading } from '@/lib/DataStore';
+import { DataStoreProvider, useDataStore, useDataLoading, useSimulations, useSelectedSimulation, useCurrentEpoch, useMaxEpochs } from '@/lib/DataStore';
 import DiscussionTab from '@/components/debug/DiscussionTab';
 import NewsFeedTab from '@/components/debug/NewsFeedTab';
 import CandidatePersonasTab from '@/components/debug/CandidatePersonasTab';
@@ -18,8 +18,12 @@ const tabs = [
 
 function DebugPageContent() {
     const [activeTab, setActiveTab] = useState('discussion');
-    const { refreshData } = useDataStore();
+    const { loadData, selectSimulation, selectEpoch } = useDataStore();
     const { loading, error } = useDataLoading();
+    const simulations = useSimulations();
+    const selectedSimulation = useSelectedSimulation();
+    const currentEpoch = useCurrentEpoch();
+    const maxEpochs = useMaxEpochs();
 
     const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || DiscussionTab;
 
@@ -29,10 +33,56 @@ function DebugPageContent() {
                 <div className="py-8">
                     <div className="text-center">
 
-                        {/* Data Status and Refresh */}
+                        {/* Simulation Selection and Data Refresh */}
                         <div className="mt-6 flex flex-col items-center space-y-4">
+                            {/* Simulation Dropdown */}
+                            <div className="flex flex-col items-center space-y-2">
+                                <label htmlFor="simulation-select" className="text-sm font-medium text-gray-700">
+                                    Select Simulation:
+                                </label>
+                                <select
+                                    id="simulation-select"
+                                    value={selectedSimulation || ''}
+                                    onChange={(e) => selectSimulation(e.target.value || null)}
+                                    className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-w-[200px]"
+                                >
+                                    <option value="">Auto-select latest</option>
+                                    {simulations.map((sim) => (
+                                        <option key={sim.id} value={sim.id}>
+                                            {sim.id} ({sim.epoch_count} epochs)
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Epoch Slider */}
+                            {maxEpochs > 0 && (
+                                <div className="flex flex-col items-center space-y-2">
+                                    <label htmlFor="epoch-slider" className="text-sm font-medium text-gray-700">
+                                        Epoch {currentEpoch + 1}
+                                    </label>
+                                    <input
+                                        id="epoch-slider"
+                                        type="range"
+                                        min="0"
+                                        max={maxEpochs - 1}
+                                        value={currentEpoch}
+                                        onChange={(e) => selectEpoch(parseInt(e.target.value))}
+                                        className="w-64 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                                        style={{
+                                            background: `linear-gradient(to right, #3b82f6 0%, #3b82f6 ${((currentEpoch + 1) / maxEpochs) * 100}%, #e5e7eb ${((currentEpoch + 1) / maxEpochs) * 100}%, #e5e7eb 100%)`
+                                        }}
+                                    />
+                                    <div className="flex justify-between w-64 text-xs text-gray-500">
+                                        <span>1</span>
+                                        <span>{maxEpochs}</span>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Refresh Data Button */}
                             <button
-                                onClick={refreshData}
+                                onClick={loadData}
                                 disabled={loading}
                                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCandidatePersonas } from '@/lib/DataStore';
 import { CandidatePersona } from '@/lib/data';
 
@@ -10,6 +10,18 @@ export default function CandidatePersonasTab() {
     const [selectedCandidate, setSelectedCandidate] = useState<CandidatePersona | null>(null);
     const itemsPerPage = 6;
 
+    // Update selectedCandidate when personas data changes (epoch change)
+    useEffect(() => {
+        if (selectedCandidate && personas.length > 0) {
+            // Find the updated candidate data with the same ID
+            const updatedCandidate = personas.find(p => p.id === selectedCandidate.id);
+            if (updatedCandidate) {
+                console.log('🔄 Updating selected candidate with new epoch data:', updatedCandidate.name);
+                setSelectedCandidate(updatedCandidate);
+            }
+        }
+    }, [personas, selectedCandidate]);
+
     const totalPages = Math.ceil(personas.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -17,8 +29,14 @@ export default function CandidatePersonasTab() {
 
     const getTopicTitle = (topicId: string) => {
         const titles: { [key: string]: string } = {
+            'topic_1': 'Healthcare Reform',
+            'topic_2': 'Climate Change and Energy Policy',
+            'topic_3': 'Economic Policy',
+            'topic_4': 'Education Reform',
             'climate_policy': 'Climate Change and Energy Policy',
-            'healthcare_reform': 'Healthcare Access and Affordability'
+            'healthcare_reform': 'Healthcare Access and Affordability',
+            'economic_policy': 'Economic Policy',
+            'education_reform': 'Education Reform'
         };
         return titles[topicId] || topicId.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
     };

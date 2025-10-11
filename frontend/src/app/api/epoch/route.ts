@@ -1,67 +1,46 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+
+const BACKEND_BASE_URL = process.env.BACKEND_URL || 'http://127.0.0.1:8000';
 
 export async function GET(request: Request) {
     console.log('🚀 API: /api/epoch endpoint called');
-    console.log('🚀 Request URL:', request.url);
-    console.log('🚀 Request method:', request.method);
-    console.log('📁 Current working directory:', process.cwd());
 
     try {
-        // Try to read from the backend API first
-        const backendPath = path.join(process.cwd(), '../../backend/api/epoch.json');
-        console.log('🔍 Looking for epoch.json at:', backendPath);
+        // Get the list of available simulations
+        const simulationsResponse = await fetch(`${BACKEND_BASE_URL}/api/simulations`);
 
-        // Check if the directory exists
-        const backendDir = path.dirname(backendPath);
-        console.log('📂 Backend directory exists:', fs.existsSync(backendDir));
-        console.log('📂 Backend directory contents:', fs.existsSync(backendDir) ? fs.readdirSync(backendDir) : 'Directory not found');
+        if (!simulationsResponse.ok) {
+            throw new Error(`Failed to fetch simulations: ${simulationsResponse.status}`);
+        }
 
-        if (!fs.existsSync(backendPath)) {
-            console.error('❌ API: epoch.json not found at path:', backendPath);
+        const simulationsData = await simulationsResponse.json();
 
-            // Try alternative paths
-            const altPaths = [
-                path.join(process.cwd(), 'backend/api/epoch.json'),
-                path.join(process.cwd(), '../backend/api/epoch.json'),
-                path.join(process.cwd(), './backend/api/epoch.json'),
-            ];
-
-            console.log('🔍 Trying alternative paths:');
-            for (const altPath of altPaths) {
-                console.log(`  - ${altPath}: ${fs.existsSync(altPath) ? 'EXISTS' : 'NOT FOUND'}`);
-            }
-
+        if (!simulationsData.simulations || simulationsData.simulations.length === 0) {
             return NextResponse.json(
-                {
-                    error: 'epoch.json file not found',
-                    searchedPath: backendPath,
-                    currentDir: process.cwd(),
-                    alternativePaths: altPaths.map(p => ({ path: p, exists: fs.existsSync(p) }))
-                },
+                { error: 'No simulations available' },
                 { status: 404 }
             );
         }
 
-        console.log('📁 API: Reading epoch.json from:', backendPath);
-        const data = fs.readFileSync(backendPath, 'utf8');
-        const epochData = JSON.parse(data);
-        console.log('📊 API: Serving epoch data:', {
-            epoch: epochData.epoch,
-            debates: epochData.debates?.length || 0,
-            newsfeedPosts: epochData.newsfeed?.posts?.length || 0,
-            candidates: epochData.candidates?.length || 0,
-            populationVotes: epochData.population_votes?.length || 0
-        });
+        // Get the latest simulation (first in the sorted list)
+        const latestSimulation = simulationsData.simulations[0];
+
+        // Get the first epoch from the latest simulation
+        const epochResponse = await fetch(`${BACKEND_BASE_URL}/api/simulation/${latestSimulation.id}/epoch/0`);
+
+        if (!epochResponse.ok) {
+            throw new Error(`Failed to fetch epoch: ${epochResponse.status}`);
+        }
+
+        const epochData = await epochResponse.json();
+
         return NextResponse.json(epochData);
     } catch (error) {
-        console.error('❌ API: Error reading epoch data:', error);
+        console.error('❌ API: Error fetching epoch data:', error);
         return NextResponse.json(
             {
-                error: 'Failed to load epoch data',
-                details: error instanceof Error ? error.message : String(error),
-                currentDir: process.cwd()
+                error: 'Failed to load epoch data from backend',
+                details: error instanceof Error ? error.message : String(error)
             },
             { status: 500 }
         );
