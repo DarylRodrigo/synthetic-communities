@@ -1,0 +1,121 @@
+```yaml
+world:
+  id: berlin-shadows-1936
+  description: "In the heart of the 1936 Berlin Olympics, amidst the authoritarian spectacle, a clandestine art movement struggles to survive. Players navigate the shadows, battling fear and conformity while preserving their creative spirit and challenging the regime."
+  time:
+    year: 1936
+    season: summer
+  place:
+    settlement: city
+    density_per_km2: 4000.0
+  regime:
+    type: authoritarian
+    media_freedom: 0.05
+    protest_tolerance: 0.01
+  demography:
+    population: 4300000
+    age:
+      median: 32.5
+      p65_plus: 0.09
+    education:
+      tertiary: 0.15
+    groups:
+      - name: "Germans"
+        share: 0.95
+      - name: "Jews"
+        share: 0.03
+      - name: "Roma"
+        share: 0.01
+  economy:
+    unemployment_rate: 0.05
+    industry_mix:
+      manufacturing: 0.4
+      services: 0.45
+      agriculture: 0.05
+      other: 0.1
+    gini: 0.45
+    cost_of_living_index: 85.0
+    shock_sensitivity:
+      commodity_price: 0.1
+  history:
+    narratives:
+      - "The rise of National Socialism and its impact on culture and society."
+      - "The persecution of minorities, particularly Jews and Roma."
+      - "The Olympic Games as a propaganda tool."
+      - "The struggle of artists against censorship and conformity."
+    recent_events:
+      - date: "1933-01-30"
+        name: "Hitler appointed Chancellor"
+        valence: -1.0
+        cohorts: ["Germans"]
+      - date: "1936-08-01"
+        name: "Berlin Olympics begin"
+        valence: 0.2
+        cohorts: ["Germans", "International Athletes"]
+  culture:
+    tight_loose: 0.9
+    religiosity: 0.35
+    moral_foundations:
+      care: 0.2
+      fairness: 0.2
+      loyalty: 0.8
+      authority: 0.9
+      sanctity: 0.7
+      liberty: 0.1
+  social_capital:
+    interpersonal_trust: 0.3
+    institutional_trust:
+      local_gov: 0.2
+      national_gov: 0.1
+      media: 0.05
+    associations_density: 0.1
+    polarization: 0.8
+  information_ecosystem:
+    outlets:
+      - "Völkischer Beobachter"
+      - "Berliner Illustrirte Zeitung"
+      - "Radio"
+    platform_mix:
+      radio: 0.5
+      tv: 0.0
+      newspaper: 0.4
+      social_app: 0.0
+    echo_chamber_strength: 0.9
+    bot_rate: 0.2
+  networks:
+    topology:
+      type: SBM
+      communities: 5
+      intra_p: 0.7
+      inter_p: 0.1
+    assortativity:
+      by_class: 0.8
+      by_partisanship: 0.9
+  security:
+    surveillance: 0.8
+    intimidation_risk: 0.7
+  policy_env:
+    union_rights: 0.0
+    welfare_generosity: 0.2
+    speech_regulation: 0.05
+  mood:
+    baseline_affect:
+      anxiety: 0.7
+      anger: 0.5
+      hope: 0.2
+  exogenous_timeline:
+    - date: "1936-02-01"
+      name: "Secret Police Intensify Surveillance"
+      intensity: 0.8
+      valence: -1.0
+      target: "Artists"
+    - date: "1936-03-01"
+      name: "Artists Exhibitions Banned"
+      intensity: 0.9
+      valence: -1.0
+      target: "Artists"
+    - date: "1936-08-16"
+      name: "Olympic Closing Ceremony"
+      intensity: 0.7
+      valence: 0.1
+```

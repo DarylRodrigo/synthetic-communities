@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 
 # Add parent directory to path to import modules
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from src.mediator import Mediator, Topic, CandidateStatement, DebateTranscript, MediatorStatement
+from src.mediator import Mediator, Topic, CandidateStatement, DebateTranscript, MediatorStatement, MediatorState
 
 
 class TestTopic:
@@ -68,11 +68,16 @@ class TestMediator:
         assert mediator.id == "med_123"
         assert len(mediator.topics) == 2
         assert mediator.llm_client == mock_llm_client
+        assert isinstance(mediator.state, MediatorState)
+        assert mediator.state.id == "med_123"
+        assert mediator.state.memory == ""
 
     def test_mediator_initialization_no_topics(self, mock_llm_client):
         """Test Mediator initializes with empty topic list"""
         mediator = Mediator("med_1", llm_client_instance=mock_llm_client)
         assert mediator.topics == []
+        assert isinstance(mediator.state, MediatorState)
+        assert mediator.state.memory == ""
 
     def test_add_topic(self, mediator):
         """Test adding a topic to mediator's pool"""
@@ -170,3 +175,87 @@ class TestMediator:
         assert transcript.topic == sample_topics[0]
         assert len(transcript.statements) == 3
         assert transcript.statements[0] == mediator_intro
+
+    @patch('src.mediator.llm_client.generate_response')
+    def test_read_social_media_signals(self, mock_generate, mediator):
+        """Test reading social media signals updates mediator memory"""
+        mock_generate.return_value = "Key themes: climate action, healthcare reform. Sentiment: concerned but hopeful."
+
+        social_media_feed = "Post 1: We need action on climate!\nPost 2: Healthcare costs are too high."
+        mediator.read_social_media_signals(social_media_feed)
+
+        assert "Social media review:" in mediator.state.memory
+        assert "climate action" in mediator.state.memory
+        mock_generate.assert_called_once()
+
+        # Verify the prompt included the social media feed
+        call_args = mock_generate.call_args
+        assert social_media_feed in call_args[0][1]
+
+    def test_read_social_media_signals_empty_feed(self, mediator):
+        """Test reading empty social media feed does not update memory"""
+        initial_memory = mediator.state.memory
+
+        mediator.read_social_media_signals("")
+        assert mediator.state.memory == initial_memory
+
+        mediator.read_social_media_signals(None)
+        assert mediator.state.memory == initial_memory
+
+    @patch('src.mediator.llm_client.generate_response')
+    def test_read_previous_debates(self, mock_generate, mediator, sample_topics):
+        """Test reading previous debates updates mediator memory"""
+        mock_generate.return_value = "Alice focuses on progressive policies, Bob on fiscal conservatism. Positions have remained consistent."
+
+        # Create sample previous transcripts
+        stmt1 = CandidateStatement("c1", "Alice", "I support universal healthcare", sample_topics[0])
+        stmt2 = CandidateStatement("c2", "Bob", "We need lower taxes", sample_topics[0])
+        transcript = DebateTranscript(
+            statements=[stmt1, stmt2],
+            mediator_id="med_1",
+            epoch=0,
+            topic_index=0,
+            topic=sample_topics[0]
+        )
+
+        mediator.read_previous_debates([transcript])
+
+        assert "Previous debates review:" in mediator.state.memory
+        assert "Alice" in mediator.state.memory or "progressive" in mediator.state.memory
+        mock_generate.assert_called_once()
+
+        # Verify the prompt included debate information
+        call_args = mock_generate.call_args
+        assert "Alice" in call_args[0][1]
+
+    def test_read_previous_debates_empty_list(self, mediator):
+        """Test reading empty debate list does not update memory"""
+        initial_memory = mediator.state.memory
+
+        mediator.read_previous_debates([])
+        assert mediator.state.memory == initial_memory
+
+    @patch('src.mediator.llm_client.generate_response')
+    def test_introduce_topic_uses_memory(self, mock_generate, mediator, sample_topics):
+        """Test introduce_topic includes memory context in prompt and instructs LLM to reference it"""
+        # Mock a contextual introduction that references the memory
+        mock_generate.return_value = "Welcome to today's climate debate. Given the public's growing concern about climate action, this is a timely discussion."
+
+        # Add some memory
+        mediator.state.memory = "Social media review: People are concerned about climate.\n"
+
+        introduction = mediator.introduce_topic(sample_topics[0])
+
+        assert isinstance(introduction, str)
+        mock_generate.assert_called_once()
+
+        # Verify memory was included in the prompt
+        call_args = mock_generate.call_args
+        prompt = call_args[0][1]
+        assert "Your Preparation Context:" in prompt
+        assert "People are concerned about climate" in prompt
+
+        # Verify instructions to reference context are present
+        assert "INSTRUCTIONS:" in prompt
+        assert "If your preparation reveals relevant public sentiment" in prompt
+        assert "Only reference context that is DIRECTLY RELEVANT" in prompt

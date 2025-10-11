@@ -8,8 +8,6 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from src.game_engine import GameEngine
 from src.config import Config
 from src.mediator import Topic, DebateTranscript, CandidateStatement, MediatorStatement
-from src.candidate import Candidate
-from src.social_media import SocialMedia
 
 
 class TestGameEngine:

@@ -9,7 +9,13 @@ def create_client(api_key: str):
     return genai  # Return the module itself since it's stateless
 
 
-def generate_response(client, prompt: str, system_instruction: str, temperature: float = 0.7) -> str:
+def generate_response(
+    client,
+    prompt: str,
+    system_instruction: str,
+    temperature: float = 1.0,
+    max_output_tokens: int = 8000
+) -> str:
     """Generate LLM response with system instruction."""
     model = client.GenerativeModel(
         'gemini-2.0-flash-lite',
@@ -19,7 +25,7 @@ def generate_response(client, prompt: str, system_instruction: str, temperature:
         prompt,
         generation_config=genai.types.GenerationConfig(
             temperature=temperature,
-            max_output_tokens=500
+            max_output_tokens=max_output_tokens
         )
     )
     return response.text

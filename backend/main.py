@@ -16,10 +16,11 @@ logging.basicConfig(
 def main():
     config = Config(
         population_size=100,
-        num_candidates=3,
+        num_candidates=2,
         topics_per_epoch=1,
-        turns_per_topic=3,
-        num_epochs=1,
+        questions_per_topic=2,
+        turns_per_question=3,
+        num_epochs=2,
         random_seed=42
     )
     
@@ -33,13 +34,6 @@ def main():
     else:
         print(f"Warning: {population_file} not found, running with empty population")
     
-    # Initialize candidates
-    engine.candidates = [
-        Candidate("candidate_1", "Alice Johnson", engine.llm_client),
-        Candidate("candidate_2", "Bob Smith", engine.llm_client),
-        Candidate("candidate_3", "Carol Davis", engine.llm_client)
-    ]
-    
     # Initialize mediator with debate topics
     topics = [
         Topic(
@@ -47,26 +41,12 @@ def main():
             title="Healthcare Reform",
             description="Should the government implement universal healthcare?"
         ),
-        # Topic(
-        #     id="topic_2",
-        #     title="Climate Policy",
-        #     description="What measures should be taken to address climate change?"
-        # ),
-        # Topic(
-        #     id="topic_3",
-        #     title="Education Funding",
-        #     description="How should public education be funded and reformed?"
-        # ),
-        # Topic(
-        #     id="topic_4",
-        #     title="Economic Policy",
-        #     description="What economic policies will create jobs and growth?"
-        # ),
-        # Topic(
-        #     id="topic_5",
-        #     title="Immigration Reform",
-        #     description="What should be the approach to immigration policy?"
-        # )
+    ]
+
+    # Initialize candidates with topics so they can form policy positions
+    engine.candidates = [
+        Candidate("candidate_1", "Alice Johnson", "Progressive left-leaning, prioritizes social programs and government intervention", topics, engine.llm_client),
+        Candidate("candidate_2", "Bob Smith", "Conservative right-leaning, values free market and limited government", topics, engine.llm_client)
     ]
 
     engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)

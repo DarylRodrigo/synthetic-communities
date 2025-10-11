@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import os
 import sys
 from . import llm_client
+import uuid
+from .social_media import Post
 
 class Persona:
     def __init__(self, persona_id: str):
@@ -361,7 +363,16 @@ Return ONLY the post text, no hashtags, no additional formatting."""
             }
             self.posts.append(post)
 
-            return post_content
+            post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
+            content = "Random Post"  # Placeholder content
+
+            return Post(
+                id=post_id,
+                persona_id=self.id,
+                content=post_content,
+                likes=0,
+                dislikes=0
+            )
 
         except Exception as e:
             print(f"Error generating social media post: {e}")
@@ -427,6 +438,7 @@ Return ONLY the post text, no hashtags, no additional formatting."""
         lines.append("Create a post that reflects your personality and beliefs.")
 
         return "\n".join(lines)
+
     
     def react_to_post(self, post: Dict[str, Any]) -> Optional[str]:
         """
