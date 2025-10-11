@@ -71,6 +71,12 @@ const getRandomAnimation = () => {
     return AVAILABLE_ANIMATIONS[Math.floor(Math.random() * AVAILABLE_ANIMATIONS.length)];
 };
 
+// Function to get a fallback animation (guaranteed to work)
+const getFallbackAnimation = () => {
+    // Use a simple, reliable animation as fallback
+    return "animation Standing Greeting.fbx";
+};
+
 // Component to show speech bubble above hovered object
 function SpeechBubble({ position, children, visible }: { position: [number, number, number], children: React.ReactNode, visible: boolean }) {
     if (!visible) return null;
@@ -183,6 +189,106 @@ function AnimatedCharacter({
         setAdjustedPosition(newPosition);
     };
 
+    // Function to validate bone compatibility between animation and character model
+    const validateBoneCompatibility = (characterModel: THREE.Group, animationClip: THREE.AnimationClip) => {
+        // Get all bone names from the character model
+        const characterBones = new Set<string>();
+        characterModel.traverse((child) => {
+            if (child instanceof THREE.Bone) {
+                characterBones.add(child.name);
+            }
+        });
+
+        console.log(`Character ${characterFile} has bones:`, Array.from(characterBones));
+
+        // Filter animation tracks to only include bones that exist in the character
+        if (animationClip.tracks) {
+            const originalTrackCount = animationClip.tracks.length;
+            animationClip.tracks = animationClip.tracks.filter(track => {
+                // Extract bone name from track name (e.g., "mixamorig12Head.quaternion" -> "mixamorig12Head")
+                const boneName = track.name.split('.')[0];
+                
+                // Check if this bone exists in the character model
+                const boneExists = characterBones.has(boneName);
+                
+                if (!boneExists) {
+                    console.warn(`Filtering out track for missing bone: ${track.name}`);
+                }
+                
+                return boneExists;
+            });
+
+            const filteredTrackCount = animationClip.tracks.length;
+            console.log(`Filtered animation tracks: ${originalTrackCount} -> ${filteredTrackCount} (removed ${originalTrackCount - filteredTrackCount} incompatible tracks)`);
+
+            // If no tracks remain, the animation is incompatible
+            if (filteredTrackCount === 0) {
+                console.warn(`Animation ${animationFile} has no compatible tracks for character ${characterFile}`);
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    // Function to load and setup animation with fallback
+    const loadAnimationWithFallback = async (loader: FBXLoader, characterModel: THREE.Group, primaryAnimationFile: string) => {
+        // List of animations to try in order of preference
+        const animationsToTry = [
+            primaryAnimationFile,
+            getFallbackAnimation(),
+            "animation Talking.fbx",
+            "animation Standing Greeting.fbx",
+            "animation Victory Idle.fbx"
+        ];
+
+        for (let i = 0; i < animationsToTry.length; i++) {
+            const animationFile = animationsToTry[i];
+            try {
+                console.log(`Attempting to load animation (attempt ${i + 1}/${animationsToTry.length}): ${animationFile}`);
+                
+                const animationModel = await new Promise<THREE.Group>((resolve, reject) => {
+                    loader.load(
+                        `/characters/${animationFile}`,
+                        resolve,
+                        undefined,
+                        reject
+                    );
+                });
+
+                // Check if animation loaded successfully
+                if (animationModel.animations && animationModel.animations.length > 0) {
+                    const clip = animationModel.animations[0];
+                    
+                    // Validate bone compatibility before returning
+                    const isCompatible = validateBoneCompatibility(characterModel, clip);
+                    
+                    if (isCompatible) {
+                        console.log(`Successfully loaded compatible animation: ${animationFile}`);
+                        return animationModel;
+                    } else {
+                        console.warn(`Animation ${animationFile} is not compatible with character, trying next...`);
+                        throw new Error(`Animation ${animationFile} has incompatible bone structure`);
+                    }
+                } else {
+                    throw new Error(`No animations found in ${animationFile}`);
+                }
+            } catch (error) {
+                console.warn(`Failed to load animation ${animationFile} (attempt ${i + 1}):`, error);
+                
+                // If this is not the last attempt, continue to next animation
+                if (i < animationsToTry.length - 1) {
+                    continue;
+                } else {
+                    console.error(`All animation attempts failed for ${characterFile}`);
+                    return null;
+                }
+            }
+        }
+
+        return null;
+    };
+
     // Animation loop
     useFrame((state, delta) => {
         if (mixerRef.current) {
@@ -206,27 +312,20 @@ function AnimatedCharacter({
                     );
                 });
 
-                // Load animation file
-                const animationModel = await new Promise<THREE.Group>((resolve, reject) => {
-                    loader.load(
-                        `/characters/${animationFile}`,
-                        resolve,
-                        undefined,
-                        reject
-                    );
-                });
+                // Load animation file with fallback
+                const animationModel = await loadAnimationWithFallback(loader, loadedModel, animationFile);
 
                 // Set up animations from the animation file
-                if (animationModel.animations && animationModel.animations.length > 0) {
+                if (animationModel && animationModel.animations && animationModel.animations.length > 0) {
+                    const clip = animationModel.animations[0];
+                    
                     mixerRef.current = new THREE.AnimationMixer(loadedModel);
-                    actionRef.current = mixerRef.current.clipAction(animationModel.animations[0]);
+                    actionRef.current = mixerRef.current.clipAction(clip);
                     actionRef.current.setLoop(THREE.LoopRepeat, Infinity); // Loop continuously
                     actionRef.current.clampWhenFinished = false; // Allow looping
 
-                    // Try to exclude root bone translation to prevent going underground
-                    const clip = animationModel.animations[0];
+                    // Additional filtering for root bone translation to prevent going underground
                     if (clip.tracks) {
-                        // Filter out position tracks for root bone to prevent vertical movement
                         clip.tracks = clip.tracks.filter(track => {
                             // Keep rotation and scale tracks, but exclude position tracks for root
                             return !(track.name.includes('.position') &&
@@ -239,6 +338,30 @@ function AnimatedCharacter({
                     // Auto-start the animation
                     actionRef.current.play();
                     console.log(`Auto-started animation for ${characterFile}: ${animationFile}`);
+                } else {
+                    console.error(`Failed to load any animation for ${characterFile}. Character will remain in T-pose.`);
+                    
+                    // As a last resort, try to create a simple idle animation
+                    try {
+                        console.log(`Attempting to create simple idle animation for ${characterFile}`);
+                        
+                        // Create a simple rotation animation as a last resort
+                        mixerRef.current = new THREE.AnimationMixer(loadedModel);
+                        
+                        // Create a simple rotation clip
+                        const times = [0, 2];
+                        const values = [0, Math.PI * 2];
+                        const rotationKF = new THREE.QuaternionKeyframeTrack('.quaternion', times, values);
+                        const clip = new THREE.AnimationClip('idle-rotation', 2, [rotationKF]);
+                        
+                        actionRef.current = mixerRef.current.clipAction(clip);
+                        actionRef.current.setLoop(THREE.LoopRepeat, Infinity);
+                        actionRef.current.play();
+                        
+                        console.log(`Created fallback rotation animation for ${characterFile}`);
+                    } catch (rotationError) {
+                        console.error(`Failed to create fallback animation for ${characterFile}:`, rotationError);
+                    }
                 }
 
                 // Apply shadow properties to character
