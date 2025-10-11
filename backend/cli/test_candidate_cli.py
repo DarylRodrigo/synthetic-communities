@@ -34,14 +34,6 @@ DEFAULT_TOPICS = [
         title="Climate Policy",
         description="Should governments implement carbon taxes to combat climate change?"
     ),
-<<<<<<< HEAD
-    Topic(
-        id="healthcare",
-        title="Healthcare Reform",
-        description="Should the government provide universal healthcare coverage?"
-    )
-=======
->>>>>>> main
 ]
 
 
