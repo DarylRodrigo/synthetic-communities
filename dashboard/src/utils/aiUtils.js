@@ -18,7 +18,7 @@ function initializeAI() {
 export async function generateWithAI(prompt, schema = null) {
   const ai = initializeAI();
   const model = ai.getGenerativeModel({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-2.5-pro',
     generationConfig: {
       temperature: 0.7,
       topK: 40,

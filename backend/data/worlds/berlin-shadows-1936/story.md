@@ -31,3 +31,4 @@ The air hangs heavy with the scent of sausages and simmering fear. Sunlight glin
 *   **Day 3**: Forced public art display/propaganda. Hidden messages must be delivered. A network contact is compromised, the group must react.
 *   **Day 5**: A protest is planned. Difficult choices: risk exposure or maintain secrecy. The group struggles to navigate the delicate balance of the media landscape.
 *   **Day 7**: First major setback. A key member is arrested, and the group has to decide how to proceed, either sacrificing themselves to the cause or abandoning their values.
+
