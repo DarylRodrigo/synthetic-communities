@@ -598,7 +598,43 @@
         "interests": ["simulation modeling", "surrogate ML models", "engineering automation"],
         "sector": "Software Engineering / Industrial ML",
         "backstory": "Software Engineer at AutoForm in Zurich. Formerly ML Application Engineer at Neural Concept, developing surrogate models for engineering simulations."
-    }        
+    },
+    {
+        "id": "e8b79a11-0d6f-4c4c-bf07-2dfdc341d721",
+        "name": "Simon Sure",
+        "age": 22,
+        "gender": "Male",
+        "city": "Zurich",
+        "job": "Computer Science Researcher",
+        "company": "ETH Zurich | Princeton University | NVIDIA | Palantir | Optiver",
+        "education_level": "bachelor_degree",
+        "income_bracket": "upper_middle",
+        "ethnicity": "German",
+        "cultural_background": "German-Swiss academic and startup engineering culture",
+        "country": "CH_de",
+        "susceptibility": 0.187,
+        "trust_institution": 0.841,
+        "turnout_propensity": 0.812,
+        "media_diet": {"social_media": 0.29, "tv": 0.06, "newspaper": 0.39, "blogs": 0.26},
+        "personality_traits": {"openness": 0.95, "conscientiousness": 0.89, "extraversion": 0.74, "agreeableness": 0.67, "neuroticism": 0.32},
+        "confirmation_bias": 0.192,
+        "social_network_influence": 0.214,
+        "risk_aversion": 0.284,
+        "fairness_value": 0.668,
+        "prior_beliefs": {"foreign_policy": 0.12, "technology": 0.98, "education": 0.86},
+        "timestamp": "2025-10-11T22:24:10.291385",
+        "religion": "None",
+        "demeanour": "Highly driven and articulate, with a deep technical curiosity and strong leadership in AI and software systems.",
+        "interests": [
+          "large language models",
+          "agent systems",
+          "efficient AI infrastructure",
+          "simulation and robotics",
+          "education technology"
+        ],
+        "sector": "Artificial Intelligence / Research & Industry",
+        "backstory": "Simon Sure is a computer science researcher at ETH Zurich and exchange scholar at Princeton University. He has interned at NVIDIA, Palantir, and Optiver, focusing on AI systems, simulation, and software efficiency. Founder-level contributor to Zurich’s Simulation Hackathon and lead organizer of GDG Zurich, Simon bridges academia, startup innovation, and industrial AI engineering."
+    }              
 ]
         
     
