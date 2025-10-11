@@ -21,70 +21,45 @@ export default function ProcreateModal({ maleParent, femaleParent, onClose, onCr
       const parent2 = femaleParent;
 
       // Create detailed prompt for AI child generation
-      const prompt = `You are creating a synthetic child persona by intelligently merging two parent personas. Create a realistic child (age 18+) who inherits traits from both parents.
+      const prompt = `Create a child persona by merging these two parents:
 
-PARENT 1 (Father):
-- Name: ${parent1.name}
-- Age: ${parent1.age}
-- Gender: ${parent1.gender === 'M' ? 'Male' : 'Female'}
-- Ethnicity: ${parent1.ethnicity}
-- City: ${parent1.city}
-- Sector: ${parent1.sector}
-- Education: ${parent1.education_level}
-- Income: ${parent1.income_bracket}
-- Religion: ${parent1.religion || 'Not specified'}
-- Cultural Background: ${parent1.cultural_background || 'Not specified'}
-${parent1.personality_traits ? `- Personality: Openness ${parent1.personality_traits.openness}, Conscientiousness ${parent1.personality_traits.conscientiousness}, Extraversion ${parent1.personality_traits.extraversion}, Agreeableness ${parent1.personality_traits.agreeableness}, Neuroticism ${parent1.personality_traits.neuroticism}` : ''}
-${parent1.interests ? `- Interests: ${parent1.interests.join(', ')}` : ''}
-${parent1.backstory ? `- Backstory: ${parent1.backstory}` : ''}
+PARENT 1: ${parent1.name} (${parent1.age}, ${parent1.ethnicity}, ${parent1.sector} in ${parent1.city})
+PARENT 2: ${parent2.name} (${parent2.age}, ${parent2.ethnicity}, ${parent2.sector} in ${parent2.city})
 
-PARENT 2 (Mother):
-- Name: ${parent2.name}
-- Age: ${parent2.age}
-- Gender: ${parent2.gender === 'F' ? 'Female' : 'Male'}
-- Ethnicity: ${parent2.ethnicity}
-- City: ${parent2.city}
-- Sector: ${parent2.sector}
-- Education: ${parent2.education_level}
-- Income: ${parent2.income_bracket}
-- Religion: ${parent2.religion || 'Not specified'}
-- Cultural Background: ${parent2.cultural_background || 'Not specified'}
-${parent2.personality_traits ? `- Personality: Openness ${parent2.personality_traits.openness}, Conscientiousness ${parent2.personality_traits.conscientiousness}, Extraversion ${parent2.personality_traits.extraversion}, Agreeableness ${parent2.personality_traits.agreeableness}, Neuroticism ${parent2.personality_traits.neuroticism}` : ''}
-${parent2.interests ? `- Interests: ${parent2.interests.join(', ')}` : ''}
-${parent2.backstory ? `- Backstory: ${parent2.backstory}` : ''}
+Create realistic child (age 18-35) inheriting balanced traits from both parents.
 
-INSTRUCTIONS:
-Create a realistic child (age 18-35) who inherits a balanced mix of traits from both parents. The child should feel like a natural combination of the two parents while having their own unique identity.
-
-Return a JSON object with these exact fields:
-{
-  "name": "Full name",
-  "age": number (18-35),
-  "gender": "M" or "F",
-  "city": "Swiss city name",
-  "sector": "work sector",
-  "company": "company name",
-  "education_level": "education level",
-  "income_bracket": "low|middle_low|middle|middle_high|high",
-  "ethnicity": "ethnic background",
-  "cultural_background": "cultural background",
-  "religion": "religion",
-  "backstory": "detailed life story (200-400 words)",
-  "personality_traits": {
-    "openness": number (0-1),
-    "conscientiousness": number (0-1),
-    "extraversion": number (0-1),
-    "agreeableness": number (0-1),
-    "neuroticism": number (0-1)
-  },
-  "interests": ["interest1", "interest2", "interest3"]
-}
-
-Make the backstory realistic, entertaining, and reflect the family background. Include specific details about their upbringing, education, career, and life experiences.`;
+Return JSON array with one object:
+[
+  {
+    "name": "Full name",
+    "age": number,
+    "gender": "M" or "F",
+    "city": "Swiss city",
+    "sector": "work sector",
+    "education_level": "education",
+    "ethnicity": "background",
+    "religion": "religion",
+    "backstory": "200-400 word life story",
+    "personality_traits": {
+      "openness": number (0-1),
+      "conscientiousness": number (0-1),
+      "extraversion": number (0-1),
+      "agreeableness": number (0-1),
+      "neuroticism": number (0-1)
+    },
+    "interests": ["interest1", "interest2", "interest3"]
+  }
+]`;
 
       // Use AI to generate the child (without structured output for now)
+      console.log('Sending prompt to AI:', prompt.substring(0, 200) + '...');
       const aiResponse = await generateWithAI(prompt);
-      console.log('AI Response:', aiResponse);
+      console.log('AI Response received:', aiResponse);
+      console.log('AI Response length:', aiResponse.length);
+
+      if (!aiResponse || aiResponse.trim().length === 0) {
+        throw new Error('AI returned empty response');
+      }
 
       // Clean and parse the JSON response
       let cleanResponse = aiResponse
@@ -96,6 +71,10 @@ Make the backstory realistic, entertaining, and reflect the family background. I
 
       console.log('Cleaned Response:', cleanResponse);
 
+      if (cleanResponse.length === 0) {
+        throw new Error('Response became empty after cleaning');
+      }
+
       // Additional cleaning for any remaining markdown or extra text
       const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
@@ -104,14 +83,36 @@ Make the backstory realistic, entertaining, and reflect the family background. I
 
       console.log('Final JSON:', cleanResponse);
 
-      // Parse the JSON response
-      const childData = JSON.parse(cleanResponse);
+      if (cleanResponse.length === 0) {
+        throw new Error('No JSON object found in response');
+      }
 
-      // Convert gender to match our system
+      // Parse the JSON response (it's an array with one object)
+      const responseArray = JSON.parse(cleanResponse);
+
+      if (!Array.isArray(responseArray) || responseArray.length === 0) {
+        throw new Error('AI response is not a valid array');
+      }
+
+      const childData = responseArray[0];
+
+      // Add missing fields that weren't in the simplified prompt
       const child = {
         id: `child_${Date.now()}`,
-        ...childData,
+        name: childData.name,
+        age: childData.age,
         gender: childData.gender === 'Male' ? 'M' : 'F', // Normalize to M/F format
+        city: childData.city,
+        sector: childData.sector,
+        education_level: childData.education_level || 'Bachelor',
+        income_bracket: childData.income_bracket || 'middle',
+        ethnicity: childData.ethnicity,
+        cultural_background: childData.cultural_background || 'European',
+        religion: childData.religion || 'None',
+        backstory: childData.backstory,
+        personality_traits: childData.personality_traits,
+        interests: childData.interests,
+        company: childData.company || 'Company',
       };
 
       setChildPreview(child);

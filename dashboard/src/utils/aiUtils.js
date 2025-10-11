@@ -18,7 +18,7 @@ function initializeAI() {
 export async function generateWithAI(prompt, schema = null) {
   const ai = initializeAI();
   const model = ai.getGenerativeModel({
-    model: 'gemini-2.5-flash',
+    model: 'gemini-2.0-flash-exp',
     generationConfig: {
       temperature: 0.7,
       topK: 40,
@@ -43,6 +43,8 @@ export async function generateWithAI(prompt, schema = null) {
       .replace(/^\s*```/, '')
       .replace(/```\s*$/, '')
       .trim();
+
+    console.log('Cleaned Response:', response);
 
     return response;
   } catch (error) {
