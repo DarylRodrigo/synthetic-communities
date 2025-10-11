@@ -25,15 +25,6 @@ const AUDIENCE_CONFIG = {
     height: 0.5
 };
 
-// Candidates configuration
-const CANDIDATES_CONFIG = {
-    count: 3,
-    colors: ['#e74c3c', '#f39c12', '#2ecc71'], // Red, Orange, Green
-    stagePosition: [0, 0.5, -10], // Stage position (center of stage)
-    spacing: 2.5,
-    height: 1.2
-};
-
 // Generate audience array with fixed positions
 const generateAudience = () => {
     const audience = [];
@@ -57,32 +48,28 @@ const generateAudience = () => {
     return audience;
 };
 
-// Generate candidates array positioned on stage
-const generateCandidates = () => {
-    const candidates = [];
-    const stageX = CANDIDATES_CONFIG.stagePosition[0];
-    const stageY = CANDIDATES_CONFIG.stagePosition[1] + 0.5; // On top of stage
-    const stageZ = CANDIDATES_CONFIG.stagePosition[2];
-    const startX = stageX - (CANDIDATES_CONFIG.count - 1) * CANDIDATES_CONFIG.spacing / 2;
-
-    for (let i = 0; i < CANDIDATES_CONFIG.count; i++) {
-        candidates.push({
-            id: `candidate${i + 1}`,
-            color: CANDIDATES_CONFIG.colors[i],
-            position: [
-                startX + i * CANDIDATES_CONFIG.spacing,
-                stageY + CANDIDATES_CONFIG.height,
-                stageZ
-            ]
-        });
-    }
-
-    return candidates;
-};
-
 // Pre-generate arrays
 const AUDIENCE = generateAudience();
-const CANDIDATES = generateCandidates();
+
+// Available animations for random selection
+const AVAILABLE_ANIMATIONS = [
+    "animation Angry.fbx",
+    "animation Defeat Idle.fbx",
+    "animation Standing Arguing.fbx",
+    "animation Standing Greeting.fbx",
+    "animation Talking.fbx",
+    "animation Telling A Secret.fbx",
+    "animation Texting While Standing.fbx",
+    "animation Throw.fbx",
+    "animation Victory.fbx",
+    "animation Victory Idle.fbx",
+    "animation Yelling While Standing.fbx"
+];
+
+// Function to get a random animation
+const getRandomAnimation = () => {
+    return AVAILABLE_ANIMATIONS[Math.floor(Math.random() * AVAILABLE_ANIMATIONS.length)];
+};
 
 // Component to show speech bubble above hovered object
 function SpeechBubble({ position, children, visible }: { position: [number, number, number], children: React.ReactNode, visible: boolean }) {
@@ -148,7 +135,6 @@ function AnimatedCharacter({
     animationFile,
     position = [0, 0, 0],
     scale = [1, 1, 1],
-    isHovered = false,
     onPointerOver,
     onPointerOut
 }: {
@@ -156,7 +142,6 @@ function AnimatedCharacter({
     animationFile: string,
     position?: [number, number, number],
     scale?: [number, number, number],
-    isHovered?: boolean,
     onPointerOver?: () => void,
     onPointerOut?: () => void
 }) {
@@ -164,7 +149,6 @@ function AnimatedCharacter({
     const mixerRef = useRef<THREE.AnimationMixer | null>(null);
     const actionRef = useRef<THREE.AnimationAction | null>(null);
     const [model, setModel] = useState<THREE.Group | null>(null);
-    const [isAnimating, setIsAnimating] = useState(false);
     const [adjustedPosition, setAdjustedPosition] = useState<[number, number, number]>(position);
     const [adjustedScale, setAdjustedScale] = useState<[number, number, number]>(scale);
 
@@ -236,8 +220,8 @@ function AnimatedCharacter({
                 if (animationModel.animations && animationModel.animations.length > 0) {
                     mixerRef.current = new THREE.AnimationMixer(loadedModel);
                     actionRef.current = mixerRef.current.clipAction(animationModel.animations[0]);
-                    actionRef.current.setLoop(THREE.LoopOnce, 1); // Play once
-                    actionRef.current.clampWhenFinished = true; // Stay in final pose
+                    actionRef.current.setLoop(THREE.LoopRepeat, Infinity); // Loop continuously
+                    actionRef.current.clampWhenFinished = false; // Allow looping
 
                     // Try to exclude root bone translation to prevent going underground
                     const clip = animationModel.animations[0];
@@ -251,6 +235,10 @@ function AnimatedCharacter({
                                     track.name.includes('root')));
                         });
                     }
+
+                    // Auto-start the animation
+                    actionRef.current.play();
+                    console.log(`Auto-started animation for ${characterFile}: ${animationFile}`);
                 }
 
                 // Apply shadow properties to character
@@ -282,21 +270,6 @@ function AnimatedCharacter({
         loadModel();
     }, [characterFile, animationFile]);
 
-    // Handle hover animation
-    useEffect(() => {
-        if (isHovered && actionRef.current && !isAnimating) {
-            setIsAnimating(true);
-            actionRef.current.reset();
-            actionRef.current.play();
-
-            // Reset animation state when finished
-            const duration = actionRef.current.getClip().duration * 1000; // Convert to ms
-            setTimeout(() => {
-                setIsAnimating(false);
-            }, duration);
-        }
-    }, [isHovered, isAnimating]);
-
     if (!model) {
         return null; // Don't render anything while loading
     }
@@ -321,8 +294,26 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
     const [hovered, setHovered] = useState<string | null>(null);
     const [clicked, setClicked] = useState<string | null>(null);
     const [hoveredPosition, setHoveredPosition] = useState<[number, number, number] | null>(null);
-    const [remyHovered, setRemyHovered] = useState(false);
+    const [joshHovered, setJoshHovered] = useState(false);
     const [claireHovered, setClaireHovered] = useState(false);
+    const [brianHovered, setBrianHovered] = useState(false);
+    
+    // Random animations for each character
+    const [joshAnimation] = useState(() => {
+        const anim = getRandomAnimation();
+        console.log('Josh animation:', anim);
+        return anim;
+    });
+    const [claireAnimation] = useState(() => {
+        const anim = getRandomAnimation();
+        console.log('Claire animation:', anim);
+        return anim;
+    });
+    const [brianAnimation] = useState(() => {
+        const anim = getRandomAnimation();
+        console.log('Brian animation:', anim);
+        return anim;
+    });
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showFullscreenButton, setShowFullscreenButton] = useState(false);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -342,12 +333,12 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
         setHoveredPosition(null);
     };
 
-    const handleRemyPointerOver = () => {
-        setRemyHovered(true);
+    const handleJoshPointerOver = () => {
+        setJoshHovered(true);
     };
 
-    const handleRemyPointerOut = () => {
-        setRemyHovered(false);
+    const handleJoshPointerOut = () => {
+        setJoshHovered(false);
     };
 
     const handleClairePointerOver = () => {
@@ -356,6 +347,14 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
 
     const handleClairePointerOut = () => {
         setClaireHovered(false);
+    };
+
+    const handleBrianPointerOver = () => {
+        setBrianHovered(true);
+    };
+
+    const handleBrianPointerOut = () => {
+        setBrianHovered(false);
     };
 
     // Fullscreen functionality
@@ -443,46 +442,35 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                     </Sphere>
                 ))}
 
-                {/* Candidates - Ovals on stage */}
-                {CANDIDATES.map((obj) => (
-                    <Sphere
-                        key={obj.id}
-                        position={obj.position}
-                        args={[0.6, 32, 32]}
-                        onClick={() => handleClick(obj.id)}
-                        onPointerOver={() => handlePointerOver(obj.id, obj.position)}
-                        onPointerOut={handlePointerOut}
-                        scale={clicked === obj.id ? [1.2, 1.8, 1.2] : hovered === obj.id ? [1.1, 1.5, 1.1] : [1, 1.4, 1]}
-                        castShadow
-                    >
-                        <meshStandardMaterial
-                            color={hovered === obj.id ? '#ff6b6b' : obj.color}
-                            metalness={0.7}
-                            roughness={0.3}
-                        />
-                    </Sphere>
-                ))}
 
-                {/* Remy Character Model */}
+                {/* Josh Character Model */}
                 <AnimatedCharacter
-                    characterFile="Remy.fbx"
-                    animationFile="Angry.fbx"
-                    position={[-2.5, 1.5, -10]}
+                    characterFile="character male josh.fbx"
+                    animationFile={joshAnimation}
+                    position={[-3, 1.5, -10]}
                     scale={[1, 1, 1]} // Will be automatically adjusted
-                    isHovered={remyHovered}
-                    onPointerOver={handleRemyPointerOver}
-                    onPointerOut={handleRemyPointerOut}
+                    onPointerOver={handleJoshPointerOver}
+                    onPointerOut={handleJoshPointerOut}
                 />
 
                 {/* Claire Character Model */}
                 <AnimatedCharacter
-                    characterFile="claire.fbx"
-                    animationFile="Standing Greeting.fbx"
-                    position={[2.5, 1.5, -10]}
+                    characterFile="character female claire.fbx"
+                    animationFile={claireAnimation}
+                    position={[0, 1.5, -10]}
                     scale={[1, 1, 1]} // Will be automatically adjusted
-                    isHovered={claireHovered}
                     onPointerOver={handleClairePointerOver}
                     onPointerOut={handleClairePointerOut}
+                />
+
+                {/* Brian Character Model */}
+                <AnimatedCharacter
+                    characterFile="character male brian.fbx"
+                    animationFile={brianAnimation}
+                    position={[3, 1.5, -10]}
+                    scale={[1, 1, 1]} // Will be automatically adjusted
+                    onPointerOver={handleBrianPointerOver}
+                    onPointerOut={handleBrianPointerOut}
                 />
 
                 {/* Ground plane */}
