@@ -1,10 +1,15 @@
 from typing import Dict, List, Any, Optional
 from dotenv import load_dotenv
 import os
-import sys
+
+import logging
 from . import llm_client
 import uuid
 from .social_media import Post
+import json
+
+logger = logging.getLogger(__name__)
+
 
 class Persona:
     def __init__(self, persona_id: str):
@@ -30,10 +35,13 @@ class Persona:
         Args:
             debate_transcript: A DebateTranscript object containing statements from the debate
         """
+        logger.debug(f"Persona {self.id}: Consuming debate content (current rounds: {len(self.debate_knowledge)})")
+
         # Convert debate transcript to string representation
         transcript_str = self._format_debate_transcript(debate_transcript)
 
         # If there's previous debate knowledge, compare and extract only new content
+        is_incremental = False
         if self.debate_knowledge:
             last_transcript = self.debate_knowledge[-1]
             # Remove the round prefix to get the actual content for comparison
@@ -42,6 +50,7 @@ class Persona:
             # If the new transcript contains the previous content, extract only what's new
             if last_content.strip() and transcript_str.startswith(last_content.strip()):
                 transcript_str = transcript_str[len(last_content.strip()):].strip()
+                is_incremental = True
 
         # Determine the round number based on current list length
         round_number = len(self.debate_knowledge) + 1
@@ -49,6 +58,8 @@ class Persona:
         # Prepend the round indicator and append to debate knowledge
         formatted_transcript = f"[round {round_number} debate transcript] {transcript_str}"
         self.debate_knowledge.append(formatted_transcript)
+
+        logger.debug(f"Persona {self.id}: Debate round {round_number} stored ({'incremental' if is_incremental else 'full'}, {len(transcript_str)} chars)")
 
     def _format_debate_transcript(self, debate_transcript: Dict[str, Any]) -> str:
         """
@@ -96,8 +107,10 @@ class Persona:
                                ("debate_knowledge", "chats", "social_media_knowledge")
             max_change_percentage: Maximum percentage of beliefs that can change (0.0 to 1.0)
         """
+    
         # Build context for LLM
         context = self._build_belief_update_context(knowledge_category)
+        logger.debug(f"Persona {self.id}: Updating beliefs from {knowledge_category} with context: {context}")
 
         # Create prompt for LLM
         prompt = f"""You are updating the beliefs of a person based on new information they have received.
@@ -123,14 +136,13 @@ Return ONLY the JSON object, no additional text."""
 
         # Get updated beliefs from LLM
         try:
+            logger.debug(f"Persona {self.id}: Calling LLM to update beliefs")
             response = llm_client.generate_response(
                 self.llm_client,
                 prompt,
                 system_instruction
             )
-
-            # Parse the JSON response
-            import json
+            
             # Remove markdown code blocks if present
             response_clean = response.strip()
             if response_clean.startswith("```json"):
@@ -143,10 +155,12 @@ Return ONLY the JSON object, no additional text."""
             updated_beliefs = json.loads(response_clean.strip())
 
             # Update the persona's beliefs
+            old_belief_count = len(self.beliefs)
             self.beliefs = updated_beliefs
+            logger.info(f"Persona {self.id}: Beliefs updated ({old_belief_count} → {len(self.beliefs)} beliefs)")
 
         except Exception as e:
-            print(f"Error updating beliefs: {e}")
+            logger.debug(f"Persona {self.id}: Error updating beliefs - {e}")
             # Keep existing beliefs if update fails
 
     def _build_belief_update_context(self, knowledge_category: str) -> str:
@@ -224,6 +238,7 @@ Return ONLY the JSON object, no additional text."""
         Returns:
             The chat message as a string
         """
+
         # Build context for LLM
         context = self._build_chat_context(conversation_history, peer_id)
 
@@ -254,11 +269,12 @@ Return ONLY the message text, no additional formatting or labels."""
                 "conversation": conversation_history + [{"speaker_id": self.id, "message": message}]
             }
             self.chats.append(chat_entry)
+            logger.debug(f"Persona {self.id} chat message: {message}")
 
             return message
 
         except Exception as e:
-            print(f"Error generating chat message: {e}")
+            logger.debug(f"Persona {self.id}: Error generating chat message - {e}")
             return "I see what you mean."
 
     def _build_chat_context(self, conversation_history: List[Dict[str, Any]], peer_id: str) -> str:
@@ -323,6 +339,8 @@ Return ONLY the message text, no additional formatting or labels."""
         Returns:
             The post content as a string, or None if generation fails
         """
+        logger.debug(f"Persona {self.id}: Creating social media post (feed size: {len(existing_posts)})")
+
         # Build context for LLM
         context = self._build_post_context(existing_posts)
 
@@ -344,6 +362,7 @@ Return ONLY the post text, no hashtags, no additional formatting."""
         system_instruction = "You are generating authentic social media posts for a person based on their personality, beliefs, and context."
 
         try:
+            logger.debug(f"Persona {self.id}: Generating social media post")
             response = llm_client.generate_response(
                 self.llm_client,
                 prompt,
@@ -364,7 +383,7 @@ Return ONLY the post text, no hashtags, no additional formatting."""
             self.posts.append(post)
 
             post_id = f"{self.id}_{uuid.uuid4().hex[:8]}"
-            content = "Random Post"  # Placeholder content
+            logger.info(f"Persona {self.id}: Social media post created: '{post_content[:50]}...'")
 
             return Post(
                 id=post_id,
@@ -375,7 +394,7 @@ Return ONLY the post text, no hashtags, no additional formatting."""
             )
 
         except Exception as e:
-            print(f"Error generating social media post: {e}")
+            logger.debug(f"Persona {self.id}: Error generating social media post - {e}")
             return None
 
     def _build_post_context(self, existing_posts: List[Dict[str, Any]]) -> str:
@@ -455,6 +474,8 @@ Return ONLY the post text, no hashtags, no additional formatting."""
         if post.get("persona_id") == self.id:
             return None
 
+        logger.debug(f"Persona {self.id}: Reacting to post from {post.get('persona_id')}")
+
         # Build context for LLM
         context = self._build_reaction_context(post)
 
@@ -477,6 +498,7 @@ Respond with ONLY one of these exact words:
         system_instruction = "You are making authentic social media reactions based on a person's beliefs and personality."
 
         try:
+            logger.debug(f"Persona {self.id}: Generating reaction to post")
             response = llm_client.generate_response(
                 self.llm_client,
                 prompt,
@@ -493,12 +515,14 @@ Respond with ONLY one of these exact words:
                 elif "down" in reaction:
                     reaction = "thumbs_down"
                 else:
+                    logger.debug(f"Persona {self.id}: Invalid reaction '{reaction}', skipping")
                     return None
 
+            logger.debug(f"Persona {self.id}: Reaction generated: {reaction}")
             return reaction
 
         except Exception as e:
-            print(f"Error generating reaction: {e}")
+            logger.debug(f"Persona {self.id}: Error generating reaction - {e}")
             return None
 
     def _build_reaction_context(self, post: Dict[str, Any]) -> str:
@@ -548,6 +572,8 @@ Respond with ONLY one of these exact words:
         Returns:
             The chosen candidate ID
         """
+        logger.debug(f"Persona {self.id}: Voting (candidates: {candidates})")
+
         if not candidates:
             return ""
 
@@ -577,6 +603,7 @@ Respond with ONLY the candidate ID, nothing else."""
         system_instruction = "You are making an authentic voting decision based on a person's complete experience and beliefs."
 
         try:
+            logger.debug(f"Persona {self.id}: Calling LLM for voting decision")
             response = llm_client.generate_response(
                 self.llm_client,
                 prompt,
@@ -587,18 +614,21 @@ Respond with ONLY the candidate ID, nothing else."""
 
             # Validate the choice
             if chosen_candidate in candidates:
+                logger.info(f"Persona {self.id}: Voted for {chosen_candidate}")
                 return chosen_candidate
             else:
                 # Try to find a match
                 for candidate in candidates:
                     if candidate.lower() in chosen_candidate.lower():
+                        logger.info(f"Persona {self.id}: Voted for {candidate} (matched from '{chosen_candidate}')")
                         return candidate
 
                 # Default to first candidate if no valid match
+                logger.debug(f"Persona {self.id}: Invalid vote '{chosen_candidate}', defaulting to {candidates[0]}")
                 return candidates[0]
 
         except Exception as e:
-            print(f"Error generating vote: {e}")
+            logger.debug(f"Persona {self.id}: Error generating vote - {e}, defaulting to {candidates[0]}")
             return candidates[0]
 
     def _build_voting_context(self, candidates: List[str]) -> str:

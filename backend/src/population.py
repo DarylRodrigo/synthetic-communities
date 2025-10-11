@@ -1,6 +1,9 @@
 import json
+import logging
 from typing import Dict, List, Any, Optional
 from .persona import Persona
+
+logger = logging.getLogger(__name__)
 
 
 class Population:
@@ -8,11 +11,15 @@ class Population:
         self.personas: List[Persona] = []
     
     def load_from_jsonl(self, file_path: str) -> None:
+        logger.debug(f"Loading personas from {file_path}")
+        personas_loaded = 0
         with open(file_path, 'r') as f:
             for line in f:
                 persona_data = json.loads(line.strip())
                 persona = Persona(persona_data['id'])
                 self.personas.append(persona)
+                personas_loaded += 1
+        logger.info(f"Loaded {personas_loaded} personas from {file_path}")
     
     def add_persona(self, persona: Persona) -> None:
         self.personas.append(persona)
@@ -54,6 +61,8 @@ class Population:
         """
         import random
 
+        logger.debug(f"Orchestrating peer chats: {len(self.personas)} personas, target {num_rounds_mean}±{num_rounds_variance} rounds")
+
         # Create pairs
         available_personas = self.personas.copy()
         random.shuffle(available_personas)
@@ -63,6 +72,7 @@ class Population:
             pairs.append((available_personas[i], available_personas[i + 1]))
 
         # If odd number, last persona doesn't chat this round
+        logger.info(f"Created {len(pairs)} conversation pairs from {len(available_personas)} personas")
         all_conversations = []
 
         # For each pair, orchestrate a conversation
@@ -110,12 +120,16 @@ class Population:
         """
         import random
 
+        logger.debug(f"Creating social media posts: {len(self.personas)} personas, {int(post_probability*100)}% probability")
+
         posts = []
         existing_posts = []  # Accumulate posts as they're created
+        eligible_count = 0
 
         for persona in self.personas:
             # Random chance to post
             if random.random() < post_probability:
+                eligible_count += 1
                 post_content = persona.create_social_media_post(existing_posts)
                 if post_content:
                     post = {
@@ -125,6 +139,7 @@ class Population:
                     posts.append(post)
                     existing_posts.append(post)  # Add to feed for next personas
 
+        logger.debug(f"Posts created: {len(posts)} from {eligible_count} eligible personas")
         return posts
     
     def react_to_posts(
@@ -145,6 +160,8 @@ class Population:
             Dict with reaction statistics
         """
         import random
+
+        logger.debug(f"Processing reactions: {len(self.personas)} personas, {len(posts)} posts, {int(reaction_probability*100)}% probability")
 
         total_reactions = 0
         reactions_by_type = {"thumbs_up": 0, "thumbs_down": 0}
@@ -176,13 +193,15 @@ class Population:
         }
     
     def conduct_vote(self, candidates: List[str]) -> Dict[str, int]:
+        logger.debug(f"Conducting vote: {len(self.personas)} personas, {len(candidates)} candidates")
         votes = {}
         for candidate in candidates:
             votes[candidate] = 0
-        
+
         for persona in self.personas:
             vote = persona.vote(candidates)
             if vote in votes:
                 votes[vote] += 1
-        
+
+        logger.info(f"Vote completed: {sum(votes.values())} votes cast across {len(candidates)} candidates")
         return votes
