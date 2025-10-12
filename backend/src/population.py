@@ -435,10 +435,18 @@ class Population:
             # Add beliefs as policy positions with reasoning
             if hasattr(persona, 'beliefs') and persona.beliefs:
                 for topic_id, belief in persona.beliefs.items():
-                    persona_data["policy_positions"][topic_id] = {
-                        "reasoning": belief,
-                        "vote": ""  # Can be populated if vote tracking is implemented
-                    }
+                    # Handle both new dict format and legacy string format
+                    if isinstance(belief, dict):
+                        persona_data["policy_positions"][topic_id] = {
+                            "reasoning": belief.get("belief", ""),
+                            "vote": belief.get("vote", "")
+                        }
+                    else:
+                        # Legacy format (string)
+                        persona_data["policy_positions"][topic_id] = {
+                            "reasoning": belief,
+                            "vote": ""
+                        }
 
             votes.append(persona_data)
 

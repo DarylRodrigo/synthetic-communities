@@ -198,8 +198,17 @@ are shaped by this context.
         # Add current beliefs
         lines.append("=== CURRENT BELIEFS ===")
         if self.beliefs:
-            for key, value in self.beliefs.items():
-                lines.append(f"{key}: {value}")
+            for topic, belief_data in self.beliefs.items():
+                # Handle both old and new belief formats
+                if isinstance(belief_data, dict):
+                    belief = belief_data.get("belief", "")
+                    vote = belief_data.get("vote", "")
+                    lines.append(f"{topic}:")
+                    lines.append(f"  Belief: {belief}")
+                    lines.append(f"  Preferred candidate: {vote}")
+                else:
+                    # Legacy format (string)
+                    lines.append(f"{topic}: {belief_data}")
         else:
             lines.append("(No existing beliefs)")
         lines.append("")
@@ -263,8 +272,17 @@ are shaped by this context.
         # Add current beliefs
         lines.append("=== YOUR BELIEFS ===")
         if self.beliefs:
-            for key, value in self.beliefs.items():
-                lines.append(f"{key}: {value}")
+            for topic, belief_data in self.beliefs.items():
+                # Handle both old and new belief formats
+                if isinstance(belief_data, dict):
+                    belief = belief_data.get("belief", "")
+                    vote = belief_data.get("vote", "")
+                    lines.append(f"{topic}:")
+                    lines.append(f"  Belief: {belief}")
+                    lines.append(f"  Preferred candidate: {vote}")
+                else:
+                    # Legacy format (string)
+                    lines.append(f"{topic}: {belief_data}")
         else:
             lines.append("(You haven't formed strong beliefs yet)")
         lines.append("")
@@ -315,8 +333,17 @@ are shaped by this context.
         # Add current beliefs
         lines.append("=== YOUR BELIEFS ===")
         if self.beliefs:
-            for key, value in self.beliefs.items():
-                lines.append(f"{key}: {value}")
+            for topic, belief_data in self.beliefs.items():
+                # Handle both old and new belief formats
+                if isinstance(belief_data, dict):
+                    belief = belief_data.get("belief", "")
+                    vote = belief_data.get("vote", "")
+                    lines.append(f"{topic}:")
+                    lines.append(f"  Belief: {belief}")
+                    lines.append(f"  Preferred candidate: {vote}")
+                else:
+                    # Legacy format (string)
+                    lines.append(f"{topic}: {belief_data}")
         else:
             lines.append("(You haven't formed strong beliefs yet)")
         lines.append("")
@@ -374,8 +401,17 @@ are shaped by this context.
         # Add current beliefs
         lines.append("=== YOUR BELIEFS ===")
         if self.beliefs:
-            for key, value in self.beliefs.items():
-                lines.append(f"{key}: {value}")
+            for topic, belief_data in self.beliefs.items():
+                # Handle both old and new belief formats
+                if isinstance(belief_data, dict):
+                    belief = belief_data.get("belief", "")
+                    vote = belief_data.get("vote", "")
+                    lines.append(f"{topic}:")
+                    lines.append(f"  Belief: {belief}")
+                    lines.append(f"  Preferred candidate: {vote}")
+                else:
+                    # Legacy format (string)
+                    lines.append(f"{topic}: {belief_data}")
         else:
             lines.append("(You haven't formed strong beliefs yet)")
         lines.append("")
@@ -413,8 +449,17 @@ are shaped by this context.
         # Add current beliefs - MOST IMPORTANT
         lines.append("=== YOUR BELIEFS ===")
         if self.beliefs:
-            for key, value in self.beliefs.items():
-                lines.append(f"{key}: {value}")
+            for topic, belief_data in self.beliefs.items():
+                # Handle both old and new belief formats
+                if isinstance(belief_data, dict):
+                    belief = belief_data.get("belief", "")
+                    vote = belief_data.get("vote", "")
+                    lines.append(f"{topic}:")
+                    lines.append(f"  Belief: {belief}")
+                    lines.append(f"  Preferred candidate: {vote}")
+                else:
+                    # Legacy format (string)
+                    lines.append(f"{topic}: {belief_data}")
         else:
             lines.append("(No strong beliefs formed yet)")
         lines.append("")
@@ -471,20 +516,39 @@ are shaped by this context.
 
         Based on all this information, please update the person's beliefs. You may slightly to moderately revise their beliefs, but you cannot change more than {int(max_change_percentage * 100)}% of their existing beliefs.
 
-        Return the updated beliefs as a JSON object with belief categories as keys and belief statements as values.
+        IMPORTANT RULES:
+        1. DO NOT create new belief categories - only update existing ones
+        2. If no existing beliefs exist, only create beliefs for topics that appear in the debate transcripts
+        3. For each belief, identify which candidate (by name) best aligns with this belief based on what they said in the debates
+        4. Extract candidate names from the debate transcripts
+
+        Return the updated beliefs as a JSON object with this structure:
 
         Example format:
         {{
-            "healthcare": "I believe in universal healthcare coverage",
-            "economy": "I support progressive taxation",
-            "climate": "Climate change requires immediate action"
+            "healthcare": {{
+                "belief": "I believe in universal healthcare coverage",
+                "vote": "Jane Smith"
+            }},
+            "economy": {{
+                "belief": "I support progressive taxation",
+                "vote": "John Doe"
+            }},
+            "climate": {{
+                "belief": "Climate change requires immediate action",
+                "vote": "Jane Smith"
+            }}
         }}
 
-        If the person has no existing beliefs, create initial beliefs based on their features and the knowledge they've consumed.
+        If the person has no existing beliefs, create initial beliefs ONLY for topics discussed in the debates.
 
         Return ONLY the JSON object, no additional text."""
 
-        system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change."
+        print("--------------------------------")
+        print(prompt)
+        print("--------------------------------")
+
+        system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change. CRITICAL: DO NOT ADD NEW TOPICS - only update existing belief categories or create beliefs for topics explicitly mentioned in debates."
 
         try:
             logger.debug(f"Persona {self.id}: Calling LLM to update beliefs (async)")

@@ -1,0 +1,90 @@
+{
+  "simulation_id": "20251012_123419",
+  "config": {
+    "population_size": 1,
+    "questions_per_topic": 1,
+    "turns_per_question": 1,
+    "num_epochs": 1,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Housing squeeze & rents",
+      "description": "Record-low vacancy rates in Z\u00fcrich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Lina Meier",
+      "character": "Progressive (left-leaning). Prioritises a stronger social safety net and public services; backs premium relief in LAMal and more cost controls; pro\u2013cooperative/affordable housing; supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); liberal on migration/asylum with focus on integration; progressive taxation and childcare support; values direct democracy with citizen initiatives to expand social programs.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing squeeze in Z\u00fcrich demands immediate action. I support significantly increasing the construction of affordable and cooperative housing, while combating speculation. We must prioritize fair housing policies that do not discriminate based on residency status, and instead focus on addressing the root causes of the crisis to ensure everyone has access to safe and affordable homes."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Markus Keller",
+      "character": "Conservative (right-leaning). Emphasises free markets and limited government; prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; pro-property rights and deregulation to spur private housing supply; EU-sceptical\u2014prefers bilateral deals without automatic legal alignment; energy security via technology neutrality incl. new-gen nuclear; strict migration controls with faster procedures; supports tax relief and individual taxation; prioritises neutrality, security, and fiscal discipline.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing shortage in Z\u00fcrich is a clear consequence of overregulation and insufficient supply. We must prioritize deregulation to incentivize private construction and protect property rights. While I understand the concerns, any policy that prioritizes residents based on origin over fair market principles would be a step in the wrong direction; solutions must be market-based and focused on increasing the overall housing supply."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "b9c542f4-1533-4511-b43a-0a83a342c214",
+      "name": "b9c542f4-1533-4511-b43a-0a83a342c214",
+      "demographics": {
+        "id": "b9c542f4-1533-4511-b43a-0a83a342c214",
+        "name": "Ahmad Jarrar Khan",
+        "age": 26,
+        "gender": "Male",
+        "city": "Lausanne",
+        "job": "Master Student \u00e2\u20ac\u201c Computer Science",
+        "company": "EPFL",
+        "education_level": "master_degree",
+        "income_bracket": "lower_middle",
+        "ethnicity": "Pakistani",
+        "cultural_background": "South Asian academic culture",
+        "country": "CH_fr",
+        "susceptibility": 0.331,
+        "trust_institution": 0.746,
+        "turnout_propensity": 0.708,
+        "media_diet": {
+          "social_media": 0.29,
+          "tv": 0.08,
+          "newspaper": 0.33,
+          "blogs": 0.3
+        },
+        "personality_traits": {
+          "openness": 0.84,
+          "conscientiousness": 0.79,
+          "extraversion": 0.47,
+          "agreeableness": 0.63,
+          "neuroticism": 0.39
+        },
+        "confirmation_bias": 0.301,
+        "social_network_influence": 0.152,
+        "risk_aversion": 0.342,
+        "fairness_value": 0.588,
+        "prior_beliefs": {
+          "foreign_policy": 0.23,
+          "technology": 0.89,
+          "education": 0.79
+        },
+        "timestamp": "2025-10-11T22:16:58.021388",
+        "religion": "Muslim",
+        "demeanour": "Calm and methodical, passionate about computer vision and applied AI.",
+        "interests": [
+          "machine learning",
+          "3D reconstruction",
+          "research collaboration"
+        ],
+        "sector": "Computer Vision / Academia",
+        "backstory": "Graduate student at EPFL specializing in computer vision and ML. Previously worked at Johnson Electric and contributed to dataset-driven research in 3D perception."
+      }
+    }
+  ]
+}
