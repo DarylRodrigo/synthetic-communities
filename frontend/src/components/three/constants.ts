@@ -30,8 +30,8 @@ export const AVAILABLE_ANIMATIONS = [
 
 // Audience configuration - defined outside component to prevent recreation
 export const AUDIENCE_CONFIG = {
-    count: 17,
-    gridSize: 5,
+    count: 4, // 2x2 grid = 4 members
+    gridSize: 2, // 2x2 grid
     spacing: 2.5, // Increased spacing for character models
     height: 0   // Standing on ground level
 };
@@ -47,23 +47,23 @@ export const getFallbackAnimation = () => {
     return "animation Standing Greeting.fbx";
 };
 
-// Generate audience array with random characters and animations
+// Generate audience array with a single character for all instances
 export const generateAudience = () => {
     const audience = [];
     const halfGrid = Math.floor(AUDIENCE_CONFIG.gridSize / 2);
+
+    // Use a single character for all audience members
+    const singleCharacter = "character male josh.fbx"; // Using Josh as the default character
+    const singleAnimation = "animation Standing Greeting.fbx"; // Using a simple standing animation
 
     for (let i = 0; i < AUDIENCE_CONFIG.count; i++) {
         const row = Math.floor(i / AUDIENCE_CONFIG.gridSize);
         const col = i % AUDIENCE_CONFIG.gridSize;
 
-        // Select random character and animation
-        const randomCharacter = AVAILABLE_CHARACTERS[Math.floor(Math.random() * AVAILABLE_CHARACTERS.length)];
-        const randomAnimation = AVAILABLE_ANIMATIONS[Math.floor(Math.random() * AVAILABLE_ANIMATIONS.length)];
-
         audience.push({
             id: `audience${i + 1}`,
-            characterFile: randomCharacter,
-            animationFile: randomAnimation,
+            characterFile: singleCharacter,
+            animationFile: singleAnimation,
             position: [
                 (col - halfGrid) * AUDIENCE_CONFIG.spacing,
                 AUDIENCE_CONFIG.height,
@@ -78,8 +78,17 @@ export const generateAudience = () => {
 // Pre-generate arrays
 export const AUDIENCE = generateAudience();
 
+// Instance positions for 2x2 grid audience
+export const AUDIENCE_INSTANCE_POSITIONS: [number, number, number][] = [
+    [-2.5, 0, 2.5],   // Top-left
+    [2.5, 0, 2.5],    // Top-right
+    [-2.5, 0, -2.5],  // Bottom-left
+    [2.5, 0, -2.5]    // Bottom-right
+];
+
 // Log audience character assignments
-console.log('Audience character assignments:');
-AUDIENCE.forEach((member, index) => {
-    console.log(`Audience ${index + 1}: ${member.characterFile} with ${member.animationFile}`);
-});
+console.log('Simplified audience - all using same character:');
+console.log(`Character: ${AUDIENCE[0]?.characterFile || 'N/A'}`);
+console.log(`Animation: ${AUDIENCE[0]?.animationFile || 'N/A'}`);
+console.log(`Total audience members: ${AUDIENCE.length}`);
+console.log('Instance positions:', AUDIENCE_INSTANCE_POSITIONS);

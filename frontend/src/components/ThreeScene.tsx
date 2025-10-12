@@ -7,11 +7,12 @@ import { useState, useRef } from 'react';
 import { 
     SpeechBubble, 
     AnimatedCharacter, 
+    InstancedAudience,
     SceneLighting, 
     SceneEnvironment, 
     FullscreenButton,
     AnimationControlButton,
-    AUDIENCE,
+    AUDIENCE_INSTANCE_POSITIONS,
     getRandomAnimation
 } from './three';
 
@@ -90,20 +91,16 @@ export default function ThreeScene({ className = '' }: ThreeSceneProps) {
                 {/* Scene Environment */}
                 <SceneEnvironment />
 
-                {/* Audience - Character models in grid formation (STATIC - no animations) */}
-                {AUDIENCE.map((obj) => (
-                    <group key={obj.id} rotation={[0, Math.PI, 0]}>
-                        <AnimatedCharacter
-                            characterFile={obj.characterFile}
-                            animationFile={obj.animationFile}
-                            position={obj.position}
-                            scale={[1, 1, 1]} // Will be automatically adjusted
-                            isAnimating={false} // Always static for audience
-                            onPointerOver={() => handlePointerOver(obj.id, obj.position)}
-                            onPointerOut={handlePointerOut}
-                        />
-                    </group>
-                ))}
+                {/* Audience - Instanced character models in 2x2 grid formation (STATIC - no animations) */}
+                <InstancedAudience
+                    characterFile="character male josh.fbx"
+                    animationFile="animation Standing Greeting.fbx"
+                    instanceCount={4}
+                    instancePositions={AUDIENCE_INSTANCE_POSITIONS}
+                    isAnimating={false} // Always static for audience
+                    onPointerOver={(instanceId, position) => handlePointerOver(`Audience ${instanceId + 1}`, position)}
+                    onPointerOut={handlePointerOut}
+                />
 
                 {/* Main Characters (CANDIDATES - animated) */}
                 <AnimatedCharacter

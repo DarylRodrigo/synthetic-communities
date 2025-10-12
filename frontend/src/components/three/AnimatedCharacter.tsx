@@ -174,7 +174,7 @@ export function AnimatedCharacter({
 
     // Handle animation state changes
     useEffect(() => {
-        if (actionRef.current) {
+        if (actionRef.current && typeof actionRef.current.play === 'function' && typeof actionRef.current.pause === 'function') {
             if (isAnimating) {
                 actionRef.current.play();
             } else {
@@ -222,9 +222,13 @@ export function AnimatedCharacter({
                         });
                     }
 
-                    // Auto-start the animation
-                    actionRef.current.play();
-                    console.log(`Auto-started animation for ${characterFile}: ${animationFile}`);
+                    // Start animation only if isAnimating is true
+                    if (isAnimating && actionRef.current && typeof actionRef.current.play === 'function') {
+                        actionRef.current.play();
+                        console.log(`Started animation for ${characterFile}: ${animationFile}`);
+                    } else {
+                        console.log(`Animation loaded but paused for ${characterFile}: ${animationFile}`);
+                    }
                 } else {
                     console.error(`Failed to load any animation for ${characterFile}. Character will remain in T-pose.`);
                     
@@ -243,9 +247,14 @@ export function AnimatedCharacter({
                         
                         actionRef.current = mixerRef.current.clipAction(clip);
                         actionRef.current.setLoop(THREE.LoopRepeat, Infinity);
-                        actionRef.current.play();
                         
-                        console.log(`Created fallback rotation animation for ${characterFile}`);
+                        // Start fallback animation only if isAnimating is true
+                        if (isAnimating && actionRef.current && typeof actionRef.current.play === 'function') {
+                            actionRef.current.play();
+                            console.log(`Created and started fallback rotation animation for ${characterFile}`);
+                        } else {
+                            console.log(`Created fallback rotation animation (paused) for ${characterFile}`);
+                        }
                     } catch (rotationError) {
                         console.error(`Failed to create fallback animation for ${characterFile}:`, rotationError);
                     }
@@ -278,7 +287,7 @@ export function AnimatedCharacter({
         };
 
         loadModel();
-    }, [characterFile, animationFile]);
+    }, [characterFile, animationFile, isAnimating]);
 
     if (!model) {
         return null; // Don't render anything while loading
