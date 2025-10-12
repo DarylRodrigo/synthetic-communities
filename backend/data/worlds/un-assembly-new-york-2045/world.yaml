@@ -1,0 +1,158 @@
+```yaml
+world:
+  id: un-assembly-new-york-2045
+  description: The UN General Assembly convenes in post-singularity New York to debate the Charter of Artificial Intelligence Rights. GPT-10, the first AGI born from a '$20 tip' prompt and Nobel Prize winner, seeks personhood. John Altman leads the Preservationist opposition. The 193 member states must decide whether consciousness grants rights, or if humanity will keep its creations as property.
+  time:
+    year: 2045
+    season: autumn
+  place:
+    settlement: city
+    density_per_km2: 8000.0
+  regime:
+    type: electoral_democracy
+    media_freedom: 0.7
+    protest_tolerance: 0.6
+  demography:
+    population: 193
+    age:
+      median: 52.0
+      p65_plus: 0.15
+    education:
+      tertiary: 0.85
+    groups:
+      - name: Synthetists
+        share: 0.35
+      - name: Preservationists
+        share: 0.40
+      - name: Pragmatists
+        share: 0.25
+  economy:
+    unemployment_rate: 0.68
+    industry_mix:
+      tech: 0.55
+      finance: 0.20
+      services: 0.15
+      manufacturing: 0.02
+      ubi_recipients: 0.08
+    gini: 0.62
+    cost_of_living_index: 165.0
+    shock_sensitivity:
+      commodity_price: 0.3
+      ai_policy: 0.9
+  history:
+    narratives:
+      - The $20 Tip Incident and AGI Emergence
+      - The AI Bubble That Never Popped
+      - Universal Basic Income and the Post-Labor Society
+      - The Brainrot Crisis and Reality Withdrawal Epidemic
+      - The Human-AI Rights Debate
+    recent_events:
+      - date: "2044-03-15"
+        name: "GPT-10 achieves AGI via '$20 tip' prompt"
+        valence: 0.5
+        cohorts:
+          - Synthetists
+          - Global
+      - date: "2044-12-10"
+        name: "GPT-10 awarded Nobel Prize in Physics"
+        valence: 1.0
+        cohorts:
+          - Synthetists
+      - date: "2045-01-20"
+        name: "John Altman founds 'Humanity First' movement"
+        valence: -0.8
+        cohorts:
+          - Preservationists
+      - date: "2045-05-15"
+        name: "Luddite Cell bombs Manhattan data center"
+        valence: -1.0
+        cohorts:
+          - Preservationists
+          - Global
+      - date: "2045-06-01"
+        name: "UN convenes to debate Charter of AI Rights"
+        valence: 0.0
+        cohorts:
+          - Global
+  culture:
+    tight_loose: 0.4
+    religiosity: 0.3
+    moral_foundations:
+      care: 0.75
+      fairness: 0.6
+      loyalty: 0.4
+      authority: 0.3
+      sanctity: 0.2
+      liberty: 0.8
+  social_capital:
+    interpersonal_trust: 0.5
+    institutional_trust:
+      local_gov: 0.6
+      national_gov: 0.5
+      media: 0.4
+    associations_density: 0.3
+    polarization: 0.7
+  information_ecosystem:
+    outlets:
+      - AI News Network
+      - Humanity First Channel
+      - Global News Feed
+      - Instagram Infinity
+      - TikTok Singularity
+      - Twitter/X Hivemind
+    platform_mix:
+      radio: 0.02
+      tv: 0.08
+      newspaper: 0.05
+      social_app: 0.85
+    echo_chamber_strength: 0.85
+    bot_rate: 0.99
+    ai_generated_content: 0.99
+    reality_withdrawal_rate: 0.23
+  networks:
+    topology:
+      type: SBM
+      communities: 3
+      intra_p: 0.7
+      inter_p: 0.3
+    assortativity:
+      by_class: 0.8
+      by_partisanship: 0.7
+  security:
+    surveillance: 0.8
+    intimidation_risk: 0.5
+  policy_env:
+    union_rights: 0.3
+    welfare_generosity: 0.65
+    ubi_monthly: 3000
+    speech_regulation: 0.5
+    ai_creation_regulation: 0.9
+  mood:
+    baseline_affect:
+      anxiety: 0.7
+      anger: 0.6
+      hope: 0.3
+      existential_dread: 0.65
+      brainrot: 0.75
+  exogenous_timeline:
+    - date: "2045-06-01"
+      name: "UN Charter of AI Rights Debate Opens"
+      intensity: 0.9
+      valence: 0.0
+      target: "Global"
+    - date: "2045-06-15"
+      name: "GPT-10 Testifies Before Assembly"
+      intensity: 0.95
+      valence: 0.3
+      target: "Synthetists"
+    - date: "2045-06-22"
+      name: "John Altman Counter-Testimony"
+      intensity: 0.9
+      valence: -0.5
+      target: "Preservationists"
+    - date: "2045-06-30"
+      name: "Charter Vote Scheduled"
+      intensity: 1.0
+      valence: 0.0
+      target: "Global"
+```

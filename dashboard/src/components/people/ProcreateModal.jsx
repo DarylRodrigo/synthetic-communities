@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Heart, User, Sparkles, RotateCcw, Search } from 'lucide-react';
 import { interpretDistributionWithAI } from '../../utils/aiFilters';
-import { initializeAI, generateWithAI } from '../../utils/aiUtils';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import './ProcreateModal.css';
 
 export default function ProcreateModal({ maleParent, femaleParent, onClose, onCreate }) {
@@ -20,121 +20,159 @@ export default function ProcreateModal({ maleParent, femaleParent, onClose, onCr
       const parent1 = maleParent;
       const parent2 = femaleParent;
 
-      // Create detailed prompt for AI child generation
-      const prompt = `Create a child persona by merging these two parents:
+      // Create comprehensive prompt with detailed parent information
+      const prompt = `Create a child persona by merging these two parents with realistic genetic and environmental inheritance:
 
-PARENT 1: ${parent1.name} (${parent1.age}, ${parent1.ethnicity}, ${parent1.sector} in ${parent1.city})
-PARENT 2: ${parent2.name} (${parent2.age}, ${parent2.ethnicity}, ${parent2.sector} in ${parent2.city})
+FATHER: ${parent1.name}
+- Age: ${parent1.age}
+- Ethnicity: ${parent1.ethnicity}
+- Education: ${parent1.education_level}
+- Job: ${parent1.job || parent1.sector}
+- City: ${parent1.city}
+- Personality: ${JSON.stringify(parent1.personality_traits || {})}
+- Religion: ${parent1.religion || 'Unknown'}
+- Demeanour: ${parent1.demeanour || 'Unknown'}
+- Interests: ${JSON.stringify(parent1.interests || [])}
 
-Create realistic child (age 18-35) inheriting balanced traits from both parents.
+MOTHER: ${parent2.name}
+- Age: ${parent2.age}
+- Ethnicity: ${parent2.ethnicity}
+- Education: ${parent2.education_level}
+- Job: ${parent2.job || parent2.sector}
+- City: ${parent2.city}
+- Personality: ${JSON.stringify(parent2.personality_traits || {})}
+- Religion: ${parent2.religion || 'Unknown'}
+- Demeanour: ${parent2.demeanour || 'Unknown'}
+- Interests: ${JSON.stringify(parent2.interests || [])}
 
-IMPORTANT: Return ONLY a JSON array with exactly one object, no additional text or explanation:
-[
-  {
-    "name": "Full name",
-    "age": number,
-    "gender": "Male" or "Female",
-    "city": "Swiss city",
-    "sector": "work sector",
-    "education_level": "education level",
-    "ethnicity": "ethnic background",
-    "religion": "religious background",
-    "backstory": "200-400 word life story",
-    "personality_traits": {
-      "openness": number (0-1),
-      "conscientiousness": number (0-1),
-      "extraversion": number (0-1),
-      "agreeableness": number (0-1),
-      "neuroticism": number (0-1)
-    },
-    "interests": ["interest1", "interest2", "interest3"]
-  }
-]`;
+Create a realistic child (age 18-35) who inherits balanced traits from both parents.
 
-      // Use AI to generate the child (without structured output for now)
-      console.log('Sending prompt to AI:', prompt.substring(0, 200) + '...');
-      const aiResponse = await generateWithAI(prompt);
-      console.log('AI Response received:', aiResponse);
-      console.log('AI Response length:', aiResponse.length);
+Return ONLY valid JSON with this exact structure:
+{
+  "name": "Full name",
+  "age": 25,
+  "gender": "Male",
+  "city": "Swiss city",
+  "sector": "work sector",
+  "education_level": "education level",
+  "ethnicity": "ethnic background",
+  "religion": "religious background",
+  "backstory": "Documentary-style life story in 2 sentences max, third-person, factual and dense, no melodrama, no humor, no name-origin inventions. Anchor to numeric data (age, education, tenure) and concrete contributions/metrics. Format: 'Born YYYY. [Achievement/contribution].'",
+  "personality_traits": {
+    "openness": 0.75,
+    "conscientiousness": 0.82,
+    "extraversion": 0.68,
+    "agreeableness": 0.71,
+    "neuroticism": 0.34
+  },
+  "interests": ["interest1", "interest2", "interest3"]
+}`;
 
-      if (!aiResponse || aiResponse.trim().length === 0) {
-        throw new Error('AI returned empty response');
+      // Use Gemini 2.5 Pro with structured output
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      console.log('API Key available:', !!apiKey && apiKey !== 'your_api_key_here');
+
+      if (!apiKey || apiKey === 'your_api_key_here') {
+        throw new Error('GEMINI_API_KEY not configured. Please add it to .env file');
       }
 
-      // Clean and parse the JSON response
-      let cleanResponse = aiResponse
-        .replace(/```json\s*/g, '')
-        .replace(/```\s*$/g, '')
-        .replace(/^\s*```/, '')
-        .replace(/```\s*$/, '')
-        .trim();
-
-      console.log('Cleaned Response:', cleanResponse);
-
-      if (cleanResponse.length === 0) {
-        throw new Error('Response became empty after cleaning');
-      }
-
-      // Additional cleaning for any remaining markdown or extra text
-      const jsonMatch = cleanResponse.match(/\{[\s\S]*\}/);
-      if (jsonMatch) {
-        cleanResponse = jsonMatch[0];
-      }
-
-      console.log('Final JSON:', cleanResponse);
-
-      if (cleanResponse.length === 0) {
-        throw new Error('No JSON object found in response');
-      }
-
-      // Parse the JSON response (could be array or single object)
-      const parsedResponse = JSON.parse(cleanResponse);
-
-      let childData;
-      if (Array.isArray(parsedResponse)) {
-        if (parsedResponse.length === 0) {
-          throw new Error('AI response array is empty');
+      console.log('Initializing Gemini client...');
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({
+        model: 'gemini-2.5-flash',
+        generationConfig: {
+          temperature: 0.7,
+          responseMimeType: 'application/json'
         }
-        childData = parsedResponse[0];
-      } else if (typeof parsedResponse === 'object' && parsedResponse !== null) {
-        // AI returned a single object instead of array
-        childData = parsedResponse;
-      } else {
-        throw new Error('AI response is not a valid object or array');
+      });
+
+      console.log('Sending prompt to Gemini 2.5 Pro...');
+      try {
+        const result = await model.generateContent({
+          contents: [{ role: 'user', parts: [{ text: prompt }] }]
+        });
+
+        console.log('Gemini API call completed successfully');
+
+        if (!result || !result.response) {
+          throw new Error('No response object returned from Gemini API');
+        }
+
+        const response = result.response.text();
+        console.log('Response type:', typeof response);
+        console.log('Response length:', response?.length || 0);
+        console.log('Response preview:', response?.substring(0, 200) + '...' || 'No response');
+
+        if (!response || response.trim().length === 0) {
+          throw new Error('AI returned empty response');
+        }
+
+        // Process the response...
+        // Clean the response
+        let cleanResponse = response
+          .replace(/```json\s*/g, '')
+          .replace(/```\s*$/g, '')
+          .replace(/^\s*```/, '')
+          .replace(/```\s*$/, '')
+          .trim();
+
+        console.log('Cleaned Response:', cleanResponse);
+
+        if (cleanResponse.length === 0) {
+          throw new Error('Response became empty after cleaning');
+        }
+
+        // Parse the JSON response
+        const childData = JSON.parse(cleanResponse);
+
+        // Validate required fields
+        if (!childData.name || !childData.age || !childData.personality_traits) {
+          throw new Error('AI response missing required fields');
+        }
+
+        // Add missing fields with defaults
+        const child = {
+          id: `child_${Date.now()}`,
+          name: childData.name,
+          age: childData.age,
+          gender: childData.gender === 'Male' ? 'Male' : 'Female',
+          city: childData.city || parent1.city, // Default to father's city
+          sector: childData.sector,
+          education_level: childData.education_level || 'bachelor_degree',
+          income_bracket: childData.income_bracket || 'middle',
+          ethnicity: childData.ethnicity,
+          cultural_background: childData.cultural_background || 'European',
+          country: childData.country || 'CH_de',
+          susceptibility: childData.susceptibility || 0.3,
+          trust_institution: childData.trust_institution || 0.7,
+          turnout_propensity: childData.turnout_propensity || 0.7,
+          media_diet: childData.media_diet || {"social_media": 0.25, "tv": 0.1, "newspaper": 0.35, "blogs": 0.3},
+          confirmation_bias: childData.confirmation_bias || 0.25,
+          social_network_influence: childData.social_network_influence || 0.15,
+          risk_aversion: childData.risk_aversion || 0.35,
+          fairness_value: childData.fairness_value || 0.6,
+          prior_beliefs: childData.prior_beliefs || {"foreign_policy": 0.15, "technology": 0.8, "education": 0.75},
+          timestamp: new Date().toISOString(),
+          religion: childData.religion || 'None',
+          demeanour: childData.demeanour || 'Balanced and thoughtful',
+          backstory: childData.backstory,
+          personality_traits: childData.personality_traits,
+          interests: childData.interests,
+          company: childData.company || 'Independent',
+        };
+
+        setChildPreview(child);
+
+      } catch (geminiError) {
+        console.error('Gemini API Error:', geminiError);
+        console.error('Error details:', {
+          message: geminiError.message,
+          stack: geminiError.stack,
+          code: geminiError.code,
+          status: geminiError.status
+        });
+        throw new Error(`Gemini API failed: ${geminiError.message}`);
       }
-
-      // Add missing fields that weren't in the simplified prompt
-      const child = {
-        id: `child_${Date.now()}`,
-        name: childData.name,
-        age: childData.age,
-        gender: childData.gender === 'Male' ? 'Male' : 'Female', // Keep as Male/Female format
-        city: childData.city,
-        sector: childData.sector,
-        education_level: childData.education_level || 'bachelor_degree',
-        income_bracket: childData.income_bracket || 'middle',
-        ethnicity: childData.ethnicity,
-        cultural_background: childData.cultural_background || 'European',
-        country: childData.country || 'CH_de',
-        susceptibility: childData.susceptibility || 0.3,
-        trust_institution: childData.trust_institution || 0.7,
-        turnout_propensity: childData.turnout_propensity || 0.7,
-        media_diet: childData.media_diet || {"social_media": 0.25, "tv": 0.1, "newspaper": 0.35, "blogs": 0.3},
-        confirmation_bias: childData.confirmation_bias || 0.25,
-        social_network_influence: childData.social_network_influence || 0.15,
-        risk_aversion: childData.risk_aversion || 0.35,
-        fairness_value: childData.fairness_value || 0.6,
-        prior_beliefs: childData.prior_beliefs || {"foreign_policy": 0.15, "technology": 0.8, "education": 0.75},
-        timestamp: new Date().toISOString(),
-        religion: childData.religion || 'None',
-        demeanour: childData.demeanour || 'Balanced and thoughtful',
-        backstory: childData.backstory,
-        personality_traits: childData.personality_traits,
-        interests: childData.interests,
-        company: childData.company || 'Independent',
-      };
-
-      setChildPreview(child);
     } catch (error) {
       console.error('Generation error:', error);
       alert('Error creating child: ' + error.message);

@@ -15,6 +15,10 @@ export const DATA_SOURCES = {
   'build_zurich': {
     name: 'Build Zurich',
     path: '/build_zurich.jsonl'
+  },
+  'un_assembly_2045': {
+    name: 'UN Assembly 2045',
+    path: '/personas/UN_assembly_2045.jsonl'
   }
 };
 
