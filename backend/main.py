@@ -1,4 +1,5 @@
 import logging
+import argparse
 from src.config import Config
 from src.game_engine import GameEngine
 from src.candidate import Candidate
@@ -14,80 +15,58 @@ logging.basicConfig(
 
 
 def main():
-    config = Config(
-        # Core simulation parameters
-        population_size=50,
-        questions_per_topic=2,
-        turns_per_question=2,
-        num_epochs=3,
-        random_seed=42,
-        # Social media parameters
-        post_probability=0.1,
-        reaction_probability=0.2,
-        # Peer chat parameters
-        num_rounds_mean=3,
-        num_rounds_variance=1,
-        # Belief update parameters
-        max_change_percentage=0.5,
-        max_concurrent=40
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Run the synthetic communities simulation')
+    parser.add_argument(
+        '--config',
+        type=str,
+        default='src/configs/config.yaml',
+        help='Path to configuration YAML file (default: src/configs/config.yaml)'
     )
-    
-    engine = GameEngine(config)
-    
-    # Load population from JSONL file
-    population_file = "data/personas/swiss_population_50.jsonl"
-    if os.path.exists(population_file):
-        engine.population.load_from_jsonl(population_file, limit=config.population_size)
-        print(f"Loaded {engine.population.size()} personas from {population_file}")
+    args = parser.parse_args()
+
+    # Load configuration from YAML file
+    config = Config.from_yaml(args.config)
+    print(f"Loaded configuration from: {args.config}")
+
+    # Display world information if loaded
+    if config.world_story:
+        print(f"World story loaded from: {config.world_file}")
+        # Extract world title from the first line of the markdown
+        first_line = config.world_story.split('\n')[0].strip('#').strip()
+        print(f"World: {first_line}")
     else:
-        print(f"Warning: {population_file} not found, running with empty population")
-    
-    # Initialize mediator with debate topics
+        print("No world story loaded")
+
+    engine = GameEngine(config, config_path=args.config)
+
+    # Load population from JSONL file
+    if os.path.exists(config.population_file):
+        engine.population.load_from_jsonl(config.population_file, limit=config.population_size)
+        print(f"Loaded {engine.population.size()} personas from {config.population_file}")
+    else:
+        print(f"Warning: {config.population_file} not found, running with empty population")
+
+    # Initialize mediator with debate topics from config
     topics = [
         Topic(
-            id="topic_1",
-            title="Housing squeeze & rents",
-            description="Record-low vacancy rates in Zürich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
-        ),
+            id=topic_data["id"],
+            title=topic_data["title"],
+            description=topic_data["description"]
+        )
+        for topic_data in config.topics
     ]
 
-    # Initialize candidates with topics so they can form policy positions
-    # engine.candidates = [
-    #     Candidate("candidate_1", "Alice Johnson", "Progressive left-leaning, prioritizes social programs and government intervention", topics, engine.llm_client),
-    #     Candidate("candidate_2", "Bob Smith", "Conservative right-leaning, values free market and limited government", topics, engine.llm_client)
-    # ]
-
-
+    # Initialize candidates from config
     engine.candidates = [
         Candidate(
-            "candidate_1",
-            "Lina Meier",
-            (
-                "Progressive (left-leaning). Prioritises a stronger social safety net and public services; "
-                "backs premium relief in LAMal and more cost controls; pro–cooperative/affordable housing; "
-                "supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); "
-                "liberal on migration/asylum with focus on integration; progressive taxation and childcare support; "
-                "values direct democracy with citizen initiatives to expand social programs."
-            ),
+            candidate_data["id"],
+            candidate_data["name"],
+            candidate_data["description"],
             topics,
             engine.llm_client
-        ),
-        Candidate(
-            "candidate_2",
-            "Markus Keller",
-            (
-                "Conservative (right-leaning). Emphasises free markets and limited government; "
-                "prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; "
-                "pro-property rights and deregulation to spur private housing supply; "
-                "EU-sceptical—prefers bilateral deals without automatic legal alignment; "
-                "energy security via technology neutrality incl. new-gen nuclear; "
-                "strict migration controls with faster procedures; "
-                "supports tax relief and individual taxation; "
-                "prioritises neutrality, security, and fiscal discipline."
-            ),
-            topics,
-            engine.llm_client
-        ),
+        )
+        for candidate_data in config.candidates
     ]
 
     engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)
@@ -115,6 +94,7 @@ def main():
     # Conduct final vote if we have population and candidates
     if engine.population.size() > 0 and engine.candidates:
         vote_results = engine.conduct_final_vote()
+        engine.save_final_vote(vote_results)
         print(f"\nFinal vote results: {vote_results}")
 
 

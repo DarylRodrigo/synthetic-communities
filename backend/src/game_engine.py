@@ -1,6 +1,7 @@
 import os
 import json
 import logging
+import shutil
 from typing import Dict, List, Any
 from datetime import datetime
 from pathlib import Path
@@ -25,8 +26,9 @@ class DataclassJSONEncoder(json.JSONEncoder):
 
 
 class GameEngine:
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, config_path: str = None):
         self.config = config
+        self.config_path = config_path
         self.current_epoch = 0
         self.population: Population = Population()
         self.candidates: List[Candidate] = []
@@ -269,6 +271,14 @@ class GameEngine:
 
         logger.info(f"Serialized simulation metadata to {metadata_file}")
 
+        # Copy the config file to the simulation directory
+        if self.config_path and os.path.exists(self.config_path):
+            config_dest = self.simulation_dir / "config.yaml"
+            shutil.copy2(self.config_path, config_dest)
+            logger.info(f"Copied config file to {config_dest}")
+        else:
+            logger.warning("Config file path not provided or file does not exist, skipping config copy")
+
     def _serialize_topics(self) -> List[Dict[str, Any]]:
         """Serialize all topic definitions."""
         if not self.mediator or not self.mediator.topics:
@@ -422,3 +432,20 @@ class GameEngine:
     def conduct_final_vote(self) -> Dict[str, Any]:
         candidate_names = [candidate.name for candidate in self.candidates]
         return self.population.conduct_vote(candidate_names)
+
+    def save_final_vote(self, vote_results: Dict[str, Any]) -> None:
+        """
+        Save the final vote results to a JSON file in the simulation directory.
+
+        Args:
+            vote_results: Dictionary containing the final vote results
+        """
+        if self.simulation_dir is None:
+            logger.warning("Simulation directory not initialized. Cannot save final vote.")
+            return
+
+        final_vote_file = self.simulation_dir / "final_vote.json"
+        with open(final_vote_file, 'w') as f:
+            json.dump(vote_results, f, indent=2)
+
+        logger.info(f"Saved final vote results to {final_vote_file}")
