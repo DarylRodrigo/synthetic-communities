@@ -35,19 +35,26 @@ class Candidate:
         logger.debug(f"{self.name}: Initializing policy positions for {len(self.topics)} topics")
         policy_positions = {}
 
+        # Initialize memory with world context if available
+        initial_memory = ""
+        if self.world_story:
+            initial_memory = f"""=== WORLD CONTEXT ===
+{self.world_story}
+
+You are a political candidate in this world. Your positions and beliefs are shaped by this context.
+
+"""
+            logger.debug(f"{self.name}: Initialized with world context in memory ({len(self.world_story)} chars)")
+
         for topic in self.topics:
             logger.debug(f"{self.name}: Generating initial position for topic '{topic.title}' (ID: {topic.id})")
 
-            prompt = ""
+            prompt = f"You are {self.name}, a political candidate with the following character: {self.character}. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences, reflecting your political character."
+
             if self.world_story:
-                prompt += f"""WORLD SETTING:
-{self.world_story}
+                prompt += f"\n\nRemember, you are operating in this world context:\n{self.world_story[:500]}..."
 
-"""
-
-            prompt += f"You are {self.name}, a political candidate in this world with the following character: {self.character}. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences, reflecting both the world context and your political character."
-
-            system_instruction = f"You are {self.name}, a political candidate. Character: {self.character}. Provide clear, concise policy positions consistent with your character and the world setting."
+            system_instruction = f"You are {self.name}, a political candidate. Character: {self.character}. Provide clear, concise policy positions consistent with your character."
 
             position = llm_client.generate_response(
                 self.llm_client,
@@ -64,7 +71,7 @@ class Candidate:
             name=self.name,
             character=self.character,
             policy_positions=policy_positions,
-            memory="",
+            memory=initial_memory,
             world_context=self.world_story
         )
 
@@ -157,16 +164,8 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         logger.debug(f"{self.name}: Using position: {current_position}")
 
         # Build comprehensive prompt with position, memory, and debate history
-        prompt = ""
-
-        # Add world context if available
-        if self.world_story:
-            prompt += f"""WORLD SETTING:
-{self.world_story}
-
-"""
-
-        prompt += f"""DEBATE TOPIC: {question.topic.title}
+        # Note: world context is already included in self.state.memory from initialization
+        prompt = f"""DEBATE TOPIC: {question.topic.title}
             {question.topic.description}
 
             YOUR CORE POSITION: {current_position}

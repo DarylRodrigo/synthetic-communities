@@ -64,9 +64,21 @@ class Mediator:
         self.id = mediator_id
         self.topics = topics if topics is not None else []
         self.llm_client = llm_client_instance
+
+        # Initialize memory with world context if available
+        initial_memory = ""
+        if world_story:
+            initial_memory = f"""=== WORLD CONTEXT ===
+{world_story}
+
+You are a debate moderator in this world. Frame questions and introductions with awareness of this setting.
+
+"""
+            logger.debug(f"Mediator: Initialized with world context in memory ({len(world_story)} chars)")
+
         self.state = MediatorState(
             id=mediator_id,
-            memory="",
+            memory=initial_memory,
             world_context=world_story if world_story else ""
         )
 
@@ -177,16 +189,8 @@ Summarize the key insights in 2-3 sentences."""
         logger.debug(f"Mediator: Found {len(previous_questions)} previous questions on this topic")
 
         # Build prompt
-        prompt = ""
-
-        # Add world context if available
-        if self.state.world_context:
-            prompt += f"""WORLD SETTING:
-{self.state.world_context}
-
-"""
-
-        prompt += f"""Topic: {topic.title}
+        # Note: world context is already included in self.state.memory from initialization
+        prompt = f"""Topic: {topic.title}
 Description: {topic.description}"""
 
         if previous_questions:
@@ -244,16 +248,8 @@ Return ONLY the question text as a single, concise sentence."""
         if not self.llm_client:
             return f"Today's question: {question.text}"
 
-        prompt = ""
-
-        # Add world context if available
-        if self.state.world_context:
-            prompt += f"""WORLD SETTING:
-{self.state.world_context}
-
-"""
-
-        prompt += f"""You are introducing the debate question: {question.text}
+        # Note: world context is already included in self.state.memory from initialization
+        prompt = f"""You are introducing the debate question: {question.text}
 
 This question is part of the broader topic: {question.topic.title}
 Topic Description: {question.topic.description}"""
