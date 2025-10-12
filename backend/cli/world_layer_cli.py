@@ -189,7 +189,7 @@ Only return the markdown content (no backticks outside the excerpt, no extra com
 
     def ask_json(self, user_prompt: str) -> dict:
         sys_inst = "You are a careful tool. Only return strict JSON. No prose."
-        raw = llm_client.generate_response(self.client, user_prompt, sys_inst).strip()
+        raw = llm_client.generate_response(self.client, user_prompt, sys_inst, model='gemini-2.5-flash-lite').strip()
 
         # Strip markdown code fences if present
         if raw.startswith("```"):
@@ -209,7 +209,7 @@ Only return the markdown content (no backticks outside the excerpt, no extra com
             raise
 
     def ask_text(self, user_prompt: str, sys_inst: Optional[str]) -> str:
-        return llm_client.generate_response(self.client, user_prompt, sys_inst).strip()
+        return llm_client.generate_response(self.client, user_prompt, sys_inst, model='gemini-2.5-pro').strip()
 
     # ---------- IO ----------
 

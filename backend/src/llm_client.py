@@ -14,11 +14,12 @@ def generate_response(
     prompt: str,
     system_instruction: str,
     temperature: float = 1.0,
-    max_output_tokens: int = 8000
+    max_output_tokens: int = 8000,
+    model: str = 'gemini-2.0-flash-lite'
 ) -> str:
     """Generate LLM response with system instruction."""
     model = client.GenerativeModel(
-        'gemini-2.0-flash-lite',
+        model,
         system_instruction=system_instruction
     )
     response = model.generate_content(

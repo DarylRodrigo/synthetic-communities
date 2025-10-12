@@ -19,7 +19,7 @@ max_concurrent: 40
 
 # Data files
 population_file: "data/personas/swiss_population_50.jsonl"
-world_file: "data/worlds/berlins-shadowed-canvas-1936/story.md"
+world_file: "data/worlds/zürich-autumn-2025/story.md"
 
 # Topics
 topics:

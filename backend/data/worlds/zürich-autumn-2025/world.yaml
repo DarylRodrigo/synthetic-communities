@@ -1,0 +1,64 @@
+world:
+  id: zurich-autumn-2025
+  description: The city's characteristic efficiency is underscored by a quiet anxiety as residents navigate rising costs of living, concerns over international agreements, and the reliable calm of their public transit system.
+  time:
+    year: 2025
+    season: autumn
+  place:
+    settlement: city
+    density_per_km2: 4715.5
+  regime:
+    type: electoral_democracy
+    media_freedom: 0.9
+    protest_tolerance: 0.85
+  demography:
+    population: 443037
+    age: { median: 42.1, p65_plus: 0.18 }
+    education: { tertiary: 0.58 }
+    groups:
+      - { name: Swiss Nationals, share: 0.68 }
+      - { name: Foreign Residents, share: 0.32 }
+  economy:
+    unemployment_rate: 0.023
+    industry_mix: { finance: 0.25, tech: 0.20, services: 0.45, retail: 0.10 }
+    gini: 0.32
+    cost_of_living_index: 140.5
+    shock_sensitivity: { commodity_price: 0.35 }
+  history:
+    narratives:
+      - "National Sovereignty and Neutrality"
+      - "Precision and Efficiency"
+      - "Consensus-based Direct Democracy"
+      - "Hub of International Finance"
+    recent_events:
+      - { date: "2024-11-20", name: "Federal Council announces higher 2025 health insurance premiums", valence: -0.6, cohorts: ["all"] }
+      - { date: "2025-05-15", name: "EU framework agreement negotiations stall again", valence: -0.4, cohorts: ["business_leaders", "nationalists"] }
+  culture:
+    tight_loose: 0.65
+    religiosity: 0.3
+    moral_foundations: { care: 0.7, fairness: 0.8, loyalty: 0.5, authority: 0.4, sanctity: 0.2, liberty: 0.75 }
+  social_capital:
+    interpersonal_trust: 0.7
+    institutional_trust: { local_gov: 0.8, national_gov: 0.6, media: 0.55 }
+    associations_density: 0.75
+    polarization: 0.35
+  information_ecosystem:
+    outlets: ["Neue Zürcher Zeitung", "Tages-Anzeiger", "SRF", "20 Minuten"]
+    platform_mix: { radio: 0.1, tv: 0.2, newspaper: 0.2, social_app: 0.5 }
+    echo_chamber_strength: 0.4
+    bot_rate: 0.08
+  networks:
+    topology: { type: SBM, communities: 4, intra_p: 0.25, inter_p: 0.03 }
+    assortativity: { by_class: 0.4, by_partisanship: 0.3 }
+  security:
+    surveillance: 0.4
+    intimidation_risk: 0.1
+  policy_env:
+    union_rights: 0.7
+    welfare_generosity: 0.6
+    speech_regulation: 0.3
+  mood:
+    baseline_affect: { anxiety: 0.6, anger: 0.2, hope: 0.45 }
+  exogenous_timeline:
+    - { date: "2025-10-15", name: "Major bank announces layoffs amid global uncertainty", intensity: 0.5, valence: -0.7, target: "economy" }
+    - { date: "2025-11-05", name: "City announces successful trial of new tram line extension", intensity: 0.3, valence: 0.6, target: "local_gov" }

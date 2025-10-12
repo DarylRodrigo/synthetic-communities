@@ -547,10 +547,6 @@ are shaped by this context.
 
         Return ONLY the JSON object, no additional text."""
 
-        print("--------------------------------")
-        print(prompt)
-        print("--------------------------------")
-
         system_instruction = "You are a belief update system. You analyze information and update a person's beliefs accordingly, maintaining consistency and gradual change. CRITICAL: DO NOT ADD NEW TOPICS - only update existing belief categories or create beliefs for topics explicitly mentioned in debates."
 
         try:
