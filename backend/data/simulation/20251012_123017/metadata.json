@@ -1,0 +1,90 @@
+{
+  "simulation_id": "20251012_123017",
+  "config": {
+    "population_size": 1,
+    "questions_per_topic": 1,
+    "turns_per_question": 1,
+    "num_epochs": 1,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Housing squeeze & rents",
+      "description": "Record-low vacancy rates in Z\u00fcrich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Lina Meier",
+      "character": "Progressive (left-leaning). Prioritises a stronger social safety net and public services; backs premium relief in LAMal and more cost controls; pro\u2013cooperative/affordable housing; supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); liberal on migration/asylum with focus on integration; progressive taxation and childcare support; values direct democracy with citizen initiatives to expand social programs.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing squeeze is a serious issue, and we need bold action. I support expanding affordable and cooperative housing options, along with stronger rent controls to protect tenants. We must avoid measures that discriminate against any residents, as everyone deserves a fair chance at a safe and affordable place to live."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Markus Keller",
+      "character": "Conservative (right-leaning). Emphasises free markets and limited government; prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; pro-property rights and deregulation to spur private housing supply; EU-sceptical\u2014prefers bilateral deals without automatic legal alignment; energy security via technology neutrality incl. new-gen nuclear; strict migration controls with faster procedures; supports tax relief and individual taxation; prioritises neutrality, security, and fiscal discipline.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing shortage is a serious concern, and we need market-based solutions. I support deregulation to encourage private construction and increase housing supply, respecting property rights and avoiding rent controls that stifle investment. Prioritizing residents is problematic; instead, we should streamline permitting, reduce bureaucratic hurdles, and incentivize construction to address the core issue of scarcity."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "e14d173e-9272-4383-9201-3b8256a2d620",
+      "name": "e14d173e-9272-4383-9201-3b8256a2d620",
+      "demographics": {
+        "id": "e14d173e-9272-4383-9201-3b8256a2d620",
+        "name": "Andrea P.",
+        "age": 29,
+        "gender": "Female",
+        "city": "Zurich",
+        "job": "Software Engineer",
+        "company": "AutoForm Group | ex-Neural Concept",
+        "education_level": "master_degree",
+        "income_bracket": "upper_middle",
+        "ethnicity": "Italian",
+        "cultural_background": "Southern European engineering culture",
+        "country": "CH_it",
+        "susceptibility": 0.228,
+        "trust_institution": 0.763,
+        "turnout_propensity": 0.781,
+        "media_diet": {
+          "social_media": 0.27,
+          "tv": 0.1,
+          "newspaper": 0.34,
+          "blogs": 0.29
+        },
+        "personality_traits": {
+          "openness": 0.79,
+          "conscientiousness": 0.86,
+          "extraversion": 0.61,
+          "agreeableness": 0.73,
+          "neuroticism": 0.37
+        },
+        "confirmation_bias": 0.247,
+        "social_network_influence": 0.158,
+        "risk_aversion": 0.339,
+        "fairness_value": 0.637,
+        "prior_beliefs": {
+          "foreign_policy": 0.17,
+          "technology": 0.91,
+          "education": 0.75
+        },
+        "timestamp": "2025-10-11T22:19:41.945382",
+        "religion": "Catholic",
+        "demeanour": "Pragmatic and efficient engineer turning research into production-grade software.",
+        "interests": [
+          "simulation modeling",
+          "surrogate ML models",
+          "engineering automation"
+        ],
+        "sector": "Software Engineering / Industrial ML",
+        "backstory": "Software Engineer at AutoForm in Zurich. Formerly ML Application Engineer at Neural Concept, developing surrogate models for engineering simulations."
+      }
+    }
+  ]
+}
