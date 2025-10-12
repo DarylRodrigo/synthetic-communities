@@ -537,8 +537,11 @@ are shaped by this context.
             "climate": {{
                 "belief": "Climate change requires immediate action",
                 "vote": "Jane Smith"
-            }}
+            }},
+            "overall_vote": "Jane Smith"
         }}
+
+        IMPORTANT: Based on all the individual topic votes, determine an overall_vote for which candidate best aligns with the person's beliefs across all topics.
 
         If the person has no existing beliefs, create initial beliefs ONLY for topics discussed in the debates.
 

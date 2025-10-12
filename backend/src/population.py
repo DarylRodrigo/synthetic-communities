@@ -435,6 +435,11 @@ class Population:
             # Add beliefs as policy positions with reasoning
             if hasattr(persona, 'beliefs') and persona.beliefs:
                 for topic_id, belief in persona.beliefs.items():
+                    # Skip overall_vote - it's handled separately
+                    if topic_id == "overall_vote":
+                        persona_data["overall_vote"] = belief
+                        continue
+
                     # Handle both new dict format and legacy string format
                     if isinstance(belief, dict):
                         persona_data["policy_positions"][topic_id] = {
