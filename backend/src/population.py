@@ -8,8 +8,9 @@ logger = logging.getLogger(__name__)
 
 
 class Population:
-    def __init__(self):
+    def __init__(self, world_story: str = None):
         self.personas: List[Persona] = []
+        self.world_story = world_story if world_story else ""
     
     def load_from_jsonl(self, file_path: str, limit: Optional[int] = None) -> None:
         import random
@@ -30,7 +31,7 @@ class Population:
         personas_loaded = 0
         for line in selected_lines:
             persona_data = json.loads(line)
-            persona = Persona(persona_data['id'], persona_data)  # Pass full data
+            persona = Persona(persona_data['id'], persona_data, world_story=self.world_story)  # Pass full data and world_story
             self.personas.append(persona)
             personas_loaded += 1
             

@@ -30,7 +30,7 @@ class GameEngine:
         self.config = config
         self.config_path = config_path
         self.current_epoch = 0
-        self.population: Population = Population()
+        self.population: Population = Population(world_story=config.world_story)
         self.candidates: List[Candidate] = []
         self.mediator: Mediator = None
         self.social_media: SocialMedia = None

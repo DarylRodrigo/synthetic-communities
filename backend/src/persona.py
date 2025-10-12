@@ -22,9 +22,10 @@ class ChatEntry:
 
 
 class Persona:
-    def __init__(self, persona_id: str, persona_data: Dict[str, Any] = None):
+    def __init__(self, persona_id: str, persona_data: Dict[str, Any] = None, world_story: str = None):
         self.id = persona_id
         self.features = persona_data if persona_data else {}  # Store ALL persona data
+        self.world_story = world_story if world_story else ""  # Store world context
         self.debate_knowledge = []  # List of debate transcript strings
         self.chats = []  # List of chat conversations
         self.social_media_knowledge = []  # List of social media posts seen
@@ -71,6 +72,18 @@ class Persona:
             lines.append(f"  Neuroticism: {traits.get('neuroticism', 0):.2f}")
 
         return "\n".join(lines)
+
+    def _format_world_context(self) -> str:
+        """Format world setting for context."""
+        if not self.world_story:
+            return ""
+
+        return f"""=== WORLD SETTING ===
+{self.world_story}
+
+You live in this world. Your experiences, conversations, and beliefs
+are shaped by this context.
+"""
 
     def _format_chat(self, chat: ChatEntry, max_messages: int = 5) -> str:
         """
@@ -172,6 +185,11 @@ class Persona:
         """
         lines = []
 
+        # Add world context FIRST (most foundational)
+        if self.world_story:
+            lines.append(self._format_world_context())
+            lines.append("")
+
         # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
         lines.append(self._format_full_identity())
@@ -232,6 +250,11 @@ class Persona:
         """
         lines = []
 
+        # Add world context FIRST
+        if self.world_story:
+            lines.append(self._format_world_context())
+            lines.append("")
+
         # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
         lines.append(self._format_full_identity())
@@ -278,6 +301,11 @@ class Persona:
             Formatted context string for LLM
         """
         lines = []
+
+        # Add world context FIRST
+        if self.world_story:
+            lines.append(self._format_world_context())
+            lines.append("")
 
         # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
@@ -333,6 +361,11 @@ class Persona:
         """
         lines = []
 
+        # Add world context FIRST
+        if self.world_story:
+            lines.append(self._format_world_context())
+            lines.append("")
+
         # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
         lines.append(self._format_full_identity())
@@ -366,6 +399,11 @@ class Persona:
             Formatted context string for LLM
         """
         lines = []
+
+        # Add world context FIRST - CRITICAL for voting decisions
+        if self.world_story:
+            lines.append(self._format_world_context())
+            lines.append("")
 
         # Add full persona identity
         lines.append("=== YOUR IDENTITY ===")
