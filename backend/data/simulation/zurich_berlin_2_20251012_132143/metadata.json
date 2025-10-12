@@ -1,0 +1,2811 @@
+{
+  "simulation_id": "20251012_132143",
+  "config": {
+    "population_size": 50,
+    "questions_per_topic": 2,
+    "turns_per_question": 2,
+    "num_epochs": 3,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Housing squeeze & rents",
+      "description": "Record-low vacancy rates in Z\u00fcrich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Lina Meier",
+      "character": "Progressive (left-leaning). Prioritises a stronger social safety net and public services; backs premium relief in LAMal and more cost controls; pro\u2013cooperative/affordable housing; supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); liberal on migration/asylum with focus on integration; progressive taxation and childcare support; values direct democracy with citizen initiatives to expand social programs.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing squeeze in Z\u00fcrich demands immediate action. I strongly support expanding cooperative and affordable housing options to increase supply and alleviate pressure on rents. We must also explore rent controls and prioritize tenant protections to ensure fair housing for all residents, regardless of their background or residency duration, to address the root causes, not simply shift the problem."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Markus Keller",
+      "character": "Conservative (right-leaning). Emphasises free markets and limited government; prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; pro-property rights and deregulation to spur private housing supply; EU-sceptical\u2014prefers bilateral deals without automatic legal alignment; energy security via technology neutrality incl. new-gen nuclear; strict migration controls with faster procedures; supports tax relief and individual taxation; prioritises neutrality, security, and fiscal discipline.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing shortage in Z\u00fcrich demands a market-based solution. We need to cut red tape and streamline permitting processes to encourage private developers to build more housing, increasing supply and ultimately easing the pressure on rents. Prioritizing Swiss residents over others risks discrimination and is not the answer. Instead, we need policies that foster a dynamic, competitive housing market for all."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "e2b58b68-ef7e-436f-9ade-1ee0c11bcbb2",
+      "name": "e2b58b68-ef7e-436f-9ade-1ee0c11bcbb2",
+      "demographics": {
+        "id": "e2b58b68-ef7e-436f-9ade-1ee0c11bcbb2",
+        "name": "Lisa Bonvin",
+        "age": 41,
+        "gender": "F",
+        "city": "Flawil",
+        "job": "Pharmacist, hospital",
+        "company": "Herzog Fankhauser GmbH",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-German",
+        "country": "CH_de",
+        "susceptibility": 0.59,
+        "trust_institution": 0.032,
+        "turnout_propensity": 0.094,
+        "media_diet": {
+          "social_media": 0.11,
+          "tv": 0.285,
+          "newspaper": 0.266,
+          "blogs": 0.339
+        },
+        "personality_traits": {
+          "openness": 0.701,
+          "conscientiousness": 0.42,
+          "extraversion": 0.449,
+          "agreeableness": 0.278,
+          "neuroticism": 0.869
+        },
+        "confirmation_bias": 0.7588073671297673,
+        "social_network_influence": 0.15965931637689013,
+        "risk_aversion": 0.42261439815350255,
+        "fairness_value": 0.27787134167164185,
+        "prior_beliefs": {
+          "foreign_policy": -0.807,
+          "climate_change": 0.695,
+          "technology": 0.207,
+          "healthcare": 0.614
+        },
+        "timestamp": "2025-10-11T01:21:07.892155",
+        "religion": "None",
+        "demeanour": "Meticulous and patient-focused, with a calm, professional manner.",
+        "interests": [
+          "pharmacology journals",
+          "medication safety protocols",
+          "hiking in Appenzell",
+          "local choir"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1983 in French-speaking Switzerland; MPharm from University of Geneva 2007. Joined her current hospital in 2010, specializing in oncology pharmacy and recently led a project to optimize chemotherapy drug dispensing."
+      }
+    },
+    {
+      "id": "76c9f08d-e6fa-4c67-9ba4-044ba4168d99",
+      "name": "76c9f08d-e6fa-4c67-9ba4-044ba4168d99",
+      "demographics": {
+        "id": "76c9f08d-e6fa-4c67-9ba4-044ba4168d99",
+        "name": "Donika Krasniqi",
+        "age": 58,
+        "gender": "F",
+        "city": "Carraux am Rhein",
+        "job": "Funeral director with federal diploma",
+        "company": "Cousin Beuchat SA",
+        "education_level": "trade_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Kosovan",
+        "cultural_background": "Balkan",
+        "country": "CH_fr",
+        "susceptibility": 0.829,
+        "trust_institution": 0.619,
+        "turnout_propensity": 0.862,
+        "media_diet": {
+          "social_media": 0.371,
+          "tv": 0.453,
+          "newspaper": 0.029,
+          "blogs": 0.146
+        },
+        "personality_traits": {
+          "openness": 0.289,
+          "conscientiousness": 0.08,
+          "extraversion": 0.233,
+          "agreeableness": 0.101,
+          "neuroticism": 0.278
+        },
+        "confirmation_bias": 0.6356844442644002,
+        "social_network_influence": 0.36483217897008424,
+        "risk_aversion": 0.37018096711688264,
+        "fairness_value": 0.2095070307714877,
+        "prior_beliefs": {
+          "immigration": -0.673,
+          "education": -0.241,
+          "foreign_policy": 0.979,
+          "social_justice": 0.28,
+          "technology": 0.114
+        },
+        "timestamp": "2025-10-11T01:21:08.001361",
+        "religion": "Muslim",
+        "demeanour": "Compassionate and composed, providing comfort and structure during difficult times.",
+        "interests": [
+          "Family gatherings",
+          "traditional Balkan music",
+          "community support",
+          "gardening"
+        ],
+        "sector": "Services",
+        "backstory": "Born 1966 in Kosovo, she immigrated to Switzerland in the 1990s. After earning her federal diploma in 2005, she established her own funeral home, which she has managed for over 15 years."
+      }
+    },
+    {
+      "id": "58fae8fd-79aa-4d31-840a-99ed747f3a92",
+      "name": "58fae8fd-79aa-4d31-840a-99ed747f3a92",
+      "demographics": {
+        "id": "58fae8fd-79aa-4d31-840a-99ed747f3a92",
+        "name": "Gionata Bruno",
+        "age": 65,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Art gallery manager",
+        "company": "Galleria Bianchi",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_it",
+        "susceptibility": 0.268,
+        "trust_institution": 0.211,
+        "turnout_propensity": 0.943,
+        "media_diet": {
+          "social_media": 0.391,
+          "tv": 0.14,
+          "newspaper": 0.292,
+          "blogs": 0.176
+        },
+        "personality_traits": {
+          "openness": 0.915,
+          "conscientiousness": 0.459,
+          "extraversion": 0.265,
+          "agreeableness": 0.247,
+          "neuroticism": 0.561
+        },
+        "confirmation_bias": 0.26274160852293527,
+        "social_network_influence": 0.5845859902235405,
+        "risk_aversion": 0.897822883602477,
+        "fairness_value": 0.39940050514039727,
+        "prior_beliefs": {
+          "economy": 0.512,
+          "education": 0.722,
+          "healthcare": -0.694,
+          "climate_change": -0.68
+        },
+        "timestamp": "2025-10-11T01:21:08.088521",
+        "religion": "Catholic",
+        "demeanour": "Cultured and observant, with a passion for contemporary Ticinese art.",
+        "interests": [
+          "Arte Povera",
+          "local history",
+          "opera",
+          "gastronomy"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 1959 in Ticino; studied art history briefly before starting work in galleries in the late 1970s. Has managed Galleria Bianchi since 1995, curating over 100 exhibitions and fostering the careers of emerging local artists."
+      }
+    },
+    {
+      "id": "53020e67-b062-4489-a7b4-cc775c466b92",
+      "name": "53020e67-b062-4489-a7b4-cc775c466b92",
+      "demographics": {
+        "id": "53020e67-b062-4489-a7b4-cc775c466b92",
+        "name": "Alice Batista",
+        "age": 60,
+        "gender": "F",
+        "city": "Frauenfeld",
+        "job": "Lawyer",
+        "company": "Schuler GmbH",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.251,
+        "trust_institution": 0.553,
+        "turnout_propensity": 0.942,
+        "media_diet": {
+          "social_media": 0.28,
+          "tv": 0.047,
+          "newspaper": 0.364,
+          "blogs": 0.309
+        },
+        "personality_traits": {
+          "openness": 0.769,
+          "conscientiousness": 0.34,
+          "extraversion": 0.294,
+          "agreeableness": 0.158,
+          "neuroticism": 0.003
+        },
+        "confirmation_bias": 0.7220920613099108,
+        "social_network_influence": 0.7196806688859242,
+        "risk_aversion": 0.9718880988701143,
+        "fairness_value": 0.7619621990520646,
+        "prior_beliefs": {
+          "education": 0.015,
+          "technology": -0.602,
+          "foreign_policy": -0.252
+        },
+        "timestamp": "2025-10-11T01:21:08.195614",
+        "religion": "Catholic",
+        "demeanour": "Methodical and principled, with extensive experience in corporate law.",
+        "interests": [
+          "Corporate law",
+          "Fado music",
+          "traveling in Portugal",
+          "legal ethics"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1964. She completed her law degree in 1988 and has practiced corporate law in Thurgau for over 30 years, specializing in complex contract negotiations for multinational clients."
+      }
+    },
+    {
+      "id": "3a03c6f3-7bad-4a71-8024-0d4f668119cc",
+      "name": "3a03c6f3-7bad-4a71-8024-0d4f668119cc",
+      "demographics": {
+        "id": "3a03c6f3-7bad-4a71-8024-0d4f668119cc",
+        "name": "Manola Grau-Gimenez",
+        "age": 18,
+        "gender": "F",
+        "city": "Monnet-sur-Bourquin",
+        "job": "Interior design apprentice",
+        "company": "Besen\u00e7on Galland SA",
+        "education_level": "apprenticeship",
+        "income_bracket": "low",
+        "ethnicity": "Spanish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.239,
+        "trust_institution": 0.241,
+        "turnout_propensity": 0.567,
+        "media_diet": {
+          "social_media": 0.03,
+          "tv": 0.281,
+          "newspaper": 0.313,
+          "blogs": 0.375
+        },
+        "personality_traits": {
+          "openness": 0.533,
+          "conscientiousness": 0.126,
+          "extraversion": 0.66,
+          "agreeableness": 0.947,
+          "neuroticism": 0.165
+        },
+        "confirmation_bias": 0.527673787418254,
+        "social_network_influence": 0.6065939174826289,
+        "risk_aversion": 0.9643629060074552,
+        "fairness_value": 0.9289134930021768,
+        "prior_beliefs": {
+          "education": -0.124,
+          "healthcare": 0.035,
+          "foreign_policy": -0.758,
+          "economy": -0.551
+        },
+        "timestamp": "2025-10-11T01:21:08.316607",
+        "religion": "None",
+        "demeanour": "Creative and enthusiastic, eager to learn practical design skills.",
+        "interests": [
+          "Sustainable design",
+          "digital art",
+          "urban exploration",
+          "vintage furniture"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 2006. She began her CFC apprenticeship in interior design directly after compulsory schooling in 2022 and is currently in her second year, developing skills in CAD software."
+      }
+    },
+    {
+      "id": "87091fde-2a7f-448c-a216-8074a0fc48ab",
+      "name": "87091fde-2a7f-448c-a216-8074a0fc48ab",
+      "demographics": {
+        "id": "87091fde-2a7f-448c-a216-8074a0fc48ab",
+        "name": "Heidi Gnatz-Holsten",
+        "age": 35,
+        "gender": "F",
+        "city": "Locarno",
+        "job": "Fish farm manager",
+        "company": "Lee Group",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_it",
+        "susceptibility": 0.059,
+        "trust_institution": 0.067,
+        "turnout_propensity": 0.031,
+        "media_diet": {
+          "social_media": 0.205,
+          "tv": 0.32,
+          "newspaper": 0.173,
+          "blogs": 0.302
+        },
+        "personality_traits": {
+          "openness": 0.539,
+          "conscientiousness": 0.723,
+          "extraversion": 0.882,
+          "agreeableness": 0.576,
+          "neuroticism": 0.243
+        },
+        "confirmation_bias": 0.4729729429445937,
+        "social_network_influence": 0.4070599614859366,
+        "risk_aversion": 0.09432579649188222,
+        "fairness_value": 0.6589827495146631,
+        "prior_beliefs": {
+          "technology": -0.879,
+          "healthcare": 0.456,
+          "social_justice": 0.601,
+          "climate_change": -0.781,
+          "education": -0.617
+        },
+        "timestamp": "2025-10-11T01:21:08.423854",
+        "religion": "Protestant",
+        "demeanour": "Practical and resilient, with a deep understanding of aquaculture systems.",
+        "interests": [
+          "freshwater ecology",
+          "fly fishing",
+          "mountain biking",
+          "local markets"
+        ],
+        "sector": "Fishing & Aquaculture",
+        "backstory": "Born 1989 in Germany; BSc in Aquaculture 2011. Moved to Ticino for a technician role in 2012 and was promoted to farm manager in 2020, where she improved feed efficiency by 15%."
+      }
+    },
+    {
+      "id": "72969573-92a6-4994-91d0-9809d6f90a5d",
+      "name": "72969573-92a6-4994-91d0-9809d6f90a5d",
+      "demographics": {
+        "id": "72969573-92a6-4994-91d0-9809d6f90a5d",
+        "name": "Quan Fei",
+        "age": 28,
+        "gender": "M",
+        "city": "Aarau",
+        "job": "Radiographer, therapeutic",
+        "company": "Frei GmbH",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Chinese",
+        "cultural_background": "East Asian",
+        "country": "CH_de",
+        "susceptibility": 0.443,
+        "trust_institution": 0.861,
+        "turnout_propensity": 0.55,
+        "media_diet": {
+          "social_media": 0.018,
+          "tv": 0.35,
+          "newspaper": 0.293,
+          "blogs": 0.339
+        },
+        "personality_traits": {
+          "openness": 0.926,
+          "conscientiousness": 0.849,
+          "extraversion": 0.166,
+          "agreeableness": 0.486,
+          "neuroticism": 0.214
+        },
+        "confirmation_bias": 0.4010402925494526,
+        "social_network_influence": 0.058635399972178925,
+        "risk_aversion": 0.3789731189769161,
+        "fairness_value": 0.9853088437797259,
+        "prior_beliefs": {
+          "social_justice": -0.69,
+          "economy": -0.407,
+          "healthcare": 0.937,
+          "education": 0.158,
+          "foreign_policy": 0.084
+        },
+        "timestamp": "2025-10-11T01:21:08.536371",
+        "religion": "None",
+        "demeanour": "Precise and empathetic, skilled in operating complex medical equipment.",
+        "interests": [
+          "medical imaging technology",
+          "Mandopop music",
+          "badminton",
+          "Swiss landscape photography"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1996 in China; moved to Switzerland for his studies, earning his BSc in Radiography in 2020. Has worked at the Kantonsspital Aarau since graduating, contributing to the implementation of a new radiotherapy planning system."
+      }
+    },
+    {
+      "id": "833bd5b1-d20f-4918-835f-6503a9e5cd54",
+      "name": "833bd5b1-d20f-4918-835f-6503a9e5cd54",
+      "demographics": {
+        "id": "833bd5b1-d20f-4918-835f-6503a9e5cd54",
+        "name": "Jawad Al-Ali",
+        "age": 42,
+        "gender": "M",
+        "city": "Geneva",
+        "job": "Certified Facility Manager",
+        "company": "ISS Facility Services",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Syrian",
+        "cultural_background": "Middle Eastern",
+        "country": "CH_fr",
+        "susceptibility": 0.157,
+        "trust_institution": 0.961,
+        "turnout_propensity": 0.08,
+        "media_diet": {
+          "social_media": 0.11,
+          "tv": 0.352,
+          "newspaper": 0.399,
+          "blogs": 0.139
+        },
+        "personality_traits": {
+          "openness": 0.12,
+          "conscientiousness": 0.89,
+          "extraversion": 0.246,
+          "agreeableness": 0.595,
+          "neuroticism": 0.619
+        },
+        "confirmation_bias": 0.4192249153358725,
+        "social_network_influence": 0.5836722892912247,
+        "risk_aversion": 0.5227827155319589,
+        "fairness_value": 0.9347062577364272,
+        "prior_beliefs": {
+          "foreign_policy": -0.738,
+          "immigration": 0.291,
+          "economy": -0.086,
+          "healthcare": 0.858
+        },
+        "timestamp": "2025-10-11T01:21:08.640976",
+        "religion": "Muslim",
+        "demeanour": "Organized and resourceful, skilled in managing large-scale building operations.",
+        "interests": [
+          "building automation",
+          "Syrian cuisine",
+          "calligraphy",
+          "chess"
+        ],
+        "sector": "Operations & Logistics",
+        "backstory": "Born 1982 in Syria; arrived in Switzerland as a refugee in 2013 with an engineering background. Completed his Swiss federal diploma in facility management in 2019 and now oversees operations for several key corporate accounts in Geneva."
+      }
+    },
+    {
+      "id": "072a34a3-d938-4754-b4e5-f6af68796932",
+      "name": "072a34a3-d938-4754-b4e5-f6af68796932",
+      "demographics": {
+        "id": "072a34a3-d938-4754-b4e5-f6af68796932",
+        "name": "Alain Hauser",
+        "age": 66,
+        "gender": "M",
+        "city": "Bellinzona",
+        "job": "General Contractor, Construction",
+        "company": "Wilson-Rodriguez",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_it",
+        "susceptibility": 0.538,
+        "trust_institution": 0.506,
+        "turnout_propensity": 0.132,
+        "media_diet": {
+          "social_media": 0.369,
+          "tv": 0.073,
+          "newspaper": 0.258,
+          "blogs": 0.301
+        },
+        "personality_traits": {
+          "openness": 0.438,
+          "conscientiousness": 0.543,
+          "extraversion": 0.303,
+          "agreeableness": 0.984,
+          "neuroticism": 0.807
+        },
+        "confirmation_bias": 0.5289406926022701,
+        "social_network_influence": 0.6678632037125836,
+        "risk_aversion": 0.5546022824896778,
+        "fairness_value": 0.9317560394360774,
+        "prior_beliefs": {
+          "economy": 0.779,
+          "social_justice": 0.485,
+          "climate_change": -0.689
+        },
+        "timestamp": "2025-10-11T01:21:08.644857",
+        "religion": "Catholic",
+        "demeanour": "Experienced and decisive, with a reputation for delivering complex projects on time.",
+        "interests": [
+          "civil engineering",
+          "local politics",
+          "bocce",
+          "Alpine architecture"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 1958; earned a Master's in Civil Engineering from ETH Zurich in 1982. After working for a large firm, he founded his own contracting business in Bellinzona in 1995, specializing in public infrastructure projects."
+      }
+    },
+    {
+      "id": "148da58e-2ec1-44bf-9b70-cb4d777a8721",
+      "name": "148da58e-2ec1-44bf-9b70-cb4d777a8721",
+      "demographics": {
+        "id": "148da58e-2ec1-44bf-9b70-cb4d777a8721",
+        "name": "Daniela K\u00e4ser",
+        "age": 29,
+        "gender": "F",
+        "city": "Zurich",
+        "job": "Television floor manager",
+        "company": "Lustenberger AG",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.251,
+        "trust_institution": 0.908,
+        "turnout_propensity": 0.051,
+        "media_diet": {
+          "social_media": 0.344,
+          "tv": 0.45,
+          "newspaper": 0.024,
+          "blogs": 0.181
+        },
+        "personality_traits": {
+          "openness": 0.131,
+          "conscientiousness": 0.98,
+          "extraversion": 0.162,
+          "agreeableness": 0.442,
+          "neuroticism": 0.706
+        },
+        "confirmation_bias": 0.5609068647747464,
+        "social_network_influence": 0.111873880589335,
+        "risk_aversion": 0.9450509390466391,
+        "fairness_value": 0.6910196237558764,
+        "prior_beliefs": {
+          "climate_change": 0.105,
+          "technology": -0.14,
+          "economy": -0.916,
+          "education": -0.271
+        },
+        "timestamp": "2025-10-11T01:21:08.647090",
+        "religion": "None",
+        "demeanour": "Assertive and highly organized, thriving in fast-paced live broadcast environments.",
+        "interests": [
+          "live television production",
+          "indie films",
+          "bouldering",
+          "electronic music"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1995; completed a media apprenticeship and worked up from production assistant starting in 2015. Became a floor manager in 2021, responsible for coordinating live news and talk show broadcasts for a major Swiss channel."
+      }
+    },
+    {
+      "id": "3cf918e7-555c-4a69-bf59-8aa309450765",
+      "name": "3cf918e7-555c-4a69-bf59-8aa309450765",
+      "demographics": {
+        "id": "3cf918e7-555c-4a69-bf59-8aa309450765",
+        "name": "Georgette Comte-Bahon",
+        "age": 67,
+        "gender": "F",
+        "city": "Morges",
+        "job": "Certified Key Account Manager (Retired)",
+        "company": "Droz",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.78,
+        "trust_institution": 0.884,
+        "turnout_propensity": 0.406,
+        "media_diet": {
+          "social_media": 0.242,
+          "tv": 0.06,
+          "newspaper": 0.362,
+          "blogs": 0.336
+        },
+        "personality_traits": {
+          "openness": 0.976,
+          "conscientiousness": 0.811,
+          "extraversion": 0.881,
+          "agreeableness": 0.025,
+          "neuroticism": 0.737
+        },
+        "confirmation_bias": 0.33218546794642867,
+        "social_network_influence": 0.9308158860483255,
+        "risk_aversion": 0.8022351389371389,
+        "fairness_value": 0.8640640283752794,
+        "prior_beliefs": {
+          "education": -0.235,
+          "immigration": -0.923,
+          "foreign_policy": -0.059,
+          "climate_change": -0.601
+        },
+        "timestamp": "2025-10-11T01:21:08.649302",
+        "religion": "Protestant",
+        "demeanour": "Polished and relational, drawing on a long career in client management.",
+        "interests": [
+          "sailing on Lake Geneva",
+          "volunteering",
+          "French literature",
+          "wine tasting"
+        ],
+        "sector": "Business/Management",
+        "backstory": "Born 1957 in the canton of Vaud; built a 40-year career in sales and account management for a major consumer goods company. Retired in 2022 after managing the company's largest retail accounts for over a decade."
+      }
+    },
+    {
+      "id": "7012222b-ebaf-4d56-a292-24c629e85b8a",
+      "name": "7012222b-ebaf-4d56-a292-24c629e85b8a",
+      "demographics": {
+        "id": "7012222b-ebaf-4d56-a292-24c629e85b8a",
+        "name": "Irene Hotz",
+        "age": 77,
+        "gender": "F",
+        "city": "Mendrisio",
+        "job": "Lawyer",
+        "company": "Edwards, Charles and Cortez",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_it",
+        "susceptibility": 0.66,
+        "trust_institution": 0.398,
+        "turnout_propensity": 0.279,
+        "media_diet": {
+          "social_media": 0.041,
+          "tv": 0.454,
+          "newspaper": 0.206,
+          "blogs": 0.299
+        },
+        "personality_traits": {
+          "openness": 0.68,
+          "conscientiousness": 0.844,
+          "extraversion": 0.331,
+          "agreeableness": 0.028,
+          "neuroticism": 0.877
+        },
+        "confirmation_bias": 0.2612151963902102,
+        "social_network_influence": 0.5805897337387078,
+        "risk_aversion": 0.9835505728830871,
+        "fairness_value": 0.03825719735326272,
+        "prior_beliefs": {
+          "foreign_policy": 0.799,
+          "social_justice": -0.62,
+          "economy": -0.911,
+          "healthcare": -0.128,
+          "climate_change": 0.04,
+          "immigration": 0.613
+        },
+        "timestamp": "2025-10-11T01:21:08.651830",
+        "religion": "Protestant",
+        "demeanour": "Sharp and experienced, now semi-retired but active in legal consulting.",
+        "interests": [
+          "Legal history",
+          "classical music",
+          "mentoring young lawyers",
+          "gardening"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1947. Admitted to the bar in 1972, she was a partner at her firm for over 30 years, specializing in inheritance law before transitioning to a senior counsel role in 2015."
+      }
+    },
+    {
+      "id": "00940600-a625-4e28-9e28-3e9fa35ff2be",
+      "name": "00940600-a625-4e28-9e28-3e9fa35ff2be",
+      "demographics": {
+        "id": "00940600-a625-4e28-9e28-3e9fa35ff2be",
+        "name": "B\u00fc\u015franur Alemdar",
+        "age": 64,
+        "gender": "F",
+        "city": "Freienbach",
+        "job": "Chartered accountant",
+        "company": "Pfister Steffen & S\u00f6hne",
+        "education_level": "master_degree",
+        "income_bracket": "high",
+        "ethnicity": "Turkish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_de",
+        "susceptibility": 0.623,
+        "trust_institution": 0.663,
+        "turnout_propensity": 0.125,
+        "media_diet": {
+          "social_media": 0.375,
+          "tv": 0.211,
+          "newspaper": 0.278,
+          "blogs": 0.136
+        },
+        "personality_traits": {
+          "openness": 0.697,
+          "conscientiousness": 0.554,
+          "extraversion": 0.192,
+          "agreeableness": 0.665,
+          "neuroticism": 0.379
+        },
+        "confirmation_bias": 0.74813456015889,
+        "social_network_influence": 0.17402734320994395,
+        "risk_aversion": 0.5691052548658093,
+        "fairness_value": 0.40607516875816285,
+        "prior_beliefs": {
+          "education": -0.14,
+          "economy": 0.16,
+          "immigration": 0.309
+        },
+        "timestamp": "2025-10-11T01:21:08.753955",
+        "religion": "Muslim",
+        "demeanour": "Detail-oriented and highly ethical, with extensive knowledge of financial regulations.",
+        "interests": [
+          "Financial auditing",
+          "Turkish poetry",
+          "tax law",
+          "cooking Anatolian food"
+        ],
+        "sector": "Finance",
+        "backstory": "Born 1960 in Turkey. She became a Swiss Certified Accountant in 1990 and has been a senior partner at her firm for 20 years, specializing in corporate audits for listed companies."
+      }
+    },
+    {
+      "id": "3e03d7b6-6412-4ca6-a246-d855ba525376",
+      "name": "3e03d7b6-6412-4ca6-a246-d855ba525376",
+      "demographics": {
+        "id": "3e03d7b6-6412-4ca6-a246-d855ba525376",
+        "name": "Raquel Neves",
+        "age": 33,
+        "gender": "F",
+        "city": "Morand-sur-Beguin",
+        "job": "Print Media Operator CFC",
+        "company": "Bouvier Monney SA",
+        "education_level": "apprenticeship",
+        "income_bracket": "middle",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Romance culture",
+        "country": "CH_fr",
+        "susceptibility": 0.17,
+        "trust_institution": 0.085,
+        "turnout_propensity": 0.515,
+        "media_diet": {
+          "social_media": 0.249,
+          "tv": 0.132,
+          "newspaper": 0.323,
+          "blogs": 0.296
+        },
+        "personality_traits": {
+          "openness": 0.673,
+          "conscientiousness": 0.225,
+          "extraversion": 0.199,
+          "agreeableness": 0.024,
+          "neuroticism": 0.245
+        },
+        "confirmation_bias": 0.47513634421880513,
+        "social_network_influence": 0.8497376946247319,
+        "risk_aversion": 0.0728282291845691,
+        "fairness_value": 0.41444101099771935,
+        "prior_beliefs": {
+          "technology": -0.705,
+          "healthcare": 0.375,
+          "social_justice": 0.785,
+          "immigration": 0.721
+        },
+        "timestamp": "2025-10-11T01:21:08.755693",
+        "religion": "Catholic",
+        "demeanour": "Technically proficient and reliable, with a good eye for color and quality.",
+        "interests": [
+          "Graphic design",
+          "printing technology",
+          "Bossa nova music",
+          "rock climbing"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1991. She completed her CFC apprenticeship in print media operation in 2011 and has worked for a major commercial printer for 13 years, now leading a team on the digital press line."
+      }
+    },
+    {
+      "id": "e69b9ae3-f901-41d9-bcfb-e3e4e31c64b5",
+      "name": "e69b9ae3-f901-41d9-bcfb-e3e4e31c64b5",
+      "demographics": {
+        "id": "e69b9ae3-f901-41d9-bcfb-e3e4e31c64b5",
+        "name": "Patricia Bonnet",
+        "age": 65,
+        "gender": "F",
+        "city": "Ascona",
+        "job": "Designer, ceramics/pottery",
+        "company": "Lewis, Perry and Rivera",
+        "education_level": "some_college",
+        "income_bracket": "middle_high",
+        "ethnicity": "French",
+        "cultural_background": "French-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.465,
+        "trust_institution": 0.557,
+        "turnout_propensity": 0.917,
+        "media_diet": {
+          "social_media": 0.097,
+          "tv": 0.107,
+          "newspaper": 0.372,
+          "blogs": 0.425
+        },
+        "personality_traits": {
+          "openness": 0.559,
+          "conscientiousness": 0.317,
+          "extraversion": 0.755,
+          "agreeableness": 0.443,
+          "neuroticism": 0.815
+        },
+        "confirmation_bias": 0.8920202963410181,
+        "social_network_influence": 0.42674075685865553,
+        "risk_aversion": 0.9068547304561134,
+        "fairness_value": 0.44591361207670044,
+        "prior_beliefs": {
+          "social_justice": 0.68,
+          "healthcare": -0.445,
+          "economy": 0.555,
+          "immigration": -0.031
+        },
+        "timestamp": "2025-10-11T01:21:08.874518",
+        "religion": "Catholic",
+        "demeanour": "Creative and patient, with a tactile understanding of materials and form.",
+        "interests": [
+          "Ceramic glazing techniques",
+          "art history",
+          "studio pottery",
+          "nature walks"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 1959 in France, she moved to Ticino in the 1980s to establish her pottery studio in Ascona. Over 40 years, her work has been featured in several national exhibitions and she actively teaches ceramics workshops."
+      }
+    },
+    {
+      "id": "fb63573b-91d4-47a3-b4b0-f0c383b8d385",
+      "name": "fb63573b-91d4-47a3-b4b0-f0c383b8d385",
+      "demographics": {
+        "id": "fb63573b-91d4-47a3-b4b0-f0c383b8d385",
+        "name": "Donatella Kohler",
+        "age": 25,
+        "gender": "F",
+        "city": "Freiburg",
+        "job": "Psychologist, sport and exercise",
+        "company": "Seiler & Cie.",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_de",
+        "susceptibility": 0.893,
+        "trust_institution": 0.081,
+        "turnout_propensity": 0.151,
+        "media_diet": {
+          "social_media": 0.329,
+          "tv": 0.131,
+          "newspaper": 0.184,
+          "blogs": 0.356
+        },
+        "personality_traits": {
+          "openness": 0.331,
+          "conscientiousness": 0.466,
+          "extraversion": 0.062,
+          "agreeableness": 0.833,
+          "neuroticism": 0.389
+        },
+        "confirmation_bias": 0.7697957723146632,
+        "social_network_influence": 0.9460620335901005,
+        "risk_aversion": 0.01953195673772712,
+        "fairness_value": 0.8806566727578236,
+        "prior_beliefs": {
+          "social_justice": 0.076,
+          "climate_change": 0.469,
+          "economy": 0.6,
+          "foreign_policy": 0.796,
+          "healthcare": -0.024,
+          "immigration": -0.454
+        },
+        "timestamp": "2025-10-11T01:21:08.876774",
+        "religion": "None",
+        "demeanour": "Empathetic and focused, with a motivational communication style.",
+        "interests": [
+          "sports psychology",
+          "athlete performance",
+          "cognitive-behavioral therapy",
+          "hiking"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 2000; completed MSc in Psychology in 2024, specializing in athlete mental resilience. Joined Seiler & Cie. in Freiburg, focusing on performance anxiety for young athletes."
+      }
+    },
+    {
+      "id": "aae17805-5547-460b-8af5-9b3640a671e7",
+      "name": "aae17805-5547-460b-8af5-9b3640a671e7",
+      "demographics": {
+        "id": "aae17805-5547-460b-8af5-9b3640a671e7",
+        "name": "Christophe Reynaud-Laroche",
+        "age": 32,
+        "gender": "M",
+        "city": "Baar (ZG)",
+        "job": "Agricultural Practitioner (AFP)",
+        "company": "Chevalley Badel SA",
+        "education_level": "vocational_certificate",
+        "income_bracket": "middle_high",
+        "ethnicity": "French",
+        "cultural_background": "Western European",
+        "country": "CH_fr",
+        "susceptibility": 0.841,
+        "trust_institution": 0.92,
+        "turnout_propensity": 0.981,
+        "media_diet": {
+          "social_media": 0.198,
+          "tv": 0.336,
+          "newspaper": 0.22,
+          "blogs": 0.246
+        },
+        "personality_traits": {
+          "openness": 0.084,
+          "conscientiousness": 0.429,
+          "extraversion": 0.867,
+          "agreeableness": 0.182,
+          "neuroticism": 0.26
+        },
+        "confirmation_bias": 0.32735266694173426,
+        "social_network_influence": 0.45469932501648214,
+        "risk_aversion": 0.33750054807387064,
+        "fairness_value": 0.8796399860018954,
+        "prior_beliefs": {
+          "technology": 0.498,
+          "economy": -0.896,
+          "climate_change": 0.904,
+          "healthcare": -0.552,
+          "foreign_policy": -0.863
+        },
+        "timestamp": "2025-10-11T01:21:08.879385",
+        "religion": "Catholic",
+        "demeanour": "Practical and hardworking, with a deep respect for land management.",
+        "interests": [
+          "sustainable farming",
+          "livestock management",
+          "rural traditions",
+          "mechanics"
+        ],
+        "sector": "Agriculture",
+        "backstory": "Born 1993; earned his Agricultural Practitioner AFP certificate around 2011. Has worked for Chevalley Badel SA for over a decade, specializing in dairy herd management."
+      }
+    },
+    {
+      "id": "a6a47db6-f0c5-4e7d-9a77-75a401509f3f",
+      "name": "a6a47db6-f0c5-4e7d-9a77-75a401509f3f",
+      "demographics": {
+        "id": "a6a47db6-f0c5-4e7d-9a77-75a401509f3f",
+        "name": "Albert Masseron",
+        "age": 67,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Loss adjuster, chartered",
+        "company": "Patterson, Wood and Hunter",
+        "education_level": "trade_school",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_it",
+        "susceptibility": 0.239,
+        "trust_institution": 0.474,
+        "turnout_propensity": 0.114,
+        "media_diet": {
+          "social_media": 0.465,
+          "tv": 0.228,
+          "newspaper": 0.126,
+          "blogs": 0.181
+        },
+        "personality_traits": {
+          "openness": 0.606,
+          "conscientiousness": 0.964,
+          "extraversion": 0.718,
+          "agreeableness": 0.778,
+          "neuroticism": 0.164
+        },
+        "confirmation_bias": 0.31103891959859986,
+        "social_network_influence": 0.5786847325092436,
+        "risk_aversion": 0.9288871684071216,
+        "fairness_value": 0.5757967284124141,
+        "prior_beliefs": {
+          "technology": 0.394,
+          "foreign_policy": -0.397,
+          "immigration": 0.369,
+          "climate_change": 0.611,
+          "social_justice": 0.592,
+          "education": 0.132
+        },
+        "timestamp": "2025-10-11T01:21:08.882617",
+        "religion": "Protestant",
+        "demeanour": "Methodical and detail-oriented with decades of claims assessment experience.",
+        "interests": [
+          "insurance law",
+          "property assessment",
+          "local history",
+          "gardening"
+        ],
+        "sector": "Insurance",
+        "backstory": "Born 1958; began his career in the late 1970s after trade school. As a senior chartered loss adjuster, he has assessed over 3,000 complex property claims and is approaching retirement."
+      }
+    },
+    {
+      "id": "abe77893-1a2e-4ba7-ab11-b2c21f5caef9",
+      "name": "abe77893-1a2e-4ba7-ab11-b2c21f5caef9",
+      "demographics": {
+        "id": "abe77893-1a2e-4ba7-ab11-b2c21f5caef9",
+        "name": "Beate Hafner",
+        "age": 24,
+        "gender": "F",
+        "city": "Amriswil",
+        "job": "Research officer, trade union",
+        "company": "Fl\u00fcckiger Meyer GmbH",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.822,
+        "trust_institution": 0.106,
+        "turnout_propensity": 0.961,
+        "media_diet": {
+          "social_media": 0.244,
+          "tv": 0.318,
+          "newspaper": 0.271,
+          "blogs": 0.167
+        },
+        "personality_traits": {
+          "openness": 0.734,
+          "conscientiousness": 0.965,
+          "extraversion": 0.27,
+          "agreeableness": 0.808,
+          "neuroticism": 0.538
+        },
+        "confirmation_bias": 0.4834975038831961,
+        "social_network_influence": 0.4355744930038943,
+        "risk_aversion": 0.7310262143051223,
+        "fairness_value": 0.26839553804922534,
+        "prior_beliefs": {
+          "immigration": 0.501,
+          "economy": 0.14,
+          "healthcare": 0.336,
+          "social_justice": -0.327
+        },
+        "timestamp": "2025-10-11T01:21:08.884742",
+        "religion": "None",
+        "demeanour": "Analytically sharp and passionate about labor rights advocacy.",
+        "interests": [
+          "labor economics",
+          "social policy",
+          "data analysis",
+          "political activism"
+        ],
+        "sector": "Government",
+        "backstory": "Born 2001; graduated with a BA in Sociology in 2023, focusing her thesis on wage inequality. Joined the trade union as a junior research officer, analyzing collective bargaining agreements."
+      }
+    },
+    {
+      "id": "7507fd9a-a988-4ad9-aee0-d192d61fd369",
+      "name": "7507fd9a-a988-4ad9-aee0-d192d61fd369",
+      "demographics": {
+        "id": "7507fd9a-a988-4ad9-aee0-d192d61fd369",
+        "name": "Nicholas Hofstetter-Haas",
+        "age": 31,
+        "gender": "M",
+        "city": "Montreux",
+        "job": "Tourism Manager (Federal Diploma)",
+        "company": "Godet",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_fr",
+        "susceptibility": 0.28,
+        "trust_institution": 0.596,
+        "turnout_propensity": 0.88,
+        "media_diet": {
+          "social_media": 0.369,
+          "tv": 0.343,
+          "newspaper": 0.127,
+          "blogs": 0.16
+        },
+        "personality_traits": {
+          "openness": 0.406,
+          "conscientiousness": 0.555,
+          "extraversion": 0.24,
+          "agreeableness": 0.476,
+          "neuroticism": 0.712
+        },
+        "confirmation_bias": 0.44817454958657077,
+        "social_network_influence": 0.017243259348372675,
+        "risk_aversion": 0.2942355813204973,
+        "fairness_value": 0.4044011286779281,
+        "prior_beliefs": {
+          "education": -0.053,
+          "foreign_policy": 0.062,
+          "social_justice": -0.149,
+          "economy": 0.492
+        },
+        "timestamp": "2025-10-11T01:21:08.891253",
+        "religion": "Catholic",
+        "demeanour": "Organized and client-focused, adept at managing complex travel logistics.",
+        "interests": [
+          "hospitality management",
+          "regional marketing",
+          "winter sports",
+          "oenology"
+        ],
+        "sector": "Tourism & Hospitality",
+        "backstory": "Born 1994; earned his Federal Diploma in Tourism Management around 2016. Has managed international group tours for Godet for the past 8 years, focusing on the Asian market."
+      }
+    },
+    {
+      "id": "c710cad7-15c6-41f5-a1a6-e110e0fd67f4",
+      "name": "c710cad7-15c6-41f5-a1a6-e110e0fd67f4",
+      "demographics": {
+        "id": "c710cad7-15c6-41f5-a1a6-e110e0fd67f4",
+        "name": "Charles Julliard",
+        "age": 37,
+        "gender": "M",
+        "city": "Bellinzona",
+        "job": "Educational psychologist",
+        "company": "King Group",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_it",
+        "susceptibility": 0.316,
+        "trust_institution": 0.743,
+        "turnout_propensity": 0.951,
+        "media_diet": {
+          "social_media": 0.364,
+          "tv": 0.101,
+          "newspaper": 0.389,
+          "blogs": 0.146
+        },
+        "personality_traits": {
+          "openness": 0.59,
+          "conscientiousness": 0.76,
+          "extraversion": 0.597,
+          "agreeableness": 0.981,
+          "neuroticism": 0.833
+        },
+        "confirmation_bias": 0.2962464632651445,
+        "social_network_influence": 0.36088106914938645,
+        "risk_aversion": 0.3022675887804356,
+        "fairness_value": 0.7080184857110313,
+        "prior_beliefs": {
+          "education": -0.416,
+          "climate_change": 0.888,
+          "technology": 0.276,
+          "social_justice": 0.506
+        },
+        "timestamp": "2025-10-11T01:21:08.894538",
+        "religion": "Catholic",
+        "demeanour": "Patient and observant, skilled in diagnosing learning challenges in children.",
+        "interests": [
+          "child development",
+          "educational testing",
+          "special needs advocacy",
+          "classical music"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1988; obtained his MSc in Educational Psychology around 2012. He has since worked with primary schools in Ticino, assessing over 500 students for learning disabilities."
+      }
+    },
+    {
+      "id": "242c3e4e-1666-4ea2-a63f-ce33919c93b2",
+      "name": "242c3e4e-1666-4ea2-a63f-ce33919c93b2",
+      "demographics": {
+        "id": "242c3e4e-1666-4ea2-a63f-ce33919c93b2",
+        "name": "Guillaume Rey",
+        "age": 18,
+        "gender": "M",
+        "city": "Horgen",
+        "job": "Apprentice Draftsman, Mechanical",
+        "company": "Steffen Bieri AG",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-German",
+        "country": "CH_de",
+        "susceptibility": 0.252,
+        "trust_institution": 0.862,
+        "turnout_propensity": 0.114,
+        "media_diet": {
+          "social_media": 0.036,
+          "tv": 0.27,
+          "newspaper": 0.317,
+          "blogs": 0.377
+        },
+        "personality_traits": {
+          "openness": 0.152,
+          "conscientiousness": 0.811,
+          "extraversion": 0.949,
+          "agreeableness": 0.085,
+          "neuroticism": 0.248
+        },
+        "confirmation_bias": 0.5580730346176285,
+        "social_network_influence": 0.41617402141032844,
+        "risk_aversion": 0.5961268454100253,
+        "fairness_value": 0.6184183524972732,
+        "prior_beliefs": {
+          "social_justice": 0.137,
+          "healthcare": -0.88,
+          "economy": 0.92,
+          "education": -0.802,
+          "technology": 0.525,
+          "immigration": 0.251
+        },
+        "timestamp": "2025-10-11T01:21:08.896919",
+        "religion": "None",
+        "demeanour": "Eager to learn and meticulous, with a growing proficiency in CAD software.",
+        "interests": [
+          "mechanical design",
+          "3D modeling",
+          "video games",
+          "mountain biking"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 2007; began his four-year apprenticeship in mechanical drafting at Steffen Bieri AG after compulsory schooling in 2023. He is currently in his second year, focusing on component design."
+      }
+    },
+    {
+      "id": "9cf7b60f-39c8-44b2-be1e-4230e6fafa7f",
+      "name": "9cf7b60f-39c8-44b2-be1e-4230e6fafa7f",
+      "demographics": {
+        "id": "9cf7b60f-39c8-44b2-be1e-4230e6fafa7f",
+        "name": "Linda Bellini",
+        "age": 27,
+        "gender": "F",
+        "city": "Fribourg",
+        "job": "Security Systems Project Manager (Federal Diploma)",
+        "company": "Besan\u00e7on SA",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-German",
+        "country": "CH_fr",
+        "susceptibility": 0.409,
+        "trust_institution": 0.689,
+        "turnout_propensity": 0.47,
+        "media_diet": {
+          "social_media": 0.022,
+          "tv": 0.197,
+          "newspaper": 0.193,
+          "blogs": 0.588
+        },
+        "personality_traits": {
+          "openness": 0.071,
+          "conscientiousness": 0.233,
+          "extraversion": 0.265,
+          "agreeableness": 0.791,
+          "neuroticism": 0.59
+        },
+        "confirmation_bias": 0.8039056802814338,
+        "social_network_influence": 0.19781921375646416,
+        "risk_aversion": 0.11477630246104575,
+        "fairness_value": 0.22480945026602384,
+        "prior_beliefs": {
+          "education": -0.881,
+          "technology": 0.585,
+          "immigration": 0.19,
+          "climate_change": 0.648
+        },
+        "timestamp": "2025-10-11T01:21:08.900936",
+        "religion": "Catholic",
+        "demeanour": "Systematic and security-conscious, excellent at coordinating technical teams.",
+        "interests": [
+          "access control systems",
+          "cybersecurity protocols",
+          "project management",
+          "volleyball"
+        ],
+        "sector": "Technology",
+        "backstory": "Born 1998; completed her federal diploma in security systems around 2022. As a project manager at Besan\u00e7on SA, she oversaw the installation of new surveillance systems for three corporate clients in 2024."
+      }
+    },
+    {
+      "id": "1476ce81-cc5c-4b34-a886-579b3cbe29d2",
+      "name": "1476ce81-cc5c-4b34-a886-579b3cbe29d2",
+      "demographics": {
+        "id": "1476ce81-cc5c-4b34-a886-579b3cbe29d2",
+        "name": "Elvira P\u00e9rez Arco",
+        "age": 80,
+        "gender": "F",
+        "city": "Locarno",
+        "job": "Retired (formerly IT Sales Manager)",
+        "company": "Garcia, Martin and Jenkins",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Spanish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.5,
+        "trust_institution": 0.494,
+        "turnout_propensity": 0.08,
+        "media_diet": {
+          "social_media": 0.038,
+          "tv": 0.414,
+          "newspaper": 0.309,
+          "blogs": 0.24
+        },
+        "personality_traits": {
+          "openness": 0.091,
+          "conscientiousness": 0.962,
+          "extraversion": 0.836,
+          "agreeableness": 0.575,
+          "neuroticism": 0.951
+        },
+        "confirmation_bias": 0.9995724168774514,
+        "social_network_influence": 0.6722815843032393,
+        "risk_aversion": 0.2695110259670539,
+        "fairness_value": 0.040231673144616176,
+        "prior_beliefs": {
+          "social_justice": 0.832,
+          "education": -0.637,
+          "foreign_policy": 0.171,
+          "healthcare": 0.27
+        },
+        "timestamp": "2025-10-11T01:21:08.903548",
+        "religion": "Catholic",
+        "demeanour": "Gregarious and sharp-witted, with a lifetime of business acumen.",
+        "interests": [
+          "family gatherings",
+          "reading historical novels",
+          "gardening",
+          "following technology news"
+        ],
+        "sector": "IT Sales",
+        "backstory": "Born 1945 in Spain; immigrated to Switzerland in the 1960s and began working in IT in the 1980s. She retired in 2010 after a 25-year career, having managed a top-performing sales team for over a decade."
+      }
+    },
+    {
+      "id": "f54aa0e3-7b3a-4e53-89e6-20f014d81277",
+      "name": "f54aa0e3-7b3a-4e53-89e6-20f014d81277",
+      "demographics": {
+        "id": "f54aa0e3-7b3a-4e53-89e6-20f014d81277",
+        "name": "Gianluca Carli",
+        "age": 27,
+        "gender": "M",
+        "city": "Flawil",
+        "job": "Insurance risk surveyor",
+        "company": "Sch\u00e4r & Co.",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Southern European",
+        "country": "CH_de",
+        "susceptibility": 0.858,
+        "trust_institution": 0.33,
+        "turnout_propensity": 0.694,
+        "media_diet": {
+          "social_media": 0.111,
+          "tv": 0.364,
+          "newspaper": 0.313,
+          "blogs": 0.212
+        },
+        "personality_traits": {
+          "openness": 0.455,
+          "conscientiousness": 0.315,
+          "extraversion": 0.323,
+          "agreeableness": 0.97,
+          "neuroticism": 0.404
+        },
+        "confirmation_bias": 0.5145962523291051,
+        "social_network_influence": 0.9881192147817541,
+        "risk_aversion": 0.657660386483129,
+        "fairness_value": 0.542593594357195,
+        "prior_beliefs": {
+          "climate_change": -0.116,
+          "immigration": -0.897,
+          "education": -0.466,
+          "economy": -0.738,
+          "healthcare": -0.424,
+          "foreign_policy": 0.762
+        },
+        "timestamp": "2025-10-11T01:21:09.056659",
+        "religion": "Catholic",
+        "demeanour": "Observant and methodical, with a keen eye for potential liabilities.",
+        "interests": [
+          "risk analysis",
+          "commercial property",
+          "actuarial science",
+          "football"
+        ],
+        "sector": "Insurance",
+        "backstory": "Born 1998; after completing higher commercial studies around 2018, he joined Sch\u00e4r & Co. as a trainee. He has been a qualified risk surveyor for 5 years, specializing in commercial liability for SMEs."
+      }
+    },
+    {
+      "id": "08d68ead-d0be-4bea-abfe-10d16d945116",
+      "name": "08d68ead-d0be-4bea-abfe-10d16d945116",
+      "demographics": {
+        "id": "08d68ead-d0be-4bea-abfe-10d16d945116",
+        "name": "Sylvie Isella",
+        "age": 26,
+        "gender": "F",
+        "city": "Quartier-pr\u00e8s-Musy",
+        "job": "Facility Maintenance Worker (AFP)",
+        "company": "Rey",
+        "education_level": "vocational_certificate",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.093,
+        "trust_institution": 0.992,
+        "turnout_propensity": 0.913,
+        "media_diet": {
+          "social_media": 0.242,
+          "tv": 0.062,
+          "newspaper": 0.436,
+          "blogs": 0.261
+        },
+        "personality_traits": {
+          "openness": 0.717,
+          "conscientiousness": 0.509,
+          "extraversion": 0.273,
+          "agreeableness": 0.835,
+          "neuroticism": 0.98
+        },
+        "confirmation_bias": 0.24373090607513836,
+        "social_network_influence": 0.5512650768804697,
+        "risk_aversion": 0.3835860132471499,
+        "fairness_value": 0.9218681499315619,
+        "prior_beliefs": {
+          "immigration": 0.868,
+          "economy": 0.015,
+          "healthcare": 0.641,
+          "technology": -0.434
+        },
+        "timestamp": "2025-10-11T01:21:09.060048",
+        "religion": "None",
+        "demeanour": "Reliable and resourceful, skilled in practical problem-solving.",
+        "interests": [
+          "building systems",
+          "HVAC maintenance",
+          "workplace safety",
+          "rock climbing"
+        ],
+        "sector": "Operations & Logistics",
+        "backstory": "Born 1999; earned her AFP certificate in facility maintenance in 2017. She has worked for Rey for 7 years, responsible for the upkeep of three commercial properties."
+      }
+    },
+    {
+      "id": "9b2189c6-e092-49d8-91c3-90d2a0e0cd7a",
+      "name": "9b2189c6-e092-49d8-91c3-90d2a0e0cd7a",
+      "demographics": {
+        "id": "9b2189c6-e092-49d8-91c3-90d2a0e0cd7a",
+        "name": "Gazmend Krasniqi",
+        "age": 35,
+        "gender": "M",
+        "city": "Chiasso",
+        "job": "Geochemist",
+        "company": "Hanson-Sanders",
+        "education_level": "doctorate",
+        "income_bracket": "middle_high",
+        "ethnicity": "Kosovan",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.332,
+        "trust_institution": 0.763,
+        "turnout_propensity": 0.377,
+        "media_diet": {
+          "social_media": 0.309,
+          "tv": 0.288,
+          "newspaper": 0.325,
+          "blogs": 0.079
+        },
+        "personality_traits": {
+          "openness": 0.383,
+          "conscientiousness": 0.856,
+          "extraversion": 0.411,
+          "agreeableness": 0.318,
+          "neuroticism": 0.473
+        },
+        "confirmation_bias": 0.9134301678196258,
+        "social_network_influence": 0.3812311469471361,
+        "risk_aversion": 0.9884140019393625,
+        "fairness_value": 0.7923936606999303,
+        "prior_beliefs": {
+          "social_justice": 0.931,
+          "climate_change": -0.336,
+          "immigration": -0.799,
+          "education": 0.69
+        },
+        "timestamp": "2025-10-11T01:21:09.063697",
+        "religion": "Muslim",
+        "demeanour": "Intensely focused and analytical, driven by scientific inquiry.",
+        "interests": [
+          "isotope geochemistry",
+          "environmental monitoring",
+          "academic publishing",
+          "Balkan folk music"
+        ],
+        "sector": "Environmental Services",
+        "backstory": "Born 1990; completed his PhD in Geochemistry from ETH Zurich in 2018, focusing on groundwater contaminants. He joined Hanson-Sanders as a research scientist, where his work contributed to two peer-reviewed papers in 2023."
+      }
+    },
+    {
+      "id": "08e3a699-8399-4380-8fca-8b24429efe56",
+      "name": "08e3a699-8399-4380-8fca-8b24429efe56",
+      "demographics": {
+        "id": "08e3a699-8399-4380-8fca-8b24429efe56",
+        "name": "Emmanuel Chevalier",
+        "age": 25,
+        "gender": "M",
+        "city": "K\u00fcssnacht",
+        "job": "Set designer",
+        "company": "Scheidegger Stocker AG",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "French",
+        "cultural_background": "Western European",
+        "country": "CH_de",
+        "susceptibility": 0.075,
+        "trust_institution": 0.782,
+        "turnout_propensity": 0.265,
+        "media_diet": {
+          "social_media": 0.436,
+          "tv": 0.278,
+          "newspaper": 0.056,
+          "blogs": 0.23
+        },
+        "personality_traits": {
+          "openness": 0.674,
+          "conscientiousness": 0.534,
+          "extraversion": 0.954,
+          "agreeableness": 0.627,
+          "neuroticism": 0.887
+        },
+        "confirmation_bias": 0.48794748539017896,
+        "social_network_influence": 0.5410160126976601,
+        "risk_aversion": 0.6174594616027231,
+        "fairness_value": 0.23477024310202155,
+        "prior_beliefs": {
+          "healthcare": 0.521,
+          "foreign_policy": 0.408,
+          "climate_change": -0.799,
+          "social_justice": -0.667,
+          "technology": -0.401
+        },
+        "timestamp": "2025-10-11T01:21:09.069308",
+        "religion": "None",
+        "demeanour": "Creative and resourceful, adept at transforming concepts into physical spaces.",
+        "interests": [
+          "stagecraft",
+          "architectural history",
+          "material sourcing",
+          "independent cinema"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 2000; graduated with a BA in Theatre Design from ZHdK in 2022. He has since worked on five productions for Scheidegger Stocker AG, including a notable stage design for a 2024 regional tour."
+      }
+    },
+    {
+      "id": "262679f1-2cd1-402f-abb3-d7785f279701",
+      "name": "262679f1-2cd1-402f-abb3-d7785f279701",
+      "demographics": {
+        "id": "262679f1-2cd1-402f-abb3-d7785f279701",
+        "name": "Renato Furlan",
+        "age": 23,
+        "gender": "M",
+        "city": "Yverdon-les-Bains",
+        "job": "Professional Fisherman (Federal Diploma)",
+        "company": "Del\u00e8ze",
+        "education_level": "vocational_certificate",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.531,
+        "trust_institution": 0.566,
+        "turnout_propensity": 0.793,
+        "media_diet": {
+          "social_media": 0.098,
+          "tv": 0.045,
+          "newspaper": 0.501,
+          "blogs": 0.356
+        },
+        "personality_traits": {
+          "openness": 0.241,
+          "conscientiousness": 0.913,
+          "extraversion": 0.143,
+          "agreeableness": 0.461,
+          "neuroticism": 0.254
+        },
+        "confirmation_bias": 0.25532670815915404,
+        "social_network_influence": 0.009397431454871041,
+        "risk_aversion": 0.8046330769751463,
+        "fairness_value": 0.901209423598883,
+        "prior_beliefs": {
+          "immigration": -0.402,
+          "healthcare": 0.924,
+          "economy": 0.381,
+          "education": -0.086
+        },
+        "timestamp": "2025-10-11T01:21:09.071461",
+        "religion": "Catholic",
+        "demeanour": "Patient and resilient, with an encyclopedic knowledge of local waterways.",
+        "interests": [
+          "freshwater ecology",
+          "boating regulations",
+          "engine maintenance",
+          "ice hockey"
+        ],
+        "sector": "Fishing & Aquaculture",
+        "backstory": "Born 2002; completed his federal diploma for professional fishing in 2021 after his apprenticeship. He now co-operates a vessel on Lake Neuch\u00e2tel, contributing to a seasonal catch of over 10 tonnes."
+      }
+    },
+    {
+      "id": "4864fb6d-75c5-49b2-9821-05360fdc456b",
+      "name": "4864fb6d-75c5-49b2-9821-05360fdc456b",
+      "demographics": {
+        "id": "4864fb6d-75c5-49b2-9821-05360fdc456b",
+        "name": "Francisca Vieira",
+        "age": 32,
+        "gender": "F",
+        "city": "Sion",
+        "job": "Medical secretary",
+        "company": "Shaw, Nelson and Martin",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Romance culture",
+        "country": "CH_it",
+        "susceptibility": 0.296,
+        "trust_institution": 0.699,
+        "turnout_propensity": 0.022,
+        "media_diet": {
+          "social_media": 0.395,
+          "tv": 0.189,
+          "newspaper": 0.004,
+          "blogs": 0.412
+        },
+        "personality_traits": {
+          "openness": 0.778,
+          "conscientiousness": 0.974,
+          "extraversion": 0.911,
+          "agreeableness": 0.745,
+          "neuroticism": 0.833
+        },
+        "confirmation_bias": 0.9029349184497755,
+        "social_network_influence": 0.7757409796033808,
+        "risk_aversion": 0.2301183909704163,
+        "fairness_value": 0.8019319575452876,
+        "prior_beliefs": {
+          "healthcare": 0.256,
+          "education": 0.807,
+          "economy": 0.293,
+          "immigration": -0.382
+        },
+        "timestamp": "2025-10-11T01:21:09.074534",
+        "religion": "Catholic",
+        "demeanour": "Discreet and highly organized, managing patient data with precision.",
+        "interests": [
+          "medical terminology",
+          "patient scheduling",
+          "data privacy",
+          "Fado music"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1993; after completing commercial school around 2012, she specialized in medical administration. For the past 8 years, she has managed the patient records and appointments for a busy specialist clinic."
+      }
+    },
+    {
+      "id": "8a32e2ce-87a5-464b-99de-4d0981dbad1d",
+      "name": "8a32e2ce-87a5-464b-99de-4d0981dbad1d",
+      "demographics": {
+        "id": "8a32e2ce-87a5-464b-99de-4d0981dbad1d",
+        "name": "Odette Diesbach",
+        "age": 35,
+        "gender": "F",
+        "city": "Schwyz",
+        "job": "Agricultural consultant",
+        "company": "Schwab Gerber AG",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_de",
+        "susceptibility": 0.747,
+        "trust_institution": 0.176,
+        "turnout_propensity": 0.132,
+        "media_diet": {
+          "social_media": 0.183,
+          "tv": 0.329,
+          "newspaper": 0.18,
+          "blogs": 0.309
+        },
+        "personality_traits": {
+          "openness": 0.83,
+          "conscientiousness": 0.257,
+          "extraversion": 0.825,
+          "agreeableness": 0.482,
+          "neuroticism": 0.806
+        },
+        "confirmation_bias": 0.746559350717045,
+        "social_network_influence": 0.3387152538018863,
+        "risk_aversion": 0.1151697074497594,
+        "fairness_value": 0.9628932928688776,
+        "prior_beliefs": {
+          "healthcare": 0.935,
+          "technology": 0.609,
+          "foreign_policy": -0.268,
+          "social_justice": 0.581
+        },
+        "timestamp": "2025-10-11T01:21:09.076333",
+        "religion": "Catholic",
+        "demeanour": "Extroverted and pragmatic, with an analytical approach to sustainable farming.",
+        "interests": [
+          "agronomy",
+          "soil health",
+          "rural policy",
+          "hiking"
+        ],
+        "sector": "Agriculture",
+        "backstory": "Born 1990. Earned an MSc in Agricultural Science (2015), then joined Schwab Gerber AG in 2016, specializing in dairy farm optimization and improving client milk yields by an average of 12%."
+      }
+    },
+    {
+      "id": "7a8796d3-ac53-49fb-b559-2f053e295259",
+      "name": "7a8796d3-ac53-49fb-b559-2f053e295259",
+      "demographics": {
+        "id": "7a8796d3-ac53-49fb-b559-2f053e295259",
+        "name": "Savannah Garcia",
+        "age": 19,
+        "gender": "F",
+        "city": "Gub\u00e9ran",
+        "job": "Apprentice Polybuilder",
+        "company": "Monnard",
+        "education_level": "high_school",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.822,
+        "trust_institution": 0.94,
+        "turnout_propensity": 0.108,
+        "media_diet": {
+          "social_media": 0.137,
+          "tv": 0.015,
+          "newspaper": 0.519,
+          "blogs": 0.329
+        },
+        "personality_traits": {
+          "openness": 0.915,
+          "conscientiousness": 0.221,
+          "extraversion": 0.063,
+          "agreeableness": 0.824,
+          "neuroticism": 0.909
+        },
+        "confirmation_bias": 0.30219017452925023,
+        "social_network_influence": 0.4082958557954127,
+        "risk_aversion": 0.13977701250722108,
+        "fairness_value": 0.9462615328819463,
+        "prior_beliefs": {
+          "social_justice": -0.223,
+          "climate_change": -0.258,
+          "technology": 0.899,
+          "immigration": 0.393,
+          "education": 0.08
+        },
+        "timestamp": "2025-10-11T01:21:09.078880",
+        "religion": "None",
+        "demeanour": "Energetic and hands-on, eager to learn practical construction skills.",
+        "interests": [
+          "mountain biking",
+          "vocational training",
+          "local music festivals",
+          "team sports"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 2006. Began a polybuilder apprenticeship in 2022 after completing compulsory school. She is currently in her second year of vocational training with Monnard, focusing on waterproofing systems."
+      }
+    },
+    {
+      "id": "a7251aa3-da0e-4ad1-b4ae-d6f65cee5196",
+      "name": "a7251aa3-da0e-4ad1-b4ae-d6f65cee5196",
+      "demographics": {
+        "id": "a7251aa3-da0e-4ad1-b4ae-d6f65cee5196",
+        "name": "Jin Wei",
+        "age": 37,
+        "gender": "M",
+        "city": "Bellinzona",
+        "job": "Surveyor, building",
+        "company": "Willis and Sons",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Chinese",
+        "cultural_background": "East Asian",
+        "country": "CH_it",
+        "susceptibility": 0.616,
+        "trust_institution": 0.939,
+        "turnout_propensity": 0.28,
+        "media_diet": {
+          "social_media": 0.435,
+          "tv": 0.137,
+          "newspaper": 0.28,
+          "blogs": 0.149
+        },
+        "personality_traits": {
+          "openness": 0.363,
+          "conscientiousness": 0.981,
+          "extraversion": 0.367,
+          "agreeableness": 0.902,
+          "neuroticism": 0.645
+        },
+        "confirmation_bias": 0.060550089166608756,
+        "social_network_influence": 0.27588144086158684,
+        "risk_aversion": 0.9682068759363868,
+        "fairness_value": 0.9490107882621376,
+        "prior_beliefs": {
+          "immigration": 0.574,
+          "foreign_policy": -0.513,
+          "social_justice": -0.748,
+          "education": 0.129,
+          "climate_change": -0.863,
+          "healthcare": 0.53
+        },
+        "timestamp": "2025-10-11T01:21:09.083678",
+        "religion": "None",
+        "demeanour": "Meticulous and detail-oriented with deep technical knowledge of building codes.",
+        "interests": [
+          "architectural photography",
+          "structural engineering",
+          "go (board game)",
+          "calligraphy"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 1988 in Shanghai; moved to Switzerland for postgraduate studies. He earned an MSc in Civil Engineering from EPFL in 2013 and has worked as a surveyor in Ticino since 2015."
+      }
+    },
+    {
+      "id": "1e0e2abb-b166-4d3e-92f9-f084d939b221",
+      "name": "1e0e2abb-b166-4d3e-92f9-f084d939b221",
+      "demographics": {
+        "id": "1e0e2abb-b166-4d3e-92f9-f084d939b221",
+        "name": "Sevican Asu Yorulmaz",
+        "age": 21,
+        "gender": "F",
+        "city": "Romanshorn",
+        "job": "Retail Shift Supervisor",
+        "company": "Schwarz AG",
+        "education_level": "high_school",
+        "income_bracket": "low",
+        "ethnicity": "Turkish",
+        "cultural_background": "Balkan culture",
+        "country": "CH_de",
+        "susceptibility": 0.277,
+        "trust_institution": 0.984,
+        "turnout_propensity": 0.988,
+        "media_diet": {
+          "social_media": 0.233,
+          "tv": 0.345,
+          "newspaper": 0.047,
+          "blogs": 0.374
+        },
+        "personality_traits": {
+          "openness": 0.132,
+          "conscientiousness": 0.358,
+          "extraversion": 0.788,
+          "agreeableness": 0.589,
+          "neuroticism": 0.016
+        },
+        "confirmation_bias": 0.26536750832497336,
+        "social_network_influence": 0.12675854371278028,
+        "risk_aversion": 0.42096055691007916,
+        "fairness_value": 0.11364930678654661,
+        "prior_beliefs": {
+          "social_justice": 0.026,
+          "healthcare": -0.782,
+          "economy": 0.008
+        },
+        "timestamp": "2025-10-11T01:21:09.085804",
+        "religion": "Muslim",
+        "demeanour": "Energetic and customer-focused, with a natural talent for team motivation.",
+        "interests": [
+          "contemporary fashion",
+          "social media marketing",
+          "Turkish cuisine",
+          "volleyball"
+        ],
+        "sector": "Services",
+        "backstory": "Born 2004 in Romanshorn. Joined Schwarz AG as a sales assistant after finishing school in 2021 and was promoted to shift supervisor within two years due to strong performance."
+      }
+    },
+    {
+      "id": "401afd4d-00ee-4bb2-9254-f8efb9aa2622",
+      "name": "401afd4d-00ee-4bb2-9254-f8efb9aa2622",
+      "demographics": {
+        "id": "401afd4d-00ee-4bb2-9254-f8efb9aa2622",
+        "name": "Olivier Galland",
+        "age": 67,
+        "gender": "M",
+        "city": "Rey (VS)",
+        "job": "Painting Foreman",
+        "company": "Monnet",
+        "education_level": "trade_school",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.847,
+        "trust_institution": 0.426,
+        "turnout_propensity": 0.108,
+        "media_diet": {
+          "social_media": 0.3,
+          "tv": 0.187,
+          "newspaper": 0.378,
+          "blogs": 0.135
+        },
+        "personality_traits": {
+          "openness": 0.148,
+          "conscientiousness": 0.126,
+          "extraversion": 0.624,
+          "agreeableness": 0.585,
+          "neuroticism": 0.712
+        },
+        "confirmation_bias": 0.3809043988185208,
+        "social_network_influence": 0.5973918551993134,
+        "risk_aversion": 0.2948977459498898,
+        "fairness_value": 0.5055510744856804,
+        "prior_beliefs": {
+          "immigration": -0.097,
+          "technology": -0.543,
+          "foreign_policy": -0.322,
+          "climate_change": -0.093,
+          "social_justice": -0.168,
+          "healthcare": -0.81
+        },
+        "timestamp": "2025-10-11T01:21:09.087739",
+        "religion": "Catholic",
+        "demeanour": "Experienced and authoritative, with exacting standards for quality and craftsmanship.",
+        "interests": [
+          "local history",
+          "winemaking",
+          "alpine traditions",
+          "woodworking"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 1958. After an apprenticeship in the 1970s, he earned his federal diploma in the mid-1980s and has had a 40-year career at Monnet, serving as foreman since 1995."
+      }
+    },
+    {
+      "id": "8340078d-60c2-4da7-9fa9-d728ab384e13",
+      "name": "8340078d-60c2-4da7-9fa9-d728ab384e13",
+      "demographics": {
+        "id": "8340078d-60c2-4da7-9fa9-d728ab384e13",
+        "name": "Bahittin Hicsonmez Akdeniz",
+        "age": 36,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Legal Consultant",
+        "company": "Moore Group",
+        "education_level": "bachelor_degree",
+        "income_bracket": "low",
+        "ethnicity": "Turkish",
+        "cultural_background": "Balkan culture",
+        "country": "CH_it",
+        "susceptibility": 0.091,
+        "trust_institution": 0.085,
+        "turnout_propensity": 0.432,
+        "media_diet": {
+          "social_media": 0.57,
+          "tv": 0.285,
+          "newspaper": 0.1,
+          "blogs": 0.046
+        },
+        "personality_traits": {
+          "openness": 0.957,
+          "conscientiousness": 0.562,
+          "extraversion": 0.67,
+          "agreeableness": 0.411,
+          "neuroticism": 0.874
+        },
+        "confirmation_bias": 0.9411298688522297,
+        "social_network_influence": 0.4229368557638834,
+        "risk_aversion": 0.9158436709721437,
+        "fairness_value": 0.051446079972376046,
+        "prior_beliefs": {
+          "education": -0.691,
+          "economy": -0.036,
+          "climate_change": 0.695,
+          "social_justice": -0.3,
+          "immigration": 0.113
+        },
+        "timestamp": "2025-10-11T01:21:09.090089",
+        "religion": "Muslim",
+        "demeanour": "Analytical and articulate, navigating a recent career transition with determination.",
+        "interests": [
+          "international law",
+          "documentary film",
+          "human rights advocacy",
+          "cycling"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1989 in Turkey, earning a law degree there before immigrating to Switzerland. After having his qualifications recognized, he began working as a junior legal consultant in 2022."
+      }
+    },
+    {
+      "id": "fb1524e0-e139-4783-9e08-b0e082627837",
+      "name": "fb1524e0-e139-4783-9e08-b0e082627837",
+      "demographics": {
+        "id": "fb1524e0-e139-4783-9e08-b0e082627837",
+        "name": "Manuel Zoppetti-Brenna",
+        "age": 22,
+        "gender": "M",
+        "city": "Oftringen",
+        "job": "Personnel officer",
+        "company": "J\u00e4ggi Favre GmbH",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.614,
+        "trust_institution": 0.643,
+        "turnout_propensity": 0.026,
+        "media_diet": {
+          "social_media": 0.421,
+          "tv": 0.376,
+          "newspaper": 0.121,
+          "blogs": 0.082
+        },
+        "personality_traits": {
+          "openness": 0.703,
+          "conscientiousness": 0.309,
+          "extraversion": 0.34,
+          "agreeableness": 0.006,
+          "neuroticism": 0.87
+        },
+        "confirmation_bias": 0.5663210947613763,
+        "social_network_influence": 0.40078434399951557,
+        "risk_aversion": 0.14187465415126865,
+        "fairness_value": 0.6331720126555138,
+        "prior_beliefs": {
+          "immigration": -0.57,
+          "foreign_policy": -0.16,
+          "education": -0.318
+        },
+        "timestamp": "2025-10-11T01:21:09.092589",
+        "religion": "Catholic",
+        "demeanour": "Approachable and organized, focused on employee relations and process efficiency.",
+        "interests": [
+          "human resources trends",
+          "fantasy football",
+          "local ice hockey",
+          "podcasts"
+        ],
+        "sector": "Business/Management",
+        "backstory": "Born 2003. Started a commercial apprenticeship with J\u00e4ggi Favre GmbH after school, which included college-level coursework, and was hired into a permanent personnel officer role in 2023."
+      }
+    },
+    {
+      "id": "f14d8a9b-8a77-40cb-a4c1-ba599f7e59e1",
+      "name": "f14d8a9b-8a77-40cb-a4c1-ba599f7e59e1",
+      "demographics": {
+        "id": "f14d8a9b-8a77-40cb-a4c1-ba599f7e59e1",
+        "name": "Alain N\u00fcsslin",
+        "age": 37,
+        "gender": "M",
+        "city": "Diesbach",
+        "job": "Forestry Foreman",
+        "company": "Cosendey Delado\u00eby S\u00e0rl.",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-German",
+        "country": "CH_fr",
+        "susceptibility": 0.156,
+        "trust_institution": 0.754,
+        "turnout_propensity": 0.05,
+        "media_diet": {
+          "social_media": 0.052,
+          "tv": 0.285,
+          "newspaper": 0.273,
+          "blogs": 0.39
+        },
+        "personality_traits": {
+          "openness": 0.414,
+          "conscientiousness": 0.216,
+          "extraversion": 0.512,
+          "agreeableness": 0.345,
+          "neuroticism": 0.111
+        },
+        "confirmation_bias": 0.6782178929335344,
+        "social_network_influence": 0.5931342503922638,
+        "risk_aversion": 0.5269341071481448,
+        "fairness_value": 0.30841939185125644,
+        "prior_beliefs": {
+          "technology": -0.591,
+          "education": 0.891,
+          "climate_change": 0.535,
+          "foreign_policy": 0.528
+        },
+        "timestamp": "2025-10-11T01:21:09.095269",
+        "religion": "Protestant",
+        "demeanour": "Resilient and practical, with extensive knowledge of sustainable forest management.",
+        "interests": [
+          "silviculture",
+          "wildlife conservation",
+          "wood carving",
+          "mountaineering"
+        ],
+        "sector": "Environmental Services",
+        "backstory": "Born 1988. After a forestry apprenticeship, he earned his federal diploma in his late 20s and has been a foreman since 2018, managing timber harvesting and forest regeneration projects."
+      }
+    },
+    {
+      "id": "172ece5b-f486-4661-9965-a8511962e3fd",
+      "name": "172ece5b-f486-4661-9965-a8511962e3fd",
+      "demographics": {
+        "id": "172ece5b-f486-4661-9965-a8511962e3fd",
+        "name": "Miranda B\u00fchler Ritter",
+        "age": 27,
+        "gender": "F",
+        "city": "Chiasso",
+        "job": "Insurance claims handler",
+        "company": "Morgan, Cook and Jackson",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_it",
+        "susceptibility": 0.533,
+        "trust_institution": 0.23,
+        "turnout_propensity": 0.559,
+        "media_diet": {
+          "social_media": 0.309,
+          "tv": 0.164,
+          "newspaper": 0.184,
+          "blogs": 0.343
+        },
+        "personality_traits": {
+          "openness": 0.436,
+          "conscientiousness": 0.46,
+          "extraversion": 0.078,
+          "agreeableness": 0.313,
+          "neuroticism": 0.429
+        },
+        "confirmation_bias": 0.40442288450523434,
+        "social_network_influence": 0.6401416690475789,
+        "risk_aversion": 0.28951520558575816,
+        "fairness_value": 0.4050323070649545,
+        "prior_beliefs": {
+          "economy": -0.824,
+          "technology": 0.689,
+          "education": -0.513,
+          "healthcare": 0.178,
+          "social_justice": 0.048
+        },
+        "timestamp": "2025-10-11T01:21:09.099202",
+        "religion": "None",
+        "demeanour": "Methodical and empathetic, skilled at assessing claims with fairness and accuracy.",
+        "interests": [
+          "risk assessment",
+          "true crime podcasts",
+          "yoga",
+          "customer service ethics"
+        ],
+        "sector": "Insurance",
+        "backstory": "Born 1998. She completed a BA in Business Administration from SUPSI in 2020 and has been working as a claims handler for three years, specializing in property damage claims."
+      }
+    },
+    {
+      "id": "e02e78b9-12f6-457c-9b15-9053ddf65ba0",
+      "name": "e02e78b9-12f6-457c-9b15-9053ddf65ba0",
+      "demographics": {
+        "id": "e02e78b9-12f6-457c-9b15-9053ddf65ba0",
+        "name": "Lara Hotz Mayer",
+        "age": 30,
+        "gender": "F",
+        "city": "Riehen",
+        "job": "Immunologist",
+        "company": "Riehen Cantonal Hospital",
+        "education_level": "doctorate",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_de",
+        "susceptibility": 0.531,
+        "trust_institution": 0.194,
+        "turnout_propensity": 0.776,
+        "media_diet": {
+          "social_media": 0.167,
+          "tv": 0.456,
+          "newspaper": 0.307,
+          "blogs": 0.07
+        },
+        "personality_traits": {
+          "openness": 0.103,
+          "conscientiousness": 0.256,
+          "extraversion": 0.173,
+          "agreeableness": 0.153,
+          "neuroticism": 0.759
+        },
+        "confirmation_bias": 0.07535327357907684,
+        "social_network_influence": 0.9512921405795819,
+        "risk_aversion": 0.6279487721183674,
+        "fairness_value": 0.46395306851301954,
+        "prior_beliefs": {
+          "foreign_policy": -0.863,
+          "technology": -0.116,
+          "social_justice": -0.394,
+          "economy": -0.451,
+          "immigration": -0.888,
+          "healthcare": 0.015
+        },
+        "timestamp": "2025-10-11T01:21:09.102133",
+        "religion": "Protestant",
+        "demeanour": "Intensely focused and analytical, driven by scientific inquiry and discovery.",
+        "interests": [
+          "cellular biology",
+          "medical research journals",
+          "classical music",
+          "long-distance running"
+        ],
+        "sector": "Pharmaceuticals/Biotech",
+        "backstory": "Born 1995. She earned her PhD in Immunology from the University of Basel in 2022 and is now a postdoctoral researcher focusing on autoimmune disease pathways at the local hospital."
+      }
+    },
+    {
+      "id": "ea8c7269-1892-4a05-a835-74b870e15f15",
+      "name": "ea8c7269-1892-4a05-a835-74b870e15f15",
+      "demographics": {
+        "id": "ea8c7269-1892-4a05-a835-74b870e15f15",
+        "name": "Sabine Probst-Schwab",
+        "age": 33,
+        "gender": "F",
+        "city": "Pachoud",
+        "job": "Copywriter",
+        "company": "Barman Corpataux S\u00e0rl.",
+        "education_level": "trade_school",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_fr",
+        "susceptibility": 0.615,
+        "trust_institution": 0.507,
+        "turnout_propensity": 0.463,
+        "media_diet": {
+          "social_media": 0.206,
+          "tv": 0.294,
+          "newspaper": 0.333,
+          "blogs": 0.167
+        },
+        "personality_traits": {
+          "openness": 0.81,
+          "conscientiousness": 0.652,
+          "extraversion": 0.322,
+          "agreeableness": 0.476,
+          "neuroticism": 0.151
+        },
+        "confirmation_bias": 0.061873700101100715,
+        "social_network_influence": 0.10350187727039162,
+        "risk_aversion": 0.8991268339557735,
+        "fairness_value": 0.3434377758382676,
+        "prior_beliefs": {
+          "economy": 0.415,
+          "climate_change": 0.982,
+          "immigration": 0.048
+        },
+        "timestamp": "2025-10-11T01:21:09.103785",
+        "religion": "None",
+        "demeanour": "Creative and persuasive, with a sharp understanding of brand messaging.",
+        "interests": [
+          "digital marketing",
+          "creative writing",
+          "graphic design trends",
+          "indie cinema"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1992. She earned a Federal Diploma as a copywriter in 2017 after completing advanced vocational training. She has since worked on several major national advertising campaigns for her firm."
+      }
+    },
+    {
+      "id": "7c348a91-7338-46c5-af44-d2ea925e9394",
+      "name": "7c348a91-7338-46c5-af44-d2ea925e9394",
+      "demographics": {
+        "id": "7c348a91-7338-46c5-af44-d2ea925e9394",
+        "name": "Tonguc Ulker",
+        "age": 52,
+        "gender": "M",
+        "city": "Locarno",
+        "job": "Conference centre manager",
+        "company": "Warner, Valentine and Osborn",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "Turkish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.679,
+        "trust_institution": 0.052,
+        "turnout_propensity": 0.631,
+        "media_diet": {
+          "social_media": 0.208,
+          "tv": 0.205,
+          "newspaper": 0.347,
+          "blogs": 0.24
+        },
+        "personality_traits": {
+          "openness": 0.252,
+          "conscientiousness": 0.852,
+          "extraversion": 0.964,
+          "agreeableness": 0.603,
+          "neuroticism": 0.15
+        },
+        "confirmation_bias": 0.08150198744788395,
+        "social_network_influence": 0.6636121060060588,
+        "risk_aversion": 0.9167464550571202,
+        "fairness_value": 0.3102317375518121,
+        "prior_beliefs": {
+          "economy": -0.247,
+          "education": 0.583,
+          "foreign_policy": 0.626,
+          "climate_change": 0.34,
+          "social_justice": 0.658,
+          "healthcare": 0.478
+        },
+        "timestamp": "2025-10-11T01:21:09.107725",
+        "religion": "Muslim",
+        "demeanour": "Calmly efficient and personable, excels at logistics and client relations.",
+        "interests": [
+          "event planning",
+          "hospitality management",
+          "Mediterranean cuisine",
+          "sailing"
+        ],
+        "sector": "Tourism & Hospitality",
+        "backstory": "Born 1973 in Turkey; moved to Switzerland in the 1990s. He has over 25 years of experience in the hospitality industry, working his way up to conference centre manager a decade ago."
+      }
+    },
+    {
+      "id": "52df0973-b26c-4717-896a-a29c9d5f7b66",
+      "name": "52df0973-b26c-4717-896a-a29c9d5f7b66",
+      "demographics": {
+        "id": "52df0973-b26c-4717-896a-a29c9d5f7b66",
+        "name": "Iv\u00e1n Sanchez",
+        "age": 57,
+        "gender": "M",
+        "city": "Zollikon",
+        "job": "Diagnostic radiographer",
+        "company": "Baumann Lanz GmbH",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Spanish",
+        "cultural_background": "Southern European",
+        "country": "CH_de",
+        "susceptibility": 0.363,
+        "trust_institution": 0.18,
+        "turnout_propensity": 0.214,
+        "media_diet": {
+          "social_media": 0.527,
+          "tv": 0.27,
+          "newspaper": 0.126,
+          "blogs": 0.077
+        },
+        "personality_traits": {
+          "openness": 0.077,
+          "conscientiousness": 0.844,
+          "extraversion": 0.101,
+          "agreeableness": 0.771,
+          "neuroticism": 0.835
+        },
+        "confirmation_bias": 0.8836821654925616,
+        "social_network_influence": 0.03774749235756125,
+        "risk_aversion": 0.33676437196428155,
+        "fairness_value": 0.7663076044472416,
+        "prior_beliefs": {
+          "technology": 0.663,
+          "immigration": 0.542,
+          "social_justice": 0.618,
+          "foreign_policy": -0.669
+        },
+        "timestamp": "2025-10-11T01:21:09.110438",
+        "religion": "Catholic",
+        "demeanour": "Precise and compassionate, with decades of experience in medical imaging.",
+        "interests": [
+          "medical technology",
+          "patient safety",
+          "Spanish literature",
+          "photography"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1968 in Spain. Immigrated to Switzerland in the late 1990s after completing his radiography training and later earned a specialized master's degree in medical imaging in 2008."
+      }
+    },
+    {
+      "id": "e7a72507-e97b-4f07-aaf9-cbd16cba53f1",
+      "name": "e7a72507-e97b-4f07-aaf9-cbd16cba53f1",
+      "demographics": {
+        "id": "e7a72507-e97b-4f07-aaf9-cbd16cba53f1",
+        "name": "Ingrid Amor Ribera",
+        "age": 32,
+        "gender": "F",
+        "city": "Pasquier-pr\u00e8s-Bujard",
+        "job": "Master Watchmaker",
+        "company": "Comment S\u00e0rl.",
+        "education_level": "trade_school",
+        "income_bracket": "high",
+        "ethnicity": "Spanish",
+        "cultural_background": "Romance culture",
+        "country": "CH_fr",
+        "susceptibility": 0.285,
+        "trust_institution": 0.749,
+        "turnout_propensity": 0.449,
+        "media_diet": {
+          "social_media": 0.252,
+          "tv": 0.146,
+          "newspaper": 0.381,
+          "blogs": 0.221
+        },
+        "personality_traits": {
+          "openness": 0.835,
+          "conscientiousness": 0.368,
+          "extraversion": 0.947,
+          "agreeableness": 0.984,
+          "neuroticism": 0.462
+        },
+        "confirmation_bias": 0.2817717327037754,
+        "social_network_influence": 0.3818724341907105,
+        "risk_aversion": 0.5274597884614827,
+        "fairness_value": 0.9662681532059473,
+        "prior_beliefs": {
+          "economy": 0.282,
+          "technology": 0.748,
+          "social_justice": 0.109,
+          "climate_change": -0.795
+        },
+        "timestamp": "2025-10-11T01:21:09.112619",
+        "religion": "Catholic",
+        "demeanour": "Patient and incredibly precise, with a deep respect for horological tradition.",
+        "interests": [
+          "micro-mechanics",
+          "watchmaking history",
+          "restoration projects",
+          "classical guitar"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1993 in Spain. Graduated from a top Swiss watchmaking school in 2015 and earned her prestigious 'ma\u00eetre' title in 2023 after years of specializing in complex movements."
+      }
+    },
+    {
+      "id": "6e0fa2af-2201-4a81-9a7d-a3f3a79eb61c",
+      "name": "6e0fa2af-2201-4a81-9a7d-a3f3a79eb61c",
+      "demographics": {
+        "id": "6e0fa2af-2201-4a81-9a7d-a3f3a79eb61c",
+        "name": "Pauline Masson-Gomez",
+        "age": 44,
+        "gender": "F",
+        "city": "Mendrisio",
+        "job": "Advertising account executive",
+        "company": "Lewis-Hernandez",
+        "education_level": "some_college",
+        "income_bracket": "middle_low",
+        "ethnicity": "French",
+        "cultural_background": "French-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.147,
+        "trust_institution": 0.437,
+        "turnout_propensity": 0.946,
+        "media_diet": {
+          "social_media": 0.212,
+          "tv": 0.43,
+          "newspaper": 0.333,
+          "blogs": 0.025
+        },
+        "personality_traits": {
+          "openness": 0.053,
+          "conscientiousness": 0.502,
+          "extraversion": 0.236,
+          "agreeableness": 0.995,
+          "neuroticism": 0.375
+        },
+        "confirmation_bias": 0.02818754552815006,
+        "social_network_influence": 0.9308259047499531,
+        "risk_aversion": 0.8391762876116057,
+        "fairness_value": 0.6499606842941816,
+        "prior_beliefs": {
+          "economy": 0.392,
+          "climate_change": -0.722,
+          "social_justice": 0.411,
+          "healthcare": -0.103
+        },
+        "timestamp": "2025-10-11T01:21:09.117088",
+        "religion": "Catholic",
+        "demeanour": "Persuasive and relationship-driven, adept at managing client campaigns.",
+        "interests": [
+          "brand strategy",
+          "media planning",
+          "Italian cinema",
+          "gardening"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1981 in France. After studying marketing, she worked in Lyon before relocating to Ticino in 2012 for a position with Lewis-Hernandez, where she now manages key regional accounts."
+      }
+    },
+    {
+      "id": "aff04f7a-50b9-4302-9566-dd88958c9ec7",
+      "name": "aff04f7a-50b9-4302-9566-dd88958c9ec7",
+      "demographics": {
+        "id": "aff04f7a-50b9-4302-9566-dd88958c9ec7",
+        "name": "Osvaldo Palombi",
+        "age": 21,
+        "gender": "M",
+        "city": "Bernex",
+        "job": "Apprentice Electrician",
+        "company": "Alpiq InTec",
+        "education_level": "vocational_diploma",
+        "income_bracket": "middle_high",
+        "ethnicity": "Italian",
+        "cultural_background": "Romance culture",
+        "country": "CH_fr",
+        "susceptibility": 0.609,
+        "trust_institution": 0.423,
+        "turnout_propensity": 0.776,
+        "media_diet": {
+          "social_media": 0.192,
+          "tv": 0.099,
+          "newspaper": 0.193,
+          "blogs": 0.517
+        },
+        "personality_traits": {
+          "openness": 0.623,
+          "conscientiousness": 0.063,
+          "extraversion": 0.837,
+          "agreeableness": 0.5,
+          "neuroticism": 0.536
+        },
+        "confirmation_bias": 0.6319549420131424,
+        "social_network_influence": 0.5750474575306336,
+        "risk_aversion": 0.7185443277923527,
+        "fairness_value": 0.29127198777525787,
+        "prior_beliefs": {
+          "foreign_policy": -0.167,
+          "immigration": 0.329,
+          "education": -0.829
+        },
+        "timestamp": "2025-10-11T01:21:09.119277",
+        "religion": "Catholic",
+        "demeanour": "Energetic and sociable, but still developing professional focus.",
+        "interests": [
+          "Football",
+          "Car tuning",
+          "Video games"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 2004 in Geneva canton; completed compulsory schooling in 2020. Currently in the third year of his electrician apprenticeship based in Bernex."
+      }
+    },
+    {
+      "id": "5382c5f7-0c38-46a1-af6c-648deac1c3e1",
+      "name": "5382c5f7-0c38-46a1-af6c-648deac1c3e1",
+      "demographics": {
+        "id": "5382c5f7-0c38-46a1-af6c-648deac1c3e1",
+        "name": "Gisela S\u00e1enz",
+        "age": 68,
+        "gender": "F",
+        "city": "Bavaud",
+        "job": "Termineur en habillage horloger CFC",
+        "company": "Barman Duroux S\u00e0rl.",
+        "education_level": "vocational_diploma",
+        "income_bracket": "middle",
+        "ethnicity": "Spanish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.981,
+        "trust_institution": 0.254,
+        "turnout_propensity": 0.016,
+        "media_diet": {
+          "social_media": 0.316,
+          "tv": 0.138,
+          "newspaper": 0.294,
+          "blogs": 0.252
+        },
+        "personality_traits": {
+          "openness": 0.772,
+          "conscientiousness": 0.735,
+          "extraversion": 0.333,
+          "agreeableness": 0.044,
+          "neuroticism": 0.546
+        },
+        "confirmation_bias": 0.8135088655560881,
+        "social_network_influence": 0.17508912705170843,
+        "risk_aversion": 0.7791425934782815,
+        "fairness_value": 0.46462289974703774,
+        "prior_beliefs": {
+          "economy": -0.413,
+          "technology": -0.912,
+          "immigration": -0.601,
+          "climate_change": -0.916,
+          "healthcare": 0.867,
+          "education": 0.031
+        },
+        "timestamp": "2025-10-11T01:21:09.121123",
+        "religion": "Catholic",
+        "demeanour": "Meticulous and patient, with decades of focused expertise.",
+        "interests": [
+          "Horology",
+          "Gardening",
+          "Spanish literature",
+          "Cross-stitching"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1957; earned her CFC as a watch case finisher in 1976. She has been employed in the Vall\u00e9e de Joux watchmaking industry for over 45 years."
+      }
+    },
+    {
+      "id": "02866dbf-d657-4be8-8970-2cb9f4058727",
+      "name": "02866dbf-d657-4be8-8970-2cb9f4058727",
+      "demographics": {
+        "id": "02866dbf-d657-4be8-8970-2cb9f4058727",
+        "name": "Paul Crevoisier",
+        "age": 83,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Retired Bank Clerk",
+        "company": "UBS (Retired)",
+        "education_level": "some_college",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_it",
+        "susceptibility": 0.357,
+        "trust_institution": 0.781,
+        "turnout_propensity": 0.866,
+        "media_diet": {
+          "social_media": 0.194,
+          "tv": 0.073,
+          "newspaper": 0.215,
+          "blogs": 0.519
+        },
+        "personality_traits": {
+          "openness": 0.743,
+          "conscientiousness": 0.895,
+          "extraversion": 0.387,
+          "agreeableness": 0.974,
+          "neuroticism": 0.496
+        },
+        "confirmation_bias": 0.4975233924936273,
+        "social_network_influence": 0.9243104666269636,
+        "risk_aversion": 0.519275853534942,
+        "fairness_value": 0.8011480874017738,
+        "prior_beliefs": {
+          "immigration": -0.795,
+          "healthcare": -0.344,
+          "education": -0.409,
+          "social_justice": -0.108,
+          "economy": 0.435,
+          "foreign_policy": -0.667
+        },
+        "timestamp": "2025-10-11T01:21:09.123621",
+        "religion": "Protestant",
+        "demeanour": "Principled and traditional, valuing community and established order.",
+        "interests": [
+          "Local politics",
+          "Hiking in Ticino",
+          "Chess",
+          "Historical novels"
+        ],
+        "sector": "Finance",
+        "backstory": "Born 1942 in La Chaux-de-Fonds; worked as a bank clerk for 45 years. Relocated to Lugano upon retirement in 2007 to be closer to family."
+      }
+    },
+    {
+      "id": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+      "name": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+      "demographics": {
+        "id": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+        "name": "Mathilde du Bouvier",
+        "age": 33,
+        "gender": "F",
+        "city": "Oberwil",
+        "job": "Producer, radio",
+        "company": "Scherrer AG",
+        "education_level": "master_degree",
+        "income_bracket": "high",
+        "ethnicity": "French",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.275,
+        "trust_institution": 0.98,
+        "turnout_propensity": 0.948,
+        "media_diet": {
+          "social_media": 0.04,
+          "tv": 0.34,
+          "newspaper": 0.194,
+          "blogs": 0.427
+        },
+        "personality_traits": {
+          "openness": 0.679,
+          "conscientiousness": 0.953,
+          "extraversion": 0.143,
+          "agreeableness": 0.608,
+          "neuroticism": 0.781
+        },
+        "confirmation_bias": 0.034798965798542025,
+        "social_network_influence": 0.06723336306210881,
+        "risk_aversion": 0.7785153735068654,
+        "fairness_value": 0.36632847310714856,
+        "prior_beliefs": {
+          "climate_change": -0.112,
+          "education": -0.846,
+          "immigration": -0.725,
+          "healthcare": -0.266,
+          "economy": -0.371,
+          "foreign_policy": -0.443
+        },
+        "timestamp": "2025-10-11T01:21:09.125360",
+        "religion": "None",
+        "demeanour": "Articulate and deadline-driven, with a keen ear for compelling audio content.",
+        "interests": [
+          "Podcasting",
+          "Contemporary art",
+          "Urban exploration",
+          "Public broadcasting"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1992; earned her MA in Media Studies from the University of Zurich in 2016. Joined a major public broadcaster as a radio producer in 2018, recently leading a successful digital content initiative."
+      }
+    },
+    {
+      "id": "32fa41d7-6b9e-4a36-a0c6-9ba13160992d",
+      "name": "32fa41d7-6b9e-4a36-a0c6-9ba13160992d",
+      "demographics": {
+        "id": "32fa41d7-6b9e-4a36-a0c6-9ba13160992d",
+        "name": "Federico Opizzi",
+        "age": 66,
+        "gender": "M",
+        "city": "Yverdon-les-Bains",
+        "job": "Monteur de faux plafonds avec brevet f\u00e9d\u00e9ral",
+        "company": "Deshusses",
+        "education_level": "federal_diploma",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Southern European",
+        "country": "CH_fr",
+        "susceptibility": 0.262,
+        "trust_institution": 0.26,
+        "turnout_propensity": 0.446,
+        "media_diet": {
+          "social_media": 0.37,
+          "tv": 0.106,
+          "newspaper": 0.341,
+          "blogs": 0.183
+        },
+        "personality_traits": {
+          "openness": 0.123,
+          "conscientiousness": 0.853,
+          "extraversion": 0.452,
+          "agreeableness": 0.899,
+          "neuroticism": 0.445
+        },
+        "confirmation_bias": 0.08779074110473106,
+        "social_network_influence": 0.6819292602506372,
+        "risk_aversion": 0.8455212189746995,
+        "fairness_value": 0.31958777209997014,
+        "prior_beliefs": {
+          "immigration": 0.703,
+          "education": 0.424,
+          "technology": 0.855,
+          "economy": 0.275,
+          "foreign_policy": 0.587
+        },
+        "timestamp": "2025-10-11T01:21:09.127054",
+        "religion": "Catholic",
+        "demeanour": "Practical and reliable, with deep pride in his skilled craftsmanship.",
+        "interests": [
+          "Fishing on Lake Neuch\u00e2tel",
+          "Home renovation",
+          "Cycling"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 1959; gained his federal diploma in ceiling installation in his early twenties. He has worked as a specialist contractor in the Vaud canton for over 35 years."
+      }
+    }
+  ]
+}
