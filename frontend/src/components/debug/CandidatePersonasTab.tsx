@@ -1,14 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useCandidatePersonas } from '@/lib/DataStore';
+import { useCandidatePersonas, useSimulationMetadata } from '@/lib/DataStore';
 import { CandidatePersona } from '@/lib/data';
 
 export default function CandidatePersonasTab() {
     const personas = useCandidatePersonas();
+    const metadata = useSimulationMetadata();
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedCandidate, setSelectedCandidate] = useState<CandidatePersona | null>(null);
     const itemsPerPage = 6;
+
+    // Get candidate names for color assignment (same logic as discussion tab)
+    const candidateNames = personas.map(persona => persona.name);
 
     // Update selectedCandidate when personas data changes (epoch change)
     useEffect(() => {
@@ -28,6 +32,13 @@ export default function CandidatePersonasTab() {
     const currentPersonas = personas.slice(startIndex, endIndex);
 
     const getTopicTitle = (topicId: string) => {
+        // First try to find the topic in metadata
+        const topic = metadata?.topics.find(t => t.id === topicId);
+        if (topic) {
+            return topic.title;
+        }
+        
+        // Fallback to hardcoded titles
         const titles: { [key: string]: string } = {
             'topic_1': 'Healthcare Reform',
             'topic_2': 'Climate Change and Energy Policy',
@@ -60,14 +71,30 @@ export default function CandidatePersonasTab() {
                     </div>
 
                     <div className="bg-gray-50 rounded-lg p-6">
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="mb-6">
                             <h3 className="text-2xl font-bold text-gray-900">{selectedCandidate.name}</h3>
-                            <span className="text-sm text-gray-500">Age {selectedCandidate.age}</span>
                         </div>
 
-                        {/* Policy Positions */}
+                        {/* Character Information */}
                         <div className="mb-8">
-                            <h4 className="text-lg font-semibold text-gray-900 mb-4">Policy Positions</h4>
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4">Character Profile</h4>
+                            <div className="bg-white rounded-lg p-4 border border-gray-200">
+                                {(() => {
+                                    const candidateMetadata = metadata?.candidates.find(c => c.id === selectedCandidate.id);
+                                    return candidateMetadata ? (
+                                        <p className="text-gray-700 text-sm leading-relaxed">
+                                            {candidateMetadata.character}
+                                        </p>
+                                    ) : (
+                                        <p className="text-gray-500 text-sm">No character information available</p>
+                                    );
+                                })()}
+                            </div>
+                        </div>
+
+                        {/* Current Policy Positions */}
+                        <div className="mb-8">
+                            <h4 className="text-lg font-semibold text-gray-900 mb-4">Current Policy Positions</h4>
                             <div className="space-y-6">
                                 {Object.entries(selectedCandidate.policy_positions).map(([topicId, position]) => (
                                     <div key={topicId} className="bg-white rounded-lg p-4 border border-gray-200">
@@ -78,20 +105,30 @@ export default function CandidatePersonasTab() {
                             </div>
                         </div>
 
+                        {/* Initial Policy Positions */}
+                        {(() => {
+                            const candidateMetadata = metadata?.candidates.find(c => c.id === selectedCandidate.id);
+                            return candidateMetadata && Object.keys(candidateMetadata.initial_policy_positions).length > 0 ? (
+                                <div className="mb-8">
+                                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Initial Policy Positions</h4>
+                                    <div className="space-y-6">
+                                        {Object.entries(candidateMetadata.initial_policy_positions).map(([topicId, position]) => (
+                                            <div key={topicId} className="bg-white rounded-lg p-4 border border-gray-200">
+                                                <h5 className="font-medium text-gray-900 mb-2">{getTopicTitle(topicId)}</h5>
+                                                <p className="text-gray-700 text-sm leading-relaxed">{position}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : null;
+                        })()}
+
                         {/* Reflections */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="bg-white rounded-lg p-4 border border-gray-200">
-                                <h4 className="font-semibold text-gray-900 mb-3">Social Media Reflection</h4>
-                                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
-                                    {selectedCandidate.social_media_reflection}
-                                </p>
-                            </div>
-                            <div className="bg-white rounded-lg p-4 border border-gray-200">
-                                <h4 className="font-semibold text-gray-900 mb-3">Debate Reflection</h4>
-                                <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
-                                    {selectedCandidate.debate_reflection}
-                                </p>
-                            </div>
+                        <div className="bg-white rounded-lg p-4 border border-gray-200">
+                            <h4 className="font-semibold text-gray-900 mb-3">State Memory & Reflection</h4>
+                            <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+                                {selectedCandidate.social_media_reflection}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -99,36 +136,37 @@ export default function CandidatePersonasTab() {
                 /* Candidates Grid */
                 <div className="p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {currentPersonas.map((persona) => (
-                            <div key={persona.id} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                                <div className="flex items-center justify-between mb-3">
-                                    <h3 className="text-lg font-semibold text-gray-900">{persona.name}</h3>
-                                    <span className="text-sm text-gray-500">Age {persona.age}</span>
-                                </div>
-                                <div className="space-y-2">
-                                    <div className="flex items-center space-x-2">
-                                        <span className="text-sm text-gray-600">Education:</span>
-                                        <span className="text-sm font-medium text-gray-900">
-                                            {persona.education}
-                                        </span>
+                        {currentPersonas.map((persona) => {
+                            // Determine color based on candidate position (same logic as discussion tab)
+                            const isCandidate1 = persona.name === candidateNames[0];
+                            const isCandidate2 = persona.name === candidateNames[1];
+                            
+                            let cardClass = 'bg-gray-50 border-gray-200';
+                            let hoverClass = 'hover:bg-gray-100';
+                            let textClass = 'text-gray-900';
+                            
+                            if (isCandidate1) {
+                                cardClass = 'bg-blue-50 border-blue-200';
+                                hoverClass = 'hover:bg-blue-100';
+                                textClass = 'text-blue-900';
+                            } else if (isCandidate2) {
+                                cardClass = 'bg-red-50 border-red-200';
+                                hoverClass = 'hover:bg-red-100';
+                                textClass = 'text-red-900';
+                            }
+                            
+                            return (
+                                <div 
+                                    key={persona.id} 
+                                    onClick={() => setSelectedCandidate(persona)}
+                                    className={`${cardClass} rounded-lg p-4 border cursor-pointer ${hoverClass} hover:shadow-md transition-all duration-200`}
+                                >
+                                    <div className="text-center">
+                                        <h3 className={`text-lg font-semibold ${textClass}`}>{persona.name}</h3>
                                     </div>
-                                    <div className="flex items-center space-x-2">
-                                        <span className="text-sm text-gray-600">Location:</span>
-                                        <span className="text-sm font-medium text-gray-900">
-                                            {persona.location}
-                                        </span>
-                                    </div>
                                 </div>
-                                <div className="mt-4">
-                                    <button
-                                        onClick={() => setSelectedCandidate(persona)}
-                                        className="w-full px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                                    >
-                                        View Details
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {currentPersonas.length === 0 && (

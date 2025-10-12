@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRawData } from '@/lib/DataStore';
+import { useRawData, useSimulationMetadata } from '@/lib/DataStore';
 
 export default function DiscussionTab() {
     const epochData = useRawData();
+    const metadata = useSimulationMetadata();
     const [expandedDebates, setExpandedDebates] = useState<Set<number>>(new Set([0])); // First debate expanded by default
 
     const toggleDebate = (debateIndex: number) => {
@@ -41,9 +42,17 @@ export default function DiscussionTab() {
             <div className="h-[70vh] overflow-y-auto p-6 space-y-4">
                 {epochData.debates.map((debate, debateIndex) => {
                     const isExpanded = expandedDebates.has(debateIndex);
+                    
+                    // Find topic information from metadata
+                    const topic = metadata?.topics.find(t => t.id === debate.topic_id);
+                    
+                    // Get candidate names from metadata
                     const candidateNames = [...new Set(debate.statements
-                        .filter(s => s.type === 'candidate')
-                        .map(s => s.candidate_name)
+                        .filter(s => s.type === 'candidate' && s.candidate_id)
+                        .map(s => {
+                            const candidate = metadata?.candidates.find(c => c.id === s.candidate_id);
+                            return candidate?.name || s.candidate_id;
+                        })
                         .filter(Boolean))];
 
                     return (
@@ -56,10 +65,13 @@ export default function DiscussionTab() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex-1">
                                         <h3 className="text-lg font-semibold text-gray-900">
-                                            {debate.topic.title}
+                                            {topic?.title || debate.topic_id}
                                         </h3>
                                         <p className="text-sm text-gray-600 mt-1">
-                                            {debate.topic.description}
+                                            {topic?.description || 'No description available'}
+                                        </p>
+                                        <p className="text-sm text-blue-600 mt-1 font-medium">
+                                            Question: {debate.question.text}
                                         </p>
                                     </div>
                                     <div className="ml-4">
@@ -81,8 +93,16 @@ export default function DiscussionTab() {
                                 <div className="p-4 space-y-3">
                                     {debate.statements.map((statement, statementIndex) => {
                                         const isModerator = statement.type === 'mediator';
-                                        const isCandidate1 = statement.candidate_name === candidateNames[0];
-                                        const isCandidate2 = statement.candidate_name === candidateNames[1];
+                                        
+                                        // Get candidate name from metadata
+                                        let candidateName = 'Moderator';
+                                        if (statement.type === 'candidate' && statement.candidate_id) {
+                                            const candidate = metadata?.candidates.find(c => c.id === statement.candidate_id);
+                                            candidateName = candidate?.name || statement.candidate_id;
+                                        }
+                                        
+                                        const isCandidate1 = candidateName === candidateNames[0];
+                                        const isCandidate2 = candidateName === candidateNames[1];
 
                                         // Determine styling based on speaker
                                         let alignmentClass = 'justify-start';
@@ -112,7 +132,7 @@ export default function DiscussionTab() {
                                                 <div className={`max-w-2xl px-4 py-3 rounded-2xl ${bubbleClass}`}>
                                                     <div className="flex items-center space-x-2 mb-2">
                                                         <span className={`text-sm font-medium ${authorColor}`}>
-                                                            {statement.candidate_name || 'Moderator'}
+                                                            {candidateName}
                                                         </span>
                                                         <span className="text-xs text-gray-500">
                                                             {statement.type === 'mediator' ? 'Moderator' : 'Candidate'}
