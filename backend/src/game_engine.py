@@ -67,6 +67,9 @@ class GameEngine:
         if self.simulation_file is None:
             self.initialize_simulation_output()
 
+        # Serialize constant metadata once at the start
+        self._serialize_simulation_metadata()
+
         for epoch in range(self.config.num_epochs):
             self.current_epoch = epoch
             self._run_epoch()
@@ -78,16 +81,25 @@ class GameEngine:
     def _run_epoch(self) -> None:
         self._candidates_read_social_media()
 
-        for topic_index in range(self.config.topics_per_epoch):
+        for topic_index in range(len(self.mediator.topics)):
             self._conduct_debate_on_topic(topic_index)
 
         self._population_consume_debate()
-        self._personas_update_beliefs_from_debate()
+        self.population.update_beliefs_from_debate(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
         self._personas_chat_with_peers()
-        self._personas_update_beliefs_from_chat()
+        self.population.update_beliefs_from_chat(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
         self._personas_post_to_social_media()
         self._population_react_to_posts()
-        self._personas_update_beliefs_from_social()
+        self.population.update_beliefs_from_social_media(
+            max_concurrent=self.config.max_concurrent,
+            max_change_percentage=self.config.max_change_percentage
+        )
     
     def _candidates_read_social_media(self) -> None:
         logger.info(f"Candidates read latest posts")
@@ -175,28 +187,17 @@ class GameEngine:
             self.population.consume_debate_content(latest_transcript)
             logger.info(f"Population consumed debate on topic: {latest_transcript.topic.title}")
 
-    def _personas_update_beliefs_from_debate(self) -> None:
-        """Update all personas' beliefs based on debate knowledge."""
-        for persona in self.population.get_all_personas():
-            persona.update_beliefs(knowledge_category="debate_knowledge")
-        logger.info("All personas updated beliefs from debate")
-
     def _personas_chat_with_peers(self) -> None:
         """Orchestrate paired conversations between personas."""
-        conversations = self.population.chat_with_peers()
+        conversations = self.population.chat_with_peers(
+            num_rounds_mean=self.config.num_rounds_mean,
+            num_rounds_variance=self.config.num_rounds_variance
+        )
         logger.info(f"Completed {len(conversations)} paired conversations")
 
-    def _personas_update_beliefs_from_chat(self) -> None:
-        """Update all personas' beliefs based on chat conversations."""
-        for persona in self.population.get_all_personas():
-            if persona.chats:  # Only update if they chatted
-                persona.update_beliefs(knowledge_category="chats")
-        logger.info("All personas updated beliefs from chats")
-
-    
     def _personas_post_to_social_media(self) -> None:
         """Have personas create and publish social media posts."""
-        posts = self.population.create_social_media_posts()
+        posts = self.population.create_social_media_posts(post_probability=self.config.post_probability)
         if self.social_media:
             # Add posts to social media platform and get their IDs
             post_ids = []
@@ -226,28 +227,102 @@ class GameEngine:
 
             reaction_stats = self.population.react_to_posts(
                 posts_as_dicts,
-                self.social_media
+                self.social_media,
+                reaction_probability=self.config.reaction_probability
             )
             logger.info(f"Reactions: {reaction_stats['total_reactions']} total "
                        f"({reaction_stats['thumbs_up']} 👍, {reaction_stats['thumbs_down']} 👎)")
-
-    def _personas_update_beliefs_from_social(self) -> None:
-        """Update all personas' beliefs based on social media knowledge."""
-        for persona in self.population.get_all_personas():
-            if persona.social_media_knowledge:  # Only update if they've seen posts
-                persona.update_beliefs(knowledge_category="social_media_knowledge")
-        logger.info("All personas updated beliefs from social media")
     
+    def _serialize_simulation_metadata(self) -> None:
+        """
+        Serialize constant simulation metadata to metadata.json.
+
+        This includes:
+        - Topics: Full topic definitions (id, title, description)
+        - Candidates: Static profile (id, name, character) + initial policy positions
+        - Population: Full demographics/features for each persona
+        - Config: Simulation configuration parameters
+
+        This file is written once at the start of the simulation.
+        """
+        if self.simulation_dir is None:
+            logger.warning("Simulation directory not initialized. Call initialize_simulation_output() first.")
+            return
+
+        metadata = {
+            "simulation_id": self.simulation_id,
+            "config": {
+                "population_size": self.config.population_size,
+                "questions_per_topic": self.config.questions_per_topic,
+                "turns_per_question": self.config.turns_per_question,
+                "num_epochs": self.config.num_epochs,
+                "random_seed": self.config.random_seed
+            },
+            "topics": self._serialize_topics(),
+            "candidates": self._serialize_candidate_profiles(),
+            "population": self._serialize_population_profiles()
+        }
+
+        metadata_file = self.simulation_dir / "metadata.json"
+        with open(metadata_file, 'w') as f:
+            json.dump(metadata, f, cls=DataclassJSONEncoder, indent=2)
+
+        logger.info(f"Serialized simulation metadata to {metadata_file}")
+
+    def _serialize_topics(self) -> List[Dict[str, Any]]:
+        """Serialize all topic definitions."""
+        if not self.mediator or not self.mediator.topics:
+            return []
+
+        topics = []
+        for topic in self.mediator.topics:
+            topics.append({
+                "id": topic.id,
+                "title": topic.title,
+                "description": topic.description
+            })
+
+        return topics
+
+    def _serialize_candidate_profiles(self) -> List[Dict[str, Any]]:
+        """Serialize candidate static profiles including initial policy positions."""
+        candidates = []
+
+        for candidate in self.candidates:
+            candidate_profile = {
+                "id": candidate.id,
+                "name": candidate.name,
+                "character": candidate.character,
+                "initial_policy_positions": dict(candidate.state.policy_positions)
+            }
+            candidates.append(candidate_profile)
+
+        return candidates
+
+    def _serialize_population_profiles(self) -> List[Dict[str, Any]]:
+        """Serialize population demographics and static features."""
+        profiles = []
+
+        for persona in self.population.personas:
+            profile = {
+                "id": persona.id,
+                "name": getattr(persona, 'name', persona.id),
+                "demographics": getattr(persona, 'features', {})
+            }
+            profiles.append(profile)
+
+        return profiles
+
     def _serialize_epoch_state(self) -> None:
         """
         Serialize the current epoch state and append it to the epochs.jsonl file.
 
-        The format matches the structure in backend/api/epoch.json with the following fields:
+        The format includes only dynamic data that changes each epoch:
         - epoch: Current epoch number
-        - debates: List of debate transcripts for this epoch
+        - debates: List of debate transcripts for this epoch (with topic_id references only)
         - newsfeed: Social media posts from this epoch
-        - candidates: Candidate states including policy positions and reflections
-        - population_votes: Population voting intentions (if available)
+        - candidates: Candidate dynamic state (policy positions and memory)
+        - population_votes: Population dynamic state (beliefs and votes)
         """
         if self.simulation_file is None:
             logger.warning("Simulation file not initialized. Call initialize_simulation_output() first.")
@@ -269,16 +344,16 @@ class GameEngine:
         logger.info(f"Serialized epoch {self.current_epoch} to {self.simulation_file}")
 
     def _serialize_debates(self) -> List[Dict[str, Any]]:
-        """Serialize debate transcripts for the current epoch."""
+        """Serialize debate transcripts for the current epoch (with topic_id references only)."""
         debates = []
 
         for transcript in self.debate_transcripts:
             if transcript.epoch == self.current_epoch:
                 debate_data = {
-                    "topic": {
-                        "id": transcript.topic.id,
-                        "title": transcript.topic.title,
-                        "description": transcript.topic.description
+                    "topic_id": transcript.topic.id,
+                    "question": {
+                        "id": transcript.question.id,
+                        "text": transcript.question.text
                     },
                     "statements": []
                 }
@@ -294,7 +369,6 @@ class GameEngine:
                         debate_data["statements"].append({
                             "type": "candidate",
                             "candidate_id": statement.candidate_id,
-                            "candidate_name": statement.candidate_name,
                             "statement": statement.statement
                         })
 
@@ -325,13 +399,12 @@ class GameEngine:
         return {"posts": posts}
 
     def _serialize_candidates(self) -> List[Dict[str, Any]]:
-        """Serialize candidate states including policy positions and reflections."""
+        """Serialize candidate dynamic state (policy positions and memory only)."""
         candidates = []
 
         for candidate in self.candidates:
             candidate_data = {
                 "id": candidate.id,
-                "name": candidate.name,
                 "policy_positions": candidate.state.policy_positions,
                 "state_memory": candidate.state.memory
             }
@@ -341,28 +414,7 @@ class GameEngine:
 
     def _serialize_population_votes(self) -> List[Dict[str, Any]]:
         """Serialize population voting intentions and belief states."""
-        votes = []
-
-        for persona in self.population.personas:
-            persona_data = {
-                "id": persona.id,
-                "name": getattr(persona, 'name', persona.id),
-                "demographics": getattr(persona, 'features', {}),
-                "policy_positions": {},
-                "overall_vote": ""
-            }
-
-            # Add beliefs as policy positions with reasoning
-            if hasattr(persona, 'beliefs') and persona.beliefs:
-                for topic_id, belief in persona.beliefs.items():
-                    persona_data["policy_positions"][topic_id] = {
-                        "reasoning": belief,
-                        "vote": ""  # Can be populated if vote tracking is implemented
-                    }
-
-            votes.append(persona_data)
-
-        return votes
+        return self.population.get_voting_data()
 
     def _finalize_experiment(self) -> Dict[str, Any]:
         pass

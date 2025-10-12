@@ -4,7 +4,7 @@
 
 ## Opening Scene
 
-The air hangs heavy with the scent of sausages and simmering fear. Sunlight glints off the freshly paved cobblestones of Unter den Linden, a stark contrast to the shadows that cling to the hidden alleyways. Banners celebrating the “new Germany” flap in the summer breeze, their vibrant colors a propaganda façade. Beneath the veneer of Olympic cheer, the whispers of dissent weave through the city. Your senses prickle with the knowledge that every glance, every conversation, could be your last act of freedom. A street musician’s melancholic melody, hastily silenced by a stern gaze, echoes the precariousness of your existence.
+The air hangs heavy with the scent of sausages and simmering fear. Sunlight glints off the freshly paved cobblestones of Unter den Linden, a stark contrast to the shadows that cling to the hidden alleyways. Banners celebrating the 'new Germany' flap in the summer breeze, their vibrant colors a propaganda façade. Beneath the veneer of Olympic cheer, the whispers of dissent weave through the city. Your senses prickle with the knowledge that every glance, every conversation, could be your last act of freedom. A street musician's melancholic melody, hastily silenced by a stern gaze, echoes the precariousness of your existence.
 
 ## Key Figures
 
@@ -12,7 +12,7 @@ The air hangs heavy with the scent of sausages and simmering fear. Sunlight glin
 
 *   **Candidate A**: **Elias Becker**, a painter, idealistic but prone to recklessness. He yearns to expose the regime's lies through his art, but his impulsive nature often puts him and others at risk. He is ambitious and charismatic.
 
-*   **Candidate B**: **Greta Müller**, a sculptor, pragmatic and cautious. She prioritizes the movement’s survival, advocating for subtle resistance. She has a strong moral compass and is incredibly resourceful.
+*   **Candidate B**: **Greta Müller**, a sculptor, pragmatic and cautious. She prioritizes the movement's survival, advocating for subtle resistance. She has a strong moral compass and is incredibly resourceful.
 
 *   **Civic Anchors**:
     *   **Herr Schmidt (Local Paper Editor)**: Secretly sympathetic, but walks a tightrope. He offers coded messages within his reporting.
@@ -31,3 +31,6 @@ The air hangs heavy with the scent of sausages and simmering fear. Sunlight glin
 *   **Day 3**: Forced public art display/propaganda. Hidden messages must be delivered. A network contact is compromised, the group must react.
 *   **Day 5**: A protest is planned. Difficult choices: risk exposure or maintain secrecy. The group struggles to navigate the delicate balance of the media landscape.
 *   **Day 7**: First major setback. A key member is arrested, and the group has to decide how to proceed, either sacrificing themselves to the cause or abandoning their values.
+
+
+

@@ -1,0 +1,2488 @@
+{
+  "simulation_id": "20251012_012243",
+  "config": {
+    "population_size": 50,
+    "questions_per_topic": 2,
+    "turns_per_question": 2,
+    "num_epochs": 3,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Healthcare Reform",
+      "description": "Should the government implement universal healthcare?"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Alice Johnson",
+      "character": "Progressive left-leaning, prioritizes social programs and government intervention",
+      "initial_policy_positions": {
+        "topic_1": "Absolutely! As Alice Johnson, I firmly believe healthcare is a fundamental right, not a privilege. I advocate for universal healthcare through a single-payer system, often called \"Medicare for All\". This will ensure everyone has access to quality care, regardless of their income or pre-existing conditions, and will simplify the system and drive down costs."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Bob Smith",
+      "character": "Conservative right-leaning, values free market and limited government",
+      "initial_policy_positions": {
+        "topic_1": "Healthcare is a critical issue, and the current system needs reform. I believe the best approach is a free-market solution, encouraging competition among providers and empowering individuals with choices. Government-mandated universal healthcare leads to inefficiency and higher costs; instead, we should focus on removing barriers to entry and promoting individual responsibility in healthcare decisions."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "db4cc175-67a2-426b-bd10-19ee7024054c",
+      "name": "db4cc175-67a2-426b-bd10-19ee7024054c",
+      "demographics": {
+        "id": "db4cc175-67a2-426b-bd10-19ee7024054c",
+        "name": "Tammy Pena",
+        "age": 89,
+        "gender": "M",
+        "city": "Chenaux-sur-Cousin",
+        "job": "Marbrier du b\u00e2timent CFC (Champ professionnel travail de la pierre)",
+        "company": "Del\u00e8ze Robert SA",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.884,
+        "trust_institution": 0.69,
+        "turnout_propensity": 0.807,
+        "media_diet": {
+          "social_media": 0.256,
+          "tv": 0.103,
+          "newspaper": 0.318,
+          "blogs": 0.323
+        },
+        "personality_traits": {
+          "openness": 0.367,
+          "conscientiousness": 0.408,
+          "extraversion": 0.777,
+          "agreeableness": 0.496,
+          "neuroticism": 0.05
+        },
+        "confirmation_bias": 0.38042941348813586,
+        "social_network_influence": 0.903218116558692,
+        "risk_aversion": 0.7889858276268737,
+        "fairness_value": 0.36188701276437363,
+        "prior_beliefs": {
+          "education": 0.449,
+          "economy": -0.439,
+          "immigration": 0.311,
+          "technology": 0.793,
+          "social_justice": 0.95
+        },
+        "timestamp": "2025-10-11T01:21:11.407181"
+      }
+    },
+    {
+      "id": "a8a7033a-c582-4b32-904c-114526e08a5f",
+      "name": "a8a7033a-c582-4b32-904c-114526e08a5f",
+      "demographics": {
+        "id": "a8a7033a-c582-4b32-904c-114526e08a5f",
+        "name": "Arsenio Montanari",
+        "age": 61,
+        "gender": "M",
+        "city": "Aarau",
+        "job": "Embryologist, clinical",
+        "company": "Lutz AG",
+        "education_level": "master_degree",
+        "income_bracket": "low",
+        "ethnicity": "Italian",
+        "cultural_background": "Southern European",
+        "country": "CH_de",
+        "susceptibility": 0.885,
+        "trust_institution": 0.52,
+        "turnout_propensity": 0.415,
+        "media_diet": {
+          "social_media": 0.308,
+          "tv": 0.128,
+          "newspaper": 0.347,
+          "blogs": 0.217
+        },
+        "personality_traits": {
+          "openness": 0.533,
+          "conscientiousness": 0.767,
+          "extraversion": 0.404,
+          "agreeableness": 0.706,
+          "neuroticism": 0.665
+        },
+        "confirmation_bias": 0.17694116225036194,
+        "social_network_influence": 0.18066520169266786,
+        "risk_aversion": 0.3500877058511941,
+        "fairness_value": 0.46426142991221586,
+        "prior_beliefs": {
+          "foreign_policy": -0.729,
+          "education": -0.69,
+          "social_justice": 0.142,
+          "economy": -0.935,
+          "healthcare": -0.715
+        },
+        "timestamp": "2025-10-11T01:21:10.758066"
+      }
+    },
+    {
+      "id": "5f8f1732-ff87-4917-aba2-94203b94495d",
+      "name": "5f8f1732-ff87-4917-aba2-94203b94495d",
+      "demographics": {
+        "id": "5f8f1732-ff87-4917-aba2-94203b94495d",
+        "name": "Raffael L\u00fcthi",
+        "age": 28,
+        "gender": "M",
+        "city": "Colefort",
+        "job": "Restaurant manager, fast food",
+        "company": "Macias, Porter and Morgan",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_it",
+        "susceptibility": 0.449,
+        "trust_institution": 0.429,
+        "turnout_propensity": 0.136,
+        "media_diet": {
+          "social_media": 0.206,
+          "tv": 0.412,
+          "newspaper": 0.316,
+          "blogs": 0.066
+        },
+        "personality_traits": {
+          "openness": 0.946,
+          "conscientiousness": 0.86,
+          "extraversion": 0.706,
+          "agreeableness": 0.943,
+          "neuroticism": 0.208
+        },
+        "confirmation_bias": 0.5484898534930879,
+        "social_network_influence": 0.9208468526667858,
+        "risk_aversion": 0.475887994599111,
+        "fairness_value": 0.6916285540041562,
+        "prior_beliefs": {
+          "economy": 0.215,
+          "immigration": -0.187,
+          "education": 0.344,
+          "healthcare": -0.94,
+          "foreign_policy": -0.474
+        },
+        "timestamp": "2025-10-11T01:21:11.095927"
+      }
+    },
+    {
+      "id": "040719a7-a577-4606-831e-3f158217209a",
+      "name": "040719a7-a577-4606-831e-3f158217209a",
+      "demographics": {
+        "id": "040719a7-a577-4606-831e-3f158217209a",
+        "name": "Michael Hale",
+        "age": 40,
+        "gender": "F",
+        "city": "Adliswil",
+        "job": "Publishing rights manager",
+        "company": "Jenni AG",
+        "education_level": "doctorate",
+        "income_bracket": "high",
+        "ethnicity": "Kosovan",
+        "cultural_background": "Balkan culture",
+        "country": "CH_de",
+        "susceptibility": 0.951,
+        "trust_institution": 0.568,
+        "turnout_propensity": 0.14,
+        "media_diet": {
+          "social_media": 0.416,
+          "tv": 0.494,
+          "newspaper": 0.034,
+          "blogs": 0.057
+        },
+        "personality_traits": {
+          "openness": 0.793,
+          "conscientiousness": 0.141,
+          "extraversion": 0.346,
+          "agreeableness": 0.396,
+          "neuroticism": 0.461
+        },
+        "confirmation_bias": 0.6586086015961394,
+        "social_network_influence": 0.20040653558786758,
+        "risk_aversion": 0.17206843421818563,
+        "fairness_value": 0.30752675295155696,
+        "prior_beliefs": {
+          "healthcare": -0.82,
+          "technology": -0.511,
+          "immigration": 0.369,
+          "social_justice": 0.691
+        },
+        "timestamp": "2025-10-11T01:21:10.182208"
+      }
+    },
+    {
+      "id": "b4fc21c2-f298-4c31-917e-89a39ca500be",
+      "name": "b4fc21c2-f298-4c31-917e-89a39ca500be",
+      "demographics": {
+        "id": "b4fc21c2-f298-4c31-917e-89a39ca500be",
+        "name": "P\u00e1nfilo Roca Benavente",
+        "age": 62,
+        "gender": "M",
+        "city": "La Chaux-de-Fonds",
+        "job": "Polisher (Federal VET Attestation)",
+        "company": "Thorens Grand S\u00e0rl.",
+        "education_level": "vocational_diploma",
+        "income_bracket": "middle_high",
+        "ethnicity": "Spanish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.275,
+        "trust_institution": 0.653,
+        "turnout_propensity": 0.367,
+        "media_diet": {
+          "social_media": 0.088,
+          "tv": 0.061,
+          "newspaper": 0.36,
+          "blogs": 0.492
+        },
+        "personality_traits": {
+          "openness": 0.51,
+          "conscientiousness": 0.023,
+          "extraversion": 0.573,
+          "agreeableness": 0.573,
+          "neuroticism": 0.274
+        },
+        "confirmation_bias": 0.7453592948209735,
+        "social_network_influence": 0.7943437143629715,
+        "risk_aversion": 0.1810965939161172,
+        "fairness_value": 0.4841914772983952,
+        "prior_beliefs": {
+          "education": 0.428,
+          "social_justice": 0.724,
+          "immigration": 0.075,
+          "climate_change": -0.189,
+          "economy": 0.401,
+          "technology": -0.212
+        },
+        "timestamp": "2025-10-11T01:21:09.952256",
+        "religion": "Catholic",
+        "demeanour": "Patient and steady-handed, dedicated to achieving flawless surface finishes.",
+        "interests": [
+          "watchmaking",
+          "horology history",
+          "fishing",
+          "Spanish cuisine"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1963 in Spain, he moved to Switzerland in his youth and earned his VET attestation. He has worked as a specialist polisher in the Swiss watch industry for over 40 years."
+      }
+    },
+    {
+      "id": "285f15bd-b76b-4b1d-b00c-94584f18f06d",
+      "name": "285f15bd-b76b-4b1d-b00c-94584f18f06d",
+      "demographics": {
+        "id": "285f15bd-b76b-4b1d-b00c-94584f18f06d",
+        "name": "Marcantonio Palmisano",
+        "age": 55,
+        "gender": "M",
+        "city": "Sainte Piccand",
+        "job": "Papetier",
+        "company": "Barman",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "Italian",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.426,
+        "trust_institution": 0.675,
+        "turnout_propensity": 0.767,
+        "media_diet": {
+          "social_media": 0.024,
+          "tv": 0.267,
+          "newspaper": 0.293,
+          "blogs": 0.417
+        },
+        "personality_traits": {
+          "openness": 0.447,
+          "conscientiousness": 0.298,
+          "extraversion": 0.036,
+          "agreeableness": 0.112,
+          "neuroticism": 0.732
+        },
+        "confirmation_bias": 0.5312685350975417,
+        "social_network_influence": 0.39621456897725693,
+        "risk_aversion": 0.17523364785348516,
+        "fairness_value": 0.5349852002752764,
+        "prior_beliefs": {
+          "economy": 0.785,
+          "foreign_policy": -0.309,
+          "healthcare": -0.084,
+          "technology": 0.234
+        },
+        "timestamp": "2025-10-11T01:21:10.191791"
+      }
+    },
+    {
+      "id": "39aa56c8-428e-4e73-9fd1-049b43292aad",
+      "name": "39aa56c8-428e-4e73-9fd1-049b43292aad",
+      "demographics": {
+        "id": "39aa56c8-428e-4e73-9fd1-049b43292aad",
+        "name": "Univ.Prof. Milica Prei\u00df B.A.",
+        "age": 23,
+        "gender": "M",
+        "city": "Broquet-sur-Paschoud",
+        "job": "Libraire CFC",
+        "company": "Cattin Botteron SA",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_fr",
+        "susceptibility": 0.77,
+        "trust_institution": 0.721,
+        "turnout_propensity": 0.97,
+        "media_diet": {
+          "social_media": 0.285,
+          "tv": 0.07,
+          "newspaper": 0.297,
+          "blogs": 0.349
+        },
+        "personality_traits": {
+          "openness": 0.853,
+          "conscientiousness": 0.316,
+          "extraversion": 0.346,
+          "agreeableness": 0.564,
+          "neuroticism": 0.643
+        },
+        "confirmation_bias": 0.14604877870422506,
+        "social_network_influence": 0.7198116589444801,
+        "risk_aversion": 0.26943234862528465,
+        "fairness_value": 0.0853384068123284,
+        "prior_beliefs": {
+          "social_justice": 0.975,
+          "foreign_policy": 0.926,
+          "immigration": -0.088
+        },
+        "timestamp": "2025-10-11T01:21:11.693876"
+      }
+    },
+    {
+      "id": "8ee5456c-12ce-4c9c-ad41-d032175d7121",
+      "name": "8ee5456c-12ce-4c9c-ad41-d032175d7121",
+      "demographics": {
+        "id": "8ee5456c-12ce-4c9c-ad41-d032175d7121",
+        "name": "Val\u00e9rie Quartier",
+        "age": 79,
+        "gender": "F",
+        "city": "Thorens",
+        "job": "Expert en soins intensifs dipl\u00f4m\u00e9 EPD ES",
+        "company": "Julliard",
+        "education_level": "high_school",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.134,
+        "trust_institution": 0.852,
+        "turnout_propensity": 0.671,
+        "media_diet": {
+          "social_media": 0.278,
+          "tv": 0.209,
+          "newspaper": 0.284,
+          "blogs": 0.228
+        },
+        "personality_traits": {
+          "openness": 0.237,
+          "conscientiousness": 0.131,
+          "extraversion": 0.874,
+          "agreeableness": 0.001,
+          "neuroticism": 0.436
+        },
+        "confirmation_bias": 0.07315755123392376,
+        "social_network_influence": 0.04153554356963762,
+        "risk_aversion": 0.15384273271810223,
+        "fairness_value": 0.31439230298335397,
+        "prior_beliefs": {
+          "foreign_policy": 0.755,
+          "social_justice": -0.388,
+          "technology": 0.372,
+          "healthcare": 0.385,
+          "education": -0.155,
+          "immigration": 0.826
+        },
+        "timestamp": "2025-10-11T01:21:11.622755"
+      }
+    },
+    {
+      "id": "0edb3c27-b238-483f-ac02-b84320d63534",
+      "name": "0edb3c27-b238-483f-ac02-b84320d63534",
+      "demographics": {
+        "id": "0edb3c27-b238-483f-ac02-b84320d63534",
+        "name": "Michael Crawford",
+        "age": 38,
+        "gender": "M",
+        "city": "Steinhausen",
+        "job": "Magazine journalist",
+        "company": "Schwab GmbH",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-French",
+        "country": "CH_de",
+        "susceptibility": 0.293,
+        "trust_institution": 0.881,
+        "turnout_propensity": 0.058,
+        "media_diet": {
+          "social_media": 0.3,
+          "tv": 0.266,
+          "newspaper": 0.338,
+          "blogs": 0.095
+        },
+        "personality_traits": {
+          "openness": 0.883,
+          "conscientiousness": 0.463,
+          "extraversion": 0.776,
+          "agreeableness": 0.102,
+          "neuroticism": 0.917
+        },
+        "confirmation_bias": 0.6421931135361068,
+        "social_network_influence": 0.6909838206707852,
+        "risk_aversion": 0.32111492622524695,
+        "fairness_value": 0.2604501054728029,
+        "prior_beliefs": {
+          "economy": -0.227,
+          "social_justice": 0.28,
+          "climate_change": -0.545
+        },
+        "timestamp": "2025-10-11T01:21:10.959345"
+      }
+    },
+    {
+      "id": "5e5ef88a-a692-4041-a3cd-d6508c31e73b",
+      "name": "5e5ef88a-a692-4041-a3cd-d6508c31e73b",
+      "demographics": {
+        "id": "5e5ef88a-a692-4041-a3cd-d6508c31e73b",
+        "name": "Jamie Mclaughlin",
+        "age": 30,
+        "gender": "M",
+        "city": "Vienne-la-Ville",
+        "job": "Bijoutier, ma\u00eetre",
+        "company": "Deshusses",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.76,
+        "trust_institution": 0.293,
+        "turnout_propensity": 0.787,
+        "media_diet": {
+          "social_media": 0.48,
+          "tv": 0.098,
+          "newspaper": 0.077,
+          "blogs": 0.345
+        },
+        "personality_traits": {
+          "openness": 0.015,
+          "conscientiousness": 0.342,
+          "extraversion": 0.215,
+          "agreeableness": 0.588,
+          "neuroticism": 0.755
+        },
+        "confirmation_bias": 0.1419160735186178,
+        "social_network_influence": 0.7325683825750826,
+        "risk_aversion": 0.9365192179703634,
+        "fairness_value": 0.7304253653959755,
+        "prior_beliefs": {
+          "education": -0.248,
+          "foreign_policy": -0.955,
+          "healthcare": 0.349,
+          "technology": -0.159,
+          "immigration": 0.251
+        },
+        "timestamp": "2025-10-11T01:21:11.046600"
+      }
+    },
+    {
+      "id": "a696092d-9247-420a-9dba-6a765ce2e952",
+      "name": "a696092d-9247-420a-9dba-6a765ce2e952",
+      "demographics": {
+        "id": "a696092d-9247-420a-9dba-6a765ce2e952",
+        "name": "Malika Hofstetter",
+        "age": 35,
+        "gender": "M",
+        "city": "Privet",
+        "job": "Mentor d'entreprise avec brevet f\u00e9d\u00e9ral",
+        "company": "Beurret",
+        "education_level": "master_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.323,
+        "trust_institution": 0.622,
+        "turnout_propensity": 0.48,
+        "media_diet": {
+          "social_media": 0.097,
+          "tv": 0.205,
+          "newspaper": 0.383,
+          "blogs": 0.315
+        },
+        "personality_traits": {
+          "openness": 0.296,
+          "conscientiousness": 0.549,
+          "extraversion": 0.188,
+          "agreeableness": 0.557,
+          "neuroticism": 0.96
+        },
+        "confirmation_bias": 0.5322010891484971,
+        "social_network_influence": 0.31708777717743997,
+        "risk_aversion": 0.924277678671776,
+        "fairness_value": 0.9184560158147103,
+        "prior_beliefs": {
+          "immigration": -0.341,
+          "technology": 0.103,
+          "healthcare": -0.623,
+          "climate_change": -0.86,
+          "foreign_policy": 0.646
+        },
+        "timestamp": "2025-10-11T01:21:11.401338"
+      }
+    },
+    {
+      "id": "1ced26e9-82d3-4921-87f4-bc8b114c553d",
+      "name": "1ced26e9-82d3-4921-87f4-bc8b114c553d",
+      "demographics": {
+        "id": "1ced26e9-82d3-4921-87f4-bc8b114c553d",
+        "name": "Wilson Neto",
+        "age": 28,
+        "gender": "M",
+        "city": "B\u00e9guelin",
+        "job": "Mentor d'entreprise avec brevet f\u00e9d\u00e9ral",
+        "company": "Julliard",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.934,
+        "trust_institution": 0.176,
+        "turnout_propensity": 0.41,
+        "media_diet": {
+          "social_media": 0.035,
+          "tv": 0.282,
+          "newspaper": 0.17,
+          "blogs": 0.513
+        },
+        "personality_traits": {
+          "openness": 0.812,
+          "conscientiousness": 0.395,
+          "extraversion": 0.442,
+          "agreeableness": 0.427,
+          "neuroticism": 0.395
+        },
+        "confirmation_bias": 0.6769817343069364,
+        "social_network_influence": 0.08981225470762044,
+        "risk_aversion": 0.5980827473836481,
+        "fairness_value": 0.1601596884589278,
+        "prior_beliefs": {
+          "social_justice": -0.003,
+          "education": 0.155,
+          "economy": -0.993
+        },
+        "timestamp": "2025-10-11T01:21:11.942852"
+      }
+    },
+    {
+      "id": "8efa4647-ff5f-441a-8f73-60f9a9377be6",
+      "name": "8efa4647-ff5f-441a-8f73-60f9a9377be6",
+      "demographics": {
+        "id": "8efa4647-ff5f-441a-8f73-60f9a9377be6",
+        "name": "Marie-Jos\u00e9 Huber",
+        "age": 18,
+        "gender": "F",
+        "city": "Amriswil",
+        "job": "Personal assistant",
+        "company": "Schwarz Haas & Cie.",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-French",
+        "country": "CH_de",
+        "susceptibility": 0.416,
+        "trust_institution": 0.891,
+        "turnout_propensity": 0.003,
+        "media_diet": {
+          "social_media": 0.21,
+          "tv": 0.384,
+          "newspaper": 0.116,
+          "blogs": 0.29
+        },
+        "personality_traits": {
+          "openness": 0.663,
+          "conscientiousness": 0.064,
+          "extraversion": 0.698,
+          "agreeableness": 0.209,
+          "neuroticism": 0.377
+        },
+        "confirmation_bias": 0.24919572856971983,
+        "social_network_influence": 0.6028106140137863,
+        "risk_aversion": 0.1108799141138136,
+        "fairness_value": 0.840296225836873,
+        "prior_beliefs": {
+          "education": 0.438,
+          "healthcare": 0.338,
+          "social_justice": -0.186,
+          "immigration": 0.842,
+          "technology": -0.86
+        },
+        "timestamp": "2025-10-11T01:21:11.790826"
+      }
+    },
+    {
+      "id": "9070abc1-0739-495e-8120-a9fdc618a580",
+      "name": "9070abc1-0739-495e-8120-a9fdc618a580",
+      "demographics": {
+        "id": "9070abc1-0739-495e-8120-a9fdc618a580",
+        "name": "Yildiz Sezgin",
+        "age": 31,
+        "gender": "F",
+        "city": "Wald",
+        "job": "Restaurant manager",
+        "company": "Steffen & Partner",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Turkish",
+        "cultural_background": "European",
+        "country": "CH_de",
+        "susceptibility": 0.863,
+        "trust_institution": 0.568,
+        "turnout_propensity": 0.901,
+        "media_diet": {
+          "social_media": 0.105,
+          "tv": 0.274,
+          "newspaper": 0.232,
+          "blogs": 0.389
+        },
+        "personality_traits": {
+          "openness": 0.378,
+          "conscientiousness": 0.39,
+          "extraversion": 0.573,
+          "agreeableness": 0.808,
+          "neuroticism": 0.1
+        },
+        "confirmation_bias": 0.6751112953268611,
+        "social_network_influence": 0.33596746248551745,
+        "risk_aversion": 0.5027685225863544,
+        "fairness_value": 0.7649039005293514,
+        "prior_beliefs": {
+          "economy": -0.596,
+          "education": 0.271,
+          "social_justice": 0.948,
+          "foreign_policy": -0.849,
+          "healthcare": 0.701
+        },
+        "timestamp": "2025-10-11T01:21:09.795442",
+        "religion": "Muslim",
+        "demeanour": "Energetic and organized, adept at managing staff and ensuring high standards.",
+        "interests": [
+          "Contemporary cuisine",
+          "supply chain management",
+          "customer service theory",
+          "Turkish cinema"
+        ],
+        "sector": "Tourism & Hospitality",
+        "backstory": "Born 1994 in Zurich to Turkish parents; entered the hospitality industry after high school. Promoted to manager at age 27, she successfully increased her restaurant's profitability by 15% in 2023."
+      }
+    },
+    {
+      "id": "054b448b-e07d-4f79-be91-eb35cf0a4676",
+      "name": "054b448b-e07d-4f79-be91-eb35cf0a4676",
+      "demographics": {
+        "id": "054b448b-e07d-4f79-be91-eb35cf0a4676",
+        "name": "Ebony Black",
+        "age": 49,
+        "gender": "F",
+        "city": "Vernier",
+        "job": "Mudlogger",
+        "company": "Felber Maurer & Co.",
+        "education_level": "master_degree",
+        "income_bracket": "low",
+        "ethnicity": "Kosovan",
+        "cultural_background": "Balkan culture",
+        "country": "CH_de",
+        "susceptibility": 0.168,
+        "trust_institution": 0.892,
+        "turnout_propensity": 0.031,
+        "media_diet": {
+          "social_media": 0.272,
+          "tv": 0.306,
+          "newspaper": 0.159,
+          "blogs": 0.263
+        },
+        "personality_traits": {
+          "openness": 0.28,
+          "conscientiousness": 0.459,
+          "extraversion": 0.839,
+          "agreeableness": 0.293,
+          "neuroticism": 0.516
+        },
+        "confirmation_bias": 0.09865698106070253,
+        "social_network_influence": 0.9821901652474148,
+        "risk_aversion": 0.19246980324233953,
+        "fairness_value": 0.002487841128923529,
+        "prior_beliefs": {
+          "economy": -0.815,
+          "technology": 0.624,
+          "education": 0.847,
+          "immigration": 0.596,
+          "climate_change": -0.819,
+          "foreign_policy": 0.082
+        },
+        "timestamp": "2025-10-11T01:21:11.238040"
+      }
+    },
+    {
+      "id": "754fa240-e5a8-4147-80bd-93ea7df3806b",
+      "name": "754fa240-e5a8-4147-80bd-93ea7df3806b",
+      "demographics": {
+        "id": "754fa240-e5a8-4147-80bd-93ea7df3806b",
+        "name": "Sebasti\u00e3o do Jesus",
+        "age": 24,
+        "gender": "M",
+        "city": "Barman-sur-Pellet",
+        "job": "C\u00e9ramiste",
+        "company": "Cosendey SA",
+        "education_level": "some_college",
+        "income_bracket": "high",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Southern European",
+        "country": "CH_fr",
+        "susceptibility": 0.657,
+        "trust_institution": 0.959,
+        "turnout_propensity": 0.876,
+        "media_diet": {
+          "social_media": 0.374,
+          "tv": 0.379,
+          "newspaper": 0.107,
+          "blogs": 0.141
+        },
+        "personality_traits": {
+          "openness": 0.671,
+          "conscientiousness": 0.963,
+          "extraversion": 0.188,
+          "agreeableness": 0.69,
+          "neuroticism": 0.81
+        },
+        "confirmation_bias": 0.9958374548717008,
+        "social_network_influence": 0.04412310476244152,
+        "risk_aversion": 0.5632119688048398,
+        "fairness_value": 0.8569982158790863,
+        "prior_beliefs": {
+          "healthcare": -0.823,
+          "foreign_policy": -0.265,
+          "technology": 0.641,
+          "climate_change": 0.089,
+          "economy": -0.253,
+          "immigration": 0.804
+        },
+        "timestamp": "2025-10-11T01:21:10.395968"
+      }
+    },
+    {
+      "id": "9ef2aeea-ca09-47b4-9b84-38843c9ceda1",
+      "name": "9ef2aeea-ca09-47b4-9b84-38843c9ceda1",
+      "demographics": {
+        "id": "9ef2aeea-ca09-47b4-9b84-38843c9ceda1",
+        "name": "Jos\u00e9 Faria-Melo",
+        "age": 22,
+        "gender": "M",
+        "city": "Bellinzona",
+        "job": "Psychology Research Assistant",
+        "company": "Morris-Wright",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Romance culture",
+        "country": "CH_it",
+        "susceptibility": 0.543,
+        "trust_institution": 0.494,
+        "turnout_propensity": 0.939,
+        "media_diet": {
+          "social_media": 0.524,
+          "tv": 0.288,
+          "newspaper": 0.119,
+          "blogs": 0.069
+        },
+        "personality_traits": {
+          "openness": 0.162,
+          "conscientiousness": 0.459,
+          "extraversion": 0.257,
+          "agreeableness": 0.186,
+          "neuroticism": 0.737
+        },
+        "confirmation_bias": 0.7907676644252557,
+        "social_network_influence": 0.5677812224209393,
+        "risk_aversion": 0.7572827502575612,
+        "fairness_value": 0.17549491383846472,
+        "prior_beliefs": {
+          "technology": -0.809,
+          "education": 0.963,
+          "economy": -0.045,
+          "climate_change": 0.872,
+          "healthcare": -0.986,
+          "foreign_policy": -0.233
+        },
+        "timestamp": "2025-10-11T01:21:09.266886",
+        "religion": "Catholic",
+        "demeanour": "Empathetic and studious, eager to apply academic knowledge in practice.",
+        "interests": [
+          "Cognitive behavioral therapy",
+          "Academic research",
+          "Volunteering",
+          "Bouldering"
+        ],
+        "sector": "Education",
+        "backstory": "Born 2003; completed his BSc in Psychology in 2024. Currently working as a research assistant at a university while applying for Master's programs in clinical psychology."
+      }
+    },
+    {
+      "id": "5cc6cdbf-8716-4d88-b91f-fd316aafc96e",
+      "name": "5cc6cdbf-8716-4d88-b91f-fd316aafc96e",
+      "demographics": {
+        "id": "5cc6cdbf-8716-4d88-b91f-fd316aafc96e",
+        "name": "Monique Boechat",
+        "age": 54,
+        "gender": "F",
+        "city": "Dubey",
+        "job": "Sp\u00e9cialiste en syst\u00e8mes thermiques avec brevet f\u00e9d\u00e9ral",
+        "company": "Mottet",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.745,
+        "trust_institution": 0.722,
+        "turnout_propensity": 0.343,
+        "media_diet": {
+          "social_media": 0.212,
+          "tv": 0.387,
+          "newspaper": 0.135,
+          "blogs": 0.266
+        },
+        "personality_traits": {
+          "openness": 0.365,
+          "conscientiousness": 0.342,
+          "extraversion": 0.18,
+          "agreeableness": 0.2,
+          "neuroticism": 0.677
+        },
+        "confirmation_bias": 0.9414865926773685,
+        "social_network_influence": 0.42983730125317965,
+        "risk_aversion": 0.0318916710562841,
+        "fairness_value": 0.6835383021490395,
+        "prior_beliefs": {
+          "climate_change": -0.942,
+          "economy": 0.999,
+          "healthcare": 0.474
+        },
+        "timestamp": "2025-10-11T01:21:11.491089"
+      }
+    },
+    {
+      "id": "05e6344c-7faa-4358-8106-25b30e6e3c2a",
+      "name": "05e6344c-7faa-4358-8106-25b30e6e3c2a",
+      "demographics": {
+        "id": "05e6344c-7faa-4358-8106-25b30e6e3c2a",
+        "name": "Jasmine Carson",
+        "age": 38,
+        "gender": "M",
+        "city": "Maire-sur-Th\u00e9raulaz",
+        "job": "Electricien chef de projet avec brevet f\u00e9d\u00e9ral",
+        "company": "Botteron Chatriand SA",
+        "education_level": "bachelor_degree",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_fr",
+        "susceptibility": 0.549,
+        "trust_institution": 0.431,
+        "turnout_propensity": 0.72,
+        "media_diet": {
+          "social_media": 0.286,
+          "tv": 0.294,
+          "newspaper": 0.082,
+          "blogs": 0.338
+        },
+        "personality_traits": {
+          "openness": 0.154,
+          "conscientiousness": 0.31,
+          "extraversion": 0.924,
+          "agreeableness": 0.447,
+          "neuroticism": 0.769
+        },
+        "confirmation_bias": 0.8865681705699839,
+        "social_network_influence": 0.6279497496102041,
+        "risk_aversion": 0.19770228612775764,
+        "fairness_value": 0.4690285735882672,
+        "prior_beliefs": {
+          "foreign_policy": 0.983,
+          "social_justice": 0.59,
+          "economy": 0.574,
+          "climate_change": 0.233,
+          "healthcare": -0.954
+        },
+        "timestamp": "2025-10-11T01:21:12.002787"
+      }
+    },
+    {
+      "id": "49ab1b5d-01d3-4b73-8054-3c1c703832a3",
+      "name": "49ab1b5d-01d3-4b73-8054-3c1c703832a3",
+      "demographics": {
+        "id": "49ab1b5d-01d3-4b73-8054-3c1c703832a3",
+        "name": "Georges Crevoisier",
+        "age": 43,
+        "gender": "M",
+        "city": "Lausanne",
+        "job": "Teacher, adult education",
+        "company": "Long Inc",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Alpine culture",
+        "country": "CH_fr",
+        "susceptibility": 0.027,
+        "trust_institution": 0.199,
+        "turnout_propensity": 0.911,
+        "media_diet": {
+          "social_media": 0.274,
+          "tv": 0.146,
+          "newspaper": 0.207,
+          "blogs": 0.373
+        },
+        "personality_traits": {
+          "openness": 0.455,
+          "conscientiousness": 0.369,
+          "extraversion": 0.011,
+          "agreeableness": 0.327,
+          "neuroticism": 0.91
+        },
+        "confirmation_bias": 0.3911052730458635,
+        "social_network_influence": 0.9895951234604712,
+        "risk_aversion": 0.12913766903022683,
+        "fairness_value": 0.4184132030475969,
+        "prior_beliefs": {
+          "technology": -0.74,
+          "social_justice": -0.589,
+          "immigration": -0.136
+        },
+        "timestamp": "2025-10-11T01:21:09.904437",
+        "religion": "Protestant",
+        "demeanour": "Patient and encouraging, skilled at adapting teaching methods for diverse learners.",
+        "interests": [
+          "Andragogy",
+          "Local politics",
+          "Photography",
+          "Hiking"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1982; obtained a BA in Social Sciences in 2005. Has been an adult education instructor for over 15 years, specializing in language and professional integration courses."
+      }
+    },
+    {
+      "id": "826f0ad8-b832-452e-9d0b-8a32cfef526a",
+      "name": "826f0ad8-b832-452e-9d0b-8a32cfef526a",
+      "demographics": {
+        "id": "826f0ad8-b832-452e-9d0b-8a32cfef526a",
+        "name": "Monique Gilli\u00e9ron",
+        "age": 50,
+        "gender": "M",
+        "city": "Williamsfurt",
+        "job": "Engineer, control and instrumentation",
+        "company": "Burns Group",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_it",
+        "susceptibility": 0.22,
+        "trust_institution": 0.814,
+        "turnout_propensity": 0.555,
+        "media_diet": {
+          "social_media": 0.371,
+          "tv": 0.252,
+          "newspaper": 0.309,
+          "blogs": 0.069
+        },
+        "personality_traits": {
+          "openness": 0.787,
+          "conscientiousness": 0.855,
+          "extraversion": 0.192,
+          "agreeableness": 0.608,
+          "neuroticism": 0.013
+        },
+        "confirmation_bias": 0.811411220505897,
+        "social_network_influence": 0.8495248735401206,
+        "risk_aversion": 0.11498149010032,
+        "fairness_value": 0.8658865319756299,
+        "prior_beliefs": {
+          "immigration": -0.552,
+          "climate_change": -0.787,
+          "technology": -0.384
+        },
+        "timestamp": "2025-10-11T01:21:12.100788"
+      }
+    },
+    {
+      "id": "51b49f1c-e49c-4c93-a922-d5851a81a6eb",
+      "name": "51b49f1c-e49c-4c93-a922-d5851a81a6eb",
+      "demographics": {
+        "id": "51b49f1c-e49c-4c93-a922-d5851a81a6eb",
+        "name": "Prof. Irfan Kohler",
+        "age": 63,
+        "gender": "M",
+        "city": "Basel",
+        "job": "Development worker, community",
+        "company": "Z\u00fcrcher & Cie.",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.128,
+        "trust_institution": 0.723,
+        "turnout_propensity": 0.724,
+        "media_diet": {
+          "social_media": 0.097,
+          "tv": 0.255,
+          "newspaper": 0.363,
+          "blogs": 0.285
+        },
+        "personality_traits": {
+          "openness": 0.882,
+          "conscientiousness": 0.583,
+          "extraversion": 0.934,
+          "agreeableness": 0.1,
+          "neuroticism": 0.158
+        },
+        "confirmation_bias": 0.9673381746409542,
+        "social_network_influence": 0.9977063603268281,
+        "risk_aversion": 0.7602488143072049,
+        "fairness_value": 0.445543059178358,
+        "prior_beliefs": {
+          "economy": 0.523,
+          "climate_change": -0.042,
+          "healthcare": -0.397
+        },
+        "timestamp": "2025-10-11T01:21:10.945884"
+      }
+    },
+    {
+      "id": "82c9802f-b2e7-4d91-b5ac-62a3c75f4326",
+      "name": "82c9802f-b2e7-4d91-b5ac-62a3c75f4326",
+      "demographics": {
+        "id": "82c9802f-b2e7-4d91-b5ac-62a3c75f4326",
+        "name": "Zoe Schaller",
+        "age": 30,
+        "gender": "M",
+        "city": "Baden",
+        "job": "Engineer, energy",
+        "company": "Lanz Roos AG",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.964,
+        "trust_institution": 0.27,
+        "turnout_propensity": 0.48,
+        "media_diet": {
+          "social_media": 0.219,
+          "tv": 0.067,
+          "newspaper": 0.391,
+          "blogs": 0.323
+        },
+        "personality_traits": {
+          "openness": 0.385,
+          "conscientiousness": 0.986,
+          "extraversion": 0.552,
+          "agreeableness": 0.642,
+          "neuroticism": 0.145
+        },
+        "confirmation_bias": 0.2676757925841411,
+        "social_network_influence": 0.37083407880386876,
+        "risk_aversion": 0.2548111803077746,
+        "fairness_value": 0.09883459859946442,
+        "prior_beliefs": {
+          "technology": -0.518,
+          "climate_change": -0.434,
+          "social_justice": 0.619,
+          "education": 0.515,
+          "foreign_policy": 0.337
+        },
+        "timestamp": "2025-10-11T01:21:10.547918"
+      }
+    },
+    {
+      "id": "305a19a5-a5db-4400-b135-9bed91d42be5",
+      "name": "305a19a5-a5db-4400-b135-9bed91d42be5",
+      "demographics": {
+        "id": "305a19a5-a5db-4400-b135-9bed91d42be5",
+        "name": "Tammy Nguyen",
+        "age": 66,
+        "gender": "M",
+        "city": "Comman (FR)",
+        "job": "ICT-Manager diplom\u00e9",
+        "company": "Romanens Sansonnens SA",
+        "education_level": "trade_school",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-German",
+        "country": "CH_fr",
+        "susceptibility": 0.156,
+        "trust_institution": 0.307,
+        "turnout_propensity": 0.639,
+        "media_diet": {
+          "social_media": 0.331,
+          "tv": 0.495,
+          "newspaper": 0.041,
+          "blogs": 0.133
+        },
+        "personality_traits": {
+          "openness": 0.643,
+          "conscientiousness": 0.826,
+          "extraversion": 0.991,
+          "agreeableness": 0.116,
+          "neuroticism": 0.326
+        },
+        "confirmation_bias": 0.31737691215606456,
+        "social_network_influence": 0.2083439231333859,
+        "risk_aversion": 0.32397659376211285,
+        "fairness_value": 0.4805291893615521,
+        "prior_beliefs": {
+          "technology": 0.364,
+          "education": -0.432,
+          "foreign_policy": -0.431,
+          "immigration": 0.04
+        },
+        "timestamp": "2025-10-11T01:21:10.752674"
+      }
+    },
+    {
+      "id": "4857d330-0435-447f-add3-0f55ef663370",
+      "name": "4857d330-0435-447f-add3-0f55ef663370",
+      "demographics": {
+        "id": "4857d330-0435-447f-add3-0f55ef663370",
+        "name": "Jean Sansonnens",
+        "age": 28,
+        "gender": "M",
+        "city": "Musy",
+        "job": "Certified Energy Advisor (NDS HF)",
+        "company": "Jacot-Descombes",
+        "education_level": "professional_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-French",
+        "country": "CH_fr",
+        "susceptibility": 0.027,
+        "trust_institution": 0.059,
+        "turnout_propensity": 0.39,
+        "media_diet": {
+          "social_media": 0.223,
+          "tv": 0.288,
+          "newspaper": 0.226,
+          "blogs": 0.262
+        },
+        "personality_traits": {
+          "openness": 0.828,
+          "conscientiousness": 0.121,
+          "extraversion": 0.203,
+          "agreeableness": 0.752,
+          "neuroticism": 0.586
+        },
+        "confirmation_bias": 0.4929794409023319,
+        "social_network_influence": 0.7523899786503706,
+        "risk_aversion": 0.38504867963013834,
+        "fairness_value": 0.11508137188320999,
+        "prior_beliefs": {
+          "foreign_policy": -0.186,
+          "healthcare": -0.032,
+          "education": -0.185
+        },
+        "timestamp": "2025-10-11T01:21:09.866773",
+        "religion": "None",
+        "demeanour": "Technically proficient and persuasive, committed to sustainable energy solutions.",
+        "interests": [
+          "renewable energy tech",
+          "building automation",
+          "Jura hiking",
+          "energy policy"
+        ],
+        "sector": "Environmental Services",
+        "backstory": "Born 1997. Completed a federal diploma in HVAC in 2017, then earned an NDS HF in energy advising in 2023. He now advises commercial clients on efficiency retrofits, managing over 20 projects in 2024."
+      }
+    },
+    {
+      "id": "cf875cdf-c5f8-4b1e-bfd3-9f718add1a22",
+      "name": "cf875cdf-c5f8-4b1e-bfd3-9f718add1a22",
+      "demographics": {
+        "id": "cf875cdf-c5f8-4b1e-bfd3-9f718add1a22",
+        "name": "Greco Guglielmi",
+        "age": 31,
+        "gender": "M",
+        "city": "Davos",
+        "job": "Community pharmacist",
+        "company": "Schumacher AG",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Italian",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.638,
+        "trust_institution": 0.915,
+        "turnout_propensity": 0.348,
+        "media_diet": {
+          "social_media": 0.289,
+          "tv": 0.215,
+          "newspaper": 0.063,
+          "blogs": 0.434
+        },
+        "personality_traits": {
+          "openness": 0.078,
+          "conscientiousness": 0.143,
+          "extraversion": 0.619,
+          "agreeableness": 0.016,
+          "neuroticism": 0.62
+        },
+        "confirmation_bias": 0.45430088736051844,
+        "social_network_influence": 0.8593946993113525,
+        "risk_aversion": 0.650542448781897,
+        "fairness_value": 0.9077010559370998,
+        "prior_beliefs": {
+          "foreign_policy": -0.425,
+          "technology": -0.188,
+          "immigration": -0.219,
+          "education": -0.829
+        },
+        "timestamp": "2025-10-11T01:21:12.055148"
+      }
+    },
+    {
+      "id": "eb938bd2-ce8e-4289-9900-fffe62d4b6cd",
+      "name": "eb938bd2-ce8e-4289-9900-fffe62d4b6cd",
+      "demographics": {
+        "id": "eb938bd2-ce8e-4289-9900-fffe62d4b6cd",
+        "name": "Carlos Bertr\u00e1n Franco",
+        "age": 81,
+        "gender": "M",
+        "city": "Crevoisier-sur-Besse",
+        "job": "Professeur de cano\u00eb-kayak avec brevet f\u00e9d\u00e9ral",
+        "company": "Jomini",
+        "education_level": "high_school",
+        "income_bracket": "high",
+        "ethnicity": "Spanish",
+        "cultural_background": "Southern European",
+        "country": "CH_fr",
+        "susceptibility": 0.509,
+        "trust_institution": 0.582,
+        "turnout_propensity": 0.899,
+        "media_diet": {
+          "social_media": 0.342,
+          "tv": 0.117,
+          "newspaper": 0.409,
+          "blogs": 0.132
+        },
+        "personality_traits": {
+          "openness": 0.053,
+          "conscientiousness": 0.096,
+          "extraversion": 0.514,
+          "agreeableness": 0.168,
+          "neuroticism": 0.754
+        },
+        "confirmation_bias": 0.16251357645704712,
+        "social_network_influence": 0.0539743391993065,
+        "risk_aversion": 0.5511998401116687,
+        "fairness_value": 0.6150419063459749,
+        "prior_beliefs": {
+          "healthcare": -0.882,
+          "immigration": -0.823,
+          "foreign_policy": -0.443,
+          "technology": 0.975
+        },
+        "timestamp": "2025-10-11T01:21:10.886709"
+      }
+    },
+    {
+      "id": "efb1b1dc-a062-4927-9b67-853732b3cc21",
+      "name": "efb1b1dc-a062-4927-9b67-853732b3cc21",
+      "demographics": {
+        "id": "efb1b1dc-a062-4927-9b67-853732b3cc21",
+        "name": "Jennifer Arnold",
+        "age": 57,
+        "gender": "F",
+        "city": "N\u00fcsslin-pr\u00e8s-Chevrolet",
+        "job": "Professeur de patinage avec brevet f\u00e9d\u00e9ral",
+        "company": "Martin Aeby S\u00e0rl.",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_fr",
+        "susceptibility": 0.926,
+        "trust_institution": 0.738,
+        "turnout_propensity": 0.82,
+        "media_diet": {
+          "social_media": 0.344,
+          "tv": 0.302,
+          "newspaper": 0.244,
+          "blogs": 0.11
+        },
+        "personality_traits": {
+          "openness": 0.073,
+          "conscientiousness": 0.247,
+          "extraversion": 0.574,
+          "agreeableness": 0.197,
+          "neuroticism": 0.104
+        },
+        "confirmation_bias": 0.7630623791603209,
+        "social_network_influence": 0.41011317218408916,
+        "risk_aversion": 0.9095899514060279,
+        "fairness_value": 0.3938770468268833,
+        "prior_beliefs": {
+          "economy": -0.015,
+          "healthcare": -0.024,
+          "technology": 0.136,
+          "foreign_policy": -0.278,
+          "education": 0.118,
+          "social_justice": -0.856
+        },
+        "timestamp": "2025-10-11T01:21:12.096255"
+      }
+    },
+    {
+      "id": "a8cc3831-4def-468b-bf3e-ccc1bbe8cbca",
+      "name": "a8cc3831-4def-468b-bf3e-ccc1bbe8cbca",
+      "demographics": {
+        "id": "a8cc3831-4def-468b-bf3e-ccc1bbe8cbca",
+        "name": "Bruno Mendes",
+        "age": 30,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Financial manager",
+        "company": "Banks, Smith and Chen",
+        "education_level": "master_degree",
+        "income_bracket": "high",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.777,
+        "trust_institution": 0.019,
+        "turnout_propensity": 0.498,
+        "media_diet": {
+          "social_media": 0.603,
+          "tv": 0.001,
+          "newspaper": 0.035,
+          "blogs": 0.361
+        },
+        "personality_traits": {
+          "openness": 0.152,
+          "conscientiousness": 0.33,
+          "extraversion": 0.391,
+          "agreeableness": 0.004,
+          "neuroticism": 0.708
+        },
+        "confirmation_bias": 0.7709906286796886,
+        "social_network_influence": 0.47813942608280224,
+        "risk_aversion": 0.40391275170482055,
+        "fairness_value": 0.7277674211631494,
+        "prior_beliefs": {
+          "healthcare": 0.908,
+          "climate_change": 0.636,
+          "social_justice": -0.036
+        },
+        "timestamp": "2025-10-11T01:21:09.737794",
+        "religion": "Catholic",
+        "demeanour": "Ambitious and results-oriented, with strong quantitative analysis skills.",
+        "interests": [
+          "Investment strategies",
+          "Fintech",
+          "Sailing"
+        ],
+        "sector": "Finance",
+        "backstory": "Born 1995; earned a Master's in Finance from USI Lugano in 2019. He has been a financial manager at a private bank for two years, overseeing a small team."
+      }
+    },
+    {
+      "id": "e633a8d6-4b6e-45f5-89ac-28f956eb7a7a",
+      "name": "e633a8d6-4b6e-45f5-89ac-28f956eb7a7a",
+      "demographics": {
+        "id": "e633a8d6-4b6e-45f5-89ac-28f956eb7a7a",
+        "name": "Marlyse Maurer",
+        "age": 32,
+        "gender": "F",
+        "city": "Bellinzona",
+        "job": "Field trials officer",
+        "company": "Duarte, Smith and Caldwell",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_it",
+        "susceptibility": 0.326,
+        "trust_institution": 0.098,
+        "turnout_propensity": 0.738,
+        "media_diet": {
+          "social_media": 0.449,
+          "tv": 0.194,
+          "newspaper": 0.114,
+          "blogs": 0.243
+        },
+        "personality_traits": {
+          "openness": 0.484,
+          "conscientiousness": 0.89,
+          "extraversion": 0.145,
+          "agreeableness": 0.928,
+          "neuroticism": 0.455
+        },
+        "confirmation_bias": 0.38733030388865675,
+        "social_network_influence": 0.13640461458072206,
+        "risk_aversion": 0.7198212161224702,
+        "fairness_value": 0.6320211169018609,
+        "prior_beliefs": {
+          "healthcare": -0.439,
+          "economy": -0.778,
+          "immigration": -0.069,
+          "climate_change": -0.164,
+          "education": 0.521
+        },
+        "timestamp": "2025-10-11T01:21:09.752208",
+        "religion": "Catholic",
+        "demeanour": "Meticulous, patient, and highly organized in managing field research data.",
+        "interests": [
+          "Botany",
+          "Statistical analysis",
+          "Hiking in Ticino",
+          "Risotto recipes"
+        ],
+        "sector": "Pharmaceuticals/Biotech",
+        "backstory": "Earned an MSc in Agronomy from ETH Zurich in 2017. Has worked as a field trials officer since 2018, managing research protocols for new agrochemicals."
+      }
+    },
+    {
+      "id": "d1751aed-685e-4e30-83e5-0906d95677ea",
+      "name": "d1751aed-685e-4e30-83e5-0906d95677ea",
+      "demographics": {
+        "id": "d1751aed-685e-4e30-83e5-0906d95677ea",
+        "name": "Gretchen Zirme",
+        "age": 52,
+        "gender": "F",
+        "city": "Galland (ZG)",
+        "job": "Professeur de golf avec brevet f\u00e9d\u00e9ral",
+        "company": "Saudan S\u00e0rl.",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_fr",
+        "susceptibility": 0.68,
+        "trust_institution": 0.917,
+        "turnout_propensity": 0.548,
+        "media_diet": {
+          "social_media": 0.293,
+          "tv": 0.054,
+          "newspaper": 0.3,
+          "blogs": 0.353
+        },
+        "personality_traits": {
+          "openness": 0.218,
+          "conscientiousness": 0.632,
+          "extraversion": 0.145,
+          "agreeableness": 0.322,
+          "neuroticism": 0.961
+        },
+        "confirmation_bias": 0.34202575017393666,
+        "social_network_influence": 0.4379453644806294,
+        "risk_aversion": 0.2723290627430367,
+        "fairness_value": 0.8336268559113061,
+        "prior_beliefs": {
+          "foreign_policy": 0.664,
+          "education": 0.735,
+          "climate_change": 0.796,
+          "economy": 0.809
+        },
+        "timestamp": "2025-10-11T01:21:11.456990"
+      }
+    },
+    {
+      "id": "46ff5464-5cd3-48f1-924c-04a79e07a96e",
+      "name": "46ff5464-5cd3-48f1-924c-04a79e07a96e",
+      "demographics": {
+        "id": "46ff5464-5cd3-48f1-924c-04a79e07a96e",
+        "name": "Raymonde Chartier",
+        "age": 25,
+        "gender": "F",
+        "city": "Chiasso",
+        "job": "Fashion designer",
+        "company": "Duncan PLC",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "French",
+        "cultural_background": "Romance culture",
+        "country": "CH_it",
+        "susceptibility": 0.935,
+        "trust_institution": 0.727,
+        "turnout_propensity": 0.06,
+        "media_diet": {
+          "social_media": 0.122,
+          "tv": 0.28,
+          "newspaper": 0.146,
+          "blogs": 0.452
+        },
+        "personality_traits": {
+          "openness": 0.766,
+          "conscientiousness": 0.844,
+          "extraversion": 0.41,
+          "agreeableness": 0.86,
+          "neuroticism": 0.911
+        },
+        "confirmation_bias": 0.6339274883535357,
+        "social_network_influence": 0.8459669829341648,
+        "risk_aversion": 0.26693475860141735,
+        "fairness_value": 0.28704459701510254,
+        "prior_beliefs": {
+          "education": -0.188,
+          "foreign_policy": -0.773,
+          "social_justice": -0.616,
+          "immigration": -0.509
+        },
+        "timestamp": "2025-10-11T01:21:09.800116",
+        "religion": "None",
+        "demeanour": "Innovative and trend-conscious, with a strong aesthetic and business acumen.",
+        "interests": [
+          "Textile technology",
+          "fashion history",
+          "digital marketing",
+          "sustainable fashion"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 2000 in Lyon, France; graduated with a BA in Fashion Design from a Milanese institute in 2022. She now works for an established fashion house in Ticino, contributing to their ready-to-wear collections."
+      }
+    },
+    {
+      "id": "0a9f6eb8-ac46-4ac8-a448-1c36e65637b6",
+      "name": "0a9f6eb8-ac46-4ac8-a448-1c36e65637b6",
+      "demographics": {
+        "id": "0a9f6eb8-ac46-4ac8-a448-1c36e65637b6",
+        "name": "Florian Chapuis",
+        "age": 44,
+        "gender": "M",
+        "city": "Locarno",
+        "job": "Clinical psychologist",
+        "company": "Mills Inc",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_it",
+        "susceptibility": 0.585,
+        "trust_institution": 0.396,
+        "turnout_propensity": 0.243,
+        "media_diet": {
+          "social_media": 0.331,
+          "tv": 0.198,
+          "newspaper": 0.236,
+          "blogs": 0.235
+        },
+        "personality_traits": {
+          "openness": 0.155,
+          "conscientiousness": 0.771,
+          "extraversion": 0.249,
+          "agreeableness": 0.5,
+          "neuroticism": 0.686
+        },
+        "confirmation_bias": 0.3384220967505036,
+        "social_network_influence": 0.9696517064941905,
+        "risk_aversion": 0.7595601649964774,
+        "fairness_value": 0.060052335707658,
+        "prior_beliefs": {
+          "economy": -0.024,
+          "foreign_policy": -0.367,
+          "education": 0.117,
+          "climate_change": 0.289,
+          "immigration": -0.305
+        },
+        "timestamp": "2025-10-11T01:21:09.660114",
+        "religion": "None",
+        "demeanour": "Patient and insightful, with a methodical and evidence-based therapeutic approach.",
+        "interests": [
+          "cognitive behavioral therapy",
+          "mindfulness",
+          "boating",
+          "cinema"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Earned his Master's in Psychology c. 2004; has been practicing as a licensed clinical psychologist for nearly 20 years. He runs a private practice in Locarno, specializing in anxiety disorders."
+      }
+    },
+    {
+      "id": "128abe35-d427-4abf-b000-56eef13186a1",
+      "name": "128abe35-d427-4abf-b000-56eef13186a1",
+      "demographics": {
+        "id": "128abe35-d427-4abf-b000-56eef13186a1",
+        "name": "Tullio Casagrande",
+        "age": 23,
+        "gender": "M",
+        "city": "Lugano",
+        "job": "Geophysicist/field seismologist",
+        "company": "Obrien, Taylor and Rivas",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.167,
+        "trust_institution": 0.824,
+        "turnout_propensity": 0.298,
+        "media_diet": {
+          "social_media": 0.149,
+          "tv": 0.373,
+          "newspaper": 0.305,
+          "blogs": 0.173
+        },
+        "personality_traits": {
+          "openness": 0.888,
+          "conscientiousness": 0.995,
+          "extraversion": 0.343,
+          "agreeableness": 0.901,
+          "neuroticism": 0.359
+        },
+        "confirmation_bias": 0.18842603389086943,
+        "social_network_influence": 0.9480843537069427,
+        "risk_aversion": 0.9182054088414334,
+        "fairness_value": 0.4033916445011253,
+        "prior_beliefs": {
+          "healthcare": 0.468,
+          "foreign_policy": 0.179,
+          "immigration": -0.662,
+          "technology": -0.267
+        },
+        "timestamp": "2025-10-11T01:21:09.482904",
+        "religion": "None",
+        "demeanour": "Methodical and enthusiastic, with a passion for fieldwork and data analysis.",
+        "interests": [
+          "seismic data modeling",
+          "bouldering",
+          "geocaching",
+          "drone cinematography"
+        ],
+        "sector": "Technology",
+        "backstory": "Born circa 2002; graduated with an MSc in Geophysics from ETH Zurich in 2024. Joined a geological consulting firm, now working on seismic hazard assessments for infrastructure projects."
+      }
+    },
+    {
+      "id": "9ce6fae8-dea9-4f97-8d0e-4a431b2a02a8",
+      "name": "9ce6fae8-dea9-4f97-8d0e-4a431b2a02a8",
+      "demographics": {
+        "id": "9ce6fae8-dea9-4f97-8d0e-4a431b2a02a8",
+        "name": "Cabir In\u00f6n\u00fc",
+        "age": 41,
+        "gender": "M",
+        "city": "Freienbach",
+        "job": "Product designer",
+        "company": "Mettler & Cie.",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Turkish",
+        "cultural_background": "Turkish",
+        "country": "CH_de",
+        "susceptibility": 0.789,
+        "trust_institution": 0.042,
+        "turnout_propensity": 0.211,
+        "media_diet": {
+          "social_media": 0.299,
+          "tv": 0.142,
+          "newspaper": 0.196,
+          "blogs": 0.363
+        },
+        "personality_traits": {
+          "openness": 0.266,
+          "conscientiousness": 0.486,
+          "extraversion": 0.757,
+          "agreeableness": 0.604,
+          "neuroticism": 0.337
+        },
+        "confirmation_bias": 0.6818599990766658,
+        "social_network_influence": 0.34307745098654274,
+        "risk_aversion": 0.31522380424177043,
+        "fairness_value": 0.23959702954434636,
+        "prior_beliefs": {
+          "technology": 0.746,
+          "healthcare": 0.613,
+          "education": -0.994,
+          "climate_change": 0.741,
+          "economy": -0.196
+        },
+        "timestamp": "2025-10-11T01:21:09.935330",
+        "religion": "Muslim",
+        "demeanour": "Creative and user-centric with a strong focus on aesthetic functionality.",
+        "interests": [
+          "industrial design",
+          "user experience (UX)",
+          "minimalist architecture",
+          "cycling"
+        ],
+        "sector": "Technology",
+        "backstory": "Born 1984; he obtained his industrial design degree from a Turkish university before moving to Switzerland. For the last 15 years, he has worked as a product designer, contributing to several award-winning consumer electronics."
+      }
+    },
+    {
+      "id": "1a649cf0-8200-46fb-a42d-f7419504183b",
+      "name": "1a649cf0-8200-46fb-a42d-f7419504183b",
+      "demographics": {
+        "id": "1a649cf0-8200-46fb-a42d-f7419504183b",
+        "name": "Grit Gertz",
+        "age": 22,
+        "gender": "F",
+        "city": "Cham",
+        "job": "Music Therapy Assistant",
+        "company": "Meier Schweizer AG",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_de",
+        "susceptibility": 0.578,
+        "trust_institution": 0.553,
+        "turnout_propensity": 0.23,
+        "media_diet": {
+          "social_media": 0.205,
+          "tv": 0.259,
+          "newspaper": 0.429,
+          "blogs": 0.108
+        },
+        "personality_traits": {
+          "openness": 0.473,
+          "conscientiousness": 0.463,
+          "extraversion": 0.015,
+          "agreeableness": 0.428,
+          "neuroticism": 0.873
+        },
+        "confirmation_bias": 0.24783144390058476,
+        "social_network_influence": 0.4342487199564802,
+        "risk_aversion": 0.2224066100405352,
+        "fairness_value": 0.9274796813113363,
+        "prior_beliefs": {
+          "climate_change": 0.983,
+          "healthcare": 0.467,
+          "social_justice": 0.008,
+          "foreign_policy": -0.149
+        },
+        "timestamp": "2025-10-11T01:21:09.754133",
+        "religion": "None",
+        "demeanour": "Empathetic and patient, with a calm and encouraging communication style.",
+        "interests": [
+          "Acoustic guitar",
+          "Cognitive psychology",
+          "Community volunteer work",
+          "Yoga"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Moved to Switzerland to study social work with a focus on creative therapies. Works part-time as a music therapy assistant at a local clinic while completing her degree."
+      }
+    },
+    {
+      "id": "23f51da4-1831-4fc9-9fde-371bb4344b88",
+      "name": "23f51da4-1831-4fc9-9fde-371bb4344b88",
+      "demographics": {
+        "id": "23f51da4-1831-4fc9-9fde-371bb4344b88",
+        "name": "Imaran Datta",
+        "age": 28,
+        "gender": "M",
+        "city": "Bourquin-sur-Carraud",
+        "job": "Policier avec brevet f\u00e9d\u00e9ral",
+        "company": "Cornut Julliard SA",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Sri Lankan",
+        "cultural_background": "Asian",
+        "country": "CH_fr",
+        "susceptibility": 0.524,
+        "trust_institution": 0.398,
+        "turnout_propensity": 0.878,
+        "media_diet": {
+          "social_media": 0.318,
+          "tv": 0.128,
+          "newspaper": 0.436,
+          "blogs": 0.118
+        },
+        "personality_traits": {
+          "openness": 0.805,
+          "conscientiousness": 0.349,
+          "extraversion": 0.554,
+          "agreeableness": 0.942,
+          "neuroticism": 0.773
+        },
+        "confirmation_bias": 0.4820394331587632,
+        "social_network_influence": 0.007291379381697549,
+        "risk_aversion": 0.22957206913900186,
+        "fairness_value": 0.21591218708993232,
+        "prior_beliefs": {
+          "technology": -0.505,
+          "education": 0.202,
+          "immigration": -0.394,
+          "foreign_policy": 0.481,
+          "climate_change": -0.914
+        },
+        "timestamp": "2025-10-11T01:21:12.117690"
+      }
+    },
+    {
+      "id": "36f857d5-ef91-41c2-8dd9-7c06b6dbfcc4",
+      "name": "36f857d5-ef91-41c2-8dd9-7c06b6dbfcc4",
+      "demographics": {
+        "id": "36f857d5-ef91-41c2-8dd9-7c06b6dbfcc4",
+        "name": "Ernesto Mimun",
+        "age": 27,
+        "gender": "M",
+        "city": "South Wesley",
+        "job": "Automotive engineer",
+        "company": "Holmes LLC",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Southern European",
+        "country": "CH_it",
+        "susceptibility": 0.361,
+        "trust_institution": 0.572,
+        "turnout_propensity": 0.467,
+        "media_diet": {
+          "social_media": 0.477,
+          "tv": 0.063,
+          "newspaper": 0.429,
+          "blogs": 0.032
+        },
+        "personality_traits": {
+          "openness": 0.398,
+          "conscientiousness": 0.717,
+          "extraversion": 0.479,
+          "agreeableness": 0.411,
+          "neuroticism": 0.409
+        },
+        "confirmation_bias": 0.5749005084764265,
+        "social_network_influence": 0.12532678225919403,
+        "risk_aversion": 0.31702767046048186,
+        "fairness_value": 0.0741650197653062,
+        "prior_beliefs": {
+          "foreign_policy": -0.135,
+          "immigration": 0.821,
+          "education": -0.889,
+          "social_justice": -0.752,
+          "technology": -0.694,
+          "climate_change": -0.671
+        },
+        "timestamp": "2025-10-11T01:21:09.130428",
+        "religion": "Catholic",
+        "demeanour": "A technically proficient and pragmatic engineer, focused on problem-solving.",
+        "interests": [
+          "Motorsports",
+          "automotive design",
+          "3D printing",
+          "cycling"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1998; graduated with a BSc in Mechanical Engineering in 2020. He joined a major automotive supplier as a junior engineer, where he contributes to the development of powertrain components."
+      }
+    },
+    {
+      "id": "1f4278f8-4a77-4d26-a7bc-041b4f36553a",
+      "name": "1f4278f8-4a77-4d26-a7bc-041b4f36553a",
+      "demographics": {
+        "id": "1f4278f8-4a77-4d26-a7bc-041b4f36553a",
+        "name": "Erkan Felber",
+        "age": 42,
+        "gender": "M",
+        "city": "Port Rachael",
+        "job": "Set designer",
+        "company": "Fuller-Wilson",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_it",
+        "susceptibility": 0.865,
+        "trust_institution": 0.346,
+        "turnout_propensity": 0.36,
+        "media_diet": {
+          "social_media": 0.675,
+          "tv": 0.182,
+          "newspaper": 0.074,
+          "blogs": 0.069
+        },
+        "personality_traits": {
+          "openness": 0.123,
+          "conscientiousness": 0.333,
+          "extraversion": 0.252,
+          "agreeableness": 0.455,
+          "neuroticism": 0.229
+        },
+        "confirmation_bias": 0.2877364055407162,
+        "social_network_influence": 0.9609412570508616,
+        "risk_aversion": 0.24039193736919995,
+        "fairness_value": 0.07175655527895086,
+        "prior_beliefs": {
+          "social_justice": -0.063,
+          "immigration": 0.001,
+          "technology": -0.197,
+          "economy": -0.792,
+          "education": -0.315
+        },
+        "timestamp": "2025-10-11T01:21:11.540439"
+      }
+    },
+    {
+      "id": "1adc7a59-5ec5-41b7-b99c-23cac793a733",
+      "name": "1adc7a59-5ec5-41b7-b99c-23cac793a733",
+      "demographics": {
+        "id": "1adc7a59-5ec5-41b7-b99c-23cac793a733",
+        "name": "Mirlinda Krasniqi",
+        "age": 32,
+        "gender": "F",
+        "city": "Bellinzona",
+        "job": "Therapist, art",
+        "company": "Hernandez, Griffin and Morton",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Kosovan",
+        "cultural_background": "European",
+        "country": "CH_it",
+        "susceptibility": 0.369,
+        "trust_institution": 0.58,
+        "turnout_propensity": 0.962,
+        "media_diet": {
+          "social_media": 0.036,
+          "tv": 0.333,
+          "newspaper": 0.24,
+          "blogs": 0.391
+        },
+        "personality_traits": {
+          "openness": 0.751,
+          "conscientiousness": 0.279,
+          "extraversion": 0.517,
+          "agreeableness": 0.523,
+          "neuroticism": 0.61
+        },
+        "confirmation_bias": 0.24523130411246097,
+        "social_network_influence": 0.6306628491110065,
+        "risk_aversion": 0.6637369391352761,
+        "fairness_value": 0.6687171390509747,
+        "prior_beliefs": {
+          "climate_change": -0.092,
+          "economy": 0.812,
+          "education": 0.148,
+          "social_justice": -0.337,
+          "healthcare": -0.294
+        },
+        "timestamp": "2025-10-11T01:21:09.723607",
+        "religion": "Muslim",
+        "demeanour": "Empathetic and observant, creating a safe space for client expression.",
+        "interests": [
+          "Psychoanalytic theory",
+          "Pottery",
+          "Balkan folk music",
+          "Community volunteer work"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1993; her family emigrated from Kosovo in the late 1990s. She earned a Master's in Art Therapy in 2019 and works in community health, focusing on youth mental health."
+      }
+    },
+    {
+      "id": "663351ea-fabe-42bd-a9ea-f98b292c434e",
+      "name": "663351ea-fabe-42bd-a9ea-f98b292c434e",
+      "demographics": {
+        "id": "663351ea-fabe-42bd-a9ea-f98b292c434e",
+        "name": "Thomas Chavez",
+        "age": 38,
+        "gender": "M",
+        "city": "Freienbach",
+        "job": "Tax adviser",
+        "company": "Ammann & Cie.",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "Swiss-Spanish",
+        "cultural_background": "Alpine culture",
+        "country": "CH_de",
+        "susceptibility": 0.471,
+        "trust_institution": 0.413,
+        "turnout_propensity": 0.841,
+        "media_diet": {
+          "social_media": 0.221,
+          "tv": 0.271,
+          "newspaper": 0.253,
+          "blogs": 0.255
+        },
+        "personality_traits": {
+          "openness": 0.698,
+          "conscientiousness": 0.506,
+          "extraversion": 0.352,
+          "agreeableness": 0.602,
+          "neuroticism": 0.813
+        },
+        "confirmation_bias": 0.7377855206040169,
+        "social_network_influence": 0.4532617531359948,
+        "risk_aversion": 0.027350893333371262,
+        "fairness_value": 0.052098822901940234,
+        "prior_beliefs": {
+          "social_justice": -0.994,
+          "technology": -0.6,
+          "foreign_policy": -0.389,
+          "immigration": 0.152
+        },
+        "timestamp": "2025-10-11T01:21:09.809344",
+        "religion": "Catholic",
+        "demeanour": "Analytical and meticulous, with strong communication skills for complex financial matters.",
+        "interests": [
+          "International tax law",
+          "fintech",
+          "cross-country skiing",
+          "Spanish literature"
+        ],
+        "sector": "Finance",
+        "backstory": "Born 1987 in St. Gallen; completed his MSc in Business and Law in 2011. He has specialized in cross-border taxation for SMEs for over a decade, gaining his tax expert certification in 2018."
+      }
+    },
+    {
+      "id": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+      "name": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+      "demographics": {
+        "id": "d24da0c0-980a-4d9b-8f14-adf71ee7b3fd",
+        "name": "Mathilde du Bouvier",
+        "age": 33,
+        "gender": "F",
+        "city": "Oberwil",
+        "job": "Producer, radio",
+        "company": "Scherrer AG",
+        "education_level": "master_degree",
+        "income_bracket": "high",
+        "ethnicity": "French",
+        "cultural_background": "Romance culture",
+        "country": "CH_de",
+        "susceptibility": 0.275,
+        "trust_institution": 0.98,
+        "turnout_propensity": 0.948,
+        "media_diet": {
+          "social_media": 0.04,
+          "tv": 0.34,
+          "newspaper": 0.194,
+          "blogs": 0.427
+        },
+        "personality_traits": {
+          "openness": 0.679,
+          "conscientiousness": 0.953,
+          "extraversion": 0.143,
+          "agreeableness": 0.608,
+          "neuroticism": 0.781
+        },
+        "confirmation_bias": 0.034798965798542025,
+        "social_network_influence": 0.06723336306210881,
+        "risk_aversion": 0.7785153735068654,
+        "fairness_value": 0.36632847310714856,
+        "prior_beliefs": {
+          "climate_change": -0.112,
+          "education": -0.846,
+          "immigration": -0.725,
+          "healthcare": -0.266,
+          "economy": -0.371,
+          "foreign_policy": -0.443
+        },
+        "timestamp": "2025-10-11T01:21:09.125360",
+        "religion": "None",
+        "demeanour": "Articulate and deadline-driven, with a keen ear for compelling audio content.",
+        "interests": [
+          "Podcasting",
+          "Contemporary art",
+          "Urban exploration",
+          "Public broadcasting"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1992; earned her MA in Media Studies from the University of Zurich in 2016. Joined a major public broadcaster as a radio producer in 2018, recently leading a successful digital content initiative."
+      }
+    },
+    {
+      "id": "1649ea36-a0eb-43f2-be82-7871048094bd",
+      "name": "1649ea36-a0eb-43f2-be82-7871048094bd",
+      "demographics": {
+        "id": "1649ea36-a0eb-43f2-be82-7871048094bd",
+        "name": "Rom\u00e1n Juan Bautista Calleja Conde",
+        "age": 28,
+        "gender": "F",
+        "city": "Galland-Dessus",
+        "job": "Meunier CFC",
+        "company": "Chapuis S\u00e0rl.",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "Spanish",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.607,
+        "trust_institution": 0.94,
+        "turnout_propensity": 0.885,
+        "media_diet": {
+          "social_media": 0.267,
+          "tv": 0.26,
+          "newspaper": 0.293,
+          "blogs": 0.18
+        },
+        "personality_traits": {
+          "openness": 0.211,
+          "conscientiousness": 0.74,
+          "extraversion": 0.705,
+          "agreeableness": 0.372,
+          "neuroticism": 0.514
+        },
+        "confirmation_bias": 0.18465620455738785,
+        "social_network_influence": 0.6374271328373966,
+        "risk_aversion": 0.39434576723204984,
+        "fairness_value": 0.06088100968816912,
+        "prior_beliefs": {
+          "healthcare": 0.956,
+          "climate_change": -0.527,
+          "economy": -0.224
+        },
+        "timestamp": "2025-10-11T01:21:10.768735"
+      }
+    },
+    {
+      "id": "2d622625-6bc7-4b1f-a939-c6120530009e",
+      "name": "2d622625-6bc7-4b1f-a939-c6120530009e",
+      "demographics": {
+        "id": "2d622625-6bc7-4b1f-a939-c6120530009e",
+        "name": "Anja Vollbrecht",
+        "age": 25,
+        "gender": "F",
+        "city": "Montreux",
+        "job": "Fish and Game Warden (Federal Diploma)",
+        "company": "Boechat",
+        "education_level": "vocational_diploma",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_fr",
+        "susceptibility": 0.536,
+        "trust_institution": 0.071,
+        "turnout_propensity": 0.733,
+        "media_diet": {
+          "social_media": 0.441,
+          "tv": 0.309,
+          "newspaper": 0.085,
+          "blogs": 0.165
+        },
+        "personality_traits": {
+          "openness": 0.657,
+          "conscientiousness": 0.821,
+          "extraversion": 0.605,
+          "agreeableness": 0.42,
+          "neuroticism": 0.153
+        },
+        "confirmation_bias": 0.9924489914460782,
+        "social_network_influence": 0.43362713142441134,
+        "risk_aversion": 0.025909863144291112,
+        "fairness_value": 0.6036072466336018,
+        "prior_beliefs": {
+          "education": -0.78,
+          "climate_change": 0.097,
+          "social_justice": -0.868
+        },
+        "timestamp": "2025-10-11T01:21:09.960259",
+        "religion": "None",
+        "demeanour": "Observant and principled, with a strong commitment to wildlife conservation.",
+        "interests": [
+          "freshwater ecology",
+          "fly fishing",
+          "ornithology",
+          "environmental law"
+        ],
+        "sector": "Environmental Services",
+        "backstory": "Born 2000; she pursued her passion for nature, earning her federal diploma as a fish and game warden in 2022. She now patrols the Lake Geneva shoreline, focusing on conservation and regulatory enforcement."
+      }
+    },
+    {
+      "id": "e4cfad67-0bc4-4a81-bd39-1c9f67f53d0d",
+      "name": "e4cfad67-0bc4-4a81-bd39-1c9f67f53d0d",
+      "demographics": {
+        "id": "e4cfad67-0bc4-4a81-bd39-1c9f67f53d0d",
+        "name": "Christine Quinn",
+        "age": 36,
+        "gender": "F",
+        "city": "Derekport",
+        "job": "Academic librarian",
+        "company": "King PLC",
+        "education_level": "trade_school",
+        "income_bracket": "low",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Alpine culture",
+        "country": "CH_it",
+        "susceptibility": 0.83,
+        "trust_institution": 0.12,
+        "turnout_propensity": 0.713,
+        "media_diet": {
+          "social_media": 0.085,
+          "tv": 0.235,
+          "newspaper": 0.306,
+          "blogs": 0.374
+        },
+        "personality_traits": {
+          "openness": 0.94,
+          "conscientiousness": 0.966,
+          "extraversion": 0.972,
+          "agreeableness": 0.183,
+          "neuroticism": 0.82
+        },
+        "confirmation_bias": 0.8856242746006309,
+        "social_network_influence": 0.5109046190595476,
+        "risk_aversion": 0.14170842498550418,
+        "fairness_value": 0.6805743666131577,
+        "prior_beliefs": {
+          "healthcare": -0.292,
+          "foreign_policy": 0.202,
+          "technology": -0.696
+        },
+        "timestamp": "2025-10-11T01:21:10.254686"
+      }
+    },
+    {
+      "id": "1a08785d-615c-4180-80fd-78164a40d113",
+      "name": "1a08785d-615c-4180-80fd-78164a40d113",
+      "demographics": {
+        "id": "1a08785d-615c-4180-80fd-78164a40d113",
+        "name": "Daria Vespa-Granatelli",
+        "age": 59,
+        "gender": "M",
+        "city": "East Patricia",
+        "job": "Multimedia programmer",
+        "company": "Galloway, Kerr and Gould",
+        "education_level": "trade_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Italian",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_it",
+        "susceptibility": 0.939,
+        "trust_institution": 0.4,
+        "turnout_propensity": 0.152,
+        "media_diet": {
+          "social_media": 0.174,
+          "tv": 0.112,
+          "newspaper": 0.377,
+          "blogs": 0.336
+        },
+        "personality_traits": {
+          "openness": 0.807,
+          "conscientiousness": 0.604,
+          "extraversion": 0.625,
+          "agreeableness": 0.529,
+          "neuroticism": 0.284
+        },
+        "confirmation_bias": 0.07369015462210593,
+        "social_network_influence": 0.37283321158198135,
+        "risk_aversion": 0.31041194175889797,
+        "fairness_value": 0.8165966010436554,
+        "prior_beliefs": {
+          "economy": -0.628,
+          "foreign_policy": 0.049,
+          "climate_change": -0.631,
+          "social_justice": 0.922
+        },
+        "timestamp": "2025-10-11T01:21:11.168055"
+      }
+    },
+    {
+      "id": "e1c7e755-f949-4a75-ae58-4fd53fe04e91",
+      "name": "e1c7e755-f949-4a75-ae58-4fd53fe04e91",
+      "demographics": {
+        "id": "e1c7e755-f949-4a75-ae58-4fd53fe04e91",
+        "name": "Tiziana Ranzoni",
+        "age": 48,
+        "gender": "F",
+        "city": "Locarno",
+        "job": "Physiotherapist",
+        "company": "Mcfarland, Goodwin and Aguirre",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-Italian",
+        "cultural_background": "Swiss-Italian",
+        "country": "CH_it",
+        "susceptibility": 0.044,
+        "trust_institution": 0.35,
+        "turnout_propensity": 0.655,
+        "media_diet": {
+          "social_media": 0.151,
+          "tv": 0.18,
+          "newspaper": 0.374,
+          "blogs": 0.295
+        },
+        "personality_traits": {
+          "openness": 0.122,
+          "conscientiousness": 0.077,
+          "extraversion": 0.25,
+          "agreeableness": 0.544,
+          "neuroticism": 0.495
+        },
+        "confirmation_bias": 0.7352186278508963,
+        "social_network_influence": 0.3569583140137804,
+        "risk_aversion": 0.9151008640137326,
+        "fairness_value": 0.220287289049788,
+        "prior_beliefs": {
+          "foreign_policy": 0.054,
+          "technology": -0.465,
+          "education": 0.396,
+          "economy": 0.007,
+          "immigration": -0.892
+        },
+        "timestamp": "2025-10-11T01:21:10.098098",
+        "religion": "Catholic",
+        "demeanour": "Empathetic and encouraging, dedicated to patient rehabilitation and mobility.",
+        "interests": [
+          "Sports medicine",
+          "Pilates",
+          "Lakeside cycling",
+          "Regional festivals"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1976 in Ticino; BSc Physiotherapy 1998. Has run a private practice in Locarno since 2008, specializing in post-surgical recovery."
+      }
+    },
+    {
+      "id": "cb81ff8b-62f1-43ed-a887-da3f03b96b82",
+      "name": "cb81ff8b-62f1-43ed-a887-da3f03b96b82",
+      "demographics": {
+        "id": "cb81ff8b-62f1-43ed-a887-da3f03b96b82",
+        "name": "David da Valente",
+        "age": 20,
+        "gender": "F",
+        "city": "Marty an der Aare",
+        "job": "Pl\u00e2trier constructeur \u00e0 sec CFC",
+        "company": "Masseron SA",
+        "education_level": "some_college",
+        "income_bracket": "middle_high",
+        "ethnicity": "Portuguese",
+        "cultural_background": "Mediterranean culture",
+        "country": "CH_fr",
+        "susceptibility": 0.414,
+        "trust_institution": 0.549,
+        "turnout_propensity": 0.836,
+        "media_diet": {
+          "social_media": 0.365,
+          "tv": 0.363,
+          "newspaper": 0.092,
+          "blogs": 0.18
+        },
+        "personality_traits": {
+          "openness": 0.144,
+          "conscientiousness": 0.654,
+          "extraversion": 0.119,
+          "agreeableness": 0.625,
+          "neuroticism": 0.946
+        },
+        "confirmation_bias": 0.02697487161082046,
+        "social_network_influence": 0.15150437417554452,
+        "risk_aversion": 0.1712628098428174,
+        "fairness_value": 0.4715263447114054,
+        "prior_beliefs": {
+          "climate_change": -0.367,
+          "foreign_policy": -0.455,
+          "healthcare": 0.599
+        },
+        "timestamp": "2025-10-11T01:21:11.240053"
+      }
+    },
+    {
+      "id": "5fd02bdc-47c3-4f61-96ce-ba30b1264db3",
+      "name": "5fd02bdc-47c3-4f61-96ce-ba30b1264db3",
+      "demographics": {
+        "id": "5fd02bdc-47c3-4f61-96ce-ba30b1264db3",
+        "name": "Dani\u00e8le M\u00e4der",
+        "age": 71,
+        "gender": "F",
+        "city": "West Dawnland",
+        "job": "Proofreader",
+        "company": "Vasquez, Sanchez and Green",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "Swiss-German",
+        "cultural_background": "Swiss-German",
+        "country": "CH_it",
+        "susceptibility": 0.682,
+        "trust_institution": 0.406,
+        "turnout_propensity": 0.52,
+        "media_diet": {
+          "social_media": 0.181,
+          "tv": 0.148,
+          "newspaper": 0.302,
+          "blogs": 0.369
+        },
+        "personality_traits": {
+          "openness": 0.883,
+          "conscientiousness": 0.537,
+          "extraversion": 0.716,
+          "agreeableness": 0.607,
+          "neuroticism": 0.989
+        },
+        "confirmation_bias": 0.7147642152288565,
+        "social_network_influence": 0.43852112055426506,
+        "risk_aversion": 0.8277538323851805,
+        "fairness_value": 0.05978626976134671,
+        "prior_beliefs": {
+          "climate_change": 0.575,
+          "economy": -0.793,
+          "healthcare": 0.694,
+          "education": 0.516,
+          "foreign_policy": 0.16,
+          "immigration": 0.583
+        },
+        "timestamp": "2025-10-11T01:21:10.208661"
+      }
+    },
+    {
+      "id": "d1c8c4f1-5dd8-4406-b9da-0c7396d44d30",
+      "name": "d1c8c4f1-5dd8-4406-b9da-0c7396d44d30",
+      "demographics": {
+        "id": "d1c8c4f1-5dd8-4406-b9da-0c7396d44d30",
+        "name": "Henri Corboz",
+        "age": 38,
+        "gender": "M",
+        "city": "Chappuis",
+        "job": "Aide-polyb\u00e2tisseur AFP",
+        "company": "Maire Curdy SA",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "Swiss-French",
+        "cultural_background": "Swiss-German",
+        "country": "CH_fr",
+        "susceptibility": 0.493,
+        "trust_institution": 0.711,
+        "turnout_propensity": 0.874,
+        "media_diet": {
+          "social_media": 0.342,
+          "tv": 0.23,
+          "newspaper": 0.109,
+          "blogs": 0.319
+        },
+        "personality_traits": {
+          "openness": 0.569,
+          "conscientiousness": 0.737,
+          "extraversion": 0.462,
+          "agreeableness": 0.265,
+          "neuroticism": 0.72
+        },
+        "confirmation_bias": 0.8926114671343772,
+        "social_network_influence": 0.43637688775637407,
+        "risk_aversion": 0.13257183281688367,
+        "fairness_value": 0.6777444076809276,
+        "prior_beliefs": {
+          "technology": -0.34,
+          "foreign_policy": 0.172,
+          "healthcare": -0.313,
+          "climate_change": -0.94,
+          "immigration": -0.662
+        },
+        "timestamp": "2025-10-11T01:21:12.158749"
+      }
+    }
+  ]
+}
