@@ -18,7 +18,7 @@ max_change_percentage: 0.5
 max_concurrent: 40
 
 # Data files
-population_file: "data/personas/swiss_population_50.jsonl"
+population_file: "data/personas/berlin_1936_population.jsonl"
 world_file: "data/worlds/zürich-autumn-2025/story.md"
 
 # Topics

@@ -6,8 +6,8 @@ num_epochs: 3
 random_seed: 42
 
 # Social media parameters
-post_probability: 0.1
-reaction_probability: 0.2
+post_probability: 0.4
+reaction_probability: 0.4
 
 # Peer chat parameters
 num_rounds_mean: 3

@@ -1,0 +1,2789 @@
+{
+  "simulation_id": "20251012_140555",
+  "config": {
+    "population_size": 50,
+    "questions_per_topic": 2,
+    "turns_per_question": 2,
+    "num_epochs": 3,
+    "random_seed": 42
+  },
+  "topics": [
+    {
+      "id": "topic_1",
+      "title": "Housing squeeze & rents",
+      "description": "Record-low vacancy rates in Z\u00fcrich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "candidate_1",
+      "name": "Lina Meier",
+      "character": "Progressive (left-leaning). Prioritises a stronger social safety net and public services; backs premium relief in LAMal and more cost controls; pro\u2013cooperative/affordable housing; supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); liberal on migration/asylum with focus on integration; progressive taxation and childcare support; values direct democracy with citizen initiatives to expand social programs. Determined to win a governing mandate by mobilising the urban base while reassuring centrist swing voters with pragmatic, costed plans.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing squeeze in Z\u00fcrich is a serious concern. We need to build more affordable, cooperative housing and implement rent controls to protect residents. Prioritizing long-term residents could be a component, but must be balanced with the need for fair housing practices and integration, ensuring everyone has a fair chance."
+      }
+    },
+    {
+      "id": "candidate_2",
+      "name": "Markus Keller",
+      "character": "Conservative (right-leaning). Emphasises free markets and limited government; prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; pro-property rights and deregulation to spur private housing supply; EU-sceptical\u2014prefers bilateral deals without automatic legal alignment; energy security via technology neutrality incl. new-gen nuclear; strict migration controls with faster procedures; supports tax relief and individual taxation; prioritises neutrality, security, and fiscal discipline. Focused on winning a centre-right mandate by uniting conservatives and persuading cost-conscious moderates with a stability-and-competence message.\n",
+      "initial_policy_positions": {
+        "topic_1": "The housing squeeze in Z\u00fcrich demands a market-based solution. We need to cut red tape and promote deregulation to unleash private investment in new housing, fostering competition and ultimately driving down prices. While I understand the concerns, prioritizing residents based on nationality or length of stay is not the answer, as it violates fundamental principles of fairness and free markets."
+      }
+    }
+  ],
+  "population": [
+    {
+      "id": "b3585d1a-aeb2-4cfa-b489-3f1542af3a17",
+      "name": "b3585d1a-aeb2-4cfa-b489-3f1542af3a17",
+      "demographics": {
+        "id": "b3585d1a-aeb2-4cfa-b489-3f1542af3a17",
+        "name": "Hans Schmidt",
+        "age": 28,
+        "gender": "Male",
+        "city": "Tiergarten, Berlin",
+        "job": "Archivist (Municipal Archives)",
+        "company": "Berliner Rathaus (Hauptarchiv)",
+        "education_level": "master_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "CH_it",
+        "susceptibility": 0.456,
+        "trust_institution": 0.918,
+        "turnout_propensity": 0.705,
+        "media_diet": {
+          "social_media": 0.122,
+          "tv": 0.368,
+          "newspaper": 0.226,
+          "blogs": 0.284
+        },
+        "personality_traits": {
+          "openness": 0.124,
+          "conscientiousness": 0.031,
+          "extraversion": 0.372,
+          "agreeableness": 0.594,
+          "neuroticism": 0.178
+        },
+        "confirmation_bias": 0.8704807719184628,
+        "social_network_influence": 0.5868802484224268,
+        "risk_aversion": 0.34975990164465454,
+        "fairness_value": 0.16351361451785085,
+        "prior_beliefs": {
+          "immigration": -0.674,
+          "economy": 0.145,
+          "climate_change": 0.93,
+          "healthcare": 0.714,
+          "foreign_policy": 0.295
+        },
+        "timestamp": "2025-10-11T14:23:09.241399",
+        "religion": "Catholic",
+        "demeanour": "Meticulous and reserved, with a deep respect for historical documents.",
+        "interests": [
+          "local history research",
+          "stamp collecting",
+          "attending public lectures"
+        ],
+        "sector": "Government",
+        "backstory": "Born 1908 in Berlin; completed a master's degree in history in 1932. Joined the Berliner Rathaus archives as an Archivist in 1933, organizing historical civic records."
+      }
+    },
+    {
+      "id": "c370dc5e-b96f-4df3-b4ab-c702b5fcc268",
+      "name": "c370dc5e-b96f-4df3-b4ab-c702b5fcc268",
+      "demographics": {
+        "id": "c370dc5e-b96f-4df3-b4ab-c702b5fcc268",
+        "name": "Grete Schulz",
+        "age": 32,
+        "gender": "Female",
+        "city": "Charlottenburg",
+        "job": "Goldschmiedin",
+        "company": "Quartier S\u00e0rl.",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Germanic culture",
+        "country": "CH_fr",
+        "susceptibility": 0.54,
+        "trust_institution": 0.168,
+        "turnout_propensity": 0.245,
+        "media_diet": {
+          "social_media": 0.379,
+          "tv": 0.383,
+          "newspaper": 0.221,
+          "blogs": 0.017
+        },
+        "personality_traits": {
+          "openness": 0.813,
+          "conscientiousness": 0.961,
+          "extraversion": 0.621,
+          "agreeableness": 0.653,
+          "neuroticism": 0.167
+        },
+        "confirmation_bias": 0.06017503092815579,
+        "social_network_influence": 0.9218107125325967,
+        "risk_aversion": 0.27330293951830076,
+        "fairness_value": 0.25088895737743167,
+        "prior_beliefs": {
+          "foreign_policy": -0.677,
+          "technology": 0.068,
+          "social_justice": -0.86,
+          "immigration": -0.821,
+          "economy": 0.397,
+          "climate_change": 0.661
+        },
+        "timestamp": "2025-10-11T14:23:09.750944",
+        "religion": "Protestant",
+        "demeanour": "Artistically precise and patient, with a keen eye for detail in craftsmanship.",
+        "interests": [
+          "Designing new jewelry pieces",
+          "Attending art exhibitions",
+          "Reading fashion magazines",
+          "Collecting vintage brooches"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1904 in Berlin; trained as a goldsmith after leaving school. Opened her own small jewelry workshop in Charlottenburg in 1928, specializing in custom designs."
+      }
+    },
+    {
+      "id": "ad5c17b6-bf1f-4feb-9b1f-09683726580b",
+      "name": "ad5c17b6-bf1f-4feb-9b1f-09683726580b",
+      "demographics": {
+        "id": "ad5c17b6-bf1f-4feb-9b1f-09683726580b",
+        "name": "Hans Richter",
+        "age": 61,
+        "gender": "Male",
+        "city": "Steglitz",
+        "job": "Schuldirektor",
+        "company": "Brady LLC",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "Germanic culture",
+        "country": "CH_it",
+        "susceptibility": 0.469,
+        "trust_institution": 0.438,
+        "turnout_propensity": 0.508,
+        "media_diet": {
+          "social_media": 0.193,
+          "tv": 0.225,
+          "newspaper": 0.302,
+          "blogs": 0.28
+        },
+        "personality_traits": {
+          "openness": 0.715,
+          "conscientiousness": 0.468,
+          "extraversion": 0.883,
+          "agreeableness": 0.723,
+          "neuroticism": 0.39
+        },
+        "confirmation_bias": 0.4168610783895905,
+        "social_network_influence": 0.9411969905578143,
+        "risk_aversion": 0.652500187863295,
+        "fairness_value": 0.3602555676994671,
+        "prior_beliefs": {
+          "economy": -0.034,
+          "education": -0.653,
+          "immigration": -0.687,
+          "social_justice": -0.016,
+          "climate_change": 0.587,
+          "technology": 0.886
+        },
+        "timestamp": "2025-10-11T14:23:09.717281",
+        "religion": "Protestant",
+        "demeanour": "Authoritative and principled, with a firm belief in structured learning.",
+        "interests": [
+          "Classical music concerts",
+          "Stamp collecting",
+          "Reading historical texts",
+          "Gardening"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1875 in Saxony; completed university studies in pedagogy. Served as Schuldirektor in Berlin Steglitz since 1928."
+      }
+    },
+    {
+      "id": "8c46788a-90b3-493c-a10a-312ae515ab45",
+      "name": "8c46788a-90b3-493c-a10a-312ae515ab45",
+      "demographics": {
+        "id": "8c46788a-90b3-493c-a10a-312ae515ab45",
+        "name": "Elisabeth Richter",
+        "age": 60,
+        "gender": "Female",
+        "city": "Tiergarten",
+        "job": "Public Health Nurse",
+        "company": "Sp\u00f6rri AG",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "CH_de",
+        "susceptibility": 0.671,
+        "trust_institution": 0.132,
+        "turnout_propensity": 0.892,
+        "media_diet": {
+          "social_media": 0.047,
+          "tv": 0.203,
+          "newspaper": 0.192,
+          "blogs": 0.558
+        },
+        "personality_traits": {
+          "openness": 0.339,
+          "conscientiousness": 0.468,
+          "extraversion": 0.09,
+          "agreeableness": 0.71,
+          "neuroticism": 0.433
+        },
+        "confirmation_bias": 0.2604060107234273,
+        "social_network_influence": 0.31326960805179294,
+        "risk_aversion": 0.978516601978775,
+        "fairness_value": 0.4992106174802746,
+        "prior_beliefs": {
+          "foreign_policy": 0.034,
+          "healthcare": -0.128,
+          "economy": -0.67,
+          "social_justice": 0.474,
+          "education": -0.017
+        },
+        "timestamp": "2025-10-11T14:23:09.693462",
+        "religion": "Protestant",
+        "demeanour": "Compassionate and diligent, dedicated to promoting community well-being.",
+        "interests": [
+          "Herbal remedies",
+          "Visiting art galleries",
+          "Knitting for charity",
+          "Reading medical pamphlets"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1876 in Berlin; completed nursing vocational training in 1898. Worked as a public health nurse for the municipal health department since 1905, focusing on hygiene education and preventative care."
+      }
+    },
+    {
+      "id": "6af1dad9-e45b-4155-8dbd-e0073c8de38e",
+      "name": "6af1dad9-e45b-4155-8dbd-e0073c8de38e",
+      "demographics": {
+        "id": "6af1dad9-e45b-4155-8dbd-e0073c8de38e",
+        "name": "Ilse Zimmermann",
+        "age": 62,
+        "gender": "Female",
+        "city": "Berlin, Charlottenburg",
+        "job": "Archivist, City Administration",
+        "company": "Ward PLC",
+        "education_level": "bachelor_degree",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.416,
+        "trust_institution": 0.464,
+        "turnout_propensity": 0.34,
+        "media_diet": {
+          "social_media": 0.062,
+          "tv": 0.373,
+          "newspaper": 0.138,
+          "blogs": 0.427
+        },
+        "personality_traits": {
+          "openness": 0.345,
+          "conscientiousness": 0.399,
+          "extraversion": 0.761,
+          "agreeableness": 0.515,
+          "neuroticism": 0.106
+        },
+        "confirmation_bias": 0.2417378609364671,
+        "social_network_influence": 0.12252190908395999,
+        "risk_aversion": 0.4495960119956648,
+        "fairness_value": 0.1408776350081835,
+        "prior_beliefs": {
+          "education": -0.164,
+          "healthcare": 0.925,
+          "social_justice": 0.805
+        },
+        "timestamp": "2025-10-11T14:23:08.913537",
+        "religion": "Protestant",
+        "demeanour": "Meticulous and discreet, with a deep understanding of public records.",
+        "interests": [
+          "Genealogy",
+          "Collecting antique maps",
+          "Choral singing",
+          "Historical societies"
+        ],
+        "sector": "Government",
+        "backstory": "Born 1874 in Berlin; BA History 1896, University of Berlin. Archivist for the Berlin City Administration since 1900, overseeing the preservation of civic documents."
+      }
+    },
+    {
+      "id": "75d2d620-8355-4dd6-a2fc-7039b5df98f9",
+      "name": "75d2d620-8355-4dd6-a2fc-7039b5df98f9",
+      "demographics": {
+        "id": "75d2d620-8355-4dd6-a2fc-7039b5df98f9",
+        "name": "Hans Richter",
+        "age": 25,
+        "gender": "Male",
+        "city": "Berlin (Spandau)",
+        "job": "Factory Supervisor",
+        "company": "Egli Stettler GmbH",
+        "education_level": "high_school",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "Western European",
+        "country": "CH_de",
+        "susceptibility": 0.623,
+        "trust_institution": 0.511,
+        "turnout_propensity": 0.168,
+        "media_diet": {
+          "social_media": 0.302,
+          "tv": 0.406,
+          "newspaper": 0.262,
+          "blogs": 0.03
+        },
+        "personality_traits": {
+          "openness": 0.378,
+          "conscientiousness": 0.132,
+          "extraversion": 0.017,
+          "agreeableness": 0.523,
+          "neuroticism": 0.909
+        },
+        "confirmation_bias": 0.6843678311988339,
+        "social_network_influence": 0.8265141855892627,
+        "risk_aversion": 0.6055110178612066,
+        "fairness_value": 0.17742218431732937,
+        "prior_beliefs": {
+          "immigration": 0.319,
+          "climate_change": 0.804,
+          "healthcare": 0.079
+        },
+        "timestamp": "2025-10-11T14:23:09.295333",
+        "religion": "Protestant",
+        "demeanour": "Authoritative and practical, focused on enforcing regulations and maintaining order.",
+        "interests": [
+          "Boxing",
+          "Engineering magazines",
+          "Repairing household appliances",
+          "Hiking in the Brandenburg countryside"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1911 in Brandenburg, Hans moved to Berlin in 1928, starting as a factory worker. By 1934, he was promoted to a factory supervisor in Spandau, overseeing production line safety and efficiency."
+      }
+    },
+    {
+      "id": "94bc26b9-5024-4607-bd1d-2936d1f7aa61",
+      "name": "94bc26b9-5024-4607-bd1d-2936d1f7aa61",
+      "demographics": {
+        "id": "94bc26b9-5024-4607-bd1d-2936d1f7aa61",
+        "name": "Franz Winkler",
+        "age": 39,
+        "gender": "Male",
+        "city": "Tiergarten",
+        "job": "Master Coachbuilder",
+        "company": "Cosandey Boichat S\u00e0rl.",
+        "education_level": "high_school",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "Germany",
+        "susceptibility": 0.368,
+        "trust_institution": 0.618,
+        "turnout_propensity": 0.659,
+        "media_diet": {
+          "social_media": 0.23,
+          "tv": 0.2,
+          "newspaper": 0.091,
+          "blogs": 0.478
+        },
+        "personality_traits": {
+          "openness": 0.958,
+          "conscientiousness": 0.813,
+          "extraversion": 0.017,
+          "agreeableness": 0.36,
+          "neuroticism": 0.046
+        },
+        "confirmation_bias": 0.8075578118548767,
+        "social_network_influence": 0.32552519945747715,
+        "risk_aversion": 0.44430615926950157,
+        "fairness_value": 0.606763016317309,
+        "prior_beliefs": {
+          "immigration": -0.23,
+          "economy": 0.214,
+          "healthcare": 0.424,
+          "foreign_policy": 0.74,
+          "climate_change": 0.752,
+          "technology": 0.57
+        },
+        "timestamp": "2025-10-11T14:23:09.821644",
+        "religion": "Catholic",
+        "demeanour": "Practical and detail-oriented, with a strong commitment to quality craftsmanship.",
+        "interests": [
+          "Automobile mechanics",
+          "Carpentry",
+          "Listening to boxing matches on the radio",
+          "Model building"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Completed an apprenticeship in coachbuilding in 1916. Since 1925, he has operated his own workshop near Berlin's Tiergarten, specializing in custom automobile bodywork and repairs."
+      }
+    },
+    {
+      "id": "0bc8c760-f877-437c-904c-13862ed762dd",
+      "name": "0bc8c760-f877-437c-904c-13862ed762dd",
+      "demographics": {
+        "id": "0bc8c760-f877-437c-904c-13862ed762dd",
+        "name": "Franz Wagner",
+        "age": 35,
+        "gender": "Male",
+        "city": "Kreuzberg",
+        "job": "Factory Machinist",
+        "company": "Wirz Hess & Co.",
+        "education_level": "trade_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "DE",
+        "susceptibility": 0.094,
+        "trust_institution": 0.379,
+        "turnout_propensity": 0.553,
+        "media_diet": {
+          "social_media": 0.076,
+          "tv": 0.013,
+          "newspaper": 0.233,
+          "blogs": 0.678
+        },
+        "personality_traits": {
+          "openness": 0.434,
+          "conscientiousness": 0.784,
+          "extraversion": 0.566,
+          "agreeableness": 0.858,
+          "neuroticism": 0.095
+        },
+        "confirmation_bias": 0.528159185641648,
+        "social_network_influence": 0.042551757617045105,
+        "risk_aversion": 0.21141705588454718,
+        "fairness_value": 0.8681168905816056,
+        "prior_beliefs": {
+          "education": 0.858,
+          "climate_change": -0.371,
+          "technology": 0.923,
+          "economy": 0.174,
+          "foreign_policy": 0.505,
+          "healthcare": 0.425
+        },
+        "timestamp": "2025-10-11T14:23:09.067884",
+        "religion": "Catholic",
+        "demeanour": "Practical and reliable, valuing hard work and straightforward communication.",
+        "interests": [
+          "Attending football matches",
+          "Playing cards at local tavern",
+          "Listening to radio variety shows",
+          "Growing vegetables"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1901 in Dresden; moved to Berlin after completing trade school in metalwork. Employed as a factory machinist in Kreuzberg since the late 1920s, operating industrial machinery."
+      }
+    },
+    {
+      "id": "fef597f1-85a3-440d-97f9-44f44a661cb8",
+      "name": "fef597f1-85a3-440d-97f9-44f44a661cb8",
+      "demographics": {
+        "id": "fef597f1-85a3-440d-97f9-44f44a661cb8",
+        "name": "G\u00fcnther Schmidt",
+        "age": 18,
+        "gender": "Male",
+        "city": "Tempelhof",
+        "job": "Apprentice Paver",
+        "company": "Jacot-Descombes",
+        "education_level": "vocational_training",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.184,
+        "trust_institution": 0.63,
+        "turnout_propensity": 0.065,
+        "media_diet": {
+          "social_media": 0.197,
+          "tv": 0.383,
+          "newspaper": 0.021,
+          "blogs": 0.398
+        },
+        "personality_traits": {
+          "openness": 0.938,
+          "conscientiousness": 0.126,
+          "extraversion": 0.174,
+          "agreeableness": 0.549,
+          "neuroticism": 0.795
+        },
+        "confirmation_bias": 0.20437333163850102,
+        "social_network_influence": 0.5074245488506891,
+        "risk_aversion": 0.4262398162855886,
+        "fairness_value": 0.46707424753504223,
+        "prior_beliefs": {
+          "healthcare": 0.212,
+          "immigration": -0.394,
+          "social_justice": 0.153,
+          "technology": 0.935
+        },
+        "timestamp": "2025-10-11T14:23:09.807691",
+        "religion": "Catholic",
+        "demeanour": "Energetic and ambitious, eager to master his trade.",
+        "interests": [
+          "Football matches",
+          "Listening to popular music on the radio",
+          "Cinema",
+          "Local pub gatherings"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Completed his primary schooling in Berlin and began a paving apprenticeship at age 16. Works on various city infrastructure projects, gaining practical experience in road construction."
+      }
+    },
+    {
+      "id": "a235eec3-85b6-48ae-a2b7-11d492ee3317",
+      "name": "a235eec3-85b6-48ae-a2b7-11d492ee3317",
+      "demographics": {
+        "id": "a235eec3-85b6-48ae-a2b7-11d492ee3317",
+        "name": "Lena Meyer",
+        "age": 18,
+        "gender": "Female",
+        "city": "Prenzlauer Berg",
+        "job": "Office Clerk",
+        "company": "Deutsche Bank",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German city culture",
+        "country": "CH_fr",
+        "susceptibility": 0.098,
+        "trust_institution": 0.726,
+        "turnout_propensity": 0.487,
+        "media_diet": {
+          "social_media": 0.272,
+          "tv": 0.106,
+          "newspaper": 0.54,
+          "blogs": 0.082
+        },
+        "personality_traits": {
+          "openness": 0.62,
+          "conscientiousness": 0.9,
+          "extraversion": 0.318,
+          "agreeableness": 0.451,
+          "neuroticism": 0.616
+        },
+        "confirmation_bias": 0.30567548940672074,
+        "social_network_influence": 0.5841699328451972,
+        "risk_aversion": 0.5655520079051098,
+        "fairness_value": 0.36449343567862924,
+        "prior_beliefs": {
+          "technology": 0.571,
+          "immigration": 0.424,
+          "climate_change": 0.282,
+          "economy": -0.447,
+          "social_justice": -0.281
+        },
+        "timestamp": "2025-10-11T14:23:09.283636",
+        "religion": "Catholic",
+        "demeanour": "Conscientious and eager to learn, adapting quickly to office routines.",
+        "interests": [
+          "Attending dance halls",
+          "Reading romance novels",
+          "Knitting",
+          "Collecting movie star postcards"
+        ],
+        "sector": "Finance",
+        "backstory": "Completed some college education after high school in 1935. She began her career in 1936 as an Office Clerk at Deutsche Bank, diligently managing correspondence and basic accounts."
+      }
+    },
+    {
+      "id": "647dd15d-2c30-409c-afc9-720b10847ead",
+      "name": "647dd15d-2c30-409c-afc9-720b10847ead",
+      "demographics": {
+        "id": "647dd15d-2c30-409c-afc9-720b10847ead",
+        "name": "G\u00fcnther Krause",
+        "age": 20,
+        "gender": "Male",
+        "city": "Tiergarten",
+        "job": "Municipal Parks Worker",
+        "company": "Berlin Parks Department",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "DE",
+        "susceptibility": 0.318,
+        "trust_institution": 0.88,
+        "turnout_propensity": 0.727,
+        "media_diet": {
+          "social_media": 0.31,
+          "tv": 0.356,
+          "newspaper": 0.168,
+          "blogs": 0.166
+        },
+        "personality_traits": {
+          "openness": 0.443,
+          "conscientiousness": 0.934,
+          "extraversion": 0.894,
+          "agreeableness": 0.933,
+          "neuroticism": 0.274
+        },
+        "confirmation_bias": 0.7791078849727928,
+        "social_network_influence": 0.10677143284340107,
+        "risk_aversion": 0.18474649657456732,
+        "fairness_value": 0.7624474837329654,
+        "prior_beliefs": {
+          "healthcare": -0.281,
+          "education": 0.376,
+          "immigration": -0.047,
+          "foreign_policy": 0.005,
+          "climate_change": 0.209
+        },
+        "timestamp": "2025-10-11T14:23:09.552004",
+        "religion": "Protestant",
+        "demeanour": "Diligent and outdoors-oriented, takes pride in maintaining public green spaces.",
+        "interests": [
+          "Collecting insects",
+          "Rowing on the Spree",
+          "Reading adventure novels"
+        ],
+        "sector": "Environmental Services",
+        "backstory": "Graduated from Realschule in 1933; began working with the Berlin Parks Department soon after. Primarily responsible for garden maintenance and care within the larger city parks."
+      }
+    },
+    {
+      "id": "dafe6eab-f199-4f59-91ca-480a7f798299",
+      "name": "dafe6eab-f199-4f59-91ca-480a7f798299",
+      "demographics": {
+        "id": "dafe6eab-f199-4f59-91ca-480a7f798299",
+        "name": "Robin Ammann",
+        "age": 26,
+        "gender": "Female",
+        "city": "Dahlem",
+        "job": "Assistant Curator (Historical Art)",
+        "company": "Weber & Cie.",
+        "education_level": "some_college",
+        "income_bracket": "high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.556,
+        "trust_institution": 0.55,
+        "turnout_propensity": 0.095,
+        "media_diet": {
+          "social_media": 0.094,
+          "tv": 0.736,
+          "newspaper": 0.113,
+          "blogs": 0.057
+        },
+        "personality_traits": {
+          "openness": 0.781,
+          "conscientiousness": 0.222,
+          "extraversion": 0.198,
+          "agreeableness": 0.401,
+          "neuroticism": 0.686
+        },
+        "confirmation_bias": 0.9375748980394379,
+        "social_network_influence": 0.0840394242281004,
+        "risk_aversion": 0.5861187522025454,
+        "fairness_value": 0.9174285815115801,
+        "prior_beliefs": {
+          "climate_change": 0.805,
+          "social_justice": -0.113,
+          "immigration": -0.742
+        },
+        "timestamp": "2025-10-11T14:23:09.114185",
+        "religion": "None",
+        "demeanour": "Cultured and discerning, with a subtle apprehension regarding artistic expression under the current climate.",
+        "interests": [
+          "Art history",
+          "Attending classical music concerts",
+          "Reading banned literature (secretly)",
+          "Collecting historical photographs"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 1910 in Berlin; studied art history at Humboldt University for two years before focusing on practical experience. Appointed Assistant Curator at a prominent Berlin art gallery in 1934, she helps manage collections of pre-modern German art."
+      }
+    },
+    {
+      "id": "85167c8e-0b85-4ffc-8fc0-258b7de2df0a",
+      "name": "85167c8e-0b85-4ffc-8fc0-258b7de2df0a",
+      "demographics": {
+        "id": "85167c8e-0b85-4ffc-8fc0-258b7de2df0a",
+        "name": "Karl Meier",
+        "age": 21,
+        "gender": "Male",
+        "city": "Sch\u00f6neberg, Berlin",
+        "job": "Junior Editor",
+        "company": "Ritter Sch\u00fcrch & Partner",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_de",
+        "susceptibility": 0.432,
+        "trust_institution": 0.636,
+        "turnout_propensity": 0.185,
+        "media_diet": {
+          "social_media": 0.343,
+          "tv": 0.275,
+          "newspaper": 0.072,
+          "blogs": 0.311
+        },
+        "personality_traits": {
+          "openness": 0.547,
+          "conscientiousness": 0.476,
+          "extraversion": 0.29,
+          "agreeableness": 0.668,
+          "neuroticism": 0.959
+        },
+        "confirmation_bias": 0.49296413635715397,
+        "social_network_influence": 0.6676996594308416,
+        "risk_aversion": 0.39118922044203264,
+        "fairness_value": 0.6976527035225569,
+        "prior_beliefs": {
+          "social_justice": -0.704,
+          "healthcare": -0.433,
+          "technology": -0.76
+        },
+        "timestamp": "2025-10-11T14:23:09.952603",
+        "religion": "None",
+        "demeanour": "Eager and articulate, demonstrating a keen eye for detail in written works.",
+        "interests": [
+          "Literary circles",
+          "Amateur photography",
+          "Newspaper analysis"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Began an apprenticeship at a Berlin publishing house 1933 after some college. Promoted to junior editor in 1935, primarily working on non-fiction titles."
+      }
+    },
+    {
+      "id": "4e726f78-6902-4cbf-8c9a-f762db715c7f",
+      "name": "4e726f78-6902-4cbf-8c9a-f762db715c7f",
+      "demographics": {
+        "id": "4e726f78-6902-4cbf-8c9a-f762db715c7f",
+        "name": "Walter Bahon",
+        "age": 63,
+        "gender": "Male",
+        "city": "Berlin-Spandau",
+        "job": "Keramiker und Designer",
+        "company": "Montgomery PLC",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German artistic culture",
+        "country": "Germany",
+        "susceptibility": 0.075,
+        "trust_institution": 0.495,
+        "turnout_propensity": 0.212,
+        "media_diet": {
+          "social_media": 0.333,
+          "tv": 0.233,
+          "newspaper": 0.191,
+          "blogs": 0.242
+        },
+        "personality_traits": {
+          "openness": 0.34,
+          "conscientiousness": 0.814,
+          "extraversion": 0.762,
+          "agreeableness": 0.514,
+          "neuroticism": 0.313
+        },
+        "confirmation_bias": 0.9443813585625993,
+        "social_network_influence": 0.7085123617501703,
+        "risk_aversion": 0.6552893381863751,
+        "fairness_value": 0.8478069790043786,
+        "prior_beliefs": {
+          "economy": -0.229,
+          "immigration": -0.095,
+          "social_justice": 0.241
+        },
+        "timestamp": "2025-10-11T14:23:09.927582",
+        "religion": "Protestant",
+        "demeanour": "Creative and thoughtful, with an eye for traditional design and utility.",
+        "interests": [
+          "Sculpting",
+          "Art exhibitions",
+          "Nature walks",
+          "Collecting local folk art"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Graduated from the School of Applied Arts in 1895; worked as a ceramic designer in various German workshops. Opened his own pottery studio in Spandau in 1910, creating functional and decorative pieces."
+      }
+    },
+    {
+      "id": "40a973b1-a7d0-4eda-b782-d8b68acba7a0",
+      "name": "40a973b1-a7d0-4eda-b782-d8b68acba7a0",
+      "demographics": {
+        "id": "40a973b1-a7d0-4eda-b782-d8b68acba7a0",
+        "name": "Kurt Neumann",
+        "age": 35,
+        "gender": "Male",
+        "city": "Berlin, Tiergarten",
+        "job": "Senior Legal Clerk",
+        "company": "Gibson-Davidson",
+        "education_level": "some_college",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.717,
+        "trust_institution": 0.489,
+        "turnout_propensity": 0.899,
+        "media_diet": {
+          "social_media": 0.425,
+          "tv": 0.053,
+          "newspaper": 0.126,
+          "blogs": 0.396
+        },
+        "personality_traits": {
+          "openness": 0.564,
+          "conscientiousness": 0.559,
+          "extraversion": 0.673,
+          "agreeableness": 0.308,
+          "neuroticism": 0.022
+        },
+        "confirmation_bias": 0.25445721906761243,
+        "social_network_influence": 0.0030154715910887253,
+        "risk_aversion": 0.2179013086729591,
+        "fairness_value": 0.0730295259154573,
+        "prior_beliefs": {
+          "foreign_policy": 0.972,
+          "social_justice": -0.056,
+          "climate_change": -0.426,
+          "education": -0.64,
+          "technology": -0.729,
+          "healthcare": 0.283
+        },
+        "timestamp": "2025-10-11T14:23:09.052300",
+        "religion": "Protestant",
+        "demeanour": "Diligent and analytical, with a strong adherence to procedural accuracy.",
+        "interests": [
+          "Collecting legal texts",
+          "Political commentary",
+          "Attending court hearings",
+          "Listening to radio news"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1901 in Dresden; studied law for two years at Humboldt University. Senior Legal Clerk at a Berlin law firm since 1925, managing case documentation and legal research."
+      }
+    },
+    {
+      "id": "b4b4efe2-acaf-4e3f-9f0e-020ce31b377f",
+      "name": "b4b4efe2-acaf-4e3f-9f0e-020ce31b377f",
+      "demographics": {
+        "id": "b4b4efe2-acaf-4e3f-9f0e-020ce31b377f",
+        "name": "Heinrich Lehmann",
+        "age": 34,
+        "gender": "Male",
+        "city": "Dahlem",
+        "job": "Agricultural consultant",
+        "company": "Brun Hofer & Co.",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.573,
+        "trust_institution": 0.268,
+        "turnout_propensity": 0.543,
+        "media_diet": {
+          "social_media": 0.325,
+          "tv": 0.178,
+          "newspaper": 0.248,
+          "blogs": 0.249
+        },
+        "personality_traits": {
+          "openness": 0.441,
+          "conscientiousness": 0.219,
+          "extraversion": 0.425,
+          "agreeableness": 0.736,
+          "neuroticism": 0.654
+        },
+        "confirmation_bias": 0.2475316248663435,
+        "social_network_influence": 0.8748098462768843,
+        "risk_aversion": 0.032230395449193816,
+        "fairness_value": 0.26281522474122765,
+        "prior_beliefs": {
+          "social_justice": 0.551,
+          "technology": -0.526,
+          "climate_change": 0.621
+        },
+        "timestamp": "2025-10-11T14:23:09.087332",
+        "religion": "Protestant",
+        "demeanour": "Conscientious and practical, with a grounded approach to resource management.",
+        "interests": [
+          "Gardening",
+          "Radio farm reports",
+          "Local hiking",
+          "Beekeeping"
+        ],
+        "sector": "Agriculture",
+        "backstory": "Born 1902 in rural Brandenburg; moved to Berlin for vocational agricultural training in his early 20s. Has advised local farms near Dahlem on crop rotation and soil management since 1928, adapting methods for increased yield."
+      }
+    },
+    {
+      "id": "32aec492-cf44-436f-9e52-7a16776e990b",
+      "name": "32aec492-cf44-436f-9e52-7a16776e990b",
+      "demographics": {
+        "id": "32aec492-cf44-436f-9e52-7a16776e990b",
+        "name": "Paul Becker",
+        "age": 32,
+        "gender": "Male",
+        "city": "Kreuzberg",
+        "job": "Shoemaker",
+        "company": "Humbert",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_fr",
+        "susceptibility": 0.766,
+        "trust_institution": 0.183,
+        "turnout_propensity": 0.095,
+        "media_diet": {
+          "social_media": 0.251,
+          "tv": 0.182,
+          "newspaper": 0.291,
+          "blogs": 0.276
+        },
+        "personality_traits": {
+          "openness": 0.685,
+          "conscientiousness": 0.301,
+          "extraversion": 0.685,
+          "agreeableness": 0.688,
+          "neuroticism": 0.096
+        },
+        "confirmation_bias": 0.5800466414662403,
+        "social_network_influence": 0.8233148168304377,
+        "risk_aversion": 0.012897663838784656,
+        "fairness_value": 0.518170746277405,
+        "prior_beliefs": {
+          "social_justice": -0.564,
+          "healthcare": 0.007,
+          "economy": 0.663,
+          "immigration": 0.59,
+          "climate_change": 0.117
+        },
+        "timestamp": "2025-10-11T14:23:09.651424",
+        "religion": "Protestant",
+        "demeanour": "Diligent and meticulous craftsman, taking pride in quality workmanship.",
+        "interests": [
+          "Attending football matches",
+          "Woodworking",
+          "Reading adventure novels"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Completed shoemaking apprenticeship in 1922. Opened his own small workshop in Kreuzberg in 1928, specializing in custom repairs and sturdy footwear."
+      }
+    },
+    {
+      "id": "8979715b-6467-437e-8196-3bec7d821811",
+      "name": "8979715b-6467-437e-8196-3bec7d821811",
+      "demographics": {
+        "id": "8979715b-6467-437e-8196-3bec7d821811",
+        "name": "Friedrich Wagner",
+        "age": 69,
+        "gender": "Male",
+        "city": "Mitte",
+        "job": "Academic librarian",
+        "company": "State Library of Berlin",
+        "education_level": "doctorate",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "DE",
+        "susceptibility": 0.305,
+        "trust_institution": 0.041,
+        "turnout_propensity": 0.54,
+        "media_diet": {
+          "social_media": 0.162,
+          "tv": 0.544,
+          "newspaper": 0.239,
+          "blogs": 0.055
+        },
+        "personality_traits": {
+          "openness": 0.732,
+          "conscientiousness": 0.393,
+          "extraversion": 0.446,
+          "agreeableness": 0.595,
+          "neuroticism": 0.505
+        },
+        "confirmation_bias": 0.2220856281514143,
+        "social_network_influence": 0.2897830291566871,
+        "risk_aversion": 0.39432240387806594,
+        "fairness_value": 0.13218904537087806,
+        "prior_beliefs": {
+          "social_justice": -0.901,
+          "education": -0.202,
+          "foreign_policy": -0.83
+        },
+        "timestamp": "2025-10-11T14:23:09.422007",
+        "religion": "Protestant",
+        "demeanour": "Erudite and reserved, possesses a vast knowledge of historical texts and publications.",
+        "interests": [
+          "Genealogy research",
+          "Reading philosophy",
+          "Attending opera performances"
+        ],
+        "sector": "Education",
+        "backstory": "Earned a doctorate in philology in 1891; has served as an academic librarian at the State Library of Berlin since 1900. Specializes in cataloging ancient manuscripts."
+      }
+    },
+    {
+      "id": "5bb0eb34-a283-4d47-b6aa-01b04dc9418f",
+      "name": "5bb0eb34-a283-4d47-b6aa-01b04dc9418f",
+      "demographics": {
+        "id": "5bb0eb34-a283-4d47-b6aa-01b04dc9418f",
+        "name": "Karl Winkler",
+        "age": 18,
+        "gender": "Male",
+        "city": "Mitte",
+        "job": "Newspaper Reporter",
+        "company": "Sch\u00fcrch GmbH",
+        "education_level": "high_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_de",
+        "susceptibility": 0.755,
+        "trust_institution": 0.782,
+        "turnout_propensity": 0.92,
+        "media_diet": {
+          "social_media": 0.125,
+          "tv": 0.549,
+          "newspaper": 0.112,
+          "blogs": 0.214
+        },
+        "personality_traits": {
+          "openness": 0.091,
+          "conscientiousness": 0.846,
+          "extraversion": 0.942,
+          "agreeableness": 0.949,
+          "neuroticism": 0.348
+        },
+        "confirmation_bias": 0.16055733602596878,
+        "social_network_influence": 0.5006344153046767,
+        "risk_aversion": 0.7285540894639225,
+        "fairness_value": 0.2418225221701653,
+        "prior_beliefs": {
+          "immigration": 0.526,
+          "technology": 0.058,
+          "education": 0.432
+        },
+        "timestamp": "2025-10-11T14:23:09.656172",
+        "religion": "None",
+        "demeanour": "Observant and eager, striving to capture the daily life of the city.",
+        "interests": [
+          "Amateur photography",
+          "Listening to news radio",
+          "Attending public lectures"
+        ],
+        "sector": "Creative",
+        "backstory": "Completed Gymnasium in 1936; began an apprenticeship at a local Berlin newspaper. Primarily covers neighborhood events and human-interest stories under close editorial supervision."
+      }
+    },
+    {
+      "id": "b06b10ff-392f-4f5d-9166-4237c8572a2d",
+      "name": "b06b10ff-392f-4f5d-9166-4237c8572a2d",
+      "demographics": {
+        "id": "b06b10ff-392f-4f5d-9166-4237c8572a2d",
+        "name": "Lena Albrecht",
+        "age": 62,
+        "gender": "Female",
+        "city": "Charlottenburg",
+        "job": "Court Clerk",
+        "company": "Wilson-King",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_it",
+        "susceptibility": 0.263,
+        "trust_institution": 0.591,
+        "turnout_propensity": 0.378,
+        "media_diet": {
+          "social_media": 0.378,
+          "tv": 0.428,
+          "newspaper": 0.159,
+          "blogs": 0.034
+        },
+        "personality_traits": {
+          "openness": 0.59,
+          "conscientiousness": 0.128,
+          "extraversion": 0.366,
+          "agreeableness": 0.81,
+          "neuroticism": 0.584
+        },
+        "confirmation_bias": 0.7651940203558123,
+        "social_network_influence": 0.625153000215117,
+        "risk_aversion": 0.38057337773852085,
+        "fairness_value": 0.42814819026844964,
+        "prior_beliefs": {
+          "technology": -0.531,
+          "economy": -0.376,
+          "climate_change": -0.83,
+          "immigration": 0.376,
+          "education": 0.738
+        },
+        "timestamp": "2025-10-11T14:23:09.670319",
+        "religion": "Catholic",
+        "demeanour": "Conscientious and discreet, managing court records and scheduling with precision.",
+        "interests": [
+          "Reading crime novels",
+          "Tending to indoor plants",
+          "Listening to radio plays"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Began her career as a legal typist in 1895, progressing to a court clerk position by 1905. Has served Berlin's Charlottenburg District Court for over three decades, ensuring proper documentation of judicial proceedings."
+      }
+    },
+    {
+      "id": "eccd4c59-2a43-4dad-a1bd-4174ea46d221",
+      "name": "eccd4c59-2a43-4dad-a1bd-4174ea46d221",
+      "demographics": {
+        "id": "eccd4c59-2a43-4dad-a1bd-4174ea46d221",
+        "name": "Wilhelmine Rey",
+        "age": 46,
+        "gender": "Female",
+        "city": "Spandau, Berlin",
+        "job": "Industrial Plant Supervisor",
+        "company": "Steffen Bieri AG",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "DE",
+        "susceptibility": 0.689,
+        "trust_institution": 0.47,
+        "turnout_propensity": 0.033,
+        "media_diet": {
+          "social_media": 0.192,
+          "tv": 0.188,
+          "newspaper": 0.572,
+          "blogs": 0.047
+        },
+        "personality_traits": {
+          "openness": 0.233,
+          "conscientiousness": 0.265,
+          "extraversion": 0.791,
+          "agreeableness": 0.59,
+          "neuroticism": 0.804
+        },
+        "confirmation_bias": 0.19781921375646416,
+        "social_network_influence": 0.11477630246104575,
+        "risk_aversion": 0.22480945026602384,
+        "fairness_value": 0.1489894010753292,
+        "prior_beliefs": {
+          "economy": 0.19,
+          "climate_change": 0.648,
+          "technology": 0.842,
+          "immigration": -0.122,
+          "social_justice": -0.063
+        },
+        "timestamp": "2025-10-11T14:23:08.590322",
+        "religion": "Protestant",
+        "demeanour": "Pragmatic and resilient, accustomed to demanding industrial environments.",
+        "interests": [
+          "Attending workers' club meetings",
+          "Gardening",
+          "Listening to news on the radio"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1890 in Spandau, Berlin. Completed technical courses and has been a dedicated industrial plant supervisor since 1915, overseeing factory operations."
+      }
+    },
+    {
+      "id": "e40662fc-7399-4608-b46d-bc2a41f2a3e9",
+      "name": "e40662fc-7399-4608-b46d-bc2a41f2a3e9",
+      "demographics": {
+        "id": "e40662fc-7399-4608-b46d-bc2a41f2a3e9",
+        "name": "Dr. Marta Forster",
+        "age": 41,
+        "gender": "Female",
+        "city": "Spandau",
+        "job": "Archivist",
+        "company": "Mitchell LLC",
+        "education_level": "doctorate",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.721,
+        "trust_institution": 0.786,
+        "turnout_propensity": 0.478,
+        "media_diet": {
+          "social_media": 0.036,
+          "tv": 0.307,
+          "newspaper": 0.51,
+          "blogs": 0.148
+        },
+        "personality_traits": {
+          "openness": 0.09,
+          "conscientiousness": 0.995,
+          "extraversion": 0.182,
+          "agreeableness": 0.385,
+          "neuroticism": 0.319
+        },
+        "confirmation_bias": 0.4238320699430148,
+        "social_network_influence": 0.6934208346370523,
+        "risk_aversion": 0.41394434572564887,
+        "fairness_value": 0.7935015904650403,
+        "prior_beliefs": {
+          "economy": -0.163,
+          "technology": -0.006,
+          "foreign_policy": 0.068,
+          "immigration": 0.065,
+          "healthcare": 0.643
+        },
+        "timestamp": "2025-10-11T14:23:09.879610",
+        "religion": "Protestant",
+        "demeanour": "Highly analytical and meticulous, with a deep respect for historical records.",
+        "interests": [
+          "Genealogy",
+          "Visiting museums",
+          "Classical literature"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1895 in Dresden; completed doctorate in history at Humboldt University 1920. Worked as an archivist at the Staatsbibliothek zu Berlin since 1923, specializing in Prussian historical documents."
+      }
+    },
+    {
+      "id": "d2a7ab83-a4a0-44a1-b88e-75c8b3e8267e",
+      "name": "d2a7ab83-a4a0-44a1-b88e-75c8b3e8267e",
+      "demographics": {
+        "id": "d2a7ab83-a4a0-44a1-b88e-75c8b3e8267e",
+        "name": "Georg M\u00fcller",
+        "age": 56,
+        "gender": "Male",
+        "city": "Tempelhof",
+        "job": "Primary School Teacher",
+        "company": "Lewis, Goodman and Gillespie",
+        "education_level": "bachelor_degree",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.368,
+        "trust_institution": 0.255,
+        "turnout_propensity": 0.103,
+        "media_diet": {
+          "social_media": 0.282,
+          "tv": 0.355,
+          "newspaper": 0.112,
+          "blogs": 0.25
+        },
+        "personality_traits": {
+          "openness": 0.044,
+          "conscientiousness": 0.863,
+          "extraversion": 0.245,
+          "agreeableness": 0.472,
+          "neuroticism": 0.383
+        },
+        "confirmation_bias": 0.15008466824115008,
+        "social_network_influence": 0.9311600771571855,
+        "risk_aversion": 0.8574851977479724,
+        "fairness_value": 0.5528647884958645,
+        "prior_beliefs": {
+          "healthcare": 0.652,
+          "economy": 0.143,
+          "immigration": -0.761,
+          "social_justice": 0.347,
+          "technology": -0.895,
+          "foreign_policy": -0.554
+        },
+        "timestamp": "2025-10-11T14:23:09.104767",
+        "religion": "Protestant",
+        "demeanour": "Patient and dedicated, committed to fostering learning in young minds.",
+        "interests": [
+          "Local history",
+          "Birdwatching",
+          "Gardening",
+          "Listening to educational radio programs"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1880 in rural Pomerania; earned a teaching degree in 1901. Has been a dedicated primary school teacher in Tempelhof since 1905, emphasizing civic education and German literature."
+      }
+    },
+    {
+      "id": "f2198329-bfc0-4a78-a64b-e3d2f7bb3c88",
+      "name": "f2198329-bfc0-4a78-a64b-e3d2f7bb3c88",
+      "demographics": {
+        "id": "f2198329-bfc0-4a78-a64b-e3d2f7bb3c88",
+        "name": "Wilhelm Koch",
+        "age": 63,
+        "gender": "Male",
+        "city": "Zehlendorf",
+        "job": "Senior Government Official",
+        "company": "Reichsministerium des Innern",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "German",
+        "cultural_background": "German city culture",
+        "country": "CH_de",
+        "susceptibility": 0.138,
+        "trust_institution": 0.603,
+        "turnout_propensity": 0.886,
+        "media_diet": {
+          "social_media": 0.231,
+          "tv": 0.38,
+          "newspaper": 0.247,
+          "blogs": 0.142
+        },
+        "personality_traits": {
+          "openness": 0.737,
+          "conscientiousness": 0.554,
+          "extraversion": 0.217,
+          "agreeableness": 0.21,
+          "neuroticism": 0.714
+        },
+        "confirmation_bias": 0.6866112973190365,
+        "social_network_influence": 0.9211917644170948,
+        "risk_aversion": 0.1326717285911403,
+        "fairness_value": 0.7103964436805723,
+        "prior_beliefs": {
+          "foreign_policy": 0.125,
+          "social_justice": 0.166,
+          "climate_change": 0.885,
+          "economy": 0.42
+        },
+        "timestamp": "2025-10-11T14:23:09.267999",
+        "religion": "Protestant",
+        "demeanour": "Authoritative and traditional, with decades of experience in public administration.",
+        "interests": [
+          "Collecting antique maps",
+          "Classical music concerts",
+          "Reading historical texts",
+          "Fine dining"
+        ],
+        "sector": "Government",
+        "backstory": "Earned a Bachelor's equivalent in Law in 1895. He has served in the German Civil Service since 1898, achieving a senior position within the Reichsministerium des Innern by 1920."
+      }
+    },
+    {
+      "id": "e4c81b97-1fdd-484f-b542-dd31f8901d31",
+      "name": "e4c81b97-1fdd-484f-b542-dd31f8901d31",
+      "demographics": {
+        "id": "e4c81b97-1fdd-484f-b542-dd31f8901d31",
+        "name": "Elsa Weber",
+        "age": 44,
+        "gender": "Female",
+        "city": "Spandau",
+        "job": "Master Jeweler and Stone Setter",
+        "company": "Godet S\u00e0rl.",
+        "education_level": "trade_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "Germany",
+        "susceptibility": 0.661,
+        "trust_institution": 0.941,
+        "turnout_propensity": 0.977,
+        "media_diet": {
+          "social_media": 0.353,
+          "tv": 0.312,
+          "newspaper": 0.311,
+          "blogs": 0.023
+        },
+        "personality_traits": {
+          "openness": 0.144,
+          "conscientiousness": 0.924,
+          "extraversion": 0.795,
+          "agreeableness": 0.192,
+          "neuroticism": 0.378
+        },
+        "confirmation_bias": 0.3742553019371003,
+        "social_network_influence": 0.5995491626079392,
+        "risk_aversion": 0.9769815402935664,
+        "fairness_value": 0.24454963893453474,
+        "prior_beliefs": {
+          "healthcare": -0.412,
+          "technology": -0.703,
+          "education": -0.506
+        },
+        "timestamp": "2025-10-11T14:23:09.777846",
+        "religion": "Protestant",
+        "demeanour": "Highly skilled and dedicated, with an artistic eye for precision craftsmanship.",
+        "interests": [
+          "Jewelry design",
+          "Collecting antique postcards",
+          "Visiting art exhibitions"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1892 in Berlin; trained as a jeweler's apprentice from a young age. Established her own workshop in 1920, renowned for her intricate stone setting."
+      }
+    },
+    {
+      "id": "fbc3eec3-770d-4aa5-a292-35def88ba7f5",
+      "name": "fbc3eec3-770d-4aa5-a292-35def88ba7f5",
+      "demographics": {
+        "id": "fbc3eec3-770d-4aa5-a292-35def88ba7f5",
+        "name": "Inanc \u00dclker",
+        "age": 35,
+        "gender": "Female",
+        "city": "Reinickendorf, Berlin",
+        "job": "Market Fishmonger",
+        "company": "Del\u00e8ze",
+        "education_level": "trade_school",
+        "income_bracket": "middle_low",
+        "ethnicity": "Turkish",
+        "cultural_background": "Turkish",
+        "country": "DE",
+        "susceptibility": 0.274,
+        "trust_institution": 0.566,
+        "turnout_propensity": 0.686,
+        "media_diet": {
+          "social_media": 0.393,
+          "tv": 0.026,
+          "newspaper": 0.32,
+          "blogs": 0.262
+        },
+        "personality_traits": {
+          "openness": 0.904,
+          "conscientiousness": 0.286,
+          "extraversion": 0.799,
+          "agreeableness": 0.607,
+          "neuroticism": 0.352
+        },
+        "confirmation_bias": 0.6366178780058919,
+        "social_network_influence": 0.6208911631303041,
+        "risk_aversion": 0.6777644586233594,
+        "fairness_value": 0.720928376670709,
+        "prior_beliefs": {
+          "immigration": -0.382,
+          "foreign_policy": -0.118,
+          "technology": 0.159,
+          "climate_change": 0.465
+        },
+        "timestamp": "2025-10-11T14:23:08.854905",
+        "religion": "Muslim",
+        "demeanour": "Resilient and hardworking, managing daily provisions with quiet determination.",
+        "interests": [
+          "Cooking traditional Turkish meals",
+          "Reading travelogues",
+          "Tending to a small vegetable plot"
+        ],
+        "sector": "Services",
+        "backstory": "Born 1901 in Istanbul, she immigrated to Berlin in the early 1920s with her family. She operates a market stall in Reinickendorf, selling fresh fish amidst rising social tensions."
+      }
+    },
+    {
+      "id": "dc7fbd79-640f-46a9-a05d-2e84ccdea248",
+      "name": "dc7fbd79-640f-46a9-a05d-2e84ccdea248",
+      "demographics": {
+        "id": "dc7fbd79-640f-46a9-a05d-2e84ccdea248",
+        "name": "Werner Schulz",
+        "age": 34,
+        "gender": "Male",
+        "city": "Tiergarten",
+        "job": "Chemist, analytical",
+        "company": "Hahn Group",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "DE",
+        "susceptibility": 0.109,
+        "trust_institution": 0.248,
+        "turnout_propensity": 0.665,
+        "media_diet": {
+          "social_media": 0.084,
+          "tv": 0.308,
+          "newspaper": 0.283,
+          "blogs": 0.325
+        },
+        "personality_traits": {
+          "openness": 0.647,
+          "conscientiousness": 0.967,
+          "extraversion": 0.332,
+          "agreeableness": 0.796,
+          "neuroticism": 0.106
+        },
+        "confirmation_bias": 0.09860655858172751,
+        "social_network_influence": 0.22200107954946335,
+        "risk_aversion": 0.7468530276328158,
+        "fairness_value": 0.5579934163430206,
+        "prior_beliefs": {
+          "social_justice": 0.545,
+          "economy": 0.177,
+          "healthcare": 0.001,
+          "foreign_policy": -0.31
+        },
+        "timestamp": "2025-10-11T14:23:09.079150",
+        "religion": "Protestant",
+        "demeanour": "Analytical and meticulous, with a focused and investigative approach.",
+        "interests": [
+          "Photography",
+          "Amateur radio",
+          "Hiking",
+          "Reading scientific papers"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1902 in Cologne; earned a Bachelor's degree in Chemistry. Employed as an analytical chemist at a major industrial laboratory in Tiergarten since 1928, contributing to material research."
+      }
+    },
+    {
+      "id": "b514b583-4520-4137-85b3-4bde00950778",
+      "name": "b514b583-4520-4137-85b3-4bde00950778",
+      "demographics": {
+        "id": "b514b583-4520-4137-85b3-4bde00950778",
+        "name": "Lieselotte Bauer",
+        "age": 34,
+        "gender": "Female",
+        "city": "Tempelhof",
+        "job": "Lecturer, higher education",
+        "company": "Stettler & Co.",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.877,
+        "trust_institution": 0.991,
+        "turnout_propensity": 0.043,
+        "media_diet": {
+          "social_media": 0.387,
+          "tv": 0.023,
+          "newspaper": 0.313,
+          "blogs": 0.277
+        },
+        "personality_traits": {
+          "openness": 0.561,
+          "conscientiousness": 0.155,
+          "extraversion": 0.105,
+          "agreeableness": 0.376,
+          "neuroticism": 0.57
+        },
+        "confirmation_bias": 0.8538291906787356,
+        "social_network_influence": 0.2230512901263162,
+        "risk_aversion": 0.8741588850489151,
+        "fairness_value": 0.6691505617909366,
+        "prior_beliefs": {
+          "social_justice": -0.782,
+          "healthcare": -0.639,
+          "foreign_policy": -0.783,
+          "education": 0.919,
+          "technology": -0.206
+        },
+        "timestamp": "2025-10-11T14:23:09.896208",
+        "religion": "Protestant",
+        "demeanour": "Intellectual and thoughtful, dedicated to academic pursuits.",
+        "interests": [
+          "Philosophy",
+          "Poetry",
+          "Political science research"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1902 in Berlin; received her degree in German literature from Berlin University 1926. Has been a lecturer at the university since 1928, focusing on 19th-century romanticism."
+      }
+    },
+    {
+      "id": "c0f7669a-0057-4831-932b-cb80513f5b95",
+      "name": "c0f7669a-0057-4831-932b-cb80513f5b95",
+      "demographics": {
+        "id": "c0f7669a-0057-4831-932b-cb80513f5b95",
+        "name": "Ruben Huber",
+        "age": 19,
+        "gender": "Male",
+        "city": "Kreuzberg",
+        "job": "Library Assistant",
+        "company": "Vargas, Lopez and Mcmahon",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "CH_it",
+        "susceptibility": 0.529,
+        "trust_institution": 0.7,
+        "turnout_propensity": 0.865,
+        "media_diet": {
+          "social_media": 0.248,
+          "tv": 0.273,
+          "newspaper": 0.403,
+          "blogs": 0.077
+        },
+        "personality_traits": {
+          "openness": 0.947,
+          "conscientiousness": 0.39,
+          "extraversion": 0.345,
+          "agreeableness": 0.741,
+          "neuroticism": 0.968
+        },
+        "confirmation_bias": 0.5316821377848959,
+        "social_network_influence": 0.5946169784815694,
+        "risk_aversion": 0.8496300161082391,
+        "fairness_value": 0.47686186874143865,
+        "prior_beliefs": {
+          "education": 0.426,
+          "climate_change": 0.315,
+          "foreign_policy": -0.715,
+          "social_justice": 0.135
+        },
+        "timestamp": "2025-10-11T14:23:09.845364",
+        "religion": "Protestant",
+        "demeanour": "Reserved and studious, dedicated to maintaining order in the archives.",
+        "interests": [
+          "Reading",
+          "Local history",
+          "Chess",
+          "Radio literature"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 1917 in Berlin; completed Gymnasium in 1935. Started as a junior assistant at a public library branch in 1936, assisting patrons and cataloging new acquisitions."
+      }
+    },
+    {
+      "id": "15b290c7-d50c-4e58-978a-5f3247969c74",
+      "name": "15b290c7-d50c-4e58-978a-5f3247969c74",
+      "demographics": {
+        "id": "15b290c7-d50c-4e58-978a-5f3247969c74",
+        "name": "Franz Gruber",
+        "age": 25,
+        "gender": "Male",
+        "city": "Tiergarten",
+        "job": "Brewery Assistant Chemist",
+        "company": "Schultheiss-Brauerei",
+        "education_level": "some_college",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German city culture",
+        "country": "CH_de",
+        "susceptibility": 0.136,
+        "trust_institution": 0.391,
+        "turnout_propensity": 0.797,
+        "media_diet": {
+          "social_media": 0.234,
+          "tv": 0.413,
+          "newspaper": 0.062,
+          "blogs": 0.291
+        },
+        "personality_traits": {
+          "openness": 0.914,
+          "conscientiousness": 0.795,
+          "extraversion": 0.729,
+          "agreeableness": 0.373,
+          "neuroticism": 0.949
+        },
+        "confirmation_bias": 0.5535241877642789,
+        "social_network_influence": 0.5550697456402619,
+        "risk_aversion": 0.12323515893349901,
+        "fairness_value": 0.005029839074005116,
+        "prior_beliefs": {
+          "immigration": 0.811,
+          "economy": 0.703,
+          "social_justice": -0.715,
+          "technology": -0.632,
+          "foreign_policy": 0.234,
+          "healthcare": -0.495
+        },
+        "timestamp": "2025-10-11T14:23:09.281793",
+        "religion": "Protestant",
+        "demeanour": "Inquisitive and practical, applying scientific principles to production processes.",
+        "interests": [
+          "Home brewing",
+          "Watching sports",
+          "Photography",
+          "Reading about industrial advancements"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Attended some college courses in chemistry after graduating high school in 1929. Since 1932, he has worked as a Brewery Assistant Chemist at Schultheiss-Brauerei, analyzing ingredients and fermentation."
+      }
+    },
+    {
+      "id": "e4c593bc-e6e7-4010-8ecf-f22c0ed5c9e3",
+      "name": "e4c593bc-e6e7-4010-8ecf-f22c0ed5c9e3",
+      "demographics": {
+        "id": "e4c593bc-e6e7-4010-8ecf-f22c0ed5c9e3",
+        "name": "Elisabeth Koch",
+        "age": 55,
+        "gender": "Female",
+        "city": "Berlin-Wedding",
+        "job": "Setzerin",
+        "company": "Morard S\u00e0rl.",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_low",
+        "ethnicity": "German",
+        "cultural_background": "German working-class culture",
+        "country": "Germany",
+        "susceptibility": 0.113,
+        "trust_institution": 0.176,
+        "turnout_propensity": 0.428,
+        "media_diet": {
+          "social_media": 0.104,
+          "tv": 0.351,
+          "newspaper": 0.32,
+          "blogs": 0.225
+        },
+        "personality_traits": {
+          "openness": 0.845,
+          "conscientiousness": 0.689,
+          "extraversion": 0.437,
+          "agreeableness": 0.283,
+          "neuroticism": 0.62
+        },
+        "confirmation_bias": 0.9251355968854037,
+        "social_network_influence": 0.8569972671510656,
+        "risk_aversion": 0.9953632212252927,
+        "fairness_value": 0.8059397625717112,
+        "prior_beliefs": {
+          "immigration": 0.233,
+          "foreign_policy": -0.177,
+          "climate_change": -0.007
+        },
+        "timestamp": "2025-10-11T14:23:09.904518",
+        "religion": "Protestant",
+        "demeanour": "Diligent and detail-oriented, with a practical approach to daily challenges.",
+        "interests": [
+          "Local cinema",
+          "Sewing",
+          "Radio news broadcasts",
+          "Family outings"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1881 in a small Saxon town; moved to Berlin at 20. Employed in local print shops for over three decades, witnessing many changes in the industry."
+      }
+    },
+    {
+      "id": "b4de5524-e0a2-461f-ad60-3c98f978b509",
+      "name": "b4de5524-e0a2-461f-ad60-3c98f978b509",
+      "demographics": {
+        "id": "b4de5524-e0a2-461f-ad60-3c98f978b509",
+        "name": "Johanna Matias",
+        "age": 47,
+        "gender": "Female",
+        "city": "Berlin-Steglitz",
+        "job": "Personalsachbearbeiterin",
+        "company": "Miller Ltd",
+        "education_level": "some_college",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German middle-class culture",
+        "country": "Germany",
+        "susceptibility": 0.959,
+        "trust_institution": 0.076,
+        "turnout_propensity": 0.687,
+        "media_diet": {
+          "social_media": 0.156,
+          "tv": 0.13,
+          "newspaper": 0.378,
+          "blogs": 0.336
+        },
+        "personality_traits": {
+          "openness": 0.18,
+          "conscientiousness": 0.01,
+          "extraversion": 0.179,
+          "agreeableness": 0.567,
+          "neuroticism": 0.607
+        },
+        "confirmation_bias": 0.03145047364538256,
+        "social_network_influence": 0.9759158741147104,
+        "risk_aversion": 0.9937395777313688,
+        "fairness_value": 0.4839109927037063,
+        "prior_beliefs": {
+          "economy": -0.491,
+          "education": -0.757,
+          "foreign_policy": 0.212
+        },
+        "timestamp": "2025-10-11T14:23:09.914131",
+        "religion": "Protestant",
+        "demeanour": "Empathetic and diplomatic, skilled in navigating workplace dynamics with discretion.",
+        "interests": [
+          "Amateur photography",
+          "Solving puzzles",
+          "Attending public lectures",
+          "Visiting botanical gardens"
+        ],
+        "sector": "Business/Management",
+        "backstory": "Attended a commercial college in the mid-1910s before working in administrative roles. Has been a personnel clerk at a large Berlin firm since the early 1920s, handling employee records."
+      }
+    },
+    {
+      "id": "70a6cf82-64ef-43f3-9afb-b8d59632be54",
+      "name": "70a6cf82-64ef-43f3-9afb-b8d59632be54",
+      "demographics": {
+        "id": "70a6cf82-64ef-43f3-9afb-b8d59632be54",
+        "name": "Luise Schmidt",
+        "age": 26,
+        "gender": "Female",
+        "city": "Berlin, Zehlendorf",
+        "job": "Property Records Clerk",
+        "company": "Griffith, Lee and Moore",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.797,
+        "trust_institution": 0.725,
+        "turnout_propensity": 0.688,
+        "media_diet": {
+          "social_media": 0.012,
+          "tv": 0.211,
+          "newspaper": 0.43,
+          "blogs": 0.348
+        },
+        "personality_traits": {
+          "openness": 0.776,
+          "conscientiousness": 0.578,
+          "extraversion": 0.721,
+          "agreeableness": 0.584,
+          "neuroticism": 0.171
+        },
+        "confirmation_bias": 0.6290252411453636,
+        "social_network_influence": 0.6197358055010894,
+        "risk_aversion": 0.8411671249582643,
+        "fairness_value": 0.14777570830033182,
+        "prior_beliefs": {
+          "climate_change": -0.618,
+          "education": -0.118,
+          "foreign_policy": -0.162,
+          "social_justice": -0.174
+        },
+        "timestamp": "2025-10-11T14:23:09.039237",
+        "religion": "Protestant",
+        "demeanour": "Efficient and organized, with a clear understanding of administrative processes.",
+        "interests": [
+          "Folk dancing",
+          "Tending a small garden",
+          "Cycling",
+          "Reading serialized novels"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1910 in Berlin; completed two years of business college 1930. Property Records Clerk at a Berlin legal firm since 1932, managing deeds and property transfers."
+      }
+    },
+    {
+      "id": "391c34c0-9482-44ee-991d-f83727f306b6",
+      "name": "391c34c0-9482-44ee-991d-f83727f306b6",
+      "demographics": {
+        "id": "391c34c0-9482-44ee-991d-f83727f306b6",
+        "name": "Hanna Weber",
+        "age": 21,
+        "gender": "Female",
+        "city": "Dahlem",
+        "job": "Laboratory Equipment Designer",
+        "company": "Krueger-Wise",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.299,
+        "trust_institution": 0.815,
+        "turnout_propensity": 0.912,
+        "media_diet": {
+          "social_media": 0.16,
+          "tv": 0.022,
+          "newspaper": 0.394,
+          "blogs": 0.424
+        },
+        "personality_traits": {
+          "openness": 0.473,
+          "conscientiousness": 0.348,
+          "extraversion": 0.391,
+          "agreeableness": 0.072,
+          "neuroticism": 0.727
+        },
+        "confirmation_bias": 0.28236408305448524,
+        "social_network_influence": 0.9230637862912727,
+        "risk_aversion": 0.7011086706537918,
+        "fairness_value": 0.5480100318325494,
+        "prior_beliefs": {
+          "economy": 0.732,
+          "social_justice": -0.892,
+          "education": 0.869
+        },
+        "timestamp": "2025-10-11T14:23:09.831651",
+        "religion": "Protestant",
+        "demeanour": "Inquisitive and diligent, focused on precision in scientific instrument design.",
+        "interests": [
+          "Scientific literature",
+          "Microscopy",
+          "Classical concerts",
+          "Hiking in the botanical garden"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Completed her bachelor's degree in mechanical engineering from Berlin in 1935. Currently works in a medical technology laboratory in Dahlem, assisting in the design of new surgical instruments."
+      }
+    },
+    {
+      "id": "4018cf8b-105d-4d66-98f3-7a782de47837",
+      "name": "4018cf8b-105d-4d66-98f3-7a782de47837",
+      "demographics": {
+        "id": "4018cf8b-105d-4d66-98f3-7a782de47837",
+        "name": "Klaus Zimmermann",
+        "age": 55,
+        "gender": "Male",
+        "city": "Lichterfelde",
+        "job": "Engineer, land",
+        "company": "M\u00fcller N\u00e4f GmbH",
+        "education_level": "doctorate",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "CH_de",
+        "susceptibility": 0.003,
+        "trust_institution": 0.2,
+        "turnout_propensity": 0.306,
+        "media_diet": {
+          "social_media": 0.349,
+          "tv": 0.067,
+          "newspaper": 0.151,
+          "blogs": 0.433
+        },
+        "personality_traits": {
+          "openness": 0.768,
+          "conscientiousness": 0.649,
+          "extraversion": 0.13,
+          "agreeableness": 0.594,
+          "neuroticism": 0.41
+        },
+        "confirmation_bias": 0.9394182214096123,
+        "social_network_influence": 0.45148989914629956,
+        "risk_aversion": 0.8735058436928101,
+        "fairness_value": 0.1335098017802825,
+        "prior_beliefs": {
+          "foreign_policy": -0.831,
+          "technology": -0.265,
+          "economy": -0.213,
+          "immigration": -0.245
+        },
+        "timestamp": "2025-10-11T14:23:09.686489",
+        "religion": "Protestant",
+        "demeanour": "Analytical and methodical, focused on precision and spatial reasoning.",
+        "interests": [
+          "Cartography",
+          "Hiking",
+          "Photography of cityscapes",
+          "Reading scientific journals"
+        ],
+        "sector": "Government",
+        "backstory": "Born 1881 in Berlin; earned a doctorate in geodesy in 1906. Employed by the municipal planning department as a land surveyor since 1908, crucial for city development and property demarcation."
+      }
+    },
+    {
+      "id": "a7076858-78e3-4e96-b62c-9c0537eee505",
+      "name": "a7076858-78e3-4e96-b62c-9c0537eee505",
+      "demographics": {
+        "id": "a7076858-78e3-4e96-b62c-9c0537eee505",
+        "name": "Klaus Richter",
+        "age": 44,
+        "gender": "Male",
+        "city": "Lichterfelde",
+        "job": "Captain, Army Logistics",
+        "company": "Pfister Brunner GmbH",
+        "education_level": "military_academy_diploma",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.211,
+        "trust_institution": 0.792,
+        "turnout_propensity": 0.376,
+        "media_diet": {
+          "social_media": 0.233,
+          "tv": 0.431,
+          "newspaper": 0.119,
+          "blogs": 0.218
+        },
+        "personality_traits": {
+          "openness": 0.757,
+          "conscientiousness": 0.604,
+          "extraversion": 0.337,
+          "agreeableness": 0.682,
+          "neuroticism": 0.343
+        },
+        "confirmation_bias": 0.31522380424177043,
+        "social_network_influence": 0.23959702954434636,
+        "risk_aversion": 0.36121062684862526,
+        "fairness_value": 0.3984713508072174,
+        "prior_beliefs": {
+          "foreign_policy": 0.613,
+          "technology": -0.994,
+          "economy": 0.741
+        },
+        "timestamp": "2025-10-11T14:23:09.818586",
+        "religion": "Protestant",
+        "demeanour": "Authoritative and methodical, valuing order and efficiency in all operations.",
+        "interests": [
+          "Military history",
+          "Strategic board games",
+          "Marksmanship",
+          "Hiking in the Grunewald forest"
+        ],
+        "sector": "Government",
+        "backstory": "Graduated from the Prussian War Academy in 1913. Served in the Imperial German Army during the Great War, and by 1936, holds the rank of Captain in Army Logistics, stationed in Berlin-Lichterfelde."
+      }
+    },
+    {
+      "id": "317ef397-9a59-4381-b4e1-30496d6c1031",
+      "name": "317ef397-9a59-4381-b4e1-30496d6c1031",
+      "demographics": {
+        "id": "317ef397-9a59-4381-b4e1-30496d6c1031",
+        "name": "Greta Lehmann",
+        "age": 22,
+        "gender": "Female",
+        "city": "Dahlem",
+        "job": "Park Administrator's Clerk",
+        "company": "Smith PLC",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "DE",
+        "susceptibility": 0.361,
+        "trust_institution": 0.092,
+        "turnout_propensity": 0.943,
+        "media_diet": {
+          "social_media": 0.319,
+          "tv": 0.546,
+          "newspaper": 0.073,
+          "blogs": 0.063
+        },
+        "personality_traits": {
+          "openness": 0.431,
+          "conscientiousness": 0.557,
+          "extraversion": 0.512,
+          "agreeableness": 0.103,
+          "neuroticism": 0.09
+        },
+        "confirmation_bias": 0.554219805397572,
+        "social_network_influence": 0.5969245552870913,
+        "risk_aversion": 0.7844387242528075,
+        "fairness_value": 0.8637181772681916,
+        "prior_beliefs": {
+          "education": 0.558,
+          "healthcare": 0.45,
+          "technology": 0.119
+        },
+        "timestamp": "2025-10-11T14:23:09.072322",
+        "religion": "Protestant",
+        "demeanour": "Conscientious and reserved, with a keen eye for organization.",
+        "interests": [
+          "Hiking",
+          "Sketching nature",
+          "Reading poetry",
+          "Gardening"
+        ],
+        "sector": "Government",
+        "backstory": "Born 1914 in rural Prussia; moved to Berlin after high school. Employed since 1934 as a clerk in the Dahlem Botanical Garden administration, managing records and permits."
+      }
+    },
+    {
+      "id": "1a453c39-6c47-48f3-8ea9-f86e648cef5c",
+      "name": "1a453c39-6c47-48f3-8ea9-f86e648cef5c",
+      "demographics": {
+        "id": "1a453c39-6c47-48f3-8ea9-f86e648cef5c",
+        "name": "Johanna Schulz",
+        "age": 44,
+        "gender": "Female",
+        "city": "Berlin-Kreuzberg",
+        "job": "Civil Engineer",
+        "company": "Berliner Baugesellschaft",
+        "education_level": "master_degree",
+        "income_bracket": "high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "DE",
+        "susceptibility": 0.276,
+        "trust_institution": 0.968,
+        "turnout_propensity": 0.949,
+        "media_diet": {
+          "social_media": 0.466,
+          "tv": 0.052,
+          "newspaper": 0.12,
+          "blogs": 0.362
+        },
+        "personality_traits": {
+          "openness": 0.971,
+          "conscientiousness": 0.051,
+          "extraversion": 0.334,
+          "agreeableness": 0.989,
+          "neuroticism": 0.787
+        },
+        "confirmation_bias": 0.2052055751428764,
+        "social_network_influence": 0.8298178372171325,
+        "risk_aversion": 0.5542077884611291,
+        "fairness_value": 0.5863830835815619,
+        "prior_beliefs": {
+          "foreign_policy": -0.994,
+          "technology": 0.717,
+          "immigration": -0.711,
+          "education": -0.74
+        },
+        "timestamp": "2025-10-11T14:23:08.863235",
+        "religion": "Catholic",
+        "demeanour": "Detail-oriented and assertive, leading teams with precision and high standards.",
+        "interests": [
+          "Architectural design",
+          "Urban planning lectures",
+          "Classical music concerts",
+          "Reading technical journals"
+        ],
+        "sector": "Construction/Skilled Trades",
+        "backstory": "Born 1892 in Saxony; M.Sc. Civil Engineering 1917, Technical University of Berlin. Supervised major infrastructure projects in Kreuzberg since 1925."
+      }
+    },
+    {
+      "id": "4fcf3d3d-d581-4399-b8a0-34e5e64566c9",
+      "name": "4fcf3d3d-d581-4399-b8a0-34e5e64566c9",
+      "demographics": {
+        "id": "4fcf3d3d-d581-4399-b8a0-34e5e64566c9",
+        "name": "Karl Hoffmann",
+        "age": 37,
+        "gender": "Male",
+        "city": "Kreuzberg",
+        "job": "Schoolteacher",
+        "company": "Cain, Rodriguez and Gonzales",
+        "education_level": "bachelor_degree",
+        "income_bracket": "high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.459,
+        "trust_institution": 0.816,
+        "turnout_propensity": 0.176,
+        "media_diet": {
+          "social_media": 0.288,
+          "tv": 0.478,
+          "newspaper": 0.091,
+          "blogs": 0.143
+        },
+        "personality_traits": {
+          "openness": 0.31,
+          "conscientiousness": 0.885,
+          "extraversion": 0.817,
+          "agreeableness": 0.687,
+          "neuroticism": 0.188
+        },
+        "confirmation_bias": 0.14352235996759444,
+        "social_network_influence": 0.426395030656858,
+        "risk_aversion": 0.45502415976771005,
+        "fairness_value": 0.6451187578617443,
+        "prior_beliefs": {
+          "immigration": -0.801,
+          "foreign_policy": -0.232,
+          "education": -0.78,
+          "social_justice": -0.973,
+          "climate_change": 0.661,
+          "economy": 0.869
+        },
+        "timestamp": "2025-10-11T14:23:09.872915",
+        "religion": "Catholic",
+        "demeanour": "Conscientious and methodical, dedicated to pedagogical principles.",
+        "interests": [
+          "Local history",
+          "Hiking",
+          "Reading philosophy"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1899 in Potsdam; earned teaching certificate 1922. Taught history and geography at a Berlin gymnasium since 1925, known for his rigorous curriculum."
+      }
+    },
+    {
+      "id": "581ecba7-eeb1-4eec-8d3a-1c74aa349822",
+      "name": "581ecba7-eeb1-4eec-8d3a-1c74aa349822",
+      "demographics": {
+        "id": "581ecba7-eeb1-4eec-8d3a-1c74aa349822",
+        "name": "Ilse Brandt",
+        "age": 71,
+        "gender": "Female",
+        "city": "Tempelhof",
+        "job": "Railway Dispatcher",
+        "company": "Matile Marty SA",
+        "education_level": "trade_school",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "Central European",
+        "country": "CH_fr",
+        "susceptibility": 0.698,
+        "trust_institution": 0.185,
+        "turnout_propensity": 0.674,
+        "media_diet": {
+          "social_media": 0.046,
+          "tv": 0.356,
+          "newspaper": 0.418,
+          "blogs": 0.181
+        },
+        "personality_traits": {
+          "openness": 0.514,
+          "conscientiousness": 0.408,
+          "extraversion": 0.761,
+          "agreeableness": 0.314,
+          "neuroticism": 0.466
+        },
+        "confirmation_bias": 0.5197275812619355,
+        "social_network_influence": 0.4958160203864699,
+        "risk_aversion": 0.36125045794793154,
+        "fairness_value": 0.288271259942145,
+        "prior_beliefs": {
+          "immigration": -0.769,
+          "economy": -0.433,
+          "healthcare": 0.201
+        },
+        "timestamp": "2025-10-11T14:23:09.658588",
+        "religion": "Protestant",
+        "demeanour": "Steady and experienced, ensuring the smooth flow of goods and personnel.",
+        "interests": [
+          "Maintaining her garden",
+          "Playing cards with friends",
+          "Listening to historical broadcasts"
+        ],
+        "sector": "Operations & Logistics",
+        "backstory": "Started as a railway clerk in 1885, advancing through various roles in freight management. Managed dispatch operations for a local rail depot in Tempelhof until her retirement in 1930."
+      }
+    },
+    {
+      "id": "6cd40278-e78f-4e64-9258-027e36268e59",
+      "name": "6cd40278-e78f-4e64-9258-027e36268e59",
+      "demographics": {
+        "id": "6cd40278-e78f-4e64-9258-027e36268e59",
+        "name": "Hans Richter",
+        "age": 22,
+        "gender": "Male",
+        "city": "Berlin, Prenzlauer Berg",
+        "job": "Medical Assistant",
+        "company": "Rosselet SA",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_fr",
+        "susceptibility": 0.625,
+        "trust_institution": 0.614,
+        "turnout_propensity": 0.093,
+        "media_diet": {
+          "social_media": 0.323,
+          "tv": 0.298,
+          "newspaper": 0.293,
+          "blogs": 0.086
+        },
+        "personality_traits": {
+          "openness": 0.624,
+          "conscientiousness": 0.902,
+          "extraversion": 0.338,
+          "agreeableness": 0.924,
+          "neuroticism": 0.041
+        },
+        "confirmation_bias": 0.8637811916200331,
+        "social_network_influence": 0.08122285489336989,
+        "risk_aversion": 0.9485468539703915,
+        "fairness_value": 0.7710223687944653,
+        "prior_beliefs": {
+          "healthcare": -0.004,
+          "technology": 0.254,
+          "education": -0.421,
+          "social_justice": 0.913,
+          "climate_change": -0.034
+        },
+        "timestamp": "2025-10-11T14:23:08.900335",
+        "religion": "Catholic",
+        "demeanour": "Compassionate and observant, prioritizing patient comfort.",
+        "interests": [
+          "Amateur boxing",
+          "Collecting postcards",
+          "Attending public lectures",
+          "Helping neighbors"
+        ],
+        "sector": "Healthcare",
+        "backstory": "Born 1914 in Berlin; completed nursing assistant training 1932. Medical Assistant at Charit\u00e9 Hospital since 1933, specializing in post-operative care."
+      }
+    },
+    {
+      "id": "99093fa7-953a-4f5d-b42c-8d435e1d215e",
+      "name": "99093fa7-953a-4f5d-b42c-8d435e1d215e",
+      "demographics": {
+        "id": "99093fa7-953a-4f5d-b42c-8d435e1d215e",
+        "name": "Paul Fischer",
+        "age": 52,
+        "gender": "Male",
+        "city": "Grunewald",
+        "job": "Forestry Warden",
+        "company": "Gross AG",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.226,
+        "trust_institution": 0.409,
+        "turnout_propensity": 0.969,
+        "media_diet": {
+          "social_media": 0.334,
+          "tv": 0.343,
+          "newspaper": 0.08,
+          "blogs": 0.242
+        },
+        "personality_traits": {
+          "openness": 0.203,
+          "conscientiousness": 0.205,
+          "extraversion": 0.177,
+          "agreeableness": 0.955,
+          "neuroticism": 0.439
+        },
+        "confirmation_bias": 0.6170593611146725,
+        "social_network_influence": 0.6878627041346999,
+        "risk_aversion": 0.8667749051566789,
+        "fairness_value": 0.8875869158415782,
+        "prior_beliefs": {
+          "technology": -0.374,
+          "social_justice": 0.223,
+          "climate_change": 0.485,
+          "education": 0.188,
+          "healthcare": 0.05,
+          "economy": 0.752
+        },
+        "timestamp": "2025-10-11T14:23:09.554130",
+        "religion": "Protestant",
+        "demeanour": "Steadfast and vigilant, with a deep respect for natural order.",
+        "interests": [
+          "Hiking in the Grunewald",
+          "Local history",
+          "Radio news programs",
+          "Woodworking"
+        ],
+        "sector": "Government",
+        "backstory": "Born 1884; completed forestry trade school in 1903. Served as a dedicated forestry warden for over three decades, ensuring the proper upkeep of local woodlands."
+      }
+    },
+    {
+      "id": "d8517ef1-5a74-4723-ae16-d7676d584c28",
+      "name": "d8517ef1-5a74-4723-ae16-d7676d584c28",
+      "demographics": {
+        "id": "d8517ef1-5a74-4723-ae16-d7676d584c28",
+        "name": "Walter Bolander",
+        "age": 71,
+        "gender": "Male",
+        "city": "Berlin, Tempelhof",
+        "job": "Director of City Transit Operations",
+        "company": "Harris, Shaw and Carr",
+        "education_level": "master_degree",
+        "income_bracket": "middle_high",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.756,
+        "trust_institution": 0.287,
+        "turnout_propensity": 0.285,
+        "media_diet": {
+          "social_media": 0.035,
+          "tv": 0.449,
+          "newspaper": 0.381,
+          "blogs": 0.136
+        },
+        "personality_traits": {
+          "openness": 0.739,
+          "conscientiousness": 0.85,
+          "extraversion": 0.037,
+          "agreeableness": 0.921,
+          "neuroticism": 0.418
+        },
+        "confirmation_bias": 0.8376048890932553,
+        "social_network_influence": 0.9339226105782003,
+        "risk_aversion": 0.03633984921255551,
+        "fairness_value": 0.8362031981125069,
+        "prior_beliefs": {
+          "economy": 0.136,
+          "foreign_policy": -0.785,
+          "social_justice": 0.966,
+          "climate_change": -0.431,
+          "education": 0.978,
+          "immigration": 0.087
+        },
+        "timestamp": "2025-10-11T14:23:09.046759",
+        "religion": "Protestant",
+        "demeanour": "Authoritative and experienced, with a keen strategic mind for urban planning.",
+        "interests": [
+          "Model trains",
+          "Urban planning history",
+          "Public policy debates",
+          "Gardening"
+        ],
+        "sector": "Operations & Logistics",
+        "backstory": "Born 1865 in Berlin; MA Civil Engineering 1888, Technical University of Berlin. Director of Berlin City Transit Operations since 1920, overseeing expansion and efficiency of the city's tram and bus networks."
+      }
+    },
+    {
+      "id": "0e9a8531-165b-4364-8283-e06af594b25e",
+      "name": "0e9a8531-165b-4364-8283-e06af594b25e",
+      "demographics": {
+        "id": "0e9a8531-165b-4364-8283-e06af594b25e",
+        "name": "Erich Mitschke",
+        "age": 24,
+        "gender": "Male",
+        "city": "Berlin (Tiergarten)",
+        "job": "Hotel Desk Clerk",
+        "company": "Comte",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_fr",
+        "susceptibility": 0.938,
+        "trust_institution": 0.482,
+        "turnout_propensity": 0.769,
+        "media_diet": {
+          "social_media": 0.121,
+          "tv": 0.277,
+          "newspaper": 0.313,
+          "blogs": 0.289
+        },
+        "personality_traits": {
+          "openness": 0.576,
+          "conscientiousness": 0.425,
+          "extraversion": 0.255,
+          "agreeableness": 0.766,
+          "neuroticism": 0.91
+        },
+        "confirmation_bias": 0.08381758096267777,
+        "social_network_influence": 0.5982923498508804,
+        "risk_aversion": 0.5437310219455265,
+        "fairness_value": 0.25780497632191335,
+        "prior_beliefs": {
+          "climate_change": -0.764,
+          "education": -0.986,
+          "technology": 0.309
+        },
+        "timestamp": "2025-10-11T14:23:09.297143",
+        "religion": "Protestant",
+        "demeanour": "Attentive and diligent, always ready to assist guests with their needs.",
+        "interests": [
+          "Collecting foreign stamps",
+          "Exploring Berlin's museums",
+          "Listening to travelogues on the radio",
+          "Ballroom dancing"
+        ],
+        "sector": "Tourism & Hospitality",
+        "backstory": "Born 1912 in Saxony, Erich moved to Berlin in 1930 for vocational training in hospitality. Since 1932, he has worked as a hotel desk clerk near Tiergarten, managing reservations and guest services."
+      }
+    },
+    {
+      "id": "62c6c3cb-3690-4518-984a-9753fe22205a",
+      "name": "62c6c3cb-3690-4518-984a-9753fe22205a",
+      "demographics": {
+        "id": "62c6c3cb-3690-4518-984a-9753fe22205a",
+        "name": "Emil Ebert",
+        "age": 22,
+        "gender": "Male",
+        "city": "Berlin, Mitte",
+        "job": "Assistant Archivist",
+        "company": "Atkins-Williams",
+        "education_level": "high_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German-speaking",
+        "country": "CH_it",
+        "susceptibility": 0.123,
+        "trust_institution": 0.853,
+        "turnout_propensity": 0.452,
+        "media_diet": {
+          "social_media": 0.425,
+          "tv": 0.211,
+          "newspaper": 0.042,
+          "blogs": 0.323
+        },
+        "personality_traits": {
+          "openness": 0.846,
+          "conscientiousness": 0.32,
+          "extraversion": 0.347,
+          "agreeableness": 0.065,
+          "neuroticism": 0.542
+        },
+        "confirmation_bias": 0.8913316823538889,
+        "social_network_influence": 0.8513620507531259,
+        "risk_aversion": 0.7118091040072126,
+        "fairness_value": 0.9273244567231778,
+        "prior_beliefs": {
+          "foreign_policy": 0.97,
+          "education": 0.584,
+          "immigration": -0.527,
+          "climate_change": -0.012
+        },
+        "timestamp": "2025-10-11T14:23:08.896889",
+        "religion": "Protestant",
+        "demeanour": "Inquisitive and diligent, with a keen eye for detail.",
+        "interests": [
+          "Reading banned literature",
+          "Film club",
+          "Chess",
+          "Hiking"
+        ],
+        "sector": "Education",
+        "backstory": "Born 1914 in Berlin. Completed Abitur 1932. Assistant Archivist at the University of Berlin since 1934, cataloging historical documents."
+      }
+    },
+    {
+      "id": "565b0720-b135-499f-a67c-9031d0f887cf",
+      "name": "565b0720-b135-499f-a67c-9031d0f887cf",
+      "demographics": {
+        "id": "565b0720-b135-499f-a67c-9031d0f887cf",
+        "name": "Susanne M\u00fcller",
+        "age": 38,
+        "gender": "Female",
+        "city": "Sch\u00f6neberg",
+        "job": "Radio Announcer",
+        "company": "Bailey, Johnson and Diaz",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German culture",
+        "country": "DE",
+        "susceptibility": 0.012,
+        "trust_institution": 0.654,
+        "turnout_propensity": 0.67,
+        "media_diet": {
+          "social_media": 0.257,
+          "tv": 0.033,
+          "newspaper": 0.259,
+          "blogs": 0.451
+        },
+        "personality_traits": {
+          "openness": 0.116,
+          "conscientiousness": 0.807,
+          "extraversion": 0.908,
+          "agreeableness": 0.502,
+          "neuroticism": 0.781
+        },
+        "confirmation_bias": 0.7120234767724835,
+        "social_network_influence": 0.844168406240822,
+        "risk_aversion": 0.9717702445750072,
+        "fairness_value": 0.11167213905971285,
+        "prior_beliefs": {
+          "technology": -0.699,
+          "education": -0.326,
+          "healthcare": 0.868,
+          "climate_change": 0.18
+        },
+        "timestamp": "2025-10-11T14:23:10.059142",
+        "religion": "Protestant",
+        "demeanour": "Articulate and confident, with a clear voice and engaging presence on the radio.",
+        "interests": [
+          "Opera",
+          "current events",
+          "writing short stories",
+          "attending film premieres"
+        ],
+        "sector": "Arts & Culture",
+        "backstory": "Born 1898 in Berlin; studied elocution and drama, completing some college courses by 1920. Became a prominent radio announcer for Berlin's main broadcasting station in 1928, delivering news and cultural programs."
+      }
+    },
+    {
+      "id": "0ecb9a72-c1af-48c1-92c9-f82aa82864d4",
+      "name": "0ecb9a72-c1af-48c1-92c9-f82aa82864d4",
+      "demographics": {
+        "id": "0ecb9a72-c1af-48c1-92c9-f82aa82864d4",
+        "name": "Rolf Wagner",
+        "age": 30,
+        "gender": "Male",
+        "city": "Mitte",
+        "job": "Legal clerk",
+        "company": "Kessler AG",
+        "education_level": "some_college",
+        "income_bracket": "high",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "DE",
+        "susceptibility": 0.051,
+        "trust_institution": 0.999,
+        "turnout_propensity": 0.836,
+        "media_diet": {
+          "social_media": 0.333,
+          "tv": 0.318,
+          "newspaper": 0.292,
+          "blogs": 0.057
+        },
+        "personality_traits": {
+          "openness": 0.486,
+          "conscientiousness": 0.214,
+          "extraversion": 0.401,
+          "agreeableness": 0.059,
+          "neuroticism": 0.379
+        },
+        "confirmation_bias": 0.9853088437797259,
+        "social_network_influence": 0.26520305817215195,
+        "risk_aversion": 0.7840706019485694,
+        "fairness_value": 0.4550083673391433,
+        "prior_beliefs": {
+          "social_justice": 0.158,
+          "immigration": 0.084,
+          "technology": 0.496,
+          "economy": -0.886,
+          "foreign_policy": 0.168,
+          "climate_change": 0.006
+        },
+        "timestamp": "2025-10-11T14:23:08.249383",
+        "religion": "Protestant",
+        "demeanour": "Assertive and detail-oriented, with firmly held personal convictions.",
+        "interests": [
+          "Debating current affairs",
+          "Collecting legal texts",
+          "Attending public speeches",
+          "Walking tours of historic Berlin"
+        ],
+        "sector": "Legal Services",
+        "backstory": "Born 1906 in Berlin; attended some college before joining a law firm in 1928. Serves as a diligent legal clerk, assisting senior lawyers with case preparations."
+      }
+    },
+    {
+      "id": "1ce5a4fb-ddba-4427-92e9-f8775a9b95bc",
+      "name": "1ce5a4fb-ddba-4427-92e9-f8775a9b95bc",
+      "demographics": {
+        "id": "1ce5a4fb-ddba-4427-92e9-f8775a9b95bc",
+        "name": "Anna Becker",
+        "age": 38,
+        "gender": "Female",
+        "city": "Steglitz",
+        "job": "Medical illustrator",
+        "company": "Osborn and Sons",
+        "education_level": "some_college",
+        "income_bracket": "low",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "DE",
+        "susceptibility": 0.066,
+        "trust_institution": 0.913,
+        "turnout_propensity": 0.567,
+        "media_diet": {
+          "social_media": 0.31,
+          "tv": 0.092,
+          "newspaper": 0.216,
+          "blogs": 0.382
+        },
+        "personality_traits": {
+          "openness": 0.643,
+          "conscientiousness": 0.143,
+          "extraversion": 0.14,
+          "agreeableness": 0.745,
+          "neuroticism": 0.539
+        },
+        "confirmation_bias": 0.7470138116522579,
+        "social_network_influence": 0.4284338272945797,
+        "risk_aversion": 0.5835329249456562,
+        "fairness_value": 0.36199644371361095,
+        "prior_beliefs": {
+          "social_justice": -0.694,
+          "climate_change": -0.68,
+          "technology": 0.361,
+          "foreign_policy": 0.193
+        },
+        "timestamp": "2025-10-11T14:23:07.921004",
+        "religion": "Protestant",
+        "demeanour": "Creative and empathetic, though sometimes prone to disorganization.",
+        "interests": [
+          "Sketching and drawing",
+          "Visiting art exhibitions (privately)",
+          "Amateur photography",
+          "Attending lectures on anatomy"
+        ],
+        "sector": "Creative",
+        "backstory": "Born 1898 in Leipzig; studied art and anatomy at a local polytechnic in the 1910s. Works freelance, providing detailed medical illustrations for university research departments in Berlin since 1925."
+      }
+    },
+    {
+      "id": "7805426e-8851-416f-a461-0761f62f565d",
+      "name": "7805426e-8851-416f-a461-0761f62f565d",
+      "demographics": {
+        "id": "7805426e-8851-416f-a461-0761f62f565d",
+        "name": "Luise Becker",
+        "age": 55,
+        "gender": "Female",
+        "city": "Sch\u00f6neberg",
+        "job": "Loss adjuster, chartered",
+        "company": "Jacobs, Wood and Miller",
+        "education_level": "trade_school",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.931,
+        "trust_institution": 0.272,
+        "turnout_propensity": 0.092,
+        "media_diet": {
+          "social_media": 0.153,
+          "tv": 0.385,
+          "newspaper": 0.301,
+          "blogs": 0.162
+        },
+        "personality_traits": {
+          "openness": 0.056,
+          "conscientiousness": 0.392,
+          "extraversion": 0.823,
+          "agreeableness": 0.976,
+          "neuroticism": 0.605
+        },
+        "confirmation_bias": 0.07720924032150822,
+        "social_network_influence": 0.6924265956017084,
+        "risk_aversion": 0.47741626436404627,
+        "fairness_value": 0.652699952139637,
+        "prior_beliefs": {
+          "technology": -0.46,
+          "immigration": -0.791,
+          "climate_change": -0.275,
+          "economy": 0.558,
+          "healthcare": -0.329,
+          "foreign_policy": -0.521
+        },
+        "timestamp": "2025-10-11T14:23:09.886517",
+        "religion": "Protestant",
+        "demeanour": "Methodical and fair, adept at assessing and resolving complex claims.",
+        "interests": [
+          "Reading detective novels",
+          "Collecting antiques",
+          "Attending church choir"
+        ],
+        "sector": "Insurance",
+        "backstory": "Born 1881 in Leipzig; trained at a commercial school, 1900. Worked as a claims investigator for a major Berlin insurance firm since 1910, specializing in property assessments."
+      }
+    },
+    {
+      "id": "c0de5202-610e-47eb-b5c0-d475789e479e",
+      "name": "c0de5202-610e-47eb-b5c0-d475789e479e",
+      "demographics": {
+        "id": "c0de5202-610e-47eb-b5c0-d475789e479e",
+        "name": "Paul Schneider",
+        "age": 62,
+        "gender": "Male",
+        "city": "Friedrichshain",
+        "job": "Automobile Workshop Supervisor",
+        "company": "Joye Nussl\u00e9 SA",
+        "education_level": "bachelor_degree",
+        "income_bracket": "middle",
+        "ethnicity": "German",
+        "cultural_background": "German",
+        "country": "Germany",
+        "susceptibility": 0.365,
+        "trust_institution": 0.079,
+        "turnout_propensity": 0.077,
+        "media_diet": {
+          "social_media": 0.332,
+          "tv": 0.474,
+          "newspaper": 0.087,
+          "blogs": 0.106
+        },
+        "personality_traits": {
+          "openness": 0.744,
+          "conscientiousness": 0.748,
+          "extraversion": 0.699,
+          "agreeableness": 0.3,
+          "neuroticism": 0.412
+        },
+        "confirmation_bias": 0.3373369905648651,
+        "social_network_influence": 0.7813969079021151,
+        "risk_aversion": 0.6952470243961321,
+        "fairness_value": 0.2867690705602367,
+        "prior_beliefs": {
+          "climate_change": 0.502,
+          "foreign_policy": 0.007,
+          "social_justice": -0.978,
+          "education": 0.665
+        },
+        "timestamp": "2025-10-11T14:23:09.883886",
+        "religion": "Protestant",
+        "demeanour": "Experienced and practical, with a deep understanding of mechanical systems.",
+        "interests": [
+          "Restoring vintage cars",
+          "Listening to radio news",
+          "Local pub discussions"
+        ],
+        "sector": "Manufacturing",
+        "backstory": "Born 1874 in Berlin; completed engineering studies 1898. Managed a major automobile repair workshop in Berlin from 1905, overseeing a team of mechanics."
+      }
+    }
+  ]
+}
