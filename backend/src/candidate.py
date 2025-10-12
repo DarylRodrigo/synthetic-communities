@@ -15,15 +15,17 @@ class CandidateState:
     character: str  # brief description of political character/leaning
     policy_positions: Dict[str, str]  # topic_id -> position string
     memory: str
+    world_context: str = ""
 
 
 class Candidate:
-    def __init__(self, candidate_id: str, name: str, character: str, topics: List[Topic], llm_client_instance):
+    def __init__(self, candidate_id: str, name: str, character: str, topics: List[Topic], llm_client_instance, world_story: str = None):
         self.id = candidate_id
         self.name = name
         self.character = character
         self.topics = topics
         self.llm_client = llm_client_instance
+        self.world_story = world_story if world_story else ""
 
         # Initialize policy positions based on topics
         self.state = self._initialize_policy_positions()
@@ -33,9 +35,25 @@ class Candidate:
         logger.debug(f"{self.name}: Initializing policy positions for {len(self.topics)} topics")
         policy_positions = {}
 
+        # Initialize memory with world context if available
+        initial_memory = ""
+        if self.world_story:
+            initial_memory = f"""=== WORLD CONTEXT ===
+{self.world_story}
+
+You are a political candidate in this world. Your positions and beliefs are shaped by this context.
+
+"""
+            logger.debug(f"{self.name}: Initialized with world context in memory ({len(self.world_story)} chars)")
+
         for topic in self.topics:
             logger.debug(f"{self.name}: Generating initial position for topic '{topic.title}' (ID: {topic.id})")
+
             prompt = f"You are {self.name}, a political candidate with the following character: {self.character}. What is your position on: {topic.title}? {topic.description}. Answer in 2-3 sentences, reflecting your political character."
+
+            if self.world_story:
+                prompt += f"\n\nRemember, you are operating in this world context:\n{self.world_story[:500]}..."
+
             system_instruction = f"You are {self.name}, a political candidate. Character: {self.character}. Provide clear, concise policy positions consistent with your character."
 
             position = llm_client.generate_response(
@@ -53,7 +71,8 @@ class Candidate:
             name=self.name,
             character=self.character,
             policy_positions=policy_positions,
-            memory=""
+            memory=initial_memory,
+            world_context=self.world_story
         )
 
     def read_social_media_signals(self, social_media_feed: str) -> None:
@@ -145,6 +164,7 @@ Write an authentic, first-person reflection as if writing in a private journal. 
         logger.debug(f"{self.name}: Using position: {current_position}")
 
         # Build comprehensive prompt with position, memory, and debate history
+        # Note: world context is already included in self.state.memory from initialization
         prompt = f"""DEBATE TOPIC: {question.topic.title}
             {question.topic.description}
 

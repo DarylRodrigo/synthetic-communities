@@ -27,6 +27,7 @@ class MediatorState:
     """State of a mediator."""
     id: str
     memory: str
+    world_context: str = ""
 
 
 @dataclass
@@ -59,11 +60,27 @@ class DebateTranscript:
 
 
 class Mediator:
-    def __init__(self, mediator_id: str, topics: List[Topic] = None, llm_client_instance=None):
+    def __init__(self, mediator_id: str, topics: List[Topic] = None, llm_client_instance=None, world_story: str = None):
         self.id = mediator_id
         self.topics = topics if topics is not None else []
         self.llm_client = llm_client_instance
-        self.state = MediatorState(id=mediator_id, memory="")
+
+        # Initialize memory with world context if available
+        initial_memory = ""
+        if world_story:
+            initial_memory = f"""=== WORLD CONTEXT ===
+{world_story}
+
+You are a debate moderator in this world. Frame questions and introductions with awareness of this setting.
+
+"""
+            logger.debug(f"Mediator: Initialized with world context in memory ({len(world_story)} chars)")
+
+        self.state = MediatorState(
+            id=mediator_id,
+            memory=initial_memory,
+            world_context=world_story if world_story else ""
+        )
 
     def add_topic(self, topic: Topic) -> None:
         """Add a topic to the mediator's topic pool."""
@@ -172,6 +189,7 @@ Summarize the key insights in 2-3 sentences."""
         logger.debug(f"Mediator: Found {len(previous_questions)} previous questions on this topic")
 
         # Build prompt
+        # Note: world context is already included in self.state.memory from initialization
         prompt = f"""Topic: {topic.title}
 Description: {topic.description}"""
 
@@ -230,6 +248,7 @@ Return ONLY the question text as a single, concise sentence."""
         if not self.llm_client:
             return f"Today's question: {question.text}"
 
+        # Note: world context is already included in self.state.memory from initialization
         prompt = f"""You are introducing the debate question: {question.text}
 
 This question is part of the broader topic: {question.topic.title}
@@ -243,6 +262,7 @@ Your Preparation Context:
 
 INSTRUCTIONS:
 - Introduce the question in 2-4 sentences
+- If relevant, reference the world setting and its atmosphere
 - If relevant, reference public sentiment from social media
 - If relevant, acknowledge previous debate positions
 - Only reference context DIRECTLY RELEVANT to this question
@@ -250,7 +270,7 @@ INSTRUCTIONS:
         else:
             prompt += "\n\nIntroduce this question clearly in 2-3 sentences."
 
-        system_instruction = "You are a neutral debate moderator. When you have relevant context, weave it naturally into your introduction."
+        system_instruction = "You are a neutral debate moderator. When you have relevant context (including the world setting), weave it naturally into your introduction to set the scene."
 
         introduction = llm_client.generate_response(
             self.llm_client,

@@ -64,12 +64,13 @@ def main():
             candidate_data["name"],
             candidate_data["description"],
             topics,
-            engine.llm_client
+            engine.llm_client,
+            world_story=config.world_story
         )
         for candidate_data in config.candidates
     ]
 
-    engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)
+    engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client, world_story=config.world_story)
     engine.social_media = SocialMedia()
 
     print(f"Loaded {len(topics)} debate topics")
