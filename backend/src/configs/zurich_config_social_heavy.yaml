@@ -1,0 +1,53 @@
+# Core simulation parameters
+population_size: 50
+questions_per_topic: 2
+turns_per_question: 2
+num_epochs: 3
+random_seed: 42
+
+# Social media parameters
+post_probability: 0.1
+reaction_probability: 0.2
+
+# Peer chat parameters
+num_rounds_mean: 3
+num_rounds_variance: 1
+
+# Belief update parameters
+max_change_percentage: 0.5
+max_concurrent: 40
+
+# Data files
+population_file: "data/personas/swiss_population_50.jsonl"
+world_file: "data/worlds/zürich-autumn-2025/story.md"
+
+# Topics
+topics:
+  - id: "topic_1"
+    title: "Housing squeeze & rents"
+    description: "Record-low vacancy rates in Zürich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
+
+# Candidates
+candidates:
+  - id: "candidate_1"
+    name: "Lina Meier"
+    description: >
+      Progressive (left-leaning). Prioritises a stronger social safety net and public services;
+      backs premium relief in LAMal and more cost controls; pro–cooperative/affordable housing;
+      supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables);
+      liberal on migration/asylum with focus on integration; progressive taxation and childcare support;
+      values direct democracy with citizen initiatives to expand social programs.
+      Determined to win a governing mandate by mobilising the urban base while reassuring centrist swing voters with pragmatic, costed plans.
+
+  - id: "candidate_2"
+    name: "Markus Keller"
+    description: >
+      Conservative (right-leaning). Emphasises free markets and limited government;
+      prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies;
+      pro-property rights and deregulation to spur private housing supply;
+      EU-sceptical—prefers bilateral deals without automatic legal alignment;
+      energy security via technology neutrality incl. new-gen nuclear;
+      strict migration controls with faster procedures;
+      supports tax relief and individual taxation;
+      prioritises neutrality, security, and fiscal discipline.
+      Focused on winning a centre-right mandate by uniting conservatives and persuading cost-conscious moderates with a stability-and-competence message.
