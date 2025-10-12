@@ -22,8 +22,8 @@ def main():
         num_epochs=3,
         random_seed=42,
         # Social media parameters
-        post_probability=0.07,
-        reaction_probability=0.4,
+        post_probability=0.1,
+        reaction_probability=0.2,
         # Peer chat parameters
         num_rounds_mean=3,
         num_rounds_variance=1,
@@ -35,7 +35,7 @@ def main():
     engine = GameEngine(config)
     
     # Load population from JSONL file
-    population_file = "data/personas/swiss_population.jsonl"
+    population_file = "data/personas/swiss_population_50.jsonl"
     if os.path.exists(population_file):
         engine.population.load_from_jsonl(population_file, limit=config.population_size)
         print(f"Loaded {engine.population.size()} personas from {population_file}")
@@ -46,15 +46,48 @@ def main():
     topics = [
         Topic(
             id="topic_1",
-            title="Healthcare Reform",
-            description="Should the government implement universal healthcare?"
+            title="Housing squeeze & rents",
+            description="Record-low vacancy rates in Zürich; new ideas like giving priority to Swiss/long-term residents are stirring backlash vs. fair-housing concerns."
         ),
     ]
 
     # Initialize candidates with topics so they can form policy positions
+    # engine.candidates = [
+    #     Candidate("candidate_1", "Alice Johnson", "Progressive left-leaning, prioritizes social programs and government intervention", topics, engine.llm_client),
+    #     Candidate("candidate_2", "Bob Smith", "Conservative right-leaning, values free market and limited government", topics, engine.llm_client)
+    # ]
+
+
     engine.candidates = [
-        Candidate("candidate_1", "Alice Johnson", "Progressive left-leaning, prioritizes social programs and government intervention", topics, engine.llm_client),
-        Candidate("candidate_2", "Bob Smith", "Conservative right-leaning, values free market and limited government", topics, engine.llm_client)
+        Candidate(
+            "candidate_1",
+            "Lina Meier",
+            (
+                "Progressive (left-leaning). Prioritises a stronger social safety net and public services; "
+                "backs premium relief in LAMal and more cost controls; pro–cooperative/affordable housing; "
+                "supports closer EU ties incl. a framework agreement; ambitious climate policy (net-zero 2050, public transport, renewables); "
+                "liberal on migration/asylum with focus on integration; progressive taxation and childcare support; "
+                "values direct democracy with citizen initiatives to expand social programs."
+            ),
+            topics,
+            engine.llm_client
+        ),
+        Candidate(
+            "candidate_2",
+            "Markus Keller",
+            (
+                "Conservative (right-leaning). Emphasises free markets and limited government; "
+                "prefers competition and efficiency in healthcare (managed care, higher deductibles choice) over new subsidies; "
+                "pro-property rights and deregulation to spur private housing supply; "
+                "EU-sceptical—prefers bilateral deals without automatic legal alignment; "
+                "energy security via technology neutrality incl. new-gen nuclear; "
+                "strict migration controls with faster procedures; "
+                "supports tax relief and individual taxation; "
+                "prioritises neutrality, security, and fiscal discipline."
+            ),
+            topics,
+            engine.llm_client
+        ),
     ]
 
     engine.mediator = Mediator("mediator_1", topics=topics, llm_client_instance=engine.llm_client)
